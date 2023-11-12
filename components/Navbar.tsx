@@ -7,11 +7,12 @@ import Sidebar from "./Sidebar";
 
 const Navbar = () => {
   const [lang, setLang] = useState("KOR");
+  const [open, setOpen] = useState(false);
   return (
     <nav className="bg-white">
       <div className="px-2 mx-auto sm:px-6 lg:px-6">
         <div className="flex items-center justify-between h-24">
-          <Sidebar />
+          <Sidebar open={open} setOpen={setOpen} />
           <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-20 sm:space-x-8">

@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <main className="flex flex-col flex-1">
       <section className="md:px-8 md:pb-8 lg:pb-16">
-        <div className="lg:h-[744px] md:h-[380px] h-[200px] w-full bg-red-400">
+        <div className="lg:h-[744px] md:h-[380px] h-[200px] w-full">
           <Image
             className="object-cover w-full h-full"
             src={SidebarProduct}
