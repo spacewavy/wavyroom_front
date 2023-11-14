@@ -87,11 +87,6 @@ const WavyDropdown = ({ options, defaultValue }: DropdownProps) => {
   // />
   return (
     <Select
-      classNames={{
-        indicatorSeparator: () => "hidden",
-        valueContainer: () => "bg-lightGray",
-        indicatorsContainer: () => "bg-lightGray",
-      }}
       theme={(theme) => ({
         ...theme,
         borderRadius: 0,
@@ -102,25 +97,54 @@ const WavyDropdown = ({ options, defaultValue }: DropdownProps) => {
           primary: "#ff5b00",
         },
       })}
+      isSearchable={false}
       styles={{
-        container: (baseStyles) => ({ ...baseStyles, borderWidth: 0 }),
+        container: (baseStyles, state) => ({
+          ...baseStyles,
+          borderWidth: 0,
+          backgroundColor: "#f7f7f7",
+          ":focus": {
+            borderWidth: 2,
+            borderColor: "yellow",
+            backgroundColor: "blue",
+          },
+        }),
         control: (baseStyles) => ({
           ...baseStyles,
           borderRadius: 0,
           borderWidth: 0,
           border: "none",
+          borderColor: "none",
+          backgroundColor: "#f7f7f7",
         }),
+        indicatorSeparator: () => ({ display: "hidden" }),
         menu: (baseStyles) => ({
           ...baseStyles,
           backgroundColor: "#f7f7f7",
           borderRadius: 0,
-          marginTop: 0,
+          // marginTop: 0,
+          marginTop: 1,
         }),
         menuList: (baseStyles) => ({
           ...baseStyles,
+          ":hover": {
+            backgroundColor: "#f7f7f7",
+          },
         }),
-        option: (baseStyles, {}) => ({
+        valueContainer: (baseStyles) => ({
           ...baseStyles,
+          backgroundColor: "#f7f7f7",
+        }),
+        indicatorsContainer: (baseStyles) => ({
+          ...baseStyles,
+          backgroundColor: "#f7f7f7",
+        }),
+        option: (baseStyles) => ({
+          ...baseStyles,
+          ":hover": {
+            backgroundColor: "#b2b2b2",
+            color: "white",
+          },
         }),
       }}
       options={options}
