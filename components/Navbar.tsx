@@ -45,7 +45,7 @@ const Navbar = () => {
                 <div className="lg:w-[100px] flex flex-row gap-2 items-center">
                   <div
                     className={`text-xs font-normal ${
-                      lang === "KOR" ? "text-black" : "text-[#B2B2B2]"
+                      lang === "KOR" ? "text-black" : "text-midGray"
                     } cursor-pointer`}
                     onClick={() => {
                       setLang("KOR");
@@ -55,7 +55,7 @@ const Navbar = () => {
                   </div>
                   <div
                     className={`text-xs font-normal ${
-                      lang === "ENG" ? "text-black" : "text-[#B2B2B2]"
+                      lang === "ENG" ? "text-black" : "text-midGray"
                     } cursor-pointer`}
                     onClick={() => {
                       setLang("ENG");

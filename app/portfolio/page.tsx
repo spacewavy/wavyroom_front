@@ -44,7 +44,7 @@ const Portfolio = () => {
             포트폴리오
           </div>
           <div className="flex flex-1 flex-col">
-            <div className="text-[12px] text-[#B2B2B2]">프로젝트 사이즈</div>
+            <div className="text-[12px] text-midGray">프로젝트 사이즈</div>
             <div>dropdown</div>
           </div>
         </div>

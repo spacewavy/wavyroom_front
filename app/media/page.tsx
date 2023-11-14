@@ -43,7 +43,7 @@ const Media = () => {
             미디어
           </div>
           <div className="flex flex-1 flex-col">
-            <div className="text-[12px] text-[#B2B2B2]">미디어 종류</div>
+            <div className="text-[12px] text-midGray">미디어 종류</div>
             <div>dropdown</div>
           </div>
         </div>
@@ -52,7 +52,7 @@ const Media = () => {
         {MEDIA.map((item, index) => (
           <Link
             href={item.link}
-            className="flex flex-1 flex-col md:flex-row py-4 gap-4 border-t border-[#E5E5E5]"
+            className="flex flex-1 flex-col md:flex-row py-4 gap-4 border-t border-gray"
             key={index}
           >
             <div className="flex flex-1">
@@ -79,10 +79,10 @@ const Media = () => {
                   />
                 </div>
                 <div className="flex flex-row items-center justify-start gap-2 md:gap-4">
-                  <div className="text-[12px] text-[#4D4D4D]">
+                  <div className="text-[12px] text-darkGray">
                     {item.publisher}
                   </div>
-                  <div className="text-[12px] text-[#4D4D4D]">
+                  <div className="text-[12px] text-darkGray">
                     {item.createdAt}
                   </div>
                 </div>
@@ -90,7 +90,7 @@ const Media = () => {
               <div className="flex flex-row">
                 <Link
                   href={item.video}
-                  className="text-[12px] bg-[#F7F7F7] p-1"
+                  className="text-[12px] bg-lightGray p-1"
                 >
                   Youtube
                 </Link>

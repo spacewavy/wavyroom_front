@@ -36,7 +36,7 @@ const About = () => {
           <div className="flex-1 hidden md:flex" />
           <div className="flex flex-1 flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <div className="text-[#FF5B00] text-labelSM md:text-labelMD lg:text-labelLG">
+              <div className="text-orange text-labelSM md:text-labelMD lg:text-labelLG">
                 우리의 비전과 미션
               </div>
               <div className="text-displaySM md:text-displayMD lg:text-displayLG">
@@ -65,8 +65,8 @@ const About = () => {
           </div>
         </div>
       </section>
-      <section className="bg-[#f7f7f7] px-4 py-8 md:px-8 md:py-16">
-        <div className="text-[#FF5B00] text-labelSM md:text-labelMD lg:text-labelLG mb-2 md:mb-6">
+      <section className="bg-lightGray px-4 py-8 md:px-8 md:py-16">
+        <div className="text-orange text-labelSM md:text-labelMD lg:text-labelLG mb-2 md:mb-6">
           우리의 제품
         </div>
         <div className="flex flex-1 flex-col md:flex-row">
@@ -94,7 +94,7 @@ const About = () => {
           <div className="flex flex-1 hidden md:flex lg:hidden" />
         </div>
       </section>
-      <section className="bg-[#f7f7f7]">
+      <section className="bg-lightGray">
         <div className="flex flex-1 flex-col md:flex-row py-4 px-0 md:p-8 gap-4">
           <div className="flex flex-1">
             <Image
@@ -114,7 +114,7 @@ const About = () => {
       </section>
       <section>
         <div className="flex flex-1 flex-col px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-6">
-          <div className="text-[#FF5B00] text-labelSM md:text-labelMD lg:text-labelLG">
+          <div className="text-orange text-labelSM md:text-labelMD lg:text-labelLG">
             우리의 가치
           </div>
           <div className="flex flex-1 flex-col md:flex-row gap-6 md:gap-4">
@@ -136,29 +136,29 @@ const About = () => {
                   <div className="text-[24px] md:text-[28px] lg:text-[32px]">
                     일정하고 높은 품질의 생산
                   </div>
-                  <div className="text-[#4D4D4D] text-[12px] md:text-[14px] lg:text-[16px]">
+                  <div className="text-darkGray text-[12px] md:text-[14px] lg:text-[16px]">
                     자체적으로 운영하는 제조설비 공장에서 스페이스웨이비의
                     노하우가 담긴 생산라인을 통하여 일정하게 높은 품질의 집을
                     생산합니다.
                   </div>
                 </div>
-                <div className="h-[1px] bg-[#E5E5E5]" />
+                <div className="h-[1px] bg-gray" />
                 <div className="flex flex-1 flex-col py-4 md:py-8">
                   <div className="text-[24px] md:text-[28px] lg:text-[32px]">
                     뛰어난 디자인
                   </div>
-                  <div className="text-[#4D4D4D] text-[12px] md:text-[14px] lg:text-[16px]">
+                  <div className="text-darkGray text-[12px] md:text-[14px] lg:text-[16px]">
                     글로벌 건축시장에서 활동하던 건축가, 산업디자이너,
                     공간디자이너로 구성된 R&D 조직에서 아름답고 기능적인
                     디자인을 제공합니다.
                   </div>
                 </div>
-                <div className="h-[1px] bg-[#E5E5E5]" />
+                <div className="h-[1px] bg-gray" />
                 <div className="flex flex-1 flex-col py-4 md:py-8">
                   <div className="text-[24px] md:text-[28px] lg:text-[32px]">
                     빠른 제작 기간
                   </div>
-                  <div className="text-[#4D4D4D] text-[12px] md:text-[14px] lg:text-[16px]">
+                  <div className="text-darkGray text-[12px] md:text-[14px] lg:text-[16px]">
                     4~6주 만에 완제품으로 제작되는 웨이비룸은 설치 바로
                     다음날부터 사용이 가능합니다.
                   </div>
@@ -169,11 +169,11 @@ const About = () => {
         </div>
       </section>
       <section className="p-4 md:p-8">
-        <div className="flex flex-1 flex-col bg-[#1C1C1F] items-center justify-center gap-4 px-4 py-24 md:py-42">
-          <div className="text-[#ffffff] text-[14px] md:text-[24px]">
+        <div className="flex flex-1 flex-col bg-offBlack items-center justify-center gap-4 px-4 py-24 md:py-42">
+          <div className="text-white text-[14px] md:text-[24px]">
             스페이스웨이비에 합류하고 싶나요?
           </div>
-          <div className="text-[#FF5B00] text-[14px]">채용정보 보기</div>
+          <div className="text-orange text-[14px]">채용정보 보기</div>
         </div>
       </section>
     </main>

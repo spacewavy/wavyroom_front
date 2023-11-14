@@ -42,9 +42,10 @@ const sidebarItemChildrens: SidebarItemChildren[] = [
 const sidebarItems: SidebarItem[] = [
   { id: 1, title: "회사소개", link: "/about" },
   { id: 2, title: "모델", childrens: sidebarItemChildrens },
-  { id: 3, title: "주문방법", link: "" },
-  { id: 4, title: "미디어", link: "/media" },
-  { id: 5, title: "고객센터", link: "" },
+  { id: 3, title: "주문방법", link: "#" },
+  { id: 4, title: "포트폴리오", link: "/portfolio" },
+  { id: 5, title: "미디어", link: "/media" },
+  { id: 6, title: "고객센터", link: "/contact-us" },
 ];
 
 const Sidebar = ({ open, setOpen }: any) => {
@@ -147,9 +148,15 @@ const Sidebar = ({ open, setOpen }: any) => {
                   "!text-midGray !border-midGray"
               )}
             >
-              <span className="text-sm font-normal">{obj.title}</span>
-              <span className="text-sm font-normal">{obj.desc}</span>
-              <span className="text-sm font-normal">{obj.rate}</span>
+              <span className="flex flex-1 text-sm font-normal">
+                {obj.title}
+              </span>
+              <span className="flex flex-1 text-sm font-normal">
+                {obj.desc}
+              </span>
+              <span className="flex flex-1 text-sm font-normal">
+                {obj.rate}
+              </span>
               <Image
                 className="cursor-pointer"
                 alt="right-arrow"
@@ -262,16 +269,6 @@ const Sidebar = ({ open, setOpen }: any) => {
           setSelectedListId(0);
         }}
       >
-        {/* <SheetTrigger asChild>
-          <Image
-            className="w-auto h-8 cursor-pointer"
-            src={Logo}
-            alt="Spacewavy"
-            onClick={() => {
-              setOpen(true);
-            }}
-          />
-        </SheetTrigger> */}
         <SheetContent
           side="left"
           className={cn(
