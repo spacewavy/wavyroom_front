@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "./Button";
 import Sidebar from "./Sidebar";
 import Logo from "@/public/images/Logo.svg";
+import HamburgerIcon from "@/assets/icons/Hamburger.svg";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -66,8 +67,15 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            <div>
+            <div className="flex flex-row gap-4">
               <Button name="주문하기" arrow varient="default" />
+              <div className="flex md:hidden" onClick={openSidebar}>
+                <Image
+                  className="cursor-pointer"
+                  src={HamburgerIcon}
+                  alt="Hamburger"
+                />
+              </div>
             </div>
           </div>
         </div>
