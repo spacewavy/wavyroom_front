@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Button from "./Button";
 import SelectLang from "./SelectLang";
 import Link from "next/link";
@@ -52,6 +52,11 @@ const Sidebar = ({ open, setOpen }: any) => {
   const [selectedMenuId, setSelectedMenuId] = useState(0);
   const [selectedListId, setSelectedListId] = useState(0);
 
+  useEffect(() => {
+    if (!open) return;
+    initData();
+  }, [open]);
+
   const selectedMenu: SidebarItem | undefined = useMemo(
     () => sidebarItems.find((obj) => obj.id === selectedMenuId),
     [selectedMenuId]
@@ -61,6 +66,11 @@ const Sidebar = ({ open, setOpen }: any) => {
     () => sidebarItemChildrens.find((obj) => obj.id === selectedListId),
     [selectedListId]
   );
+
+  const initData = () => {
+    setSelectedMenuId(0);
+    setSelectedListId(0);
+  };
 
   const closeSidebar = () => {
     setOpen(false);

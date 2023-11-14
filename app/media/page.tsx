@@ -3,6 +3,7 @@ import React from "react";
 import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack24.svg";
 import Link from "next/link";
+import Dropdown from "../../components/Dropdown";
 
 const Media = () => {
   const MEDIA = [
@@ -44,7 +45,7 @@ const Media = () => {
           </div>
           <div className="flex flex-1 flex-col">
             <div className="text-[12px] text-midGray">미디어 종류</div>
-            <div>dropdown</div>
+            <Dropdown name="hello" list={[{ name: "", href: "", index: 0 }]} />
           </div>
         </div>
       </section>

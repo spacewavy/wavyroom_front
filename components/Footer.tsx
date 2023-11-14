@@ -39,15 +39,27 @@ const Footer = () => {
         <div className="flex flex-row items-end justify-between gap-3 lg:gap-20">
           <div className="flex flex-1 flex-col lg:flex-row justify-between gap-8">
             <nav className="flex flex-col lg:flex-row order-1 lg:order-2 gap-4 text-labelSM text-midGray">
-              <Link href="#" className="flex items-center">
+              <Link
+                target="_blank"
+                href="https://www.youtube.com/@WavyStudio1"
+                className="flex items-center"
+              >
                 <Image src={youtube} className="w-6 h-6" alt="Youtube" /> &nbsp;
                 youtube.com/wavystudio1
               </Link>
-              <Link href="#" className="flex items-center">
+              <Link
+                target="_blank"
+                href="https://www.instagram.com/spacewavy_kr/"
+                className="flex items-center"
+              >
                 <Image src={instagram} className="w-6 h-6" alt="Youtube" />{" "}
                 &nbsp; @spacewavy_kr
               </Link>
-              <Link href="#" className="flex items-center">
+              <Link
+                target="_blank"
+                href="https://www.instagram.com/wavyroom_kr/"
+                className="flex items-center"
+              >
                 <Image src={instagram} className="w-6 h-6" alt="Youtube" />{" "}
                 &nbsp; @wavyroom_kr
               </Link>
