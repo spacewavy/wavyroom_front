@@ -171,7 +171,7 @@ const About = () => {
       <section className="p-4 md:p-8">
         <div className="flex flex-1 flex-col bg-[#1C1C1F] items-center justify-center gap-4 px-4 py-24 md:py-42">
           <div className="text-[#ffffff] text-[14px] md:text-[24px]">
-            스페이스 웨이비에 합류하고 싶나요?
+            스페이스웨이비에 합류하고 싶나요?
           </div>
           <div className="text-[#FF5B00] text-[14px]">채용정보 보기</div>
         </div>
