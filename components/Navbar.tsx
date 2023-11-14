@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Button from "./Button";
-import Dropdown from "./Dropdown";
 import Sidebar from "./Sidebar";
 
 const Navbar = () => {

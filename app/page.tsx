@@ -9,12 +9,12 @@ const Home = () => {
   return (
     <main className="flex flex-col flex-1">
       <section className="md:px-8 md:pb-8 lg:pb-16">
-        <div className="lg:h-[744px] md:h-[380px] h-[200px] w-full">
+        <div className="relative w-full" style={{ aspectRatio: 1376 / 744 }}>
           <Image
-            className="object-cover w-full h-full"
+            layout="fill"
+            objectFit="cover"
             src={SidebarProduct}
             alt="Main Image"
-            // fill={true}
           />
         </div>
       </section>
