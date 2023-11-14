@@ -26,9 +26,9 @@ const Footer = () => {
         <p className="w-48 font-light sm:w-56 text-bodySM sm:text-bodyMD text-darkGray">
           ㈜스페이스웨이비
           <br />
-          대표이사: 홍윤택 사업장
+          대표이사: 홍윤택
           <br />
-          주소: 서울시 강남구 청담동 17-10
+          사업장 주소: 서울시 강남구 청담동 17-10
           <br />
           사업자 등록번호: 179-81-02642
           <br />

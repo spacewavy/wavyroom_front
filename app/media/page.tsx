@@ -3,7 +3,7 @@ import React from "react";
 import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack24.svg";
 import Link from "next/link";
-import Dropdown from "../../components/Dropdown";
+import WavyDropdown from "../../components/WavyDropdown";
 
 const Media = () => {
   const MEDIA = [
@@ -36,6 +36,12 @@ const Media = () => {
     },
   ];
 
+  const OPTIONS = [
+    { value: "all", label: "전체" },
+    { value: "news", label: "뉴스" },
+    { value: "video", label: "영상" },
+  ];
+
   return (
     <main className="flex flex-col flex-1">
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
@@ -43,9 +49,9 @@ const Media = () => {
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
             미디어
           </div>
-          <div className="flex flex-1 flex-col">
+          <div className="flex flex-1 flex-col gap-2">
             <div className="text-[12px] text-midGray">미디어 종류</div>
-            <Dropdown name="hello" list={[{ name: "", href: "", index: 0 }]} />
+            <WavyDropdown options={OPTIONS} defaultValue={OPTIONS[0]} />
           </div>
         </div>
       </section>
