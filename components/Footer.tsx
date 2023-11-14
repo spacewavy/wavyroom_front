@@ -4,6 +4,7 @@ import { Button as CommonButton } from "@/components/ui/button";
 import Image from "next/image";
 import instagram from "@/assets/icons/instagram.svg";
 import youtube from "@/assets/icons/youtube.svg";
+import Link from "next/link";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -16,10 +17,10 @@ const Footer = () => {
   return (
     <footer className="w-full flex flex-col gap-16 items-start justify-evenly lg:justify-between bg-black bottom-0 sm:py-[2.06rem] sm:px-8 px-4 py-8">
       <nav className="flex w-full gap-6 text-white text-labelSM sm:text-labelMD">
-        <a href="#">모델소개</a>
-        <a href="#">회사소개</a>
-        <a href="#">고객센터</a>
-        <a href="#">커스텀하기</a>
+        <Link href="#">모델소개</Link>
+        <Link href="/about">회사소개</Link>
+        <Link href="#">고객센터</Link>
+        <Link href="#">커스텀하기</Link>
       </nav>
       <section className="flex flex-col w-full gap-8">
         <p className="w-48 font-light sm:w-56 text-bodySM sm:text-bodyMD text-darkGray">

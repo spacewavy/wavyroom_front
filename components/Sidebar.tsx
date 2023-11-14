@@ -262,7 +262,7 @@ const Sidebar = ({ open, setOpen }: any) => {
           setSelectedListId(0);
         }}
       >
-        <SheetTrigger asChild>
+        {/* <SheetTrigger asChild>
           <Image
             className="w-auto h-8 cursor-pointer"
             src={Logo}
@@ -271,7 +271,7 @@ const Sidebar = ({ open, setOpen }: any) => {
               setOpen(true);
             }}
           />
-        </SheetTrigger>
+        </SheetTrigger> */}
         <SheetContent
           side="left"
           className={cn(
