@@ -86,9 +86,7 @@ const Sidebar = ({ open, setOpen }: any) => {
               <Link
                 key={item.id}
                 href={item?.link || ""}
-                onClick={() => {
-                  setOpen(false);
-                }}
+                onClick={closeSidebar}
                 className={cn(
                   "text-sm font-normal cursor-pointer w-fit",
                   item.id === selectedMenuId
@@ -157,18 +155,36 @@ const Sidebar = ({ open, setOpen }: any) => {
               <span className="flex flex-1 text-sm font-normal">
                 {obj.rate}
               </span>
-              <Image
-                className="cursor-pointer"
-                alt="right-arrow"
-                src={
-                  obj.id === selectedListId || selectedListId === 0
-                    ? RightArrowBlack
-                    : RightArrowGray
-                }
-                width={24}
-                height={24}
-                onClick={() => setSelectedListId(obj.id)}
-              />
+              {obj.id === 6 ? (
+                <Link href="/models" onClick={closeSidebar}>
+                  <Image
+                    className="cursor-pointer"
+                    alt="right-arrow"
+                    src={
+                      obj.id === selectedListId || selectedListId === 0
+                        ? RightArrowBlack
+                        : RightArrowGray
+                    }
+                    width={24}
+                    height={24}
+                  />
+                </Link>
+              ) : (
+                <Image
+                  className="cursor-pointer"
+                  alt="right-arrow"
+                  src={
+                    obj.id === selectedListId || selectedListId === 0
+                      ? RightArrowBlack
+                      : RightArrowGray
+                  }
+                  width={24}
+                  height={24}
+                  onClick={() => {
+                    setSelectedListId(obj.id);
+                  }}
+                />
+              )}
             </li>
           ))}
         </ul>
