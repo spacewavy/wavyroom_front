@@ -36,24 +36,30 @@ const Footer = () => {
           <br />
           이메일: info@spacewavy.com
         </p>
-        <div className="flex flex-wrap gap-3 lg:gap-8">
-          <p className="flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
-            Copyright @ 2024 Spacewavy Co., Ltd. 모든 권리 보유.
-          </p>
-          <nav className="flex flex-col flex-1 order-1 gap-4 text-labelSM text-midGray lg:flex-row lg:order-2 lg:flex-none">
-            <a href="#" className="flex items-center">
-              <Image src={youtube} className="w-6 h-6" alt="Youtube" /> &nbsp;
-              youtube.com/wavystudio1
-            </a>
-            <a href="#" className="flex items-center">
-              <Image src={instagram} className="w-6 h-6" alt="Youtube" /> &nbsp;
-              @spacewavy_kr
-            </a>
-            <a href="#" className="flex items-center">
-              <Image src={instagram} className="w-6 h-6" alt="Youtube" /> &nbsp;
-              @wavyroom_kr
-            </a>
-          </nav>
+        <div className="flex flex-row items-end justify-between gap-3 lg:gap-20">
+          <div className="flex flex-1 flex-col lg:flex-row justify-between gap-8">
+            <nav className="flex flex-col lg:flex-row order-1 lg:order-2 gap-4 text-labelSM text-midGray">
+              <Link href="#" className="flex items-center">
+                <Image src={youtube} className="w-6 h-6" alt="Youtube" /> &nbsp;
+                youtube.com/wavystudio1
+              </Link>
+              <Link href="#" className="flex items-center">
+                <Image src={instagram} className="w-6 h-6" alt="Youtube" />{" "}
+                &nbsp; @spacewavy_kr
+              </Link>
+              <Link href="#" className="flex items-center">
+                <Image src={instagram} className="w-6 h-6" alt="Youtube" />{" "}
+                &nbsp; @wavyroom_kr
+              </Link>
+            </nav>
+            <p className="hidden md:flex flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
+              Copyright @ 2024 Spacewavy Co., Ltd. 모든 권리 보유.
+            </p>
+            <p className="flex md:hidden flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
+              Copyright @<br />
+              2024 Spacewavy Co., Ltd. 모든 권리 보유.
+            </p>
+          </div>
           <CommonButton
             className="p-0 order-3 !text-labelMD bg-transparent"
             variant="ghostOrange"

@@ -9,7 +9,7 @@ const Models = () => {
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-            포트폴리오
+            모델
           </div>
         </div>
       </section>
