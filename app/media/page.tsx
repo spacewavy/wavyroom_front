@@ -1,3 +1,6 @@
+"use client";
+// hmmm...
+
 import Image from "next/image";
 import React from "react";
 import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
@@ -42,6 +45,10 @@ const Media = () => {
     { value: "video", label: "영상" },
   ];
 
+  const onDropdownChange = (newValue: any) => {
+    console.log(newValue);
+  };
+
   return (
     <main className="flex flex-col flex-1">
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
@@ -51,7 +58,11 @@ const Media = () => {
           </div>
           <div className="flex flex-1 flex-col gap-2">
             <div className="text-[12px] text-midGray">미디어 종류</div>
-            <WavyDropdown options={OPTIONS} defaultValue={OPTIONS[0]} />
+            <WavyDropdown
+              options={OPTIONS}
+              defaultValue={OPTIONS[0]}
+              onChange={onDropdownChange}
+            />
           </div>
         </div>
       </section>

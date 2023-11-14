@@ -17,6 +17,7 @@ import classNames from "classnames";
 export interface DropdownProps {
   options: any;
   defaultValue: any;
+  onChange: any;
 }
 
 export interface ListProps {
@@ -25,7 +26,7 @@ export interface ListProps {
   href?: any;
 }
 
-const WavyDropdown = ({ options, defaultValue }: DropdownProps) => {
+const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
   // return (
   //   <DropdownMenu>
   //     <div className="relative w-full">
@@ -149,6 +150,9 @@ const WavyDropdown = ({ options, defaultValue }: DropdownProps) => {
       }}
       options={options}
       defaultValue={defaultValue}
+      onChange={(newValue) => {
+        console.log(newValue);
+      }}
     />
   );
 };

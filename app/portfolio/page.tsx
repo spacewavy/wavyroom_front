@@ -1,8 +1,12 @@
+"use client";
+// hmmm...
+
 import React from "react";
 import Image from "next/image";
 import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import WavyDropdown from "@/components/WavyDropdown";
+import PortfolioCard from "../../components/PortfolioCard";
 
 const Portfolio = () => {
   const PORTFOLIO = [
@@ -45,6 +49,11 @@ const Portfolio = () => {
     { value: "large", label: "20~30평" },
     { value: "xLarge", label: "30평~" },
   ];
+
+  const onDropdownChange = (newValue: any) => {
+    console.log(newValue);
+  };
+
   return (
     <main className="flex flex-col flex-1">
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
@@ -54,31 +63,16 @@ const Portfolio = () => {
           </div>
           <div className="flex flex-1 flex-col gap-2">
             <div className="text-[12px] text-midGray">프로젝트 사이즈</div>
-            <WavyDropdown options={OPTIONS} defaultValue={OPTIONS[0]} />
+            <WavyDropdown
+              options={OPTIONS}
+              defaultValue={OPTIONS[0]}
+              onChange={onDropdownChange}
+            />
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 md:gap-y-8 lg:gap-y-12 py-4 md:py-8">
           {PORTFOLIO.map((item, index) => (
-            <div className="flex flex-1 flex-col" key={index}>
-              <div className="relative w-full aspect-[3/2]">
-                <Image
-                  layout="fill"
-                  objectFit="cover"
-                  src={item.image}
-                  alt="portfolio img"
-                />
-              </div>
-              <div className="flex flex-col py-2 gap-2">
-                <div className="flex flex-row items-center justify-between">
-                  <div className="text-[14px]">{item.address}</div>
-                  <Image alt="right-arrow" src={RightArrowBlack} />
-                </div>
-                <div className="flex flex-row gap-2">
-                  <div className="text-[14px] font-medium">{item.type}</div>
-                  <div className="text-[14px] font-medium">{item.size}평</div>
-                </div>
-              </div>
-            </div>
+            <PortfolioCard key={index} portfolio={item} />
           ))}
         </div>
       </section>
