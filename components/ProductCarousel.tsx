@@ -1,98 +1,103 @@
-'use client';
-import SidebarProduct from '@/assets/Products/SidebarProduct.png';
-import RightArrowOrange from '@/assets/icons/RightArrowOrange.svg';
-import { Button as CommonButton } from '@/components/ui/button';
-import useEmblaCarousel, { EmblaCarouselType } from 'embla-carousel-react';
-import Image from 'next/image';
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+"use client";
+import SidebarProduct from "@/assets/Products/SidebarProduct.png";
+import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
+import { Button as CommonButton } from "@/components/ui/button";
+import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
+import Image from "next/image";
+import Link from "next/link";
+import { PropsWithChildren, useCallback, useEffect, useState } from "react";
 
 const ProductCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'center',
+    align: "center",
+    loop: true,
   });
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
   return (
-    <div className='embla'>
-      <div className='embla__viewport' ref={emblaRef}>
-        <div className='embla__container'>
-          <div className='embla__slide'>
+    <div className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          <div className="embla__slide">
             <Image
-              className='object-cover w-full h-[420px]'
+              className="object-cover w-full h-[420px]"
               src={SidebarProduct}
-              alt='Vercel Image'
+              alt="Vercel Image"
               width={800}
               height={432}
             />
-            <div className='flex flex-col items-center justify-between gap-8 pt-8'>
+            <div className="flex flex-col items-center justify-between gap-8 pt-8">
+              <span>Studio / 주거용</span>
+              <Link
+                href="/portfolio"
+                className="p-0 flex flex-row text-labelMD text-orange"
+              >
+                더보기{" "}
+                <Image
+                  alt="right-arrow"
+                  src={RightArrowOrange}
+                  className="ml-2"
+                />
+              </Link>
+            </div>
+          </div>
+          <div className="embla__slide">
+            <Image
+              className="object-cover w-full h-[420px]"
+              src={SidebarProduct}
+              alt="Vercel Image"
+              width={800}
+              height={432}
+            />
+            <div className="flex flex-col items-center justify-between gap-8 pt-8">
               <span>Studio / 주거용</span>
               <CommonButton
-                className='p-0 text-labelMD text-orange'
-                variant='ghostOrange'>
-                더보기{' '}
+                className="p-0 text-labelMD text-orange"
+                variant="ghostOrange"
+              >
+                더보기{" "}
                 <Image
-                  alt='right-arrow'
+                  alt="right-arrow"
                   src={RightArrowOrange}
-                  className='ml-2'
+                  className="ml-2"
                 />
               </CommonButton>
             </div>
           </div>
-          <div className='embla__slide'>
+          <div className="embla__slide">
             <Image
-              className='object-cover w-full h-[420px]'
+              className="object-cover w-full h-[420px]"
               src={SidebarProduct}
-              alt='Vercel Image'
+              alt="Vercel Image"
               width={800}
               height={432}
             />
-            <div className='flex flex-col items-center justify-between gap-8 pt-8'>
+            <div className="flex flex-col items-center justify-between gap-8 pt-8">
               <span>Studio / 주거용</span>
               <CommonButton
-                className='p-0 text-labelMD text-orange'
-                variant='ghostOrange'>
-                더보기{' '}
+                className="p-0 text-labelMD text-orange"
+                variant="ghostOrange"
+              >
+                더보기{" "}
                 <Image
-                  alt='right-arrow'
+                  alt="right-arrow"
                   src={RightArrowOrange}
-                  className='ml-2'
-                />
-              </CommonButton>
-            </div>
-          </div>
-          <div className='embla__slide'>
-            <Image
-              className='object-cover w-full h-[420px]'
-              src={SidebarProduct}
-              alt='Vercel Image'
-              width={800}
-              height={432}
-            />
-            <div className='flex flex-col items-center justify-between gap-8 pt-8'>
-              <span>Studio / 주거용</span>
-              <CommonButton
-                className='p-0 text-labelMD text-orange'
-                variant='ghostOrange'>
-                더보기{' '}
-                <Image
-                  alt='right-arrow'
-                  src={RightArrowOrange}
-                  className='ml-2'
+                  className="ml-2"
                 />
               </CommonButton>
             </div>
           </div>
         </div>
       </div>
-      <div className='embla__dots'>
+      <div className="embla__dots">
         {[1, 2, 3].map((_, index) => (
           <DotButton
             key={index}
             onClick={() => onDotButtonClick(index)}
-            className={'embla__dot'.concat(
-              index === selectedIndex ? ' embla__dot--selected' : ''
+            className={"embla__dot".concat(
+              index === selectedIndex ? " embla__dot--selected" : ""
             )}
           />
         ))}
@@ -136,9 +141,9 @@ export const useDotButton = (
 
     onInit(emblaApi);
     onSelect(emblaApi);
-    emblaApi.on('reInit', onInit);
-    emblaApi.on('reInit', onSelect);
-    emblaApi.on('select', onSelect);
+    emblaApi.on("reInit", onInit);
+    emblaApi.on("reInit", onSelect);
+    emblaApi.on("select", onSelect);
   }, [emblaApi, onInit, onSelect]);
 
   return {
@@ -159,7 +164,7 @@ export const DotButton: React.FC<PropType> = (props) => {
   const { children, ...restProps } = props;
 
   return (
-    <button type='button' {...restProps}>
+    <button type="button" {...restProps}>
       {children}
     </button>
   );

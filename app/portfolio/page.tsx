@@ -51,9 +51,10 @@ const Portfolio = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 md:gap-y-8 lg:gap-y-12 py-4 md:py-8">
           {PORTFOLIO.map((item, index) => (
             <div className="flex flex-1 flex-col" key={index}>
-              <div>
+              <div className="relative w-full aspect-[3/2]">
                 <Image
-                  className="object-cover"
+                  layout="fill"
+                  objectFit="cover"
                   src={item.image}
                   alt="portfolio img"
                 />

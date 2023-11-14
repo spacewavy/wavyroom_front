@@ -5,6 +5,7 @@ import AboutDetail1 from "@/public/images/about/about_detail_1.png";
 import AboutDetail21 from "@/public/images/about/about_detail_2_1.png";
 import AboutDetail22 from "@/public/images/about/about_detail_2_2.png";
 import COLORS from "../../lib/colors";
+import Label from "../../components/Label";
 
 const About = () => {
   return (
@@ -36,9 +37,7 @@ const About = () => {
           <div className="flex-1 hidden md:flex" />
           <div className="flex flex-1 flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <div className="text-orange text-labelSM md:text-labelMD lg:text-labelLG">
-                우리의 비전과 미션
-              </div>
+              <Label>우리의 비전과 미션</Label>
               <div className="text-displaySM md:text-displayMD lg:text-displayLG">
                 공간의 제품화를 통한 문화의 움직임
               </div>
@@ -66,9 +65,7 @@ const About = () => {
         </div>
       </section>
       <section className="bg-lightGray px-4 py-8 md:px-8 md:py-16">
-        <div className="text-orange text-labelSM md:text-labelMD lg:text-labelLG mb-2 md:mb-6">
-          우리의 제품
-        </div>
+        <Label>우리의 제품</Label>
         <div className="flex flex-1 flex-col md:flex-row">
           <div className="flex flex-1 flex-col lg:flex-row gap-4">
             <div className="lg:flex lg:flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
@@ -114,9 +111,7 @@ const About = () => {
       </section>
       <section>
         <div className="flex flex-1 flex-col px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-6">
-          <div className="text-orange text-labelSM md:text-labelMD lg:text-labelLG">
-            우리의 가치
-          </div>
+          <Label>우리의 가치</Label>
           <div className="flex flex-1 flex-col md:flex-row gap-6 md:gap-4">
             <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
               쉬운 건설과정
