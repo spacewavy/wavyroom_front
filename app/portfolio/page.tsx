@@ -7,6 +7,7 @@ import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import WavyDropdown from "@/components/WavyDropdown";
 import PortfolioCard from "../../components/PortfolioCard";
+import PortfolioModal from "../../components/PortfolioModal";
 
 const Portfolio = () => {
   const PORTFOLIO = [

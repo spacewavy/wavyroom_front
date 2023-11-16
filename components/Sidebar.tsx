@@ -99,7 +99,7 @@ const Sidebar = ({ open, setOpen }: any) => {
                 href={item?.link || ""}
                 onClick={closeSidebar}
                 className={cn(
-                  "text-sm font-normal cursor-pointer w-fit",
+                  "text-sm cursor-pointer w-fit",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
                     : "text-midGray",
@@ -112,7 +112,7 @@ const Sidebar = ({ open, setOpen }: any) => {
               <p
                 key={item.id}
                 className={cn(
-                  "text-sm font-normal cursor-pointer w-fit",
+                  "text-sm cursor-pointer w-fit",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
                     : "text-midGray",
