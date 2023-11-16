@@ -30,6 +30,7 @@ const ContactUs = () => {
         "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
     },
   ];
+
   return (
     <main className="flex flex-col flex-1">
       <section className="px-4 py-16 md:px-8 md:py-32">
@@ -77,7 +78,7 @@ const ContactUs = () => {
       <section className="px-4 py-16 md:px-8 md:py-32">
         <div className="flex flex-col lg:flex-row gap-4">
           <Title className="flex flex-1">자주 묻는 질문</Title>
-          <div className="flex flex-col flex-1 md:py-8">
+          <div className="flex flex-col flex-1 md:py-8 lg:py-0">
             {FAQs.map((item, index) => (
               <FaqItem
                 key={"faq" + index}
