@@ -20,6 +20,11 @@ module.exports = {
       },
     },
     extend: {
+      flex: {
+        "2": 2,
+        "3": 3,
+        "4": 4,
+      },
       fontFamily: {
         sans: ["var(--font-pretendard)"],
       },

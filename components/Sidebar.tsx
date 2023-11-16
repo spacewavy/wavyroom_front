@@ -16,6 +16,7 @@ import { useEffect, useMemo, useState } from "react";
 import Button from "./Button";
 import SelectLang from "./SelectLang";
 import Link from "next/link";
+import CallInquery from "./CallInquery";
 
 interface SidebarItemChildren {
   id: number;
@@ -126,9 +127,9 @@ const Sidebar = ({ open, setOpen }: any) => {
             );
           })}
         </div>
-        <div className="flex flex-col justify-between w-full h-20">
+        <div className="flex flex-col items-start w-full gap-8">
           <SelectLang />
-          <Button name="문의 +82.02.80.000" varient="outline" />
+          <CallInquery />
         </div>
       </section>
     );
