@@ -7,11 +7,15 @@ import Image from "next/image";
 const PortfolioModal = ({ handleClose }: { handleClose: any }) => {
   return ReactDOM.createPortal(
     <div
-      //   ref={modalRef}
-      className="fixed w-full h-full bg-black/25 flex items-center justify-center"
+      className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll"
       onClick={handleClose}
     >
-      <div className="bg-white flex shrink flex-col p-4 md:p-8 gap-4 w-[320px] md:w-[768px] lg:w-[1000px]">
+      <div
+        className="bg-white flex shrink flex-col p-4 md:p-8 gap-4 w-[320px] md:w-[768px] lg:w-[1000px]"
+        onClick={(e) => {
+          e.preventDefault();
+        }}
+      >
         <div className="flex flex-row justify-between items-center">
           <div />
           <div className="cursor-pointer" onClick={handleClose}>
@@ -29,7 +33,10 @@ const PortfolioModal = ({ handleClose }: { handleClose: any }) => {
         </div>
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
           <Image src={PortfolioImage} alt="test" />
-          {/* <Image src={PortfolioImage} alt="test" /> */}
+          <Image src={PortfolioImage} alt="test" />
+          <Image src={PortfolioImage} alt="test" />
+          <Image src={PortfolioImage} alt="test" />
+          <Image src={PortfolioImage} alt="test" />
           <Image src={PortfolioImage} alt="test" />
         </div>
       </div>
