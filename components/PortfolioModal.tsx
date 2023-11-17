@@ -7,12 +7,10 @@ import Image from "next/image";
 const PortfolioModal = ({ handleClose }: { handleClose: any }) => {
   return ReactDOM.createPortal(
     <div
-      // className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll"
       className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8"
       onClick={handleClose}
     >
       <div
-        // className="bg-white flex shrink flex-col p-4 md:p-8 gap-4 w-[320px] md:w-[768px] lg:w-[1000px]"
         className="bg-white flex flex-1 shrink flex-col p-4 md:p-8 gap-4"
         onClick={(e) => {
           e.preventDefault();

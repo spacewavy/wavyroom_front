@@ -22,8 +22,8 @@ const ModelDetail = () => {
                 Evo
               </div>
               <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG">
-                모듈러건축시스템 기반으로 '웨이비룸'이라는 주거공간을 만들고
-                있으며, '공간의 제품화'에 집중합니다.
+                모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는 주거공간을
+                만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
               </div>
             </div>
             <Button name="커스텀하기" arrow varient="default" />
@@ -36,9 +36,9 @@ const ModelDetail = () => {
             <div className="flex flex-col items-center gap-4">
               <div className="text-[28px] md:text-[32px]">제품 특징</div>
               <div className="text-[16px] text-darkGray text-center">
-                모듈러건축시스템 기반으로 '웨이비룸'이라는 주거공간을
+                모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는 주거공간을
                 <br />
-                만들고 있으며, '공간의 제품화'에 집중합니다.
+                만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
               </div>
             </div>
             <div className="flex flex-row gap-10">
@@ -57,9 +57,9 @@ const ModelDetail = () => {
             <div className="flex flex-col items-center gap-4">
               <div className="text-[28px] md:text-[32px]">제품 색상</div>
               <div className="text-[16px] text-darkGray text-center">
-                모듈러건축시스템 기반으로 '웨이비룸'이라는 주거공간을
+                모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는 주거공간을
                 <br />
-                만들고 있으며, '공간의 제품화'에 집중합니다.
+                만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
               </div>
             </div>
             <div className="flex flex-row gap-10">
