@@ -20,24 +20,29 @@ const FaqItem = ({
 
   return (
     <div
-      className={`flex flex-col py-8 border-b gap-4 ${
-        isOpen ? "border-orange" : "border-gray"
+      className={`flex flex-col py-8 border-b gap-4 group duration-500 ${
+        isOpen ? "border-orange is-active" : "border-gray"
       }`}
     >
       <div className="flex flex-row items-center justify-between">
         <div className="text-bodyMD lg:text-bodyLG text-jetBlack">
           {question}
         </div>
-        <div
+        <button
           className="w-6 h-6 items-center justify-center"
           onClick={handleOpen}
         >
           <Image src={isOpen ? Subtract : Add} alt="add" />
-        </div>
+        </button>
       </div>
-      {isOpen && (
-        <div className="text-bodyMD lg:text-bodyLG text-darkGray">{answer}</div>
-      )}
+      {/* <div
+        className="text-bodyMD lg:text-bodyLG text-darkGray overflow-hidden duration-500 max-h-0 group-[.is-active]:max-h-[500px]"
+      >
+        {answer}
+      </div> */}
+      <div className="text-bodyMD lg:text-bodyLG text-darkGray hidden group-[.is-active]:flex">
+        {answer}
+      </div>
     </div>
   );
 };
