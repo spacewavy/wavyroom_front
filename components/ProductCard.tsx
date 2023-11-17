@@ -2,6 +2,7 @@ import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
 import { Button as CommonButton } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 export interface ProductCardProps {
   name: string;
   value: string;
@@ -19,10 +20,12 @@ const ProductCard = ({ name, value, image }: ProductCardProps) => {
           </p>
           <span>{value}</span>
         </div>
-        <CommonButton className="text-labelSM" variant="secondary">
-          주문하기{" "}
-          <Image alt="right-arrow" src={RightArrowBlack} className="ml-2" />
-        </CommonButton>
+        <Link href={`/model-detail?name=${name}`}>
+          <CommonButton className="text-labelSM" variant="secondary">
+            주문하기{" "}
+            <Image alt="right-arrow" src={RightArrowBlack} className="ml-2" />
+          </CommonButton>
+        </Link>
       </div>
     </div>
   );

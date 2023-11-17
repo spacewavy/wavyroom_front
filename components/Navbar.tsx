@@ -68,7 +68,9 @@ const Navbar = () => {
               </div>
             </div>
             <div className="flex flex-row gap-4">
-              <Button name="주문하기" arrow varient="default" />
+              <Link href="/model-detail">
+                <Button name="주문하기" arrow varient="default" />
+              </Link>
               <div className="flex md:hidden" onClick={openSidebar}>
                 <Image
                   className="cursor-pointer"
