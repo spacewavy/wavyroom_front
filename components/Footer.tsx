@@ -15,7 +15,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full flex flex-col gap-16 items-start justify-evenly lg:justify-between bg-black bottom-0 sm:py-[2.06rem] sm:px-8 px-4 py-8">
+    <footer className="w-full flex flex-col gap-16 items-start justify-evenly lg:justify-between bg-offBlack bottom-0 sm:py-[2.06rem] sm:px-8 px-4 py-8">
       <nav className="flex w-full gap-6 text-white text-labelSM sm:text-labelMD">
         <Link href="/models">모델소개</Link>
         <Link href="/about">회사소개</Link>

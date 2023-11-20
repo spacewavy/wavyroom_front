@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { LayoutProvider } from "./LayoutProvider";
 
 const pretendard = localFont({
   src: [
@@ -32,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(pretendard.className, "flex flex-col font-light")}>
-        <Navbar />
-        {children}
-        <Footer />
+        <LayoutProvider>{children}</LayoutProvider>
       </body>
     </html>
   );

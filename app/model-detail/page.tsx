@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import Image from "next/image";
 import ModelDetailCarousel from "../../components/ModelDetailCarousel";
 import FaqItem from "../../components/FaqItem";
+import Navbar from "../../components/Navbar";
 
 const ModelDetail = () => {
   const COLORS = [
@@ -81,164 +82,193 @@ const ModelDetail = () => {
   const InfoDetail = ({ detail }: any) => {
     return (
       <div className="flex flex-col border-b border-midGray py-4 gap-2">
-        <div className="text-[12px] opacity-40">{detail.title}</div>
-        <div className="text-[12px]">{detail.description}</div>
+        <div className="text-[12px] group-[.is-dark]:text-white opacity-40">
+          {detail.title}
+        </div>
+        <div className="text-[12px] group-[.is-dark]:text-white">
+          {detail.description}
+        </div>
       </div>
     );
   };
 
   return (
-    <main className="flex flex-col flex-1">
-      <section className="bg-lightGray">
-        <div className="flex flex-col items-center justify-center px-6 py-20 gap-6">
-          <div>
-            <Image src={ImageNova} alt="nova" />
-          </div>
-          <div className="flex flex-col gap-8 items-center">
-            <div className="flex flex-col gap-4 items-center">
-              <div className="text-center text-[28px] md:text-[32px] lg:text-[58px]">
-                Evo
-              </div>
-              <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG">
-                모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는 주거공간을
-                만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
-              </div>
-            </div>
-            <Button name="커스텀하기" arrow varient="default" />
-          </div>
+    <>
+      <Navbar isDark={isDark} />
+
+      <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
+        <div
+          className="cursor-pointer"
+          onClick={() => {
+            setIsDark((prev) => !prev);
+          }}
+        >
+          Dark trigger, {isDark ? "dark" : "white"}
         </div>
-      </section>
-      <section>
-        <div className="flex flex-col items-center jusity-center px-6 pt-20 pb-10">
-          <div className="flex flex-col items-center gap-6 max-w-[448px]">
-            <div className="flex flex-col items-center gap-4">
-              <div className="text-[28px] md:text-[32px]">제품 특징</div>
-              <div className="text-[16px] text-darkGray text-center">
-                모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는 주거공간을
-                <br />
-                만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
-              </div>
-            </div>
-            <div className="flex flex-row gap-10">
-              <div className="text-[14px] text-orange">제품 사양보기</div>
-              <div className="text-[14px] text-orange">3D 커스텀하기</div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-center pb-10">
-          <ModelDetailCarousel />
-        </div>
-      </section>
-      <section>
-        <div className="flex flex-col items-center jusity-center px-6 pt-20 pb-10">
-          <div className="flex flex-col items-center gap-6 max-w-[448px]">
-            <div className="flex flex-col items-center gap-4">
-              <div className="text-[28px] md:text-[32px]">제품 색상</div>
-              <div className="text-[16px] text-darkGray text-center">
-                모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는 주거공간을
-                <br />
-                만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
-              </div>
-            </div>
-            <div className="flex flex-row gap-10">
-              <div className="text-[14px] text-orange">제품 사양보기</div>
-              <div className="text-[14px] text-orange">3D 커스텀하기</div>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col items-center py-40 bg-lightGray">
-          <Image src={ImageNova} alt="nova" />
-        </div>
-        <div className="flex flex-col items-center pt-8 pb-20 lg:pb-25">
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex flex-row items-center gap-2">
-              {COLORS.map((item, index) => {
-                const isSelected = selectedColor.hex === item.hex;
-                return (
-                  <div
-                    key={"color" + index}
-                    className="relative w-8 h-8 p-1 cursor-pointer"
-                    onClick={() => {
-                      setSelectedColor(item);
-                    }}
-                  >
-                    <div
-                      className="w-full h-full rounded-full"
-                      style={{
-                        backgroundColor: item.hex,
-                        borderWidth: 1,
-                        borderColor: "rgba(0, 0, 0, 0.1)",
-                      }}
-                    />
-                    {isSelected && (
-                      <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[2px] border-black rounded-full" />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-            <div className="font-normal text-[14px]">{selectedColor.name}</div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div className="flex flex-col lg:flex-row">
-          <div className="flex flex-col items-center justify-center py-[125px] px-6 bg-gray lg:bg-lightGray flex-1">
-            <Image src={ImageNova} alt="nova" />
-          </div>
-          <div className="flex flex-col bg-white lg:bg-lightGray flex-1 px-8 py-20">
-            <div className="text-[28px] pb-4 border-b border-midGray">
-              Evo 타입 상세정보
-            </div>
-            {DETAIL_INFO.map((item, index) => {
-              return <InfoDetail key={"detail" + index} detail={item} />;
-            })}
-            <div className="py-4 text-[12px]">
-              - 웨이비룸을 처음으로 제품느낌나도록 메탈릭한 exterior finish를
-              사용
-              <br />- 주방x- 침실, 욕실, 옷장, 금고, 등 호텔객실의 레이아웃을
-              거의 그대로 가져옴
-              <br />- 내부 마감재가 다양 (벽: white + wood, 바닥: white tile +
-              카펫)
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="bg-lightGray"></section>
-      <section className="px-6 md:px-8 lg:px-[280px] py-20 lg:py-25">
-        <div className="flex flex-col items-center gap-16 w-full">
-          <div className="text-[28px] md:text-[32px]">자주 묻는 질문</div>
-          <div className="flex flex-col w-full">
-            {FAQs.map((item, index) => (
-              <FaqItem
-                key={"faq" + index}
-                question={item.question}
-                answer={item.answer}
-              />
-            ))}
-          </div>
-          <Button name="카카오톡 상담하기" arrow varient="lightGray" />
-        </div>
-      </section>
-      <section>
-        {[1, 2, 3, 4, 5].map((item) => (
-          <div
-            key={item}
-            className="flex flex-1 flex-col md:flex-row md:items-center border-y border-gray p-8"
-          >
-            <div className="flex flex-col items-start md:flex-1">
-              <div className="font-normal text-[14px]">Wavyroom X</div>
-              <div className="text-[32px] md:text-[40px] lg:text-[58px] py-2">
-                Evo
-              </div>
-            </div>
-            <div className="flex items-center jusitfy-center">
+        <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
+          <div className="flex flex-col items-center justify-center px-6 py-20 gap-6">
+            <div>
               <Image src={ImageNova} alt="nova" />
             </div>
+            <div className="flex flex-col gap-8 items-center">
+              <div className="flex flex-col gap-4 items-center">
+                <div className="text-center text-[28px] md:text-[32px] lg:text-[58px] group-[.is-dark]:text-white">
+                  Evo
+                </div>
+                <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG group-[.is-dark]:text-gray">
+                  모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는
+                  주거공간을 만들고 있으며, &apos;공간의 제품화&apos;에
+                  집중합니다.
+                </div>
+              </div>
+              <Button name="커스텀하기" arrow varient="default" />
+            </div>
           </div>
-        ))}
-      </section>
-    </main>
+        </section>
+        <section className="group-[.is-dark]:bg-spaceBlack">
+          <div className="flex flex-col items-center jusity-center px-6 pt-20 pb-10">
+            <div className="flex flex-col items-center gap-6 max-w-[448px]">
+              <div className="flex flex-col items-center gap-4">
+                <div className="text-[28px] md:text-[32px] group-[.is-dark]:text-white">
+                  제품 특징
+                </div>
+                <div className="text-[16px] text-darkGray text-center group-[.is-dark]:text-gray">
+                  모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는
+                  주거공간을
+                  <br />
+                  만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
+                </div>
+              </div>
+              <div className="flex flex-row gap-10">
+                <div className="text-[14px] text-orange">제품 사양보기</div>
+                <div className="text-[14px] text-orange">3D 커스텀하기</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center pb-10">
+            <ModelDetailCarousel />
+          </div>
+        </section>
+        <section className="group-[.is-dark]:bg-jetBlack">
+          <div className="flex flex-col items-center jusity-center px-6 pt-20 pb-10">
+            <div className="flex flex-col items-center gap-6 max-w-[448px]">
+              <div className="flex flex-col items-center gap-4">
+                <div className="text-[28px] md:text-[32px] group-[.is-dark]:text-white">
+                  제품 색상
+                </div>
+                <div className="text-[16px] text-darkGray text-center group-[.is-dark]:text-gray">
+                  모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는
+                  주거공간을
+                  <br />
+                  만들고 있으며, &apos;공간의 제품화&apos;에 집중합니다.
+                </div>
+              </div>
+              <div className="flex flex-row gap-10">
+                <div className="text-[14px] text-orange">제품 사양보기</div>
+                <div className="text-[14px] text-orange">3D 커스텀하기</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center py-40 bg-lightGray group-[.is-dark]:bg-jetBlack">
+            <Image src={ImageNova} alt="nova" />
+          </div>
+          <div className="flex flex-col items-center pt-8 pb-20 lg:pb-25">
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex flex-row items-center gap-2">
+                {COLORS.map((item, index) => {
+                  const isSelected = selectedColor.hex === item.hex;
+                  return (
+                    <div
+                      key={"color" + index}
+                      className="relative w-8 h-8 p-1 cursor-pointer"
+                      onClick={() => {
+                        setSelectedColor(item);
+                      }}
+                    >
+                      <div
+                        className="w-full h-full rounded-full"
+                        style={{
+                          backgroundColor: item.hex,
+                          borderWidth: 1,
+                          borderColor: "rgba(0, 0, 0, 0.1)",
+                        }}
+                      />
+                      {isSelected && (
+                        <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[2px] border-black rounded-full" />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="font-normal text-[14px] group-[.is-dark]:text-white">
+                {selectedColor.name}
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="group-[.is-dark]:bg-spaceBlack">
+          <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col items-center justify-center py-[125px] px-6 bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
+              <Image src={ImageNova} alt="nova" />
+            </div>
+            <div className="flex flex-col bg-white lg:bg-lightGray flex-1 px-8 py-20 group-[.is-dark]:bg-offBlack">
+              <div className="text-[28px] pb-4 border-b border-midGray group-[.is-dark]:text-white">
+                Evo 타입 상세정보
+              </div>
+              {DETAIL_INFO.map((item, index) => {
+                return <InfoDetail key={"detail" + index} detail={item} />;
+              })}
+              <div className="py-4 text-[12px] group-[.is-dark]:text-white">
+                - 웨이비룸을 처음으로 제품느낌나도록 메탈릭한 exterior finish를
+                사용
+                <br />- 주방x- 침실, 욕실, 옷장, 금고, 등 호텔객실의 레이아웃을
+                거의 그대로 가져옴
+                <br />- 내부 마감재가 다양 (벽: white + wood, 바닥: white tile +
+                카펫)
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="px-6 md:px-8 lg:px-[280px] py-20 lg:py-25 group-[.is-dark]:bg-jetBlack">
+          <div className="flex flex-col items-center gap-16 w-full">
+            <div className="text-[28px] md:text-[32px] group-[.is-dark]:text-white">
+              자주 묻는 질문
+            </div>
+            <div className="flex flex-col w-full">
+              {FAQs.map((item, index) => (
+                <FaqItem
+                  key={"faq" + index}
+                  question={item.question}
+                  answer={item.answer}
+                  isDark={isDark}
+                />
+              ))}
+            </div>
+            <Button name="카카오톡 상담하기" arrow varient="lightGray" />
+          </div>
+        </section>
+        <section className="group-[.is-dark]:bg-jetBlack">
+          {[1, 2, 3, 4, 5].map((item) => (
+            <div
+              key={item}
+              className="flex flex-1 flex-col md:flex-row md:items-center border-y border-gray group-[.is-dark]:border-offBlack p-8"
+            >
+              <div className="flex flex-col items-start md:flex-1">
+                <div className="group-[.is-dark]:text-white font-normal text-[14px]">
+                  Wavyroom X
+                </div>
+                <div className="group-[.is-dark]:text-white text-[32px] md:text-[40px] lg:text-[58px] py-2">
+                  Evo
+                </div>
+              </div>
+              <div className="flex items-center jusitfy-center">
+                <Image src={ImageNova} alt="nova" />
+              </div>
+            </div>
+          ))}
+        </section>
+      </main>
+    </>
   );
 };
 

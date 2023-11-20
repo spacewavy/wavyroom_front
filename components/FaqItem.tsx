@@ -8,9 +8,11 @@ import Image from "next/image";
 const FaqItem = ({
   question,
   answer,
+  isDark,
 }: {
   question: string;
   answer: string;
+  isDark?: boolean;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,11 +23,15 @@ const FaqItem = ({
   return (
     <div
       className={`flex flex-col py-8 border-b gap-4 group duration-500 ${
-        isOpen ? "border-orange is-active" : "border-gray"
-      }`}
+        isOpen
+          ? "border-orange is-active"
+          : isDark
+          ? "border-gray"
+          : "border-white border-opacity-20"
+      } ${isDark ? "is-dark" : ""}`}
     >
       <div className="flex flex-row items-center justify-between">
-        <div className="text-bodyMD lg:text-bodyLG text-jetBlack">
+        <div className="text-bodyMD lg:text-bodyLG text-jetBlack group-[.is-dark]:text-white">
           {question}
         </div>
         <button
@@ -40,7 +46,7 @@ const FaqItem = ({
       >
         {answer}
       </div> */}
-      <div className="text-bodyMD lg:text-bodyLG text-darkGray hidden group-[.is-active]:flex">
+      <div className="text-bodyMD lg:text-bodyLG text-darkGray group-[.is-dark]:text-lightGray hidden group-[.is-active]:flex">
         {answer}
       </div>
     </div>
