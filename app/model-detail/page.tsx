@@ -221,7 +221,22 @@ const ModelDetail = () => {
         </div>
       </section>
       <section>
-        <div>List of models</div>
+        {[1, 2, 3, 4, 5].map((item) => (
+          <div
+            key={item}
+            className="flex flex-1 flex-col md:flex-row md:items-center border-y border-gray p-8"
+          >
+            <div className="flex flex-col items-start md:flex-1">
+              <div className="font-normal text-[14px]">Wavyroom X</div>
+              <div className="text-[32px] md:text-[40px] lg:text-[58px] py-2">
+                Evo
+              </div>
+            </div>
+            <div className="flex items-center jusitfy-center">
+              <Image src={ImageNova} alt="nova" />
+            </div>
+          </div>
+        ))}
       </section>
     </main>
   );
