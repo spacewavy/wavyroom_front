@@ -13,15 +13,18 @@ import Link from "next/link";
 const Navbar = ({ isDark }: { isDark?: boolean }) => {
   const [lang, setLang] = useState("KOR");
   const [open, setOpen] = useState(false);
+  const [menuType, setMenuType] = useState("");
 
-  const openSidebar = () => {
+  const openSidebar = (menuName?: string) => {
     setOpen(true);
+    console.log(menuName)
+    setMenuType(menuName ?? '');
   };
 
   return (
     <nav className={`group ${isDark && "is-dark"} `}>
       <div className="bg-white group-[.is-dark]:bg-jetBlack">
-        <Sidebar open={open} setOpen={setOpen} />
+        <Sidebar open={open} setOpen={setOpen} menuType={menuType} />
         <div className="px-4 md:px-8">
           <div className="flex items-center justify-between h-24">
             <Link href="/">
@@ -37,7 +40,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                   <div className="w-[100px]">
                     <div
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
-                      onClick={openSidebar}
+                      onClick={() => openSidebar('model')}
                     >
                       모델
                     </div>
@@ -45,7 +48,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                   <div className="w-[100px]">
                     <div
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
-                      onClick={openSidebar}
+                      onClick={() => openSidebar('menu')}
                     >
                       메뉴
                     </div>
@@ -86,7 +89,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                 <Link href="/model-detail">
                   <Button name="주문하기" arrow varient="default" />
                 </Link>
-                <div className="flex md:hidden" onClick={openSidebar}>
+                <div className="flex md:hidden" onClick={() => openSidebar()}>
                   <Image
                     className="cursor-pointer"
                     src={isDark ? HamburgerWhiteIcon : HamburgerIcon}

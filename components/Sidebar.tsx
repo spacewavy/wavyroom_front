@@ -13,8 +13,8 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import Button from "./Button";
 import SelectLang from "./SelectLang";
+import Button from "./Button";
 import Link from "next/link";
 import CallInquery from "./CallInquery";
 
@@ -49,7 +49,7 @@ const sidebarItems: SidebarItem[] = [
   { id: 6, title: "고객센터", link: "/contact-us" },
 ];
 
-const Sidebar = ({ open, setOpen }: any) => {
+const Sidebar = ({ open, setOpen, menuType }: any) => {
   const [selectedMenuId, setSelectedMenuId] = useState(0);
   const [selectedListId, setSelectedListId] = useState(0);
 
@@ -69,7 +69,8 @@ const Sidebar = ({ open, setOpen }: any) => {
   );
 
   const initData = () => {
-    setSelectedMenuId(0);
+    console.log(menuType)
+    setSelectedMenuId(menuType === 'model' ? 2 : 0);
     setSelectedListId(0);
   };
 
@@ -149,25 +150,25 @@ const Sidebar = ({ open, setOpen }: any) => {
           {selectedMenu?.childrens?.map((obj, i) => (
             <li
               key={obj.title}
-              className={cn(
-                "flex justify-between py-4 border-b text-black border-black items-center",
-                i === 0 && "border-t",
-                selectedListId > 0 &&
-                  obj.id !== selectedListId &&
-                  "!text-midGray !border-midGray"
-              )}
             >
+            {obj.id === 6 ? (
+              <Link href="/models" onClick={closeSidebar}
+                className={cn(
+                  "flex justify-between py-4 border-b text-black border-black items-center",
+                  i === 0 && "border-t",
+                  selectedListId > 0 &&
+                    obj.id !== selectedListId &&
+                    "!text-midGray !border-midGray"
+                )}>            
               <span className="flex flex-1 text-sm font-normal">
-                {obj.title}
-              </span>
-              <span className="flex flex-1 text-sm font-normal">
-                {obj.desc}
-              </span>
-              <span className="flex flex-1 text-sm font-normal">
-                {obj.rate}
-              </span>
-              {obj.id === 6 ? (
-                <Link href="/models" onClick={closeSidebar}>
+                  {obj.title}
+                </span>
+                <span className="flex flex-1 text-sm font-normal">
+                  {obj.desc}
+                </span>
+                <span className="flex flex-1 text-sm font-normal">
+                  {obj.rate}
+                </span>
                   <Image
                     className="cursor-pointer"
                     alt="right-arrow"
@@ -180,22 +181,38 @@ const Sidebar = ({ open, setOpen }: any) => {
                     height={24}
                   />
                 </Link>
-              ) : (
-                <Image
-                  className="cursor-pointer"
-                  alt="right-arrow"
-                  src={
-                    obj.id === selectedListId || selectedListId === 0
-                      ? RightArrowBlack
-                      : RightArrowGray
-                  }
-                  width={24}
-                  height={24}
-                  onClick={() => {
-                    setSelectedListId(obj.id);
-                  }}
-                />
-              )}
+               ) : (
+                <Link href='' 
+                      className={cn(
+                      "flex justify-between py-4 border-b text-black border-black items-center",
+                      i === 0 && "border-t",
+                      selectedListId > 0 &&
+                        obj.id !== selectedListId &&
+                        "!text-midGray !border-midGray"
+                      )} 
+                      onClick={() => {setSelectedListId(obj.id)}}>            
+                  <span className="flex flex-1 text-sm font-normal">
+                    {obj.title}
+                  </span>
+                  <span className="flex flex-1 text-sm font-normal">
+                    {obj.desc}
+                  </span>
+                  <span className="flex flex-1 text-sm font-normal">
+                    {obj.rate}
+                  </span>
+                  <Image
+                    className="cursor-pointer"
+                    alt="right-arrow"
+                    src={
+                      obj.id === selectedListId || selectedListId === 0
+                        ? RightArrowBlack
+                        : RightArrowGray
+                    }
+                    width={24}
+                    height={24}
+                  />
+                </Link>
+               )}
             </li>
           ))}
         </ul>
@@ -281,6 +298,14 @@ const Sidebar = ({ open, setOpen }: any) => {
               </span>
             </li>
           </ul>
+          <div className="flex flex-row gap-4"> 
+            <Link href="/model-detail" onClick={closeSidebar}>
+                <Button name="주문하기" arrow varient="default" />
+            </Link>
+            <Link href="/model-details">
+              <Button name="제품 상세보기"  />
+            </Link>
+          </div>
         </div>
       </section>
     );
