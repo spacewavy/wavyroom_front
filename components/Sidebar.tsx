@@ -69,7 +69,6 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   );
 
   const initData = () => {
-    console.log(menuType)
     setSelectedMenuId(menuType === 'model' ? 2 : 0);
     setSelectedListId(0);
   };
@@ -299,7 +298,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             </li>
           </ul>
           <div className="flex flex-row gap-4"> 
-            <Link href="/model-detail" onClick={closeSidebar}>
+            <Link href="" onClick={closeSidebar}>
                 <Button name="주문하기" arrow varient="default" />
             </Link>
             <Link href="/model-details">
