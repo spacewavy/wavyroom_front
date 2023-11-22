@@ -11,7 +11,7 @@ export interface OrderCardProps {
 
 const OrderCard = ({ heading, subheading, text, image, imageRight,isLast=false }: OrderCardProps) => {
   return (
-    <div className="grid w-full grid-cols-1 md:grid-cols-3 px-4 sm:px-8 md:px-12 lg:px-50 xl:px-60" style={{direction: imageRight ? "rtl" : "ltr", minHeight: !isLast ? '384px' :''}}>
+    <div className="grid w-full grid-cols-1 md:grid-cols-3 px-4 sm:px-8 md:px-12 lg:px-50 xl:px-60 gap-4 md:gap-0" style={{direction: imageRight ? "rtl" : "ltr", minHeight: !isLast ? '384px' :''}}>
       <div className="imageSection" >
         <Image src={image} alt="order_image" className="flex items-center justify-center w-full h-" />
       </div>
