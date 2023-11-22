@@ -236,7 +236,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           width={800}
           height={432}
         />
-        <div className="w-full p-8">
+        <div className="w-full p-8 h-full">
           <h2 className="h-14">{selectedProduct?.title}</h2>
           <ul className="flex flex-col flex-1 text-xs font-light">
             <li
@@ -303,7 +303,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </span>
             </li>
           </ul>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-2 fixed bottom-[33px]">
             <Link href="" onClick={closeSidebar}>
               <Button name="주문하기" arrow varient="default" />
             </Link>
