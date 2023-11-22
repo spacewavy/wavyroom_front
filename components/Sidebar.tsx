@@ -91,7 +91,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             <Image className="w-auto h-8" src={Logo} alt="Spacewavy" />
           </SheetTitle>
         </SheetHeader>
-        <div className="flex flex-col flex-1 gap-10 py-12">
+        <div className="flex flex-col flex-1 gap-8 py-12">
           {sidebarItems.map((item: SidebarItem) => {
             const isLink = !!item.link;
             return isLink ? (
@@ -100,7 +100,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 href={item?.link || ""}
                 onClick={closeSidebar}
                 className={cn(
-                  "text-sm cursor-pointer w-fit",
+                  "text-sm cursor-pointer w-fit font-normal mb-1",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
                     : "text-midGray",
@@ -113,7 +113,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               <p
                 key={item.id}
                 className={cn(
-                  "text-sm cursor-pointer w-fit",
+                  "text-sm cursor-pointer w-fit font-normal mb-1",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
                     : "text-midGray",
