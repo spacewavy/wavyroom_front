@@ -21,13 +21,14 @@ const ProductCarousel = () => {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           <div className="embla__slide">
-            <Image
-              className="object-cover w-full h-[420px]"
-              src={SidebarProduct}
-              alt="Vercel Image"
-              width={800}
-              height={432}
-            />
+             <div className="relative w-full aspect-[16/9]">
+                <Image
+                  layout="fill"
+                  objectFit="cover"
+                  src={SidebarProduct}
+                  alt="Vercel Image"
+                />
+           </div>
             <div className="flex flex-col items-center justify-between gap-8 pt-8">
               <span>Studio / 주거용</span>
               <Link
@@ -44,13 +45,14 @@ const ProductCarousel = () => {
             </div>
           </div>
           <div className="embla__slide">
-            <Image
-              className="object-cover w-full h-[420px]"
-              src={SidebarProduct}
-              alt="Vercel Image"
-              width={800}
-              height={432}
-            />
+             <div className="relative w-full aspect-[16/9]">
+              <Image
+                layout="fill"
+                objectFit="cover"
+                src={SidebarProduct}
+                alt="Vercel Image"
+              />
+           </div>
             <div className="flex flex-col items-center justify-between gap-8 pt-8">
               <span>Studio / 주거용</span>
               <CommonButton
@@ -67,13 +69,14 @@ const ProductCarousel = () => {
             </div>
           </div>
           <div className="embla__slide">
-            <Image
-              className="object-cover w-full h-[420px]"
-              src={SidebarProduct}
-              alt="Vercel Image"
-              width={800}
-              height={432}
-            />
+            <div className="relative w-full aspect-[16/9]">
+              <Image
+                layout="fill"
+                objectFit="cover"
+                src={SidebarProduct}
+                alt="Vercel Image"
+              />
+           </div>
             <div className="flex flex-col items-center justify-between gap-8 pt-8">
               <span>Studio / 주거용</span>
               <CommonButton
