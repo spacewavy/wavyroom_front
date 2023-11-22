@@ -141,11 +141,11 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "w-full md:w-[400px] flex md:flex gap-12 flex-col p-6 md:border-r md:border-r-black",
+          "w-full md:w-[400px] flex md:flex gap-12 flex-col p-8 md:border-r md:border-r-black",
           !!selectedListId && "hidden"
         )}
       >
-        <p className="text-lg pt-28">{selectedMenu?.title}</p>
+        <p className="text-lg pt-16">{selectedMenu?.title}</p>
         <ul className="flex flex-col flex-1 text-xs font-light">
           {selectedMenu?.childrens?.map((obj, i) => (
             <li key={obj.title}>

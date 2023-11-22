@@ -35,7 +35,7 @@ const About = () => {
       <section>
         <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 md:gap-4">
           <div className="flex-1 hidden md:flex" />
-          <div className="flex flex-1 flex-col gap-8">
+          <div className="flex flex-1 flex-col gap-8 pr-0 lg:pr-[116px]">
             <div className="flex flex-col gap-2">
               <Label>우리의 비전과 미션</Label>
               <div className="text-displaySM md:text-displayMD lg:text-displayLG">
@@ -73,7 +73,7 @@ const About = () => {
               <br />
               완벽하게 제작된 공간
             </div>
-            <div className="lg:flex lg:flex-1 text-bodySM md:text-bodyMD lg:text-bodyLG">
+            <div className="lg:flex lg:flex-1 text-bodySM md:text-bodyMD lg:text-bodyLG pr-0 lg:pr-[116px]">
               우리는 모두에게 더 나은 집이 있는 미래를 바라봅니다. 모든 사람들이
               각자 세심하게 설계되고 잘 지어진 집에서 사는 것, 공간이 영감을
               주고 기능하며 환경을 생각하는 것, 우리가 사는 공간이 우리의 삶을

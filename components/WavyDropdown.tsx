@@ -135,6 +135,7 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
         valueContainer: (baseStyles) => ({
           ...baseStyles,
           backgroundColor: "#f7f7f7",
+          fontSize:'14px'
         }),
         indicatorsContainer: (baseStyles) => ({
           ...baseStyles,
