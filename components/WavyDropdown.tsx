@@ -142,9 +142,11 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
         }),
         option: (baseStyles) => ({
           ...baseStyles,
+          fontSize:'14px',
           ":hover": {
             backgroundColor: "#b2b2b2",
             color: "white",
+           
           },
         }),
       }}

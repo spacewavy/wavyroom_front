@@ -21,10 +21,10 @@ const Home = () => {
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
         <Label>웨이비룸</Label>
-        <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG">
+        <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">
           간편하게 주문하고 <br /> 품질 높은 공간을 받아보세요
         </h1>
-        <p className="font-light text-bodySM md:text-bodyMD lg:text-bodyLG">
+        <p className="font-light text-bodySM md:text-[14px] lg:text-bodyLG">
           나에게 맞는 모델을 선택하여 나만의 공간을 만들어 보세요
         </p>
       </section>
