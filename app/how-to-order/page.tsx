@@ -58,7 +58,7 @@ const HowToOrder = () => {
       </section>
 
       <section
-        className="grid w-full grid-cols-1"
+        className="grid w-full grid-cols-1 gap-[48px] md:gap-0"
         style={{ marginTop: "120px" }}
       >
         {data.map((d, index) => {
@@ -80,7 +80,7 @@ const HowToOrder = () => {
 
       <hr className="my-0 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
       <section className="py-8 md:py-16 lg:py-24 bg-black m-8">
-        <p className="text-white text-center text-2xl font-light">
+        <p className="text-white text-center text-[18px] md:text-[28px] font-light">
           Welcome!<br></br>복잡한 건설과정과 작별인사를 하고,<br></br>
           웨이비룸에서 파티를 열어보세요!
         </p>
