@@ -56,6 +56,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   useEffect(() => {
     if (!open) return;
     initData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const selectedMenu: SidebarItem | undefined = useMemo(
@@ -69,7 +70,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   );
 
   const initData = () => {
-    setSelectedMenuId(menuType === 'model' ? 2 : 0);
+    setSelectedMenuId(menuType === "model" ? 2 : 0);
     setSelectedListId(0);
   };
 
@@ -147,49 +148,19 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <p className="text-lg pt-28">{selectedMenu?.title}</p>
         <ul className="flex flex-col flex-1 text-xs font-light">
           {selectedMenu?.childrens?.map((obj, i) => (
-            <li
-              key={obj.title}
-            >
-            {obj.id === 6 ? (
-              <Link href="/models" onClick={closeSidebar}
-                className={cn(
-                  "flex justify-between py-4 border-b text-black border-black items-center",
-                  i === 0 && "border-t",
-                  selectedListId > 0 &&
-                    obj.id !== selectedListId &&
-                    "!text-midGray !border-midGray"
-                )}>            
-              <span className="flex flex-1 text-sm font-normal">
-                  {obj.title}
-                </span>
-                <span className="flex flex-1 text-sm font-normal">
-                  {obj.desc}
-                </span>
-                <span className="flex flex-1 text-sm font-normal">
-                  {obj.rate}
-                </span>
-                  <Image
-                    className="cursor-pointer"
-                    alt="right-arrow"
-                    src={
-                      obj.id === selectedListId || selectedListId === 0
-                        ? RightArrowBlack
-                        : RightArrowGray
-                    }
-                    width={24}
-                    height={24}
-                  />
-                </Link>
-               ) : (
-                <Link href='' 
-                      className={cn(
-                      "flex justify-between py-4 border-b text-black border-black items-center",
-                      i === 0 && "border-t",
-                      selectedListId > 0 &&
-                        obj.id !== selectedListId &&
-                        "!text-midGray !border-midGray"
-                      )} 
-                      onClick={() => {setSelectedListId(obj.id)}}>            
+            <li key={obj.title}>
+              {obj.id === 6 ? (
+                <Link
+                  href="/models"
+                  onClick={closeSidebar}
+                  className={cn(
+                    "flex justify-between py-4 border-b text-black border-black items-center",
+                    i === 0 && "border-t",
+                    selectedListId > 0 &&
+                      obj.id !== selectedListId &&
+                      "!text-midGray !border-midGray"
+                  )}
+                >
                   <span className="flex flex-1 text-sm font-normal">
                     {obj.title}
                   </span>
@@ -211,7 +182,42 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                     height={24}
                   />
                 </Link>
-               )}
+              ) : (
+                <Link
+                  href=""
+                  className={cn(
+                    "flex justify-between py-4 border-b text-black border-black items-center",
+                    i === 0 && "border-t",
+                    selectedListId > 0 &&
+                      obj.id !== selectedListId &&
+                      "!text-midGray !border-midGray"
+                  )}
+                  onClick={() => {
+                    setSelectedListId(obj.id);
+                  }}
+                >
+                  <span className="flex flex-1 text-sm font-normal">
+                    {obj.title}
+                  </span>
+                  <span className="flex flex-1 text-sm font-normal">
+                    {obj.desc}
+                  </span>
+                  <span className="flex flex-1 text-sm font-normal">
+                    {obj.rate}
+                  </span>
+                  <Image
+                    className="cursor-pointer"
+                    alt="right-arrow"
+                    src={
+                      obj.id === selectedListId || selectedListId === 0
+                        ? RightArrowBlack
+                        : RightArrowGray
+                    }
+                    width={24}
+                    height={24}
+                  />
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -297,12 +303,12 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </span>
             </li>
           </ul>
-          <div className="flex flex-row gap-4"> 
+          <div className="flex flex-row gap-4">
             <Link href="" onClick={closeSidebar}>
-                <Button name="주문하기" arrow varient="default" />
+              <Button name="주문하기" arrow varient="default" />
             </Link>
             <Link href="/model-details">
-              <Button name="제품 상세보기"  />
+              <Button name="제품 상세보기" />
             </Link>
           </div>
         </div>
