@@ -24,8 +24,8 @@ return(
           </div>
         </div>
       <div className="lg:w-[34.4%] md:w-full max-h-[100vh]  relative">
-        {/* <CustomItems/> */}
-        <CustomizationPanel />
+        <CustomItems/>
+        {/* <CustomizationPanel /> */}
         </div>
   </div>
 )

@@ -33,9 +33,20 @@ const CustomItems = () => {
  price:"￦35,000,000~",
  Image:CardImg5,
  },
+ { heading:'Mini',
+ subheading:'10평',
+ price:"￦35,000,000~",
+ Image:CardImg5,
+ },
+ { heading:'Mini',
+ subheading:'10평',
+ price:"￦35,000,000~",
+ Image:CardImg5,
+ },
    ]
   return (
-    <div>
+    <div className='flex flex-col max-h-[100vh]'>
+      <div className='w-full overflow-y-scroll'>
       <div className="p-8">
           <div className="text-[32px] font-light mb-4 md:text-[24px]"><h1>웨이비룸</h1></div>
           <div><p className="text-[14px] font-light color-[#4D4D4D]">모듈러건축시스템 기반으로 '웨이비룸'이라는 주거공간을 만들고 있으며,
@@ -49,6 +60,7 @@ const CustomItems = () => {
             )
             })}
         </div>
+      </div>
          <div className="p-4"> 
          <button className=" flex justify-center items-center gap-[4px] w-full bg-black text-white py-[10px] px-4 rounded">
           <span>
@@ -65,7 +77,7 @@ const CustomItems = () => {
           </defs>
         </svg>
         </button>
-        
+
         </div>
     </div>
   )
