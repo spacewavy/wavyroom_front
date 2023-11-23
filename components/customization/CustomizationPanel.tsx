@@ -1,153 +1,164 @@
-import React from 'react'
+"use client";
+import React, { useState } from 'react'
+
 import SelectColorCard from './SelectColorCard'
 import CustomizationOptions, { CustomizationOptionsProps } from './CustomizationOptions'
 
-const customizationOptions:CustomizationOptionsProps[] = [
-	{
-		name:'형태',
-		options:[
-			{
-				option:'단층형',
-				isSelected:true
-			},	
-			{
-				option:'복층형',
-				isSelected:true
-			},	
-        ]
-	},
-	{
-		name:'캐노피',
-		options:[
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-        ]
-	},
-	{
-		name:'데크',
-		options:[
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-        ]
-	},
-	{
-		name:'창문',
-		options:[
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-        ]
-	},
-	{
-		name:'창문',
-		options:[
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-        ]
-	},
-	{
-		name:'창문',
-		options:[
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-        ]
-	},
-	{
-		name:'창문',
-		options:[
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-			{
-				option:'리스트',
-				isSelected:true
-			},	
-        ]
-	}
-]
 
 const CustomizationPanel = () => {
+    const [customizationOptions ,setCustomizationOptions] = useState<CustomizationOptionsProps[]>([
+        {
+            id:1,
+            name:'형태',
+            isMutliSelect:false,
+            isExpanded:true,
+            options:[
+                {
+                    option:'단층형',
+                    isSelected:true
+                },	
+                {
+                    option:'복층형',
+                    isSelected:true
+                },	
+            ]
+        },
+        {
+            id:2,
+            name:'캐노피',
+            isMutliSelect:false,
+            isExpanded:true,
+            options:[
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+            ]
+        },
+        {
+            id:3,
+            name:'데크',
+            isMutliSelect:true,
+            isExpanded:true,
+            options:[
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+            ]
+        },
+        {
+            id:4,
+            name:'창문',
+            isMutliSelect:false,
+            isExpanded:true,
+            options:[
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+            ]
+        },
+        {
+            id:5,
+            name:'창문',
+            isMutliSelect:true,
+            isExpanded:true,
+            options:[
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+            ]
+        },
+        {
+            id:6,
+            name:'창문',
+            isMutliSelect:false,
+            isExpanded:true,
+            options:[
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+                {
+                    option:'리스트',
+                    isSelected:true
+                },	
+            ]
+        },
+    ])
+
+    const handleToggle=(id:number)=>{
+        console.log(id,'called')
+        setCustomizationOptions((prevOptions) => {
+            return prevOptions.map((option) => {
+              if (option.id === id) {
+                return { ...option, isExpanded: !option.isExpanded };
+              }
+              return option;
+            });
+          });
+        };
   return (
-    <>
-        <section className='w-full'>
+    <div className='flex flex-col max-h-[100vh]'>
+        <section className='w-full overflow-y-scroll'>
             <div className="productName flex gap-4 m-8" >
                 <span>Evo</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -173,7 +184,7 @@ const CustomizationPanel = () => {
                 <SelectColorCard />
             </div>
             <div className="customOption">
-                <CustomizationOptions customizationOptions={customizationOptions} />
+                <CustomizationOptions customizationOptions={customizationOptions} handleToggle={handleToggle} />
             </div>
         </section>
                 <div className="footer w-full">
@@ -205,7 +216,7 @@ const CustomizationPanel = () => {
                     </div>
                 </section>
             </div>
-    </>
+    </div>
   )
 }
 

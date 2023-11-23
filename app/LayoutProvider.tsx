@@ -8,12 +8,13 @@ import Footer from "../components/Footer";
 
 export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
-  const showLayout = pathname !== "/model-detail";
+  const showLayout = pathname !== "/model-detail" && pathname !== "/customization";
+  const showFooter = pathname !== "/customization";
   return (
     <>
       {showLayout && <Navbar />}
       {children}
-      <Footer />
+      {showFooter && <Footer />}
     </>
   );
 };

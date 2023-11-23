@@ -9,7 +9,7 @@ import CustomizationPanel from "@/components/customization/CustomizationPanel";
 
 const Customization = () => {
 return(
-  <div className="flex justify-center">
+  <div className="flex justify-center max-h-[100vh]">
       <div className="w-[65.5%] bg-[#F9F9FA]">
         <div className="flex pt-8 pl-8 pb-[24px] pr-[856px] gap-[8px]">
           <Image src={LeftArrow} alt='leftarrow' />
