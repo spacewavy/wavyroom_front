@@ -23,7 +23,7 @@ return(
             <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
           </div>
         </div>
-      <div className="lg:w-[34.4%] md:w-full max-h-[100vh] overflow-y-scroll relative">
+      <div className="lg:w-[34.4%] md:w-full max-h-[100vh]  relative">
         {/* <CustomItems/> */}
         <CustomizationPanel />
         </div>
