@@ -85,7 +85,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                 </div>
               </div>
               <div className="flex flex-row gap-4">
-                <Link href="/model-detail">
+                <Link href="/customization">
                   <Button name="주문하기" arrow varient="default" />
                 </Link>
                 <div className="flex sm:hidden" onClick={() => openSidebar()}>
