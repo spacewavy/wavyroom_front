@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import CustomImg from "@/assets/Customization/image.png";
+import CustomImg from "@/assets/customization/image.png";
 import LeftArrow from "@/assets/icons/LeftArrowIcons.svg";
 import Vector from '@/assets/icons/Vector.svg';
 import IntentRequest from "@/assets/icons/intent-request--scale-out 1.svg"
