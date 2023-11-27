@@ -22,23 +22,33 @@ const ProductCarousel = () => {
     const CarosolItems = [
       {
         image:carosolImg1,
-        imageText:'Evo / 숙박'
+        imageText: [
+          'Evo /','숙박'
+        ]
       },
       {
         image:carosolImg2,
-        imageText:'Max / 주거'
+        imageText: [
+          'Max /','주거'
+        ]
       },
       {
         image:carosolImg3,
-        imageText:'Studio / 주거'
+        imageText: [
+          'Studio /','주거'
+        ]
       },
       {
         image:carosolImg4,
-        imageText:'Mini / 다용도'
+        imageText: [
+          'Mini /','다용도'
+        ]
       },
       {
         image:carosolImg5,
-        imageText:'Nova / 주거,숙박'
+        imageText: [
+          'Nova /','주거,숙박'
+        ]
       },
     ]
 
@@ -58,18 +68,25 @@ const ProductCarousel = () => {
                   />
                 </div>
                 <div className="flex flex-col items-center justify-between gap-8 pt-8">
-                  <span>{c.imageText}</span>
-                  <Link
-                    href="/portfolio"
-                    className="p-0 flex flex-row text-labelMD text-orange"
-                  >
-                    더보기{" "}
-                    <Image
-                      alt="right-arrow"
-                      src={RightArrowOrange}
-                      className="ml-2"
-                    />
-                  </Link>
+                  <div className="flex gap-[4px] text-[16px] font-light">
+                  <span>{c.imageText[0]}</span>
+                  <span className="opacity-40">{c.imageText[1]}</span>
+
+                  </div>
+                  <div className="px-4 py-2">
+                    <Link
+                      href="/portfolio"
+                      className="p-0 flex flex-row gap-[4px] text-labelMD text-orange"
+                    >
+                      <span className="text-[14px] font-normal">
+                       더보기
+                      </span>
+                      <Image
+                        alt="right-arrow"
+                        src={RightArrowOrange}
+                      />
+                    </Link>
+                  </div>
                 </div>
               </div>
             )
