@@ -1,4 +1,4 @@
-import Imageh from "@/assets/Howtoorder/image.png";
+import Imageh from "@/assets/how-to-order/order-page-img.png";
 import SidebarProduct from "@/assets/Products/SidebarProduct.png";
 import OrderCard from "@/components/OrderCard";
 import Image from "next/image";
