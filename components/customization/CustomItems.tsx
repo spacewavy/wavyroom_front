@@ -1,10 +1,10 @@
 import React from 'react'
 import CustomizationCard from './CustomizationCard';
-import CardImg2 from "@/assets/CustomCard/4-XEf3eLl5k-transformed 2.png";
-import CardImg1 from "@/assets/CustomCard/image 2058.png";
-import CardImg3 from "@/assets/CustomCard/image 2062.png";
-import CardImg4 from "@/assets/CustomCard/image 2054.png";
-import CardImg5 from "@/assets/CustomCard/image 2059.png";
+import CardImg2 from "@/assets/custom-card/product-img1.png";
+import CardImg1 from "@/assets/custom-card/product-img2.png";
+import CardImg3 from "@/assets/custom-card/product-img3.png";
+import CardImg4 from "@/assets/custom-card/product-img4.png";
+import CardImg5 from "@/assets/custom-card/product-img5.png";
 
 const CustomItems = ({navigateToSettings}: any) => {
   const data= [
@@ -50,10 +50,10 @@ const CustomItems = ({navigateToSettings}: any) => {
     },
    ]
   return (
-    <div className='flex flex-col max-h-[100vh]'>
+    <div className='flex flex-col h-[65vh] lg:h-[100vh]'>
       <div className='w-full overflow-y-scroll'>
         <div className="p-8">
-          <div className="text-[32px] font-light mb-4 md:text-[24px]"><h1>웨이비룸</h1></div>
+          <div className="text-[24px] md:text-[32px] font-light mb-4"><h1>웨이비룸</h1></div>
           <div>
             <p className="text-[14px] font-light color-[#4D4D4D]">
               {'모듈러건축시스템 기반으로 \'웨이비룸\'이라는 주거공간을 만들고 있으며, \'공간의 제품화\'에 집중합니다.'}
@@ -66,8 +66,8 @@ const CustomItems = ({navigateToSettings}: any) => {
             )}
         </div>
       </div>
-      <div className="p-4"> 
-         <button onClick={() => navigateToSettings(true)} className=" flex justify-center items-center gap-[4px] w-full bg-black text-white py-[10px] px-4 rounded">
+      <div className="p-4 border-t-[1px]"> 
+         <button onClick={() => navigateToSettings(true)} className=" flex justify-center items-center gap-1 w-full bg-black text-white py-[10px] px-4 text-[12px] font-medium rounded-full">
             <span>
               커스텀하기
             </span>

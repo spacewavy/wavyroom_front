@@ -24,7 +24,7 @@ const SelectColorCard = () => {
         },
     ]
   return (
-    <section className='px-8 py-4'>
+    <section className='px-[24px] md:px-8 py-4'>
         <div className="materialColor flex flex-col gap-4">
             <div className="flex justify-between title text-[14px] font-medium">
                 <span>외장재 색상</span>
