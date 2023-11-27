@@ -16,7 +16,7 @@ const ProductCard = ({ name, value, image }: ProductCardProps) => {
       <div className="flex justify-between">
         <div className="text-black text-bodyMD md:text-bodyLG">
           <p>
-            {name} /<span className="text-midGray"> 주거용 </span>
+            {name} /<span className="text-midGray ml-[4px]"> 주거용 </span>
           </p>
           <span>{value}</span>
         </div>
