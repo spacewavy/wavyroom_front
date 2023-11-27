@@ -57,6 +57,7 @@ interface SheetContentProps
     VariantProps<typeof sheetVariants> {
   overlayClassName?: string;
   onCloseClick?: any;
+  menuType?:string
 }
 
 const SheetContent = React.forwardRef<
@@ -70,6 +71,7 @@ const SheetContent = React.forwardRef<
       className,
       children,
       onCloseClick,
+      menuType,
       ...props
     },
     ref
@@ -82,13 +84,15 @@ const SheetContent = React.forwardRef<
         {...props}
       >
         {children}
-        <SheetPrimitive.Close
+        {menuType !== 'menu' && (
+          <SheetPrimitive.Close
           className="absolute right-8 top-8 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
           onClick={onCloseClick}
         >
           <X className="w-8 h-8" />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>
+        )}      
       </SheetPrimitive.Content>
     </SheetPortal>
   )

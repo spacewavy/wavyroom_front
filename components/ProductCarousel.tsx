@@ -1,11 +1,14 @@
 "use client";
-import SidebarProduct from "@/assets/Products/SidebarProduct.png";
 import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
-import { Button as CommonButton } from "@/components/ui/button";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import carosolImg1 from "@/assets/carosol-images/carosolImage-1.png"
+import carosolImg2 from "@/assets/carosol-images/carosolImage-2.png"
+import carosolImg3 from "@/assets/carosol-images/carosolImage-3.png"
+import carosolImg4 from "@/assets/carosol-images/carosolImage-4.png"
+import carosolImg5 from "@/assets/carosol-images/carosolImage-5.png"
 
 const ProductCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -16,82 +19,61 @@ const ProductCarousel = () => {
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
+    const CarosolItems = [
+      {
+        image:carosolImg1,
+        imageText:'Evo / 숙박'
+      },
+      {
+        image:carosolImg2,
+        imageText:'Max / 주거'
+      },
+      {
+        image:carosolImg3,
+        imageText:'Studio / 주거'
+      },
+      {
+        image:carosolImg4,
+        imageText:'Mini / 다용도'
+      },
+      {
+        image:carosolImg5,
+        imageText:'Nova / 주거,숙박'
+      },
+    ]
+
   return (
-    <div className="embla">
+    <div className="embla p-[25.6px] md:p-0 lg:p-[25.6px]">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          <div className="embla__slide">
-             <div className="relative w-full aspect-[16/9]">
-                <Image
-                  layout="fill"
-                  objectFit="cover"
-                  src={SidebarProduct}
-                  alt="Vercel Image"
-                />
-           </div>
-            <div className="flex flex-col items-center justify-between gap-8 pt-8">
-              <span>Studio / 주거용</span>
-              <Link
-                href="/portfolio"
-                className="p-0 flex flex-row text-labelMD text-orange"
-              >
-                더보기{" "}
-                <Image
-                  alt="right-arrow"
-                  src={RightArrowOrange}
-                  className="ml-2"
-                />
-              </Link>
-            </div>
-          </div>
-          <div className="embla__slide">
-             <div className="relative w-full aspect-[16/9]">
-              <Image
-                layout="fill"
-                objectFit="cover"
-                src={SidebarProduct}
-                alt="Vercel Image"
-              />
-           </div>
-            <div className="flex flex-col items-center justify-between gap-8 pt-8">
-              <span>Studio / 주거용</span>
-              <CommonButton
-                className="p-0 text-labelMD text-orange"
-                variant="ghostOrange"
-              >
-                더보기{" "}
-                <Image
-                  alt="right-arrow"
-                  src={RightArrowOrange}
-                  className="ml-2"
-                />
-              </CommonButton>
-            </div>
-          </div>
-          <div className="embla__slide">
-            <div className="relative w-full aspect-[16/9]">
-              <Image
-                layout="fill"
-                objectFit="cover"
-                src={SidebarProduct}
-                alt="Vercel Image"
-              />
-           </div>
-            <div className="flex flex-col items-center justify-between gap-8 pt-8">
-              <span>Studio / 주거용</span>
-              <CommonButton
-                className="p-0 text-labelMD text-orange"
-                variant="ghostOrange"
-              >
-                더보기{" "}
-                <Image
-                  alt="right-arrow"
-                  src={RightArrowOrange}
-                  className="ml-2"
-                />
-              </CommonButton>
-            </div>
-          </div>
+          {CarosolItems.map((c, index)=>{
+            return (
+              <div className="embla__slide" key={`product-carosel-${index}`}>
+                <div className="relative w-full aspect-[16/9]">
+                  <Image
+                    layout="fill"
+                    objectFit="cover"
+                    src={c.image}
+                    alt="Vercel Image"
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-between gap-8 pt-8">
+                  <span>{c.imageText}</span>
+                  <Link
+                    href="/portfolio"
+                    className="p-0 flex flex-row text-labelMD text-orange"
+                  >
+                    더보기{" "}
+                    <Image
+                      alt="right-arrow"
+                      src={RightArrowOrange}
+                      className="ml-2"
+                    />
+                  </Link>
+                </div>
+              </div>
+            )
+          })}
         </div>
       </div>
       <div className="embla__dots">
