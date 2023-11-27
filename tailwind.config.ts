@@ -9,15 +9,15 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
+    screens: {
+      sm: "320px",
+      md: "577px",
+      lg: "1079px",
+      xl: "1960px",
+    },
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        sm: "320px",
-        md: "577px",
-        lg: "1079px",
-        xl: "1960px",
-      },
     },
     extend: {
       flex: {
@@ -91,7 +91,7 @@ module.exports = {
         lightGray: "#f7f7f7",
         midGray: "#b2b2b2",
         darkGray: "#4d4d4d",
-        wavyGary:"#6E6E73",
+        wavyGary: "#6E6E73",
         gray: "#e5e5e5",
         jetBlack: "#000000",
         spaceBlack: "#0e0e0e",
