@@ -32,11 +32,11 @@ interface SidebarItem extends SidebarItemChildren {
 }
 
 const sidebarItemChildrens: SidebarItemChildren[] = [
-  { id: 1, title: "Evo", desc: "주거용", rate: "7평" },
+  { id: 1, title: "Evo", desc: "숙박용", rate: "7평" },
   { id: 2, title: "Nova", desc: "주거용", rate: "7평" },
   { id: 3, title: "Max", desc: "주거용", rate: "7평" },
   { id: 4, title: "Studio", desc: "주거용", rate: "7평" },
-  { id: 5, title: "Mini", desc: "주거용", rate: "7평" },
+  { id: 5, title: "Mini", desc: "다목적용", rate: "7평" },
   { id: 6, title: "전체보기", desc: "", rate: "" },
 ];
 
@@ -82,7 +82,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "w-full md:w-[240px] flex md:flex gap-8 flex-col p-6 md:border-r md:border-r-black",
+          "w-full md:w-[240px] flex md:flex gap-8 flex-col p-8 md:border-r md:border-r-black",
           !!selectedMenuId && "hidden"
         )}
       >
@@ -100,7 +100,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 href={item?.link || ""}
                 onClick={closeSidebar}
                 className={cn(
-                  "text-sm cursor-pointer w-fit font-normal mb-1",
+                  "text-sm cursor-pointer w-fit mb-1",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
                     : "text-midGray",
@@ -113,7 +113,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               <p
                 key={item.id}
                 className={cn(
-                  "text-sm cursor-pointer w-fit font-normal mb-1",
+                  "text-sm cursor-pointer w-fit mb-1",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
                     : "text-midGray",
@@ -129,7 +129,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           })}
         </div>
         <div className="flex flex-col items-start w-full gap-8">
-          <SelectLang />
+          <SelectLang fontStyleClass="" />
           <CallInquery />
         </div>
       </section>
@@ -161,13 +161,13 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                       "!text-midGray !border-midGray"
                   )}
                 >
-                  <span className="flex flex-1 text-sm font-normal">
+                  <span className="flex flex-1 text-sm">
                     {obj.title}
                   </span>
-                  <span className="flex flex-1 text-sm font-normal">
+                  <span className="flex flex-1 text-sm">
                     {obj.desc}
                   </span>
-                  <span className="flex flex-1 text-sm font-normal">
+                  <span className="flex flex-1 text-sm">
                     {obj.rate}
                   </span>
                   <Image
@@ -196,13 +196,13 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                     setSelectedListId(obj.id);
                   }}
                 >
-                  <span className="flex flex-1 text-sm font-normal">
+                  <span className="flex flex-1 text-sm">
                     {obj.title}
                   </span>
-                  <span className="flex flex-1 text-sm font-normal">
+                  <span className="flex flex-1 text-sm">
                     {obj.desc}
                   </span>
-                  <span className="flex flex-1 text-sm font-normal">
+                  <span className="flex flex-1 text-sm">
                     {obj.rate}
                   </span>
                   <Image
@@ -230,7 +230,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section className="flex flex-col flex-1">
         <Image
-          className="object-cover h-[420px] w-full"
+          className="object-cover h-[420px] w-full sm:block hidden"
           src={SidebarProduct}
           alt="Vercel Image"
           width={800}
@@ -240,7 +240,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           <h2 className="h-14">{selectedProduct?.title}</h2>
           <ul className="flex flex-col flex-1 text-xs font-light">
             <li
-              className={cn("grid grid-cols-3 py-4 gap-6 text-sm font-normal")}
+              className={cn("grid grid-cols-3 py-4 gap-6 text-sm")}
             >
               <span className="truncate">
                 가격
@@ -259,7 +259,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </span>
             </li>
             <li
-              className={cn("grid grid-cols-3 py-4 gap-6 text-sm font-normal")}
+              className={cn("grid grid-cols-3 py-4 gap-6 text-sm")}
             >
               <span className="truncate">
                 외부 색
@@ -284,7 +284,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </span>
             </li>
             <li
-              className={cn("grid grid-cols-3 py-4 gap-6 text-sm font-normal")}
+              className={cn("grid grid-cols-3 py-4 gap-6 text-sm")}
             >
               <span className="truncate">
                 스트럭쳐
@@ -334,6 +334,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           )}
           onInteractOutside={closeSidebar}
           onCloseClick={closeSidebar}
+          menuType={menuType}
         >
           {renderMenus()}
           {renderModels()}

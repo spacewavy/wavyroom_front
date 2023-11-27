@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import CustomizationCard from './CustomizationCard';
 import CardImg2 from "@/assets/custom-card/product-img1.png";
 import CardImg1 from "@/assets/custom-card/product-img2.png";
@@ -7,48 +7,60 @@ import CardImg4 from "@/assets/custom-card/product-img4.png";
 import CardImg5 from "@/assets/custom-card/product-img5.png";
 
 const CustomItems = ({navigateToSettings}: any) => {
+  const [selectedItem, setSelectedTtem] = useState<number>()
   const data= [
-    { heading:'Evo',
+    { id: 1,
+      heading:'Evo',
       subheading:'10평',
       price:"￦35,000,000~",
       Image:CardImg1,
    },
-   {  heading:'Nova',
+   {  id: 2  ,
+      heading:'Nova',
       subheading:'10평',
       price:"￦35,000,000~",
       Image:CardImg2,
    },
    { 
+      id: 3,  
       heading:'Max',
       subheading:'10평',
       price:"￦35,000,000~",
       Image:CardImg3,
     },
     { 
+      id:4,
       heading:'Studio',
       subheading:'10평',
       price:"￦35,000,000~",
       Image:CardImg4,
     },
     { 
+      id: 5,
       heading:'Mini',
       subheading:'10평',
       price:"￦35,000,000~",
        Image:CardImg5,
     },
     { 
+      id: 6,
       heading:'Mini',
       subheading:'10평',
       price:"￦35,000,000~",
       Image:CardImg5,
     },
     { 
+      id: 7,
       heading:'Mini',
       subheading:'10평',
       price:"￦35,000,000~",
       Image:CardImg5,
     },
    ]
+
+   const handleSelectedItem = (id:number)=>{
+    setSelectedTtem(id)
+   }
   return (
     <div className='flex flex-col h-[65vh] lg:h-[100vh]'>
       <div className='w-full overflow-y-scroll'>
@@ -62,7 +74,7 @@ const CustomItems = ({navigateToSettings}: any) => {
         </div>
         <div className="flex flex-col gap-2">
             {data.map((d, index) =>
-              <CustomizationCard key={`model-${index}`} heading={d.heading} subheading={d.subheading} price={d.price} image={d.Image}/>
+              <CustomizationCard key={`model-${index}`} id={d.id} heading={d.heading} subheading={d.subheading} price={d.price} image={d.Image} selectedItem={selectedItem} handleSelectedItem={handleSelectedItem}/>
             )}
         </div>
       </div>

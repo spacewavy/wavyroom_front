@@ -35,7 +35,7 @@ const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps
                                 {opt.isMutliSelect && (
                                     <span className='text-[12px] font-medium text-orange'>다중 선택 가능</span>
                                 )}
-                                <div onClick={()=> handleToggle(opt.id)} className={`cursor-pointer transition-transform duration-500 ease-in-out ${opt.isExpanded ? 'rotate-0' : 'rotate-[-180deg]' }`}>
+                                <div onClick={()=> handleToggle(opt.id)} className={`cursor-pointer ${opt.isExpanded ? 'rotate-0' : 'rotate-[-180deg]' }`}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                                         <g clipPath="url(#clip0_2287_20488)">
                                             <path d="M13.7633 7.9868L9.00078 3.2168L4.23828 7.9868L4.77078 8.5118L8.62578 4.6493V14.2493H9.37578V4.6568L13.2308 8.5118L13.7633 7.9868Z" fill="black"/>
