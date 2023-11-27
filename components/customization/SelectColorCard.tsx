@@ -7,23 +7,15 @@ interface SelectColorCardProps {
 const SelectColorCard:FC<SelectColorCardProps> = ({configurationEnabled}) => {
     const colorsOptions = [
         {
-            colorCode:'white',
-            isSelected:false
-        },
-        {
-            colorCode:'spaceBlack',
-            isSelected:false
-        },
-        {
-            colorCode:'midGray',
-            isSelected:false
-        },
-        {
-            colorCode:'gray',
+            colorCode:'offBlack',
             isSelected:true
         },
         {
-            colorCode:'wavyGary',
+            colorCode:'offBlack',
+            isSelected:false
+        },
+        {
+            colorCode:'white',
             isSelected:false
         },
     ]
