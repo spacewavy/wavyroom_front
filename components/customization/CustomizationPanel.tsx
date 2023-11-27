@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import SelectColorCard from './SelectColorCard'
 import CustomizationOptions, { Card, CustomizationOptionsProps } from './CustomizationOptions'
 import Select from "react-select";
+import OptionSelection from './OptionSelection';
 
 const CustomizationPanel = () => {
     const [floorOptions,setFloorOptions] = useState([
@@ -248,18 +249,7 @@ const CustomizationPanel = () => {
                     <div className='flex flex-col'>
                         <div className='flex justify-between'>
                             <span className='optionName text-[14px] font-medium'>층수 형태</span>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                        <g clipPath="url(#clip0_2287_20488)">
-                                            <path d="M13.7633 7.9868L9.00078 3.2168L4.23828 7.9868L4.77078 8.5118L8.62578 4.6493V14.2493H9.37578V4.6568L13.2308 8.5118L13.7633 7.9868Z" fill="black"/>
-                                        </g>
-                                        <defs>
-                                            <clipPath id="clip0_2287_20488">
-                                                <rect width="18" height="18" fill="white"/>
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </div>
+                            <span className='text-[12px] font-light text-orange'>층수 형태를 선택해주세요</span>
                         </div>
                         <div className={`options overflow-hidden transition-max-height duration-500 ease-in-out`}>
                             <div className='grid grid-cols-2 gap-4 pt-4'>
@@ -273,6 +263,11 @@ const CustomizationPanel = () => {
             <div className="selectColor mb-4">
                 <SelectColorCard configurationEnabled={floorOptions.some((x)=> x.isSelected !== false)}  />
             </div>
+            {floorOptions.some((x)=> x.isSelected == true) && (
+                <div className="optionSelection">
+                    <OptionSelection />
+                </div>
+            )}
             <div className="customOption">
                 <CustomizationOptions customizationOptions={customizationOptions} handleToggle={handleToggle} configurationEnabled={floorOptions.some((x)=> x.isSelected !== false)} />
             </div>
