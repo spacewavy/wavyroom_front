@@ -1,23 +1,102 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import CustomImg from "@/assets/customization/customization-banner-img.png";
 import LeftArrow from "@/assets/icons/LeftArrowIcons.svg";
 import Vector from "@/assets/icons/Vector.svg";
 import IntentRequest from "@/assets/icons/intent-request--scale-out 1.svg";
 import CustomItems from "@/components/customization/CustomItems";
 import CustomizationPanel from "@/components/customization/CustomizationPanel";
+import Link from "next/link";
+
+import CardImg1 from "@/assets/custom-card/product-img2.png";
+import CardImg2 from "@/assets/custom-card/product-img1.png";
+import CardImg3 from "@/assets/custom-card/product-img3.png";
+import CardImg4 from "@/assets/custom-card/product-img4.png";
+import CardImg5 from "@/assets/custom-card/product-img5.png";
+
+export interface Product {
+  id: number;
+  heading:string;
+  subheading:string;
+  price:string;
+  Image:any;
+}
 import WavyCanvas from "@/components/canvas/WavyCanvas";
 
 const Customization = () => {
   const [navigateToSettings, setNavigateToSettings] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [selectedItem, setSelectedTtem] = useState<number>(1);
+
+  const [products] = useState<Product[]>([
+    { id: 1,
+      heading:'Evo',
+      subheading:'10평',
+      price:"￦35,000,000~",
+      Image:CardImg1,
+   },
+   {  id: 2  ,
+      heading:'Nova',
+      subheading:'10평',
+      price:"￦35,000,000~",
+      Image:CardImg2,
+   },
+   { 
+      id: 3,  
+      heading:'Max',
+      subheading:'10평',
+      price:"￦35,000,000~",
+      Image:CardImg3,
+    },
+    { 
+      id:4,
+      heading:'Studio',
+      subheading:'10평',
+      price:"￦35,000,000~",
+      Image:CardImg4,
+    },
+    { 
+      id: 5,
+      heading:'Mini',
+      subheading:'10평',
+      price:"￦35,000,000~",
+       Image:CardImg5,
+    },
+    { 
+      id: 6,
+      heading:'Mini',
+      subheading:'10평',
+      price:"￦35,000,000~",
+      Image:CardImg5,
+    },
+    { 
+      id: 7,
+      heading:'Mini',
+      subheading:'10평',
+      price:"￦35,000,000~",
+      Image:CardImg5,
+    },
+  ])
+  const [selectedImage,setSelectedImage] = useState(products.find(x=>x.id===selectedItem)?.Image);
+
+
+  const handleSelectedItem = (id:number)=>{
+   setSelectedTtem(id);
+  }
+  useEffect(()=>{
+    setSelectedImage(products.find(x=>x.id === selectedItem)?.Image);
+  },[selectedItem])
 
   const moveToCustomSettings = (value: boolean) => {
     console.log(value);
     setNavigateToSettings(value);
   };
 
+  const handleMenuToggle = () => {
+    setOpenMenu((prev) => !prev)
+  }
+  
   return (
     <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
       <div className="w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden">
@@ -40,10 +119,10 @@ const Customization = () => {
           }`}
         >
           <div className="absolute top-0 left-0  w-full">
-            <CustomItems navigateToSettings={moveToCustomSettings} />
+            <CustomItems navigateToSettings={moveToCustomSettings} products={products} selectedItem={selectedItem} handleSelectedItem={handleSelectedItem} />
           </div>
           <div className="absolute top-0 left-[100%] w-full">
-            <CustomizationPanel />
+            <CustomizationPanel handleMenuToggle={handleMenuToggle}  openMenu={openMenu} />
           </div>
         </div>
       </div>
