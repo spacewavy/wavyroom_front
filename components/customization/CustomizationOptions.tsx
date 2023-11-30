@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 
 interface option {
     optId?: number;
-    title: string;
-    price: number;
+    title: string ;
+    price: string | number;
     isSelected?: boolean;
     onClickHandler?: any
 }
@@ -64,7 +64,7 @@ const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps
                             optId={o.optId}
                             isSelected={o.isSelected}
                             title={o.title}
-                            price={o.price}
+                            price={o.price.toLocaleString()}
                             onClickHandler={() => {handleOptionChange(opt.id, o.optId)}}
                           />
                         );
