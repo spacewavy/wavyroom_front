@@ -216,9 +216,9 @@ const About = () => {
       <section>
         <div className="px-4 py-8 md:px-8 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
-            {companies.map((x) => {
+            {companies.map((x,index) => {
               return (
-                <div className="flex justify-center items-center flex-1 flex-col text-[12px] text-jetBlack text-center font-normal px-[60px] pb-8 border-[1px] border-gray">
+                <div key={index} className="flex justify-center items-center flex-1 flex-col text-[12px] text-jetBlack text-center font-normal px-[60px] pb-8 border-[1px] border-gray">
                   <div className="logo flex items-center min-h-[124px] md:min-h-[247px]">
                     <Image src={x.img} alt="logo"  /> 
                   </div>
