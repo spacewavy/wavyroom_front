@@ -30,9 +30,9 @@ const OptionSelection = () => {
         className="options"
       >
         <div className="grid grid-cols-2 gap-4 pt-4">
-            {options.map((o)=>{
+            {options.map((o, index)=>{
                 return (
-                    <div className={`p-4 flex justify-between items-center border-[1px] rounded-xl border-[#E5E5E5]} `}>
+                    <div key={`options-${index}`} className={`p-4 flex justify-between items-center border-[1px] rounded-xl border-[#E5E5E5]} `}>
                         <div className={`propName text-[12px] font-medium`}>{o.option}</div>
                         <div className="radioButton flex" onClick={()=>{}}>
                             <input
