@@ -96,7 +96,7 @@ const Customization = () => {
   const handleMenuToggle = () => {
     setOpenMenu((prev) => !prev)
   }
-  
+
   return (
     <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
       <div className="w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden">
