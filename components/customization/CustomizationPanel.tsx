@@ -7,9 +7,10 @@ import CustomizationOptions, { Card, CustomizationOptionsProps } from './Customi
 interface CustomizationPanelProps {
     handleMenuToggle:any;
     openMenu:boolean;
+    handlePopupOpen:any;
 }
 
-const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMenu}) => {
+const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMenu,handlePopupOpen}) => {
     const [estimatedQutation ,setEstimatedQutation] = useState(0)
     const [floorOptions ,setFloorOptions] = useState([
         {
@@ -398,9 +399,10 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
             </div>
           </div>
           <div
+            onClick={handlePopupOpen}
             className={`customizeButton flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
               !nextBtnDisable ? "bg-[#D2D2D2]" : "bg-offBlack"
-            }  `}
+            }`}
           >
             <span className={`text-[12px] font-medium hidden md:block`}>
               다음
