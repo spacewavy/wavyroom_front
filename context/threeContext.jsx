@@ -9,14 +9,19 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { USDZLoader } from "three/examples/jsm/loaders/USDZLoader";
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader.js";
-import { TransformControls } from "three/addons/controls/TransformControls.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-
-// import { TransformControls } from "@/components/canvas/controls/AllPinchTransformControls";
-// import PinchFirstPersonControls from "../components/canvas/controls/PinchFirstPersonControls";
-
+import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
+import {
+  acceleratedRaycast,
+  computeBoundsTree,
+  disposeBoundsTree,
+} from "three-mesh-bvh";
 import { useLoading } from "./loadingContext";
-import Logger from "../utils/logger";
+// import Logger from "../utils/logger";
+
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 
 const ThreeContext = createContext();
 
@@ -33,12 +38,12 @@ export const ThreeProvider = ({ children }) => {
 
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
-  const [transformControl, setTransformControl] = useState(null);
 
   const { setIsLoading } = useLoading();
 
   // initialize
   useEffect(() => {
+    console.log("Three Context initialized in Three Context");
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(247 / 255, 247 / 255, 247 / 255, 1);
     // const _renderer = new THREE.WebGLRenderer();
@@ -55,25 +60,14 @@ export const ThreeProvider = ({ children }) => {
 
     const _clock = new THREE.Clock();
 
-    // controls
-    const _transformControl = new TransformControls(
-      _camera,
-      _renderer.domElement
-    );
-
     // lighting
     const _ambientLight = new THREE.AmbientLight();
     _ambientLight.intensity = 1;
     _scene.add(_ambientLight);
 
     // camera
-    _camera.position.set(15, 10, 15);
+    _camera.position.set(0, 3, 15);
     _camera.lookAt(new THREE.Vector3(0, 0, 0));
-
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    _scene.add(cube);
 
     setOperatingSystem();
     setScene(_scene);
@@ -81,16 +75,16 @@ export const ThreeProvider = ({ children }) => {
     setCamera(_camera);
     setCameraControls(_cameraControls);
     setClock(_clock);
-    setTransformControl(_transformControl);
 
     setIsEditorLoaded(true);
   }, []);
 
-  useEffect(() => {
-    if (!isEditorLoaded) return;
-    // loadFile(FILE_EXTENSION.FBX, "../models/WROOM-MAX-A.fbx");
-    // loadFile(FILE_EXTENSION.OBJ, "../models/male02.obj");
-  }, [isEditorLoaded]);
+  // useEffect(() => {
+  //   if (!isEditorPreLoaded) return;
+  //   // loadFile(FILE_EXTENSION.FBX, "../models/WROOM-MAX-A.fbx");
+  //   // loadFile(FILE_EXTENSION.OBJ, "../models/male02.obj");
+  //   setIsEditorLoaded(true);
+  // }, [isEditorPreLoaded]);
 
   const setOperatingSystem = () => {
     const _appVersion = window.navigator.appVersion;
@@ -124,44 +118,6 @@ export const ThreeProvider = ({ children }) => {
     }
   };
 
-  const setAllShortcuts = (_enable, actionIndex = 1) => {
-    if (!isEditorLoaded) return;
-    cameraControls.enabled = _enable;
-    setShortcutEnabled(_enable);
-  };
-
-  const attachTransform = (_mesh) => {
-    transformControl.attach(_mesh);
-  };
-
-  const centeringMesh = (_mesh) => {
-    if (_mesh?.isMesh) {
-      centeringGeometry(_mesh.geometry);
-    } else {
-      centeringObject3D(_mesh);
-    }
-  };
-
-  const centeringGeometry = (
-    _geometry,
-    centerX = true,
-    centerY = true,
-    centerZ = true
-  ) => {
-    _geometry.computeBoundingBox();
-    _geometry.computeBoundingSphere();
-    const dx = centerX ? -1 * _geometry.boundingSphere.center.x : 0;
-    const dy = centerY ? -1 * _geometry.boundingSphere.center.y : 0;
-    const dz = centerZ ? -1 * _geometry.boundingSphere.center.z : 0;
-    _geometry.translate(dx, dy, dz);
-  };
-
-  const centeringObject3D = (_mesh) => {
-    let meshbBox = new THREE.Box3().setFromObject(_mesh); // Compute the bounding box of the mesh
-    const meshCenter = meshbBox.getCenter(new THREE.Vector3());
-    _mesh.position.set(-meshCenter.x, -meshCenter.y, -meshCenter.z);
-  };
-
   const deleteMeshByUuid = (_uuid) => {
     const _mesh = scene.getObjectByProperty("uuid", _uuid);
     if (!_mesh) return;
@@ -180,7 +136,6 @@ export const ThreeProvider = ({ children }) => {
           : child?.material?.dispose();
       }
     });
-    transformControl.detach();
     setSelectedMeshUuidsForAction([
       ...selectedMeshUuidsForAction.filter((item) => {
         item !== _mesh.uuid;
@@ -217,21 +172,6 @@ export const ThreeProvider = ({ children }) => {
     _mesh.frustumCulled = false;
   };
 
-  const importModel = (event) => {
-    const file = event.target.files[0];
-    if (!file) {
-      return;
-    }
-    const extension = file.name.split(".")[file.name.split(".").length - 1];
-    if (!extension) {
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-    loadFile(extension, url);
-    event.target.value = "";
-  };
-
   const loadFile = (extension, url) => {
     let loader;
     // setIsLoading(true);
@@ -261,84 +201,67 @@ export const ThreeProvider = ({ children }) => {
         break;
     }
 
-    const loadPerExtension = () => {
-      loader.load(
-        url,
-        function (model) {
-          Logger.log("==>model", extension, model);
-          let object;
-          if (
-            extension === FILE_EXTENSION.GLTF ||
-            extension === FILE_EXTENSION.GLB
-          ) {
-            object = model.scene;
-          } else if (extension === FILE_EXTENSION.PLY) {
-            const material = new THREE.MeshStandardMaterial({
-              roughness: 1,
-              metalness: 0,
-              side: THREE.DoubleSide,
-            });
-            object = new THREE.Mesh(model);
-            object.material = material;
-          } else {
-            object = model;
-          }
-          Logger.log("==>model2", object?.children.length, object);
-          if (object?.children.length) {
-            object.children.map((_obj) => {
-              _obj.traverse((child) => {
-                child.receiveShadow = true;
-                child.castShadow = true;
-                child.visible = true;
-                // if (child.material) {
-                //   child.material.length
-                //     ? child.material.map((item) => {
-                //         item.vertexColors = false
-                //       })
-                //     : (child.material.vertexColors = false)
-                // }
-                child.frustumCulled = false;
-                child.updateMatrixWorld();
-              });
-            });
-          } else {
-            object.receiveShadow = true;
-            object.castShadow = true;
-          }
-          object.scale.x = 1 / 100;
-          object.scale.y = 1 / 100;
-          object.scale.z = 1 / 100;
-          scene.add(object);
-          setIsLoading(false);
-        },
-        undefined,
-        function (e) {
-          Logger.log("error", e);
-          setIsLoading(false);
+    loader.load(
+      url,
+      function (model) {
+        let object;
+        if (
+          extension === FILE_EXTENSION.GLTF ||
+          extension === FILE_EXTENSION.GLB
+        ) {
+          object = model.scene;
+        } else {
+          object = model;
         }
-      );
-    };
 
-    loadPerExtension();
+        if (object?.children.length) {
+          object.children.map((_obj) => {
+            _obj.traverse((child) => {
+              child.receiveShadow = true;
+              child.castShadow = true;
+              child.visible = true;
+              if (child.geometry) {
+                let _geometry = child.geometry;
+                _geometry = BufferGeometryUtils.mergeVertices(_geometry);
+                child.geometry = _geometry;
+              }
+              child.frustumCulled = false;
+              child.updateMatrixWorld();
+            });
+          });
+        } else {
+          object.receiveShadow = true;
+          object.castShadow = true;
+        }
+
+        object.scale.x = 1 / 20;
+        object.scale.y = 1 / 20;
+        object.scale.z = 1 / 20;
+        scene.add(object);
+        // setIsLoading(false);
+      },
+      undefined,
+      function (e) {
+        // Logger.log("error", e);
+        // setIsLoading(false);
+      }
+    );
   };
 
   return (
     <ThreeContext.Provider
       value={{
         isEditorLoaded,
-        changeMeshColor,
-        deleteMeshByUuid,
-        deleteMeshByMesh,
         scene,
         camera,
         cameraControls,
         renderer,
-        importModel,
-        loadFile,
         clock,
-        transformControl,
+        changeMeshColor,
+        deleteMeshByUuid,
+        deleteMeshByMesh,
+        loadFile,
         setShortcutEnabled,
-        setAllShortcuts,
       }}
     >
       {children}
