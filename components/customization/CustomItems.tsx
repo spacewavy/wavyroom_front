@@ -5,6 +5,7 @@ import CardImg1 from "@/assets/custom-card/product-img2.png";
 import CardImg3 from "@/assets/custom-card/product-img3.png";
 import CardImg4 from "@/assets/custom-card/product-img4.png";
 import CardImg5 from "@/assets/custom-card/product-img5.png";
+import { WAVY_MODEL_PATHS } from "../../lib/utils";
 
 const CustomItems = ({ navigateToSettings }: any) => {
   const [selectedItem, setSelectedTtem] = useState<number>();
@@ -15,6 +16,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg1,
+      path: WAVY_MODEL_PATHS.EVO,
     },
     {
       id: 2,
@@ -22,6 +24,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg2,
+      path: WAVY_MODEL_PATHS.NOVA,
     },
     {
       id: 3,
@@ -29,6 +32,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg3,
+      path: WAVY_MODEL_PATHS.MAX_A,
     },
     {
       id: 4,
@@ -36,6 +40,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg4,
+      path: WAVY_MODEL_PATHS.STUDIO,
     },
     {
       id: 5,
@@ -43,6 +48,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
+      path: WAVY_MODEL_PATHS.MINI,
     },
     {
       id: 6,
@@ -50,6 +56,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
+      path: WAVY_MODEL_PATHS.EVO,
     },
     {
       id: 7,
@@ -57,6 +64,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
+      path: WAVY_MODEL_PATHS.EVO,
     },
   ];
 
@@ -87,6 +95,7 @@ const CustomItems = ({ navigateToSettings }: any) => {
               subheading={d.subheading}
               price={d.price}
               image={d.Image}
+              path={d.path}
               selectedItem={selectedItem}
               handleSelectedItem={handleSelectedItem}
             />

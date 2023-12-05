@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useThree } from "../../context/threeContext";
 
 export interface CustomCardProps {
   id: number;
@@ -7,6 +8,7 @@ export interface CustomCardProps {
   subheading: string;
   price: any;
   image: any;
+  path: string;
   selectedItem?: number;
   handleSelectedItem: any;
 }
@@ -17,14 +19,18 @@ const CustomizationCard = ({
   subheading,
   price,
   image,
+  path,
   selectedItem,
   handleSelectedItem,
 }: CustomCardProps) => {
+  const { changeModel, changeMeshVisibilityByName } = useThree();
+
   return (
     <div
       className="cursor-pointer"
       onClick={() => {
         handleSelectedItem(id);
+        changeModel(path);
       }}
     >
       <div
