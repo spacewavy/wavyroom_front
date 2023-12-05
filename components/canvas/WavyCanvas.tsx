@@ -13,7 +13,8 @@ const WavyCanvas = () => {
     cameraControls,
     renderer,
     clock,
-    loadFile,
+    changeModel,
+    deleteCurrentModel,
   } = useThree();
   const ref = useRef<HTMLDivElement>(null);
   const { setIsLoading } = useLoading();
@@ -25,9 +26,8 @@ const WavyCanvas = () => {
 
     setIsLoading(false);
     onWindowResize(false);
-    console.log("ANIMATE");
     ref?.current?.appendChild(renderer.domElement);
-    loadFile(FILE_EXTENSION.FBX, "../models/test.fbx");
+    // loadFile(FILE_EXTENSION.FBX, "../models/test.fbx");
     animate();
 
     window.addEventListener("resize", () => onWindowResize());
@@ -58,7 +58,13 @@ const WavyCanvas = () => {
 
   return (
     <div className="flex flex-1">
-      <div ref={ref} style={{ flex: 1 }}></div>
+      <div
+        ref={ref}
+        style={{ flex: 1 }}
+        onClick={() => {
+          console.log(scene);
+        }}
+      ></div>
     </div>
   );
 };

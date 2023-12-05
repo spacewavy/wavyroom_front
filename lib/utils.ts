@@ -27,3 +27,14 @@ export const OPERATING_SYSTEM = {
   UNIX: "Unix",
   LINUX: "Linux",
 };
+
+export const WAVY_MODEL_PATHS = {
+  MAX_RM: "WAVYROOM_MAX_RM.fbx",
+  MAX_PLUS: "WAVYROOM_MAX+.fbx",
+  MINI: "WAVYROOM_MINI.fbx",
+  NOVA: "WAVYROOM_NOVA.fbx",
+  STUDIO: "WAVYROOM_STUDIO.fbx",
+  STUDIO_PLUS: "WAVYROOM_STUDIO+.fbx",
+  EVO: "WROOM_EVO.fbx",
+  MAX_A: "WROOM-MAX-A.fbx",
+};

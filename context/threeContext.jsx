@@ -1,6 +1,10 @@
 "use client";
 
-import { FILE_EXTENSION, OPERATING_SYSTEM } from "@/lib/utils";
+import {
+  FILE_EXTENSION,
+  OPERATING_SYSTEM,
+  WAVY_MODEL_PATHS,
+} from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
 
@@ -24,6 +28,7 @@ THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
 THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
 
 const ThreeContext = createContext();
+const WAVY_MODEL = "wavy_model";
 
 export const useThree = () => useContext(ThreeContext);
 
@@ -38,6 +43,9 @@ export const ThreeProvider = ({ children }) => {
 
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
+  const [currentModelPath, setCurrentModelPath] = useState(
+    WAVY_MODEL_PATHS.EVO
+  );
 
   const { setIsLoading } = useLoading();
 
@@ -46,7 +54,6 @@ export const ThreeProvider = ({ children }) => {
     console.log("Three Context initialized in Three Context");
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(247 / 255, 247 / 255, 247 / 255, 1);
-    // const _renderer = new THREE.WebGLRenderer();
     const _renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer.setClearColor(0xffffff, 0);
     _renderer.autoClear = false;
@@ -79,12 +86,11 @@ export const ThreeProvider = ({ children }) => {
     setIsEditorLoaded(true);
   }, []);
 
-  // useEffect(() => {
-  //   if (!isEditorPreLoaded) return;
-  //   // loadFile(FILE_EXTENSION.FBX, "../models/WROOM-MAX-A.fbx");
-  //   // loadFile(FILE_EXTENSION.OBJ, "../models/male02.obj");
-  //   setIsEditorLoaded(true);
-  // }, [isEditorPreLoaded]);
+  useEffect(() => {
+    if (!isEditorLoaded) return;
+    deleteCurrentModel();
+    loadFile(FILE_EXTENSION.FBX, `../models/${currentModelPath}`);
+  }, [isEditorLoaded, currentModelPath]);
 
   const setOperatingSystem = () => {
     const _appVersion = window.navigator.appVersion;
@@ -103,19 +109,10 @@ export const ThreeProvider = ({ children }) => {
     }
   };
 
-  const shortCutHandler = (event) => {
-    if (!shortcutEnabled) return;
-    const isMac = os === OPERATING_SYSTEM.MAC;
-    const { shiftKey, metaKey, ctrlKey, code } = event;
-    const ctrlKeyByOs = isMac ? metaKey : ctrlKey;
-
-    if (!shiftKey && ctrlKeyByOs && code === "KeyQ") {
-      event.preventDefault();
-    } else if (!shiftKey && ctrlKeyByOs && code === "KeyW") {
-      event.preventDefault();
-    } else if (!shiftKey && ctrlKeyByOs && code === "KeyD") {
-      event.preventDefault();
-    }
+  const deleteCurrentModel = () => {
+    const _model = scene.getObjectByName(WAVY_MODEL);
+    if (!_model) return;
+    deleteMeshByMesh(_model);
   };
 
   const deleteMeshByUuid = (_uuid) => {
@@ -125,7 +122,6 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const deleteMeshByMesh = (_mesh) => {
-    outlinePass.selectedObjects = [];
     _mesh?.traverse((child) => {
       if (child?.geometry) child?.geometry?.dispose();
       if (child?.material) {
@@ -136,11 +132,6 @@ export const ThreeProvider = ({ children }) => {
           : child?.material?.dispose();
       }
     });
-    setSelectedMeshUuidsForAction([
-      ...selectedMeshUuidsForAction.filter((item) => {
-        item !== _mesh.uuid;
-      }),
-    ]);
     if (_mesh.parent !== null) {
       _mesh.parent.remove(_mesh);
     } else {
@@ -162,11 +153,9 @@ export const ThreeProvider = ({ children }) => {
     if (material.length) {
       material.map((item) => {
         item.color = newColor;
-        // item.needsUpdate = true
       });
     } else {
       material.color = newColor;
-      // material.needsUpdate = true
     }
     _mesh.material = material;
     _mesh.frustumCulled = false;
@@ -237,6 +226,8 @@ export const ThreeProvider = ({ children }) => {
         object.scale.x = 1 / 20;
         object.scale.y = 1 / 20;
         object.scale.z = 1 / 20;
+        //for identifying
+        object.name = WAVY_MODEL;
         scene.add(object);
         // setIsLoading(false);
       },
@@ -246,6 +237,16 @@ export const ThreeProvider = ({ children }) => {
         // setIsLoading(false);
       }
     );
+  };
+
+  const changeModel = (model) => {
+    setCurrentModelPath(model);
+  };
+
+  const changeMeshVisibilityByName = (_name, _visible) => {
+    const _model = scene.getObjectByName(_name);
+    if (!_model) return;
+    _model.visible = _visible;
   };
 
   return (
@@ -262,6 +263,9 @@ export const ThreeProvider = ({ children }) => {
         deleteMeshByMesh,
         loadFile,
         setShortcutEnabled,
+        changeModel,
+        deleteCurrentModel,
+        changeMeshVisibilityByName,
       }}
     >
       {children}
