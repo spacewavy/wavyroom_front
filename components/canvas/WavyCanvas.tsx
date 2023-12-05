@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import { useLoading } from "@/context/loadingContext";
 import { useThree } from "@/context/threeContext";
@@ -15,7 +17,6 @@ const WavyCanvas = () => {
   } = useThree();
   const ref = useRef<HTMLDivElement>(null);
   const { setIsLoading } = useLoading();
-  const animateRef = useRef<number>(0);
 
   useEffect(() => {
     if (!isEditorLoaded || !ref || !ref?.current) {
@@ -24,10 +25,10 @@ const WavyCanvas = () => {
 
     setIsLoading(false);
     onWindowResize(false);
-    cancelAnimationFrame(animateRef.current);
-    requestAnimationFrame(animate);
-    console.log("hihi");
-    // loadFile(FILE_EXTENSION.FBX, "../models/WROOM-MAX-A.fbx");
+    console.log("ANIMATE");
+    ref?.current?.appendChild(renderer.domElement);
+    loadFile(FILE_EXTENSION.FBX, "../models/test.fbx");
+    animate();
 
     window.addEventListener("resize", () => onWindowResize());
 
@@ -37,11 +38,10 @@ const WavyCanvas = () => {
   }, [ref, isEditorLoaded]);
 
   const animate = () => {
-    // requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
     const delta = clock.getDelta();
     cameraControls.update(delta);
     renderer.render(scene, camera);
-    animateRef.current = requestAnimationFrame(animate);
   };
 
   const onWindowResize = (removeChild = true) => {
