@@ -26,8 +26,6 @@ const WavyCanvas = () => {
 
     setIsLoading(false);
     onWindowResize(false);
-    ref?.current?.appendChild(renderer.domElement);
-    // loadFile(FILE_EXTENSION.FBX, "../models/test.fbx");
     animate();
 
     window.addEventListener("resize", () => onWindowResize());

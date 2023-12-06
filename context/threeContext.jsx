@@ -51,9 +51,10 @@ export const ThreeProvider = ({ children }) => {
 
   // initialize
   useEffect(() => {
-    console.log("Three Context initialized in Three Context");
+    // scene and backgorund
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(247 / 255, 247 / 255, 247 / 255, 1);
+
     const _renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer.setClearColor(0xffffff, 0);
     _renderer.autoClear = false;
@@ -65,12 +66,25 @@ export const ThreeProvider = ({ children }) => {
     _camera.setFocalLength(35);
     const _cameraControls = new OrbitControls(_camera, _renderer.domElement);
 
+    _cameraControls.enablePan = false;
+    _cameraControls.enableDamping = true;
+    _cameraControls.dampingFactor = 0.01;
+    _cameraControls.screenSpacePanning = false;
+    _cameraControls.maxPolarAngle = Math.PI / 2;
+
     const _clock = new THREE.Clock();
 
     // lighting
     const _ambientLight = new THREE.AmbientLight();
-    _ambientLight.intensity = 1;
-    _scene.add(_ambientLight);
+    _ambientLight.intensity = 3;
+
+    const _dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
+    _dirLight1.position.set(2, 2, 2);
+    _scene.add(_dirLight1);
+
+    const _dirLight2 = new THREE.DirectionalLight(0xffffff, 3);
+    _dirLight2.position.set(-2, -2, -2);
+    _scene.add(_dirLight2);
 
     // camera
     _camera.position.set(0, 3, 15);
@@ -218,22 +232,35 @@ export const ThreeProvider = ({ children }) => {
               child.updateMatrixWorld();
             });
           });
-        } else {
-          object.receiveShadow = true;
-          object.castShadow = true;
         }
 
-        object.scale.x = 1 / 20;
-        object.scale.y = 1 / 20;
-        object.scale.z = 1 / 20;
+        object.receiveShadow = true;
+        object.castShadow = true;
+        object.scale.x = 1 / 15;
+        object.scale.y = 1 / 15;
+        object.scale.z = 1 / 15;
         //for identifying
         object.name = WAVY_MODEL;
+
+        // calculate center
+        const _localCenter = new THREE.Vector3();
+        new THREE.Box3().setFromObject(object).getCenter(_localCenter);
+
+        // camera lookat center of obj
+        console.log("center is", _localCenter);
+        cameraControls.target.set(
+          _localCenter.x,
+          _localCenter.y,
+          _localCenter.z
+        );
+        camera.lookAt(_localCenter);
+
         scene.add(object);
         // setIsLoading(false);
       },
       undefined,
       function (e) {
-        // Logger.log("error", e);
+        console.log("error", e);
         // setIsLoading(false);
       }
     );
