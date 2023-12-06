@@ -159,7 +159,7 @@ const Customization = () => {
           </div>
           <div className="relative flex flex-1 flex-col group">
             <WavyCanvas />
-            <div className="absolute bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0">
+            <div className="absolute bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
               <Image src={IntentRequest} alt="icon" />
               <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
             </div>
