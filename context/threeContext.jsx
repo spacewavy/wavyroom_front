@@ -54,6 +54,7 @@ export const ThreeProvider = ({ children }) => {
     // scene and backgorund
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(247 / 255, 247 / 255, 247 / 255, 1);
+    // _scene.background = new THREE.Color(1, 0, 0);
 
     const _renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer.setClearColor(0xffffff, 0);
@@ -64,12 +65,15 @@ export const ThreeProvider = ({ children }) => {
 
     const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
     _camera.setFocalLength(35);
-    const _cameraControls = new OrbitControls(_camera, _renderer.domElement);
 
+    const _cameraControls = new OrbitControls(_camera, _renderer.domElement);
     _cameraControls.enablePan = false;
     _cameraControls.enableDamping = true;
-    _cameraControls.dampingFactor = 0.01;
+    _cameraControls.dampingFactor = 0.1;
     _cameraControls.screenSpacePanning = false;
+    _cameraControls.rotateSpeed = 2;
+    _cameraControls.minDistance = 5;
+    _cameraControls.maxDistance = 20;
     _cameraControls.maxPolarAngle = Math.PI / 2;
 
     const _clock = new THREE.Clock();
