@@ -1,6 +1,6 @@
+"use client"
 import Image from "next/image";
-import React from "react";
-import AboutMainImage from "@/public/images/about/about_main.png";
+import React, { useRef } from "react";
 import AboutDetail1 from "@/public/images/about/about_detail_1.png";
 import AboutDetail21 from "@/public/images/about/about_detail_2_1.png";
 import AboutDetail22 from "@/public/images/about/about_detail_2_2.png";
@@ -12,10 +12,10 @@ import ComapnyLogo5 from "@/public/images/about/about-company-logo-5.png";
 import ComapnyLogo6 from "@/public/images/about/about-company-logo-6.png";
 import ComapnyLogo7 from "@/public/images/about/about-company-logo-7.png";
 import ComapnyLogo8 from "@/public/images/about/about-company-logo-8.png";
-import COLORS from "../../lib/colors";
 import Label from "../../components/Label";
 
 const About = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const companies = [
     {
       img: ComapnyLogo1,
@@ -58,6 +58,13 @@ const About = () => {
       subtitle: '창업진흥원과 중소벤처기업부 주관의 초기창업패키지 정부 지원사업에 선정되어 성공적으로 사업을 성공시켰으며, 해당 기업들 중 우수기업으로 선정되었습니다.'
     },
   ]
+
+  const handleMuteToggle = () => {
+    if(videoRef.current){
+      videoRef.current.muted = !videoRef.current?.muted;
+    }
+  }
+  
   return (
     <main className="flex flex-col flex-1">
       <section>
@@ -74,11 +81,7 @@ const About = () => {
             </div>
           </div>
           <div className="w-full pb-8 lg:pb-16">
-            <Image
-              className="object-cover w-full h-full"
-              src={AboutMainImage}
-              alt="Main Image"
-            />
+            <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/video.mp4"></video>
           </div>
         </div>
       </section>
