@@ -45,7 +45,7 @@ export const ThreeProvider = ({ children }) => {
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
   const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.EVO
+    WAVY_MODEL_PATHS.STUDIO
   );
 
   const [loadPercent, setLoadPercent] = useState(0);
@@ -67,21 +67,6 @@ export const ThreeProvider = ({ children }) => {
     _renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     _renderer.toneMapping = THREE.ReinhardToneMapping;
 
-    const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
-    _camera.setFocalLength(35);
-
-    const _cameraControls = new OrbitControls(_camera, _renderer.domElement);
-    _cameraControls.enablePan = false;
-    _cameraControls.enableDamping = true;
-    _cameraControls.dampingFactor = 0.1;
-    _cameraControls.screenSpacePanning = false;
-    _cameraControls.rotateSpeed = 2;
-    _cameraControls.minDistance = 5;
-    _cameraControls.maxDistance = 20;
-    _cameraControls.maxPolarAngle = Math.PI / 2;
-
-    const _clock = new THREE.Clock();
-
     // lighting
     const _ambientLight = new THREE.AmbientLight();
     _ambientLight.intensity = 0.5;
@@ -95,11 +80,28 @@ export const ThreeProvider = ({ children }) => {
     _dirLight1.shadow.bias = -0.0001;
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
-    _scene.add(_ambientLight, _dirLight1, _hemisphereLight);
+    _scene.add(_ambientLight, _hemisphereLight);
 
+    const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
     // camera
     _camera.position.set(0, 3, 15);
+    _camera.add(_dirLight1);
     _camera.lookAt(new THREE.Vector3(0, 0, 0));
+    _camera.setFocalLength(35);
+    _scene.add(_camera);
+
+    const _cameraControls = new OrbitControls(_camera, _renderer.domElement);
+    _cameraControls.enablePan = false;
+    _cameraControls.enableDamping = true;
+    _cameraControls.dampingFactor = 0.1;
+    _cameraControls.screenSpacePanning = false;
+    _cameraControls.rotateSpeed = 2;
+    // _cameraControls.enableRotate = false;
+    _cameraControls.minDistance = 5;
+    _cameraControls.maxDistance = 20;
+    _cameraControls.maxPolarAngle = Math.PI / 2;
+
+    const _clock = new THREE.Clock();
 
     setOperatingSystem();
     setScene(_scene);
