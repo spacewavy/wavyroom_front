@@ -153,7 +153,7 @@ const Customization = () => {
     <>
       <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
         <div className="relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden">
-          <div className="absolute top-0 z-10 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
+          <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
             <Image src={LeftArrow} alt="leftarrow" />
             <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
           </div>
