@@ -87,10 +87,12 @@ export const ThreeProvider = ({ children }) => {
     _ambientLight.intensity = 0.5;
 
     const _dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
-    _dirLight1.position.set(20, 20, 30);
+    _dirLight1.position.set(40, 40, 30);
     _dirLight1.intensity = 5;
     _dirLight1.castShadow = true;
     _dirLight1.frustumCulled = true;
+    // deleting stripe shadow pattern
+    _dirLight1.shadow.bias = -0.0001;
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
     _scene.add(_ambientLight, _dirLight1, _hemisphereLight);
