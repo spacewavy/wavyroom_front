@@ -35,6 +35,7 @@ export const useThree = () => useContext(ThreeContext);
 export const ThreeProvider = ({ children }) => {
   const [os, setOs] = useState(OPERATING_SYSTEM.MAC);
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
+  const [isModelLoading, setIsModelLoading] = useState(false);
   const [shortcutEnabled, setShortcutEnabled] = useState(true);
 
   const [scene, setScene] = useState(null);
@@ -47,14 +48,16 @@ export const ThreeProvider = ({ children }) => {
     WAVY_MODEL_PATHS.EVO
   );
 
+  const [loadPercent, setLoadPercent] = useState(0);
+
   const { setIsLoading } = useLoading();
 
   // initialize
   useEffect(() => {
     // scene and backgorund
+    // setLoadPercent(1);
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(247 / 255, 247 / 255, 247 / 255, 1);
-    // _scene.background = new THREE.Color(1, 0, 0);
 
     const _renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer.setClearColor(0xffffff, 0);
@@ -62,6 +65,7 @@ export const ThreeProvider = ({ children }) => {
     _renderer.sortObjects = false;
     _renderer.shadowMap.enabled = true;
     _renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    _renderer.toneMapping = THREE.ReinhardToneMapping;
 
     const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
     _camera.setFocalLength(35);
@@ -80,15 +84,15 @@ export const ThreeProvider = ({ children }) => {
 
     // lighting
     const _ambientLight = new THREE.AmbientLight();
-    _ambientLight.intensity = 3;
+    _ambientLight.intensity = 0.5;
 
     const _dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
-    _dirLight1.position.set(2, 2, 2);
-    _scene.add(_dirLight1);
+    _dirLight1.position.set(45, 45, 30);
+    _dirLight1.intensity = 5;
+    _dirLight1.castShadow = true;
 
-    const _dirLight2 = new THREE.DirectionalLight(0xffffff, 3);
-    _dirLight2.position.set(-2, -2, -2);
-    _scene.add(_dirLight2);
+    const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
+    _scene.add(_ambientLight, _dirLight1, _hemisphereLight);
 
     // camera
     _camera.position.set(0, 3, 15);
@@ -181,7 +185,9 @@ export const ThreeProvider = ({ children }) => {
 
   const loadFile = (extension, url) => {
     let loader;
-    // setIsLoading(true);
+    setIsModelLoading(true);
+    setLoadPercent(0);
+
     switch (extension) {
       case FILE_EXTENSION.OBJ:
         loader = new OBJLoader();
@@ -207,7 +213,9 @@ export const ThreeProvider = ({ children }) => {
         loader = new FBXLoader();
         break;
     }
-
+    setTimeout(() => {
+      setLoadPercent(30);
+    }, [350]);
     loader.load(
       url,
       function (model) {
@@ -237,7 +245,6 @@ export const ThreeProvider = ({ children }) => {
             });
           });
         }
-
         object.receiveShadow = true;
         object.castShadow = true;
         object.scale.x = 1 / 15;
@@ -257,12 +264,25 @@ export const ThreeProvider = ({ children }) => {
           _localCenter.y,
           _localCenter.z
         );
+        camera.position.set(0, 3, 15);
         camera.lookAt(_localCenter);
 
+        setLoadPercent(80);
         scene.add(object);
+
+        setTimeout(() => {
+          setLoadPercent(100);
+          setTimeout(() => {
+            setIsModelLoading(false);
+          }, [500]);
+        }, [500]);
         // setIsLoading(false);
       },
-      undefined,
+      function (xhr) {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        // set for max 60%
+        // setLoadPercent(Math.ceil((xhr.loaded / xhr.total) * 60));
+      },
       function (e) {
         console.log("error", e);
         // setIsLoading(false);
@@ -297,6 +317,9 @@ export const ThreeProvider = ({ children }) => {
         changeModel,
         deleteCurrentModel,
         changeMeshVisibilityByName,
+        loadPercent,
+        isModelLoading,
+        setLoadPercent,
       }}
     >
       {children}
