@@ -54,3 +54,17 @@ export interface ModelData {
   data: ModelItem[];
   error: string | null;
 }
+export interface AboutReputationItem {
+  id:string;
+  order: number;
+  imageURL: string;
+  title: string;
+  content: string;
+  writenAt: string;
+  createdAt: string;
+  updatedAt: string
+}
+export interface AboutReputationData {
+  data: AboutReputationItem[];
+  error: string | null;
+}
