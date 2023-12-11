@@ -1,22 +1,23 @@
+"use client"
+import { useRef } from "react";
 import ImageNova from "@/assets/Products/Nova.svg";
-import SidebarProduct from "@/assets/Products/SidebarProduct.png";
 import ProductCard, { ProductAllCard } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
-import { Button as CommonButton } from "@/components/ui/button";
-import Image from "next/image";
 import Label from "../components/Label";
 
 const Home = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMuteToggle = () => {
+    if(videoRef.current){
+      videoRef.current.muted = !videoRef.current?.muted;
+    }
+  }
   return (
     <main className="flex flex-col flex-1">
       <section className="md:px-8 md:pb-8 lg:pb-16">
         <div className="relative w-full aspect-[1376/744]">
-          <Image
-            layout="fill"
-            objectFit="cover"
-            src={SidebarProduct}
-            alt="Main Image"
-          />
+          <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/mainPageVideo.mp4"></video>
         </div>
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
