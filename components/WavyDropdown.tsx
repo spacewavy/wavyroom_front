@@ -153,9 +153,7 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
       }}
       options={options}
       defaultValue={defaultValue}
-      onChange={(newValue) => {
-        console.log(newValue);
-      }}
+      onChange={onChange}
     />
   );
 };
