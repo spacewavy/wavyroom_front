@@ -1,9 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import ProductCard from "../../components/ProductCard";
-import ImageNova from "@/assets/Products/Nova.svg";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchModelData } from "../redux/actions/modelActions";
+import { AnyAction } from "redux";
+import { RootState } from "../redux/reducers";
+import {ModelItem} from "../redux/types"
 
 const Models = () => {
-  const MODELS = [];
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(
+    (state: RootState) => state.model
+  );
+
+  useEffect(()=>{
+    dispatch(fetchModelData()  as unknown as AnyAction)
+  },[])
+
+
   return (
     <main className="flex flex-col flex-1">
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
@@ -14,12 +28,15 @@ const Models = () => {
         </div>
       </section>
       <section>
-        <div className="flex flex-1 flex-col">
-          <ProductCard image={ImageNova} name="Nova" value="100,000,000원~" />
-          <ProductCard image={ImageNova} name="Nova" value="100,000,000원~" />
-          <ProductCard image={ImageNova} name="Nova" value="100,000,000원~" />
-          <ProductCard image={ImageNova} name="Nova" value="100,000,000원~" />
+        {!error && (
+          <div className="flex flex-1 flex-col">
+          {data.map((item:ModelItem,index:number)=>{
+            return (
+              <ProductCard key={index} image={item.representativeImageURL} name={item.name} value={item.minPrice} purpose={item.purpose[0]} />
+            )
+          })}
         </div>
+        )}
       </section>
     </main>
   );

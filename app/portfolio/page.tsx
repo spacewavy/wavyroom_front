@@ -1,58 +1,36 @@
 "use client";
 // hmmm...
 
-import React from "react";
-import Image from "next/image";
-import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
-import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
+import React, { useEffect } from "react";
 import WavyDropdown from "@/components/WavyDropdown";
 import PortfolioCard from "../../components/PortfolioCard";
-import PortfolioModal from "../../components/PortfolioModal";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPortfolioData } from "../redux/actions/portfolioActions";
+import { AnyAction } from "redux";
+import { RootState } from "../redux/reducers";
+import {PortfolioItem} from "../redux/types"
 
 const Portfolio = () => {
-  const PORTFOLIO = [
-    {
-      address: "990 헬렌 에브뉴, 서니베일, 캘리포니아",
-      type: "Evo",
-      size: 8,
-      image: PortfolioImage,
-    },
-    {
-      address: "990 헬렌 에브뉴, 서니베일, 캘리포니아",
-      type: "Evo",
-      size: 8,
-      image: PortfolioImage,
-    },
-    {
-      address: "990 헬렌 에브뉴, 서니베일, 캘리포니아",
-      type: "Evo",
-      size: 8,
-      image: PortfolioImage,
-    },
-    {
-      address: "990 헬렌 에브뉴, 서니베일, 캘리포니아",
-      type: "Evo",
-      size: 8,
-      image: PortfolioImage,
-    },
-    {
-      address: "990 헬렌 에브뉴, 서니베일, 캘리포니아",
-      type: "Evo",
-      size: 8,
-      image: PortfolioImage,
-    },
-  ];
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(
+    (state: RootState) => state.portfolio
+  );
+
+  useEffect(()=>{
+    dispatch(fetchPortfolioData('all')  as unknown as AnyAction)
+  },[])
+
 
   const OPTIONS = [
     { value: "all", label: "전체" },
-    { value: "small", label: "~10평" },
-    { value: "medium", label: "11~20평" },
-    { value: "large", label: "20~30평" },
-    { value: "xLarge", label: "30평~" },
+    { value: "toTen", label: "~10평" },
+    { value: "elevenToTwenty", label: "11~20평" },
+    { value: "twentyToThirty", label: "20~30평" },
+    { value: "moreThanThirty", label: "30평~" },
   ];
 
   const onDropdownChange = (newValue: any) => {
-    console.log(newValue);
+    dispatch(fetchPortfolioData(newValue.value)  as unknown as AnyAction)
   };
 
   return (
@@ -71,11 +49,13 @@ const Portfolio = () => {
             />
           </div>
         </div>
+        {!error && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 md:gap-y-8 lg:gap-y-12 py-4 md:py-8">
-          {PORTFOLIO.map((item, index) => (
+          {data.map((item:PortfolioItem, index:number) => (
             <PortfolioCard key={index} portfolio={item} />
           ))}
         </div>
+        )}  
       </section>
     </main>
   );
