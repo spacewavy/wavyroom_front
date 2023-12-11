@@ -1,63 +1,28 @@
 "use client"
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import AboutDetail1 from "@/public/images/about/about_detail_1.png";
 import AboutDetail21 from "@/public/images/about/about_detail_2_1.png";
 import AboutDetail22 from "@/public/images/about/about_detail_2_2.png";
-import ComapnyLogo1 from "@/public/images/about/about-company-logo-1.png";
-import ComapnyLogo2 from "@/public/images/about/about-company-logo-2.png";
-import ComapnyLogo3 from "@/public/images/about/about-company-logo-3.png";
-import ComapnyLogo4 from "@/public/images/about/about-company-logo-4.png";
-import ComapnyLogo5 from "@/public/images/about/about-company-logo-5.png";
-import ComapnyLogo6 from "@/public/images/about/about-company-logo-6.png";
-import ComapnyLogo7 from "@/public/images/about/about-company-logo-7.png";
-import ComapnyLogo8 from "@/public/images/about/about-company-logo-8.png";
 import Label from "../../components/Label";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/reducers";
+import { fetchAboutReputationData } from "../redux/actions/aboutReputationActions";
+import { AnyAction } from "redux";
+import {AboutReputationItem} from "../redux/types"
+
 
 const About = () => {
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(
+    (state: RootState) => state.aboutReputataion
+  );
+
+  useEffect(()=>{
+    dispatch(fetchAboutReputationData()  as unknown as AnyAction)
+  },[])
   const videoRef = useRef<HTMLVideoElement>(null);
-  const companies = [
-    {
-      img: ComapnyLogo1,
-      title: '현대리바트의 전략적 투자 유치',
-      subtitle: '국내 가구업계 선두주자인 현대리바트로부터 전략적 투자유치를통해 인테리어 가구, 자재, 하드웨어 등 고품질의 제품을 웨이비룸에 적용시키게 되었습니다.'
-    },
-    {
-      img: ComapnyLogo2,
-      title: 'LG전자의 모듈러홈 제작',
-      subtitle: 'LG전자 모듈러홈 제품들을 스페이스웨이비의 R&D와 제작 노하우를 통해 완성하였습니다. 높은 기술을 보유하고있는 LG전자의 에너지시스템과 가전을 통하여 더욱더 가치있는 모듈러주택의 미래를 제시하게 되었습니다.'
-    },
-    {
-      img: ComapnyLogo3,
-      title: '정주영 창업경진대회 우수상 수상',
-      subtitle: '109:1의 경쟁률을 뚫고 스타트업의 등용문이라 불리는 정주영창업경진대회에 선정되었습니다. 12개의 선정 팀 중 스페이스웨이비는 우수상을 수상하며 가파르게 성장하는 기업으로 가는 발판을 마련하였습니다.'
-    },
-    {
-      img: ComapnyLogo4,
-      title: '디캠프 D-Day 선정 팀',
-      subtitle: '은행권청년창업재단(D.Camp)의 2021년 D-Day 데모데이 팀으로 선정되어 성공적인 피칭을 하였습니다.'
-    },
-    {
-      img: ComapnyLogo5,
-      title: '임팩트 데모데이 장려상 수상',
-      subtitle: '재단법인 홍합밸리와 교보에서 주관한 임팩트 데모데이 참여에 선정되었으며, 장려상을 수상하여 친환경적인 사업의 가능성을 선보였습니다.'
-    },
-    {
-      img: ComapnyLogo6,
-      title: '아산나눔재단 마루 Alumni',
-      subtitle: '아산나눔재단의 스타트업 프로그램에 선정되어 1년6개월 동안 MARU로부터 사무공간, 자문, 컨설팅 등의 지원을 받았습니다. 이제는 MARU의 Alumni 기업이되어 스타트업의 활성한 생태계를 위해서 노력하고 있습니다.'
-    },
-    {
-      img: ComapnyLogo7,
-      title: '한국건축가협회(KIA) 정회원',
-      subtitle: '한국건축가협회(Korean Institute of Architects)의 정회원으로서 건축가 및 건축업계의 네트워크를 통하여 교류하고 있습니다.'
-    },
-    {
-      img: ComapnyLogo8,
-      title: '초기창업패키지 우수기업 선정',
-      subtitle: '창업진흥원과 중소벤처기업부 주관의 초기창업패키지 정부 지원사업에 선정되어 성공적으로 사업을 성공시켰으며, 해당 기업들 중 우수기업으로 선정되었습니다.'
-    },
-  ]
+
 
   const handleMuteToggle = () => {
     if(videoRef.current){
@@ -216,23 +181,25 @@ const About = () => {
           </div>
         </div>
       </section>
+      {!error && (
       <section>
         <div className="px-4 py-8 md:px-8 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
-            {companies.map((x,index) => {
+            {data.map((x:AboutReputationItem,index:number) => {
               return (
                 <div key={index} className="flex justify-center items-center flex-1 flex-col text-[12px] text-jetBlack text-center font-normal px-[60px] pb-8 border-[1px] border-gray">
                   <div className="logo flex items-center min-h-[124px] md:min-h-[247px]">
-                    <Image src={x.img} alt="logo"  /> 
+                    <Image src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${x.imageURL}`} alt="logo" width={247} height={247}  /> 
                   </div>
                   <div className="title mb-4">{x.title}</div>
-                  <div className="subTitle">{x.subtitle}</div>
+                  <div className="subTitle">{x.content}</div>
                 </div>
               )
             })}
           </div>
         </div>
       </section>
+      )}
       <section className="p-4 md:p-8">
         <div className="flex flex-1 flex-col bg-offBlack items-center justify-center gap-4 px-4 py-24 md:py-42">
           <div className="text-white text-[14px] md:text-[24px]">
