@@ -1,11 +1,24 @@
 "use client"
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import ImageNova from "@/assets/Products/Nova.svg";
 import ProductCard, { ProductAllCard } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
 import Label from "../components/Label";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchModelData } from "../app/redux/actions/modelActions";
+import { AnyAction } from "redux";
+import { RootState } from "../app/redux/reducers";
+import {ModelItem} from "../app/redux/types"
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(
+    (state: RootState) => state.model
+  );
+
+  useEffect(()=>{
+    dispatch(fetchModelData()  as unknown as AnyAction)
+  },[])
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMuteToggle = () => {
@@ -39,12 +52,11 @@ const Home = () => {
         </h1>
       </section>
       <section className="grid w-full grid-cols-1 lg:grid-cols-2">
-        <ProductCard image={ImageNova} name="Nova" value="100,000,000원~" />
-        <ProductCard image={ImageNova} name="Evo" value="78,000,000원~" />
-        <ProductCard image={ImageNova} name="Max" value="65,000,000원~" />
-        <ProductCard image={ImageNova} name="Studio" value="46,000,000원~" />
-        <ProductCard image={ImageNova} name="Mini" value="35,000,000원~" />
-        <ProductAllCard />
+      {data.map((item:ModelItem,index:number)=>{
+            return (
+              <ProductCard key={index} image={item.representativeImageURL} name={item.name} value={item.minPrice} purpose={item.purpose[0]} />
+            )
+      })}
       </section>
     </main>
   );
