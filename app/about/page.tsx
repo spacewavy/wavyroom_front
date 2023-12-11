@@ -81,7 +81,7 @@ const About = () => {
             </div>
           </div>
           <div className="w-full pb-8 lg:pb-16">
-            <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/video.mp4"></video>
+            <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/aboutVideo.mp4"></video>
           </div>
         </div>
       </section>
