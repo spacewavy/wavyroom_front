@@ -2,17 +2,12 @@ import Image, { StaticImageData } from "next/image";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
+import {PortfolioItem} from "../app/redux/types"
 
 export interface PortfolioCardProps {
-  portfolio: PortfolioProps;
+  portfolio: PortfolioItem;
 }
 
-export interface PortfolioProps {
-  address: string;
-  type: string;
-  size: number;
-  image: StaticImageData;
-}
 
 const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,7 +22,7 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
         <Image
           layout="fill"
           objectFit="cover"
-          src={portfolio.image}
+          src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${portfolio.images[0]}`}
           alt="portfolio img"
         />
       </div>
@@ -39,11 +34,11 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
             setIsModalOpen(true);
           }}
         >
-          <div className="text-[14px]">{portfolio.address}</div>
+          <div className="text-[14px]">{portfolio.location}</div>
           <Image alt="right-arrow" src={RightArrowBlack} />
         </div>
         <div className="flex flex-row gap-2">
-          <div className="text-[14px] font-medium">{portfolio.type}</div>
+          <div className="text-[14px] font-medium">{portfolio.model}</div>
           <div className="text-[14px] font-medium">{portfolio.size}평</div>
         </div>
       </div>

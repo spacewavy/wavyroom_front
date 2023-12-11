@@ -1,9 +1,12 @@
-import { combineReducers } from 'redux';
-import fetchDataReducer from './mediaReducers';
+import { combineReducers } from "redux";
+import fetchDataReducer from "./mediaReducers";
+import fetchPortfolioDataReducer from "./portfolioReducers";
+import fetchModelDataReducer from "./modelReducer";
 
 const rootReducer = combineReducers({
   media: fetchDataReducer,
-  // Add other reducers if any
+  portfolio: fetchPortfolioDataReducer,
+  model: fetchModelDataReducer,
 });
 
 export default rootReducer;
