@@ -17,7 +17,9 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
   };
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col" onClick={() => {
+      setIsModalOpen(true);
+    }}>
       <div className="relative w-full aspect-[3/2]">
         <Image
           layout="fill"
@@ -29,10 +31,6 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
       <div className="flex flex-col py-2 gap-2">
         <div
           className="flex flex-row items-center justify-between cursor-pointer"
-          onClick={() => {
-            console.log("open portfolio detail modal");
-            setIsModalOpen(true);
-          }}
         >
           <div className="text-[14px]">{portfolio.location}</div>
           <Image alt="right-arrow" src={RightArrowBlack} />

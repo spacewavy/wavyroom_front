@@ -259,7 +259,7 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
               {"공간의 제품화"}에 집중합니다.
             </span>
           </div>
-          <section className="px-[24px] sm:px-8 py-4 mb-4">
+          <section className="px-[24px] sm:px-8 py-4 mb-4 border-t-[1px] border-[wavyGary]">
             <div className="flex flex-col">
               <div className="flex justify-between">
                 <span className="optionName text-[14px] font-medium">
@@ -342,7 +342,7 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
       )}
 
       <div className="footer w-full">
-        <section className="flex flex-col p-4 md:px-8 md:pt-8 md:pb-4 gap-2 items-center border-t-2">
+        <section className="flex flex-col p-4 md:px-8 md:pt-8 md:pb-4 gap-2 items-center border-t-4">
           <div className="flex justify-between w-full items-end">
             <div className="flex-col flex">
               <span className="text-[12px] font-normal text-darkGray">
