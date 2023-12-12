@@ -4,6 +4,7 @@ import ImageNova from "@/assets/Products/Nova.svg";
 import ProductCard, { ProductAllCard } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
 import Label from "../components/Label";
+import Button from "@/components/Button";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchModelData } from "../app/redux/actions/modelActions";
 import { AnyAction } from "redux";
@@ -41,6 +42,9 @@ const Home = () => {
         <p className="font-light text-bodySM md:text-[14px] lg:text-bodyLG">
           나에게 맞는 모델을 선택하여 나만의 공간을 만들어 보세요
         </p>
+        <div className="flex flex-row gap-4 pt-[32px] font-size: 12px;">
+              <Button name="주문하기" arrow varient="default" />
+            </div>
       </section>
       <section className="py-8 md:py-16 lg:py-24">
         <ProductCarousel />
@@ -51,12 +55,13 @@ const Home = () => {
           혁신적인 제품으로 <br /> 재탄생하다
         </h1>
       </section>
-      <section className="grid w-full grid-cols-1 lg:grid-cols-2">
+      <section className="grid w-full grid-cols-1 lg:grid-cols-2 mb-[32px]">
       {data.map((item:ModelItem,index:number)=>{
             return (
               <ProductCard key={index} image={item.representativeImageURL} name={item.name} value={item.minPrice} purpose={item.purpose[0]} />
             )
       })}
+      <ProductAllCard />
       </section>
     </main>
   );

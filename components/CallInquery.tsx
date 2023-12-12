@@ -6,7 +6,7 @@ const CallInquery = () => {
   return (
     <a
       href="tel:+82-02-6085-1896"
-      className="flex flex-row items-center bg-transparent rounded-full px-4 py-2 gap-1 border border-black"
+      className="flex  items-center bg-transparent rounded-full px-2 py-2 gap-[5px] border border-black"
     >
       <div className="align-middle text-labelSM">문의</div>
       <div className="align-middle text-darkGray text-labelSM">

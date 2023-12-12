@@ -159,7 +159,7 @@ const Customization = () => {
           </div>
           <div className="relative flex flex-1 flex-col group">
             <WavyCanvas />
-            <div className="absolute z-30 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
+            <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
               <Image src={IntentRequest} alt="icon" />
               <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
             </div>
@@ -192,7 +192,7 @@ const Customization = () => {
       {showOverlay && (
         <div
           id="overlay"
-          className="fixed w-full h-full text-black bg-black bg-opacity-50"
+          className="fixed w-full h-full text-black bg-black bg-opacity-50 z-10"
           onClick={handlePopupClose}
         >
           <div
@@ -234,7 +234,7 @@ const Customization = () => {
               <div>
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-16"
-                  type="text"
+                  type="number"
                   placeholder="휴대전화번호를 입력하세요"
                   onChange={(e) => {
                     handleFormElement(e, "phone");

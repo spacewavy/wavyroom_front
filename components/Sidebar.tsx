@@ -46,6 +46,7 @@ const sidebarItemChildrens: SidebarItemChildren[] = [
 ];
 
 const sidebarItems: SidebarItem[] = [
+  { id: 1, title: "메뉴", link: "/" },
   { id: 1, title: "회사소개", link: "/about" },
   { id: 2, title: "모델", childrens: sidebarItemChildrens },
   { id: 3, title: "주문방법", link: "/how-to-order" },
