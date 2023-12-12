@@ -85,13 +85,7 @@ const SheetContent = React.forwardRef<
       >
         {children}
         {menuType !== 'menu' && (
-          <SheetPrimitive.Close
-          className="absolute right-8 top-8 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
-          onClick={onCloseClick}
-        >
-          <X className="w-8 h-8" />
-          <span className="sr-only">Close</span>
-        </SheetPrimitive.Close>
+        <span className="absolute right-8 top-8" onClick={onCloseClick}><X className="w-8 h-8" /></span>
         )}      
       </SheetPrimitive.Content>
     </SheetPortal>

@@ -96,7 +96,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "w-full md:w-[240px] flex md:flex gap-8 flex-col p-8 md:border-r md:border-r-black",
+          "w-full lg:w-[240px] flex lg:flex gap-8 flex-col p-8 md:border-r md:border-r-black",
           !!selectedMenuId && "hidden"
         )}
       >
@@ -155,7 +155,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "w-full md:w-[400px] flex md:flex gap-12 flex-col p-8 md:border-r md:border-r-black",
+          "w-full lg:w-[400px] flex lg:flex gap-12 flex-col p-8 md:border-r md:border-r-black",
           !!selectedListId && "hidden"
         )}
       >
@@ -221,7 +221,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   const renderModelDetail = () => {
     if (!selectedListId) return;
     return (
-      <section className="flex flex-col flex-1">
+      <section className="flex flex-col flex-1 w-[100vw]">
         <Image
           className="object-cover h-[420px] w-full sm:block hidden"
           src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${selectedProduct.representativeImageURL}`}
@@ -362,7 +362,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <SheetContent
           side="left"
           className={cn(
-            "max-w-full w-full sm:max-w-full md:w-fit flex gap-0 !p-0 bg-gray",
+            "max-w-full w-full sm:max-w-full lg:w-fit flex gap-0 !p-0 bg-gray",
             !!selectedListId && "md:w-full"
           )}
           onInteractOutside={closeSidebar}
