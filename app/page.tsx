@@ -17,7 +17,7 @@ const Home = () => {
     <main className="flex flex-col flex-1">
       <section className="md:px-8 md:pb-8 lg:pb-16">
         <div className="relative w-full aspect-[1376/744]">
-          <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/homeVideo.mp4"></video>
+          <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/homePageVideo.mp4"></video>
         </div>
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
