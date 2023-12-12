@@ -34,7 +34,7 @@ const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps
               <section className="px-[24px] sm:px-8 py-4" key={`opt-${index}`}>
                 <div className="flex flex-col">
                   <div className="flex justify-between">
-                    <div className='flex gap-2'>
+                    <div className='flex gap-2 items-center'>
                       <span
                         className='optionName text-[14px] font-normal text-jetBlack'
                       >

@@ -73,7 +73,7 @@ const Footer = () => {
             </p>
           </div>
           <CommonButton
-            className="p-0 order-3 !text-labelMD bg-transparent"
+            className="p-0 order-3 !text-labelMD bg-transparent items-end"
             variant="ghostOrange"
             onClick={scrollToTop}
           >
