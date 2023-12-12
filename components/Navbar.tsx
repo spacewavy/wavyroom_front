@@ -34,7 +34,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
               />
             </Link>
             <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto md:gap-4 lg:gap-6">
-              <div className="hidden sm:flex">
+              <div className="hidden lg:flex">
                 <div className="flex items-center gap-5 lg:gap-32">
                   <div className="w-[100px]">
                     <div
@@ -88,7 +88,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                 <Link href="/customization">
                   <Button name="주문하기" arrow varient="default" />
                 </Link>
-                <div className="flex sm:hidden" onClick={() => openSidebar()}>
+                <div className="flex lg:hidden" onClick={() => openSidebar()}>
                   <Image
                     className="cursor-pointer"
                     src={isDark ? HamburgerWhiteIcon : HamburgerIcon}
