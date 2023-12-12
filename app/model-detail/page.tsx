@@ -48,32 +48,54 @@ const ModelDetail = () => {
   const DETAIL_INFO = [
     {
       title: "가격",
-      description: "￦72,000,000~",
+      description: "￦99,000,000~",
     },
     {
-      title: "디폴트 크기",
-      description: "8 평형 (28㎡) (3.3m W x 8m D Height: 3.3m)",
+      title: "규격",
+      description: "10평형",
     },
     {
-      title: "외부 색",
-      description: "Silver",
+      title: "평형 디테일",
+      description: "-",
     },
     {
-      title: "지붕 색",
-      description: "TBD",
+      title: "외장재",
+      description: "Prin Anodizing Aluminum",
+    }
+  ];
+
+  const DETAIL_INFO1= [
+    {
+      title: "외부색",
+      description: "에보니 블랙",
+    }
+  ];
+
+  const DETAIL_INFO2 = [
+    {
+      title: "단열",
+      description: "건축법 중부1지역 충족",
     },
     {
-      title: "스트럭쳐",
-      description: "CFS(Cold Formed Steel) 냉간성형강구조",
+      title: "골조 (스트럭쳐)",
+      description: "골조 (스트럭쳐)",
     },
     {
-      title: "마감",
-      description: "Prin Anodizing Aluminum (프린 아노다이징 알루미늄)",
+      title: "창호",
+      description: "현대리바트 37mm 로이 3중유리 22mm 페어 이중창",
+    },
+    {
+      title: "가구",
+      description: "현대리바트 E0 등급 친환경 가구",
     },
     {
       title: "용도",
-      description: "호텔 객실을 모듈화 한 것. 하이엔드 리조트, 펜션으로 적합",
+      description: "주거 숙박",
     },
+    {
+      title: "용도 설명",
+      description: "전원주택 세컨하우스 숙박시설로 활용 적합한 욕실 주방 포함된 구성",
+    }
   ];
 
   const [isDark, setIsDark] = useState(false);
@@ -215,9 +237,20 @@ const ModelDetail = () => {
               <div className="text-[28px] pb-4 border-b border-midGray group-[.is-dark]:text-white">
                 Evo 타입 상세정보
               </div>
+              <div className="grid grid-cols-2">
               {DETAIL_INFO.map((item, index) => {
                 return <InfoDetail key={"detail" + index} detail={item} />;
               })}
+              </div>
+              {DETAIL_INFO1.map((item, index) => {
+                return <InfoDetail key={"detail" + index} detail={item} />;
+              })}
+              <div className="grid grid-cols-2">
+              {DETAIL_INFO2.map((item, index) => {
+                return <InfoDetail key={"detail" + index} detail={item} />;
+              })}
+              </div>
+
               <div className="py-4 text-[12px] group-[.is-dark]:text-white">
                 - 웨이비룸을 처음으로 제품느낌나도록 메탈릭한 exterior finish를
                 사용
@@ -255,7 +288,7 @@ const ModelDetail = () => {
             >
               <div className="flex flex-col items-start md:flex-1">
                 <div className="group-[.is-dark]:text-white font-normal text-[14px]">
-                  Wavyroom X
+                노바 / <span className="text-[#B2B2B2]">주거용</span>
                 </div>
                 <div className="group-[.is-dark]:text-white text-[32px] md:text-[40px] lg:text-[58px] py-2">
                   Evo

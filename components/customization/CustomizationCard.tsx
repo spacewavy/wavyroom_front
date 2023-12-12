@@ -27,15 +27,15 @@ const CustomizationCard = ({
 
   return (
     <div
-      className="cursor-pointer"
+      className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA]" 
       onClick={() => {
         handleSelectedItem(id);
         changeModel(path);
       }}
     >
       <div
-        className={`flex justify-between px-4 py-[24px] md:p-[24px] mx-6 md:mx-8 lg:mx-4 hover:bg-[#F9F9FA] rounded-lg gap-2 ${
-          selectedItem === id ? "border-[1px] border-jetBlack bg-lightGray" : ""
+        className={`flex justify-between px-4 py-[24px] md:p-[24px] mx-6 md:mx-8 lg:mx-4 w-full" ${
+          selectedItem === id ? "bg-#F9F9FA" : ""
         } `}
       >
         <div>

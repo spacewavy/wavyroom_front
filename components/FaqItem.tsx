@@ -27,7 +27,7 @@ const FaqItem = ({
           ? "border-orange is-active"
           : isDark
           ? "border-gray"
-          : "border-white border-opacity-20"
+          : "border-gray border-opacity-50"
       } ${isDark ? "is-dark" : ""}`}
     >
       <div className="flex flex-row items-center justify-between">

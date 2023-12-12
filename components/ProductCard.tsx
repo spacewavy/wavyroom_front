@@ -12,7 +12,7 @@ export interface ProductCardProps {
 
 const ProductCard = ({ name, value, image, purpose }: ProductCardProps) => {
   return (
-    <div className="flex flex-col justify-between w-full h-full px-4 pt-16 pb-8 md:px-14 md:pt-16 md:pb-8 lg:px-8 lg:pt-32 lg:pb-8 border-t border-r border-gray hover:bg-lightGray gap-12">
+    <div className="flex flex-col justify-between w-full h-full px-4 pt-16 md:px-14 md:pt-16 lg:px-8 lg:pt-32 border-t border-r border-gray hover:bg-lightGray gap-12">
       <Image
         src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${image}`}
         width={1000}
