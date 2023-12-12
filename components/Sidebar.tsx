@@ -17,6 +17,11 @@ import SelectLang from "./SelectLang";
 import Button from "./Button";
 import Link from "next/link";
 import CallInquery from "./CallInquery";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/redux/reducers";
+import { fetchNavigationModelData } from "@/app/redux/actions/modelActions";
+import { AnyAction } from "redux";
+import { NavigationModelItem } from "@/app/redux/types";
 
 interface SidebarItemChildren {
   id: number;
@@ -51,7 +56,16 @@ const sidebarItems: SidebarItem[] = [
 
 const Sidebar = ({ open, setOpen, menuType }: any) => {
   const [selectedMenuId, setSelectedMenuId] = useState(0);
-  const [selectedListId, setSelectedListId] = useState(0);
+  const [selectedListId, setSelectedListId] = useState("");
+
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(
+    (state: RootState) => state.navigationModel
+  );
+
+  useEffect(() => {
+    dispatch(fetchNavigationModelData() as unknown as AnyAction);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -65,13 +79,13 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   );
 
   const selectedProduct = useMemo(
-    () => sidebarItemChildrens.find((obj) => obj.id === selectedListId),
+    () => data.find((obj: any) => obj.id === selectedListId),
     [selectedListId]
   );
 
   const initData = () => {
     setSelectedMenuId(menuType === "model" ? 2 : 0);
-    setSelectedListId(0);
+    setSelectedListId("");
   };
 
   const closeSidebar = () => {
@@ -145,81 +159,60 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           !!selectedListId && "hidden"
         )}
       >
-        <p className="text-lg pt-16">{selectedMenu?.title}</p>
+        <p className="text-lg pt-16">{selectedProduct?.title}</p>
         <ul className="flex flex-col flex-1 text-xs font-light">
-          {selectedMenu?.childrens?.map((obj, i) => (
-            <li key={obj.title}>
-              {obj.id === 6 ? (
-                <Link
-                  href="/models"
-                  onClick={closeSidebar}
-                  className={cn(
-                    "flex justify-between py-4 border-b text-black border-black items-center",
-                    i === 0 && "border-t",
-                    selectedListId > 0 &&
-                      obj.id !== selectedListId &&
-                      "!text-midGray !border-midGray"
-                  )}
-                >
-                  <span className="flex flex-1 text-sm">
-                    {obj.title}
-                  </span>
-                  <span className="flex flex-1 text-sm">
-                    {obj.desc}
-                  </span>
-                  <span className="flex flex-1 text-sm">
-                    {obj.rate}
-                  </span>
-                  <Image
-                    className="cursor-pointer"
-                    alt="right-arrow"
-                    src={
-                      obj.id === selectedListId || selectedListId === 0
-                        ? RightArrowBlack
-                        : RightArrowGray
-                    }
-                    width={24}
-                    height={24}
-                  />
-                </Link>
-              ) : (
-                <Link
-                  href=""
-                  className={cn(
-                    "flex justify-between py-4 border-b text-black border-black items-center",
-                    i === 0 && "border-t",
-                    selectedListId > 0 &&
-                      obj.id !== selectedListId &&
-                      "!text-midGray !border-midGray"
-                  )}
-                  onClick={() => {
-                    setSelectedListId(obj.id);
-                  }}
-                >
-                  <span className="flex flex-1 text-sm">
-                    {obj.title}
-                  </span>
-                  <span className="flex flex-1 text-sm">
-                    {obj.desc}
-                  </span>
-                  <span className="flex flex-1 text-sm">
-                    {obj.rate}
-                  </span>
-                  <Image
-                    className="cursor-pointer"
-                    alt="right-arrow"
-                    src={
-                      obj.id === selectedListId || selectedListId === 0
-                        ? RightArrowBlack
-                        : RightArrowGray
-                    }
-                    width={24}
-                    height={24}
-                  />
-                </Link>
-              )}
+          {data.map((obj: NavigationModelItem, i: number) => (
+            <li key={obj.name}>
+              <Link
+                href=""
+                className={cn(
+                  "flex justify-between py-4 border-b text-black border-black items-center",
+                  i === 0 && "border-t",
+                  selectedListId != "" &&
+                    obj.id !== selectedListId &&
+                    "!text-midGray !border-midGray"
+                )}
+                onClick={() => {
+                  setSelectedListId(obj.id);
+                }}
+              >
+                <span className="flex flex-1 text-sm">{obj.name}</span>
+                <span className="flex flex-1 text-sm">{obj.purpose[0]}</span>
+                <span className="flex flex-1 text-sm">{obj.size}</span>
+                <Image
+                  className="cursor-pointer"
+                  alt="right-arrow"
+                  src={
+                    obj.id === selectedListId || selectedListId === ""
+                      ? RightArrowBlack
+                      : RightArrowGray
+                  }
+                  width={24}
+                  height={24}
+                />
+              </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href="/models"
+              onClick={closeSidebar}
+              className={cn(
+                "flex justify-between py-4 border-b text-black border-black items-center "
+              )}
+            >
+              <span className="flex flex-1 text-sm">전체보기</span>
+              <span className="flex flex-1 text-sm"></span>
+              <span className="flex flex-1 text-sm"></span>
+              <Image
+                className="cursor-pointer"
+                alt="right-arrow"
+                src={RightArrowBlack}
+                width={24}
+                height={24}
+              />
+            </Link>
+          </li>
         </ul>
       </section>
     );
@@ -231,75 +224,115 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       <section className="flex flex-col flex-1">
         <Image
           className="object-cover h-[420px] w-full sm:block hidden"
-          src={SidebarProduct}
+          src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${selectedProduct.representativeImageURL}`}
           alt="Vercel Image"
           width={800}
           height={432}
         />
         <div className="w-full p-8 h-full">
-          <h2 className="h-14">{selectedProduct?.title}</h2>
+          <h2 className="h-14">{selectedProduct?.name}</h2>
           <ul className="flex flex-col flex-1 text-xs font-light">
-            <li
-              className={cn("grid grid-cols-3 py-4 gap-6 text-sm")}
-            >
+            <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
               <span className="truncate">
                 가격
                 <br />
-                ￦35,000,000~
+                {selectedProduct.minPrice}
               </span>
               <span className="truncate">
-                사이즈
+                가격
                 <br />
-                7평
+                {selectedProduct.size}
               </span>
               <span className="truncate">
-                사이즈
+                평형 디테일
                 <br />
-                7평
-              </span>
-            </li>
-            <li
-              className={cn("grid grid-cols-3 py-4 gap-6 text-sm")}
-            >
-              <span className="truncate">
-                외부 색
-                <br />
-                화이트
-                <br />
-                베이지
+                {selectedProduct.sizeDetail}
               </span>
               <span className="truncate">
-                외부 색
+                외장재
                 <br />
-                화이트
-                <br />
-                베이지
-              </span>
-              <span className="truncate">
-                외부 색
-                <br />
-                화이트
-                <br />
-                베이지
+                {selectedProduct.exteriorMaterial.map((x: any) => {
+                  return (
+                    <>
+                      <span>{x}</span>
+                      <br />
+                    </>
+                  );
+                })}
               </span>
             </li>
-            <li
-              className={cn("grid grid-cols-3 py-4 gap-6 text-sm")}
-            >
+            <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
               <span className="truncate">
-                스트럭쳐
+                외부색
                 <br />
-                정밀설계 광궤강골조
+                {selectedProduct.modelColors.map((x: any) => {
+                  return (
+                    <>
+                      <span>{x.name}</span>
+                      <br />
+                    </>
+                  );
+                })}
               </span>
               <span className="truncate">
-                클래딩
+                단열
                 <br />
-                2인치 정밀 공업
+                {selectedProduct.insulation}
               </span>
               <span className="truncate">
-                클래딩
+                골조 (스트럭쳐)
                 <br />
-                2인치 정밀 공업
+                {selectedProduct.structure}
+              </span>
+              <span className="truncate">
+                창호
+                <br />
+                {selectedProduct.windows.map((x: any) => {
+                  return (
+                    <>
+                      <span>{x}</span>
+                      <br />
+                    </>
+                  );
+                })}
+              </span>
+            </li>
+            <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
+              <span className="truncate">
+                가구
+                <br />
+                {selectedProduct.furniture.map((x: any) => {
+                  return (
+                    <>
+                      <span>{x}</span>
+                      <br />
+                    </>
+                  );
+                })}
+              </span>
+              <span className="truncate">
+                용도
+                <br />
+                {selectedProduct.purpose.map((x: any) => {
+                  return (
+                    <>
+                      <span>{x}</span>
+                      <br />
+                    </>
+                  );
+                })}
+              </span>
+              <span className="truncate">
+                용도 설명
+                <br />
+                {selectedProduct.purposeDetail.map((x: any) => {
+                  return (
+                    <>
+                      <span>{x}</span>
+                      <br />
+                    </>
+                  );
+                })}
               </span>
             </li>
           </ul>
@@ -323,7 +356,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         defaultOpen={false}
         onOpenChange={() => {
           setSelectedMenuId(0);
-          setSelectedListId(0);
+          setSelectedListId("");
         }}
       >
         <SheetContent

@@ -30,7 +30,7 @@ export interface PortfolioData {
   error: string | null;
 }
 
-export interface ModelItem {
+export interface NavigationModelItem {
   id: string;
   order: number;
   representativeImageURL: string;
@@ -50,19 +50,30 @@ export interface ModelItem {
   updatedAt: string;
   modelColors: string[];
 }
+export interface NavigationModelData {
+  data: NavigationModelItem[];
+  error: string | null;
+}
+export interface ModelItem {
+  id: string;
+  representativeImageURL: string;
+  name: string;
+  purpose: string[];
+  minPrice: number;
+}
 export interface ModelData {
   data: ModelItem[];
   error: string | null;
 }
 export interface AboutReputationItem {
-  id:string;
+  id: string;
   order: number;
   imageURL: string;
   title: string;
   content: string;
   writenAt: string;
   createdAt: string;
-  updatedAt: string
+  updatedAt: string;
 }
 export interface AboutReputationData {
   data: AboutReputationItem[];

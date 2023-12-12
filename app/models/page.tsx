@@ -1,22 +1,19 @@
 "use client";
 import React, { useEffect } from "react";
 import ProductCard from "../../components/ProductCard";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { fetchModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
-import {ModelItem} from "../redux/types"
+import { ModelItem } from "../redux/types";
 
 const Models = () => {
   const dispatch = useDispatch();
-  const { data, error } = useSelector(
-    (state: RootState) => state.model
-  );
+  const { data, error } = useSelector((state: RootState) => state.model);
 
-  useEffect(()=>{
-    dispatch(fetchModelData()  as unknown as AnyAction)
-  },[])
-
+  useEffect(() => {
+    dispatch(fetchModelData() as unknown as AnyAction);
+  }, []);
 
   return (
     <main className="flex flex-col flex-1">
@@ -30,12 +27,18 @@ const Models = () => {
       <section>
         {!error && (
           <div className="flex flex-1 flex-col">
-          {data.map((item:ModelItem,index:number)=>{
-            return (
-              <ProductCard key={index} image={item.representativeImageURL} name={item.name} value={item.minPrice} purpose={item.purpose[0]} />
-            )
-          })}
-        </div>
+            {data.map((item: ModelItem, index: number) => {
+              return (
+                <ProductCard
+                  key={index}
+                  image={item.representativeImageURL}
+                  name={item.name}
+                  value={item.minPrice}
+                  purpose={item.purpose[0]}
+                />
+              );
+            })}
+          </div>
         )}
       </section>
     </main>
