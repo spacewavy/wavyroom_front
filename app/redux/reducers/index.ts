@@ -1,14 +1,18 @@
 import { combineReducers } from "redux";
 import fetchDataReducer from "./mediaReducers";
 import fetchPortfolioDataReducer from "./portfolioReducers";
-import fetchModelDataReducer from "./modelReducer";
+import {
+  fetchModelDataReducer,
+  fetchNavigationModelDataReducer,
+} from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
 
 const rootReducer = combineReducers({
   media: fetchDataReducer,
   portfolio: fetchPortfolioDataReducer,
   model: fetchModelDataReducer,
-  aboutReputataion:fetchAboutReputationDataReducer
+  navigationModel: fetchNavigationModelDataReducer,
+  aboutReputataion: fetchAboutReputationDataReducer,
 });
 
 export default rootReducer;
