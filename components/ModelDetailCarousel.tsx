@@ -23,9 +23,9 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
       <div className="embla__viewport" ref={emblaRef}>
         {data && (
           <div className="embla__container">
-            {data.map((data: ModelExample) => {
+            {data.map((data: ModelExample,index:number) => {
               return (
-                <div className="embla__slide">
+                <div className="embla__slide" key={index}>
                   <Image
                     className="object-cover w-full h-[420px]"
                     src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.imageURL}`}

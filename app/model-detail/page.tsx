@@ -244,9 +244,8 @@ const ModelDetail = () => {
                 <div className="flex items-center justify-left gap-4">
                   {data.modelColors.map((x: any, i: number) => {
                     return (
-                      <div className="flex gap-2 items-center text-[14px] font-normal">
+                      <div key={i} className="flex gap-2 items-center text-[14px] font-normal">
                         <div
-                          key={i}
                           className={`w-[30px] h-[30px] border-[1px] rounded-full flex justify-center items-center`}
                         >
                           <div
