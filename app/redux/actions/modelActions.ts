@@ -11,7 +11,7 @@ export const fetchModelData = () => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(
-        `http://13.210.86.154:3000/api/v1/model/default`,
+        `https://test-spacewavy.com/api/v1/model/default`,
         {
           headers: {
             Accept: "*/*",
@@ -35,7 +35,7 @@ export const fetchNavigationModelData = () => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(
-        `http://13.210.86.154:3000/api/v1/model/navigation`,
+        `https://test-spacewavy.com/api/v1/model/navigation`,
         {
           headers: {
             Accept: "*/*",

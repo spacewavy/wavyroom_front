@@ -7,7 +7,7 @@ export const fetchPortfolioData = (option: string) => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(
-        `http://13.210.86.154:3000/api/v1/portfolio?size=${option}`
+        `https://test-spacewavy.com/api/v1/portfolio?size=${option}`
       );
       dispatch({
         type: FETCH_PORTFOLIO_DATA_SUCCESS,
