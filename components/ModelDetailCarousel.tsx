@@ -1,13 +1,15 @@
 "use client";
-import SidebarProduct from "@/assets/Products/SidebarProduct.png";
-import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
-import { Button as CommonButton } from "@/components/ui/button";
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
-import Link from "next/link";
-import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { ModelExample } from "../app/redux/types";
 
-const ModelDetailCarousel = () => {
+interface ModelDetailCarouselProps {
+  data: ModelExample[];
+  name: string;
+}
+
+const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     loop: true,
@@ -16,34 +18,33 @@ const ModelDetailCarousel = () => {
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
-  const CarouselItem = () => {
-    return (
-      <div className="embla__slide">
-        <Image
-          className="object-cover w-full h-[420px]"
-          src={SidebarProduct}
-          alt="Vercel Image"
-          width={800}
-          height={432}
-        />
-        <div className="flex flex-col items-center justify-between pt-6">
-          <span className="text-[16px]">
-            Mini / <span className="text-midGray">주거용</span>
-          </span>
-          <span className="text-[16px]">35,000,000원 부터</span>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
-        <div className="embla__container">
-          {CarouselItem()}
-          {CarouselItem()}
-          {CarouselItem()}
-        </div>
+        {data && (
+          <div className="embla__container">
+            {data.map((data: ModelExample) => {
+              return (
+                <div className="embla__slide">
+                  <Image
+                    className="object-cover w-full h-[420px]"
+                    src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.imageURL}`}
+                    alt="Vercel Image"
+                    width={800}
+                    height={432}
+                  />
+                  <div className="flex flex-col items-center justify-between pt-6">
+                    <span className="text-[16px]">
+                      {data.address} /{" "}
+                      <span className="text-midGray">{name}</span>
+                    </span>
+                    <span className="text-[16px]">35,000,000</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
       <div className="embla__dots">
         {[1, 2, 3].map((_, index) => (

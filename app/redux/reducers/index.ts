@@ -3,6 +3,7 @@ import fetchDataReducer from "./mediaReducers";
 import fetchPortfolioDataReducer from "./portfolioReducers";
 import {
   fetchModelDataReducer,
+  fetchModelDetailsDataReducer,
   fetchNavigationModelDataReducer,
 } from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   model: fetchModelDataReducer,
   navigationModel: fetchNavigationModelDataReducer,
   aboutReputataion: fetchAboutReputationDataReducer,
+  modelDetail: fetchModelDetailsDataReducer,
 });
 
 export default rootReducer;

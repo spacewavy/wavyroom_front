@@ -79,3 +79,48 @@ export interface AboutReputationData {
   data: AboutReputationItem[];
   error: string | null;
 }
+
+export interface ModelDetailItem {
+  id: string;
+  order: number;
+  representativeImageURL: string;
+  name: string;
+  description: string;
+  minPrice: number;
+  size: number;
+  sizeDetail: number;
+  exteriorMaterial: string[];
+  insulation: string;
+  structure: string;
+  windows: string[];
+  furniture: string[];
+  purpose: string[];
+  purposeDetail: string[];
+  createdAt: string;
+  updatedAt: string;
+  modelColors: ModelColors[];
+  modelExamples: ModelExample[];
+}
+export interface ModelDetailData {
+  data: ModelDetailItem;
+  error: string | null;
+}
+
+export interface ModelColors {
+  id: string;
+  order: number;
+  imageURL: string;
+  colorId: string;
+  name: string;
+  modelIdSubstitude: string;
+  modelId: string;
+}
+
+export interface ModelExample {
+  id: string;
+  order: number;
+  address: string;
+  imageURL: string;
+  modelIdSubstitude: string;
+  modelId: string;
+}

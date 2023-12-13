@@ -1,14 +1,28 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ImageNova from "@/assets/Products/Nova.svg";
 import Button from "../../components/Button";
 import Image from "next/image";
 import ModelDetailCarousel from "../../components/ModelDetailCarousel";
 import FaqItem from "../../components/FaqItem";
 import Navbar from "../../components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchModelDetailData } from "../redux/actions/modelActions";
+import { AnyAction } from "redux";
+import { ModelColors } from "../redux/types";
+import { useRouter } from "next/router";
 
 const ModelDetail = () => {
+  const dispatch = useDispatch();
+  const { data } = useSelector((state: any) => state.modelDetail);
+
+  // const router = useRouter();
+  // const param = router.query;
+
+  useEffect(() => {
+    dispatch(fetchModelDetailData("param") as unknown as AnyAction);
+  }, []);
   const COLORS = [
     { hex: "#ffffff", name: "흰색" },
     { hex: "#DADAD9", name: "연한회색" },
@@ -44,60 +58,6 @@ const ModelDetail = () => {
         "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
     },
   ];
-
-  const DETAIL_INFO = [
-    {
-      title: "가격",
-      description: "￦99,000,000~",
-    },
-    {
-      title: "규격",
-      description: "10평형",
-    },
-    {
-      title: "평형 디테일",
-      description: "-",
-    },
-    {
-      title: "외장재",
-      description: "Prin Anodizing Aluminum",
-    }
-  ];
-
-  const DETAIL_INFO1= [
-    {
-      title: "외부색",
-      description: "에보니 블랙",
-    }
-  ];
-
-  const DETAIL_INFO2 = [
-    {
-      title: "단열",
-      description: "건축법 중부1지역 충족",
-    },
-    {
-      title: "골조 (스트럭쳐)",
-      description: "골조 (스트럭쳐)",
-    },
-    {
-      title: "창호",
-      description: "현대리바트 37mm 로이 3중유리 22mm 페어 이중창",
-    },
-    {
-      title: "가구",
-      description: "현대리바트 E0 등급 친환경 가구",
-    },
-    {
-      title: "용도",
-      description: "주거 숙박",
-    },
-    {
-      title: "용도 설명",
-      description: "전원주택 세컨하우스 숙박시설로 활용 적합한 욕실 주방 포함된 구성",
-    }
-  ];
-
   const [isDark, setIsDark] = useState(false);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
 
@@ -130,17 +90,20 @@ const ModelDetail = () => {
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
           <div className="flex flex-col items-center justify-center px-6 py-20 gap-6">
             <div>
-              <Image src={ImageNova} alt="nova" />
+              <Image
+                src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.representativeImageURL}`}
+                alt="nova"
+                width={500}
+                height={500}
+              />
             </div>
             <div className="flex flex-col gap-8 items-center">
               <div className="flex flex-col gap-4 items-center">
                 <div className="text-center text-[28px] md:text-[32px] lg:text-[58px] group-[.is-dark]:text-white">
-                  Evo
+                  {data.name}
                 </div>
                 <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG group-[.is-dark]:text-gray">
-                  모듈러건축시스템 기반으로 &apos;웨이비룸&apos;이라는
-                  주거공간을 만들고 있으며, &apos;공간의 제품화&apos;에
-                  집중합니다.
+                  {data.description}
                 </div>
               </div>
               <Button name="커스텀하기" arrow varient="default" />
@@ -168,7 +131,7 @@ const ModelDetail = () => {
             </div>
           </div>
           <div className="flex flex-col items-center pb-10">
-            <ModelDetailCarousel />
+            <ModelDetailCarousel data={data.modelExamples} name={data.name} />
           </div>
         </section>
         <section className="group-[.is-dark]:bg-jetBlack">
@@ -197,20 +160,23 @@ const ModelDetail = () => {
           <div className="flex flex-col items-center pt-8 pb-20 lg:pb-25">
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-row items-center gap-2">
-                {COLORS.map((item, index) => {
-                  const isSelected = selectedColor.hex === item.hex;
+                {data.modelColors.map((item: ModelColors, index: number) => {
+                  const isSelected = selectedColor.hex === item.colorId;
                   return (
                     <div
                       key={"color" + index}
                       className="relative w-8 h-8 p-1 cursor-pointer"
                       onClick={() => {
-                        setSelectedColor(item);
+                        setSelectedColor({
+                          hex: item.colorId,
+                          name: item.name,
+                        });
                       }}
                     >
                       <div
                         className="w-full h-full rounded-full"
                         style={{
-                          backgroundColor: item.hex,
+                          backgroundColor: item.colorId,
                           borderWidth: 1,
                           borderColor: "rgba(0, 0, 0, 0.1)",
                         }}
@@ -231,33 +197,137 @@ const ModelDetail = () => {
         <section className="group-[.is-dark]:bg-spaceBlack">
           <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col items-center justify-center py-[125px] px-6 bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
-              <Image src={ImageNova} alt="nova" />
+              <Image
+                src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.representativeImageURL}`}
+                alt="nova"
+                width={500}
+                height={500}
+              />
             </div>
             <div className="flex flex-col bg-white lg:bg-lightGray flex-1 px-8 py-20 group-[.is-dark]:bg-offBlack">
               <div className="text-[28px] pb-4 border-b border-midGray group-[.is-dark]:text-white">
-                Evo 타입 상세정보
+                Name 스펙
               </div>
               <div className="grid grid-cols-2">
-              {DETAIL_INFO.map((item, index) => {
-                return <InfoDetail key={"detail" + index} detail={item} />;
-              })}
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal">가격</div>
+                  <div className="text-[14px] font-light">{data.minPrice}</div>
+                </div>
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">규격</div>
+                  <div className="text-[14px] font-light">{data.size}</div>
+                </div>
               </div>
-              {DETAIL_INFO1.map((item, index) => {
-                return <InfoDetail key={"detail" + index} detail={item} />;
-              })}
               <div className="grid grid-cols-2">
-              {DETAIL_INFO2.map((item, index) => {
-                return <InfoDetail key={"detail" + index} detail={item} />;
-              })}
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">평형 디테일</div>
+                  <div className="text-[14px] font-light">
+                    {data.sizeDetail}
+                  </div>
+                </div>
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">외장재</div>
+                  <div className="text-[14px] font-light">
+                    {data.exteriorMaterial.map((x: any) => {
+                      return (
+                        <>
+                          <span>{x}</span>
+                          <br />
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-
-              <div className="py-4 text-[12px] group-[.is-dark]:text-white">
-                - 웨이비룸을 처음으로 제품느낌나도록 메탈릭한 exterior finish를
-                사용
-                <br />- 주방x- 침실, 욕실, 옷장, 금고, 등 호텔객실의 레이아웃을
-                거의 그대로 가져옴
-                <br />- 내부 마감재가 다양 (벽: white + wood, 바닥: white tile +
-                카펫)
+              <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                <div className="text-[14px] font-normal ">외부색</div>
+                <div className="flex items-center justify-left gap-4">
+                  {data.modelColors.map((x: any, i: number) => {
+                    return (
+                      <div className="flex gap-2 items-center text-[14px] font-normal">
+                        <div
+                          key={i}
+                          className={`w-[30px] h-[30px] border-[1px] rounded-full flex justify-center items-center`}
+                        >
+                          <div
+                            className={`w-[24px] h-[24px] bg-${x.colorId} rounded-full`}
+                          ></div>
+                        </div>
+                        <div className="text-[14px] font-light">{x.name}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">단열</div>
+                  <div className="text-[14px] font-light">
+                    {data.insulation}
+                  </div>
+                </div>
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">
+                    골조 (스트럭쳐)
+                  </div>
+                  <div className="text-[14px] font-light">{data.structure}</div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">창호</div>
+                  <div className="text-[14px] font-light">
+                    {data.windows.map((x: any) => {
+                      return (
+                        <>
+                          <span>{x}</span>
+                          <br />
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">가구</div>
+                  <div className="text-[14px] font-light">
+                    {data.furniture.map((x: any) => {
+                      return (
+                        <>
+                          <span>{x}</span>
+                          <br />
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">용도</div>
+                  <div className="text-[14px] font-light">
+                    {data.purpose.map((x: any) => {
+                      return (
+                        <>
+                          <span>{x}</span>
+                          <br />
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="flex flex-col border-b border-midGray py-4 gap-2">
+                  <div className="text-[14px] font-normal ">용도 설명</div>
+                  <div className="text-[14px] font-light">
+                    {data.purposeDetail.map((x: any) => {
+                      return (
+                        <>
+                          <span>{x}</span>
+                          <br />
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -288,7 +358,7 @@ const ModelDetail = () => {
             >
               <div className="flex flex-col items-start md:flex-1">
                 <div className="group-[.is-dark]:text-white font-normal text-[14px]">
-                노바 / <span className="text-[#B2B2B2]">주거용</span>
+                  노바 / <span className="text-[#B2B2B2]">주거용</span>
                 </div>
                 <div className="group-[.is-dark]:text-white text-[32px] md:text-[40px] lg:text-[58px] py-2">
                   Evo

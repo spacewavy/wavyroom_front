@@ -4,19 +4,20 @@ import { Button as CommonButton } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 export interface ProductCardProps {
+  id?: string;
   name: string;
   value: number | string;
   image: any;
   purpose?: string;
 }
 
-const ProductCard = ({ name, value, image, purpose }: ProductCardProps) => {
+const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
   return (
     <div className="flex flex-col justify-between w-full h-full px-4 pt-16 md:px-14 md:pt-16 lg:px-8 lg:pt-32 border-t border-r border-gray hover:bg-lightGray gap-12">
       <Image
         src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${image}`}
-        width={1000}
-        height={1000}
+        width={500}
+        height={500}
         alt="product_image"
         className="w-full h-full"
       />
@@ -27,7 +28,7 @@ const ProductCard = ({ name, value, image, purpose }: ProductCardProps) => {
           </p>
           <span>{value}</span>
         </div>
-        <Link href={`/model-detail?name=${name}`}>
+        <Link href={`/model-detail?id=${id}`}>
           <CommonButton className="text-labelSM" variant="secondary">
             주문하기{" "}
             <Image alt="right-arrow" src={RightArrowBlack} className="ml-2" />
