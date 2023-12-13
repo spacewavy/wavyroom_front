@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useLoading } from "@/context/loadingContext";
 import { useThree } from "@/context/threeContext";
 import { FILE_EXTENSION } from "../../lib/utils";
 
-const WavyCanvas = () => {
+interface WavyCanvasProps {
+  openMenu?: boolean;
+}
+
+const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
   const {
     isEditorLoaded,
     scene,
@@ -65,7 +69,7 @@ const WavyCanvas = () => {
     >
       <div
         ref={ref}
-        className="z-10"
+        className="z-10 bg-black"
         style={{ flex: 1 }}
         onClick={() => {
           console.log(scene);
@@ -107,6 +111,9 @@ const WavyCanvas = () => {
           </svg>
         </div>
       </div>
+      {openMenu && (
+        <div className="absolute z-30 top-0 w-full h-full items-center justify-center bg-black bg-opacity-50"></div>
+      )}
     </div>
   );
 };

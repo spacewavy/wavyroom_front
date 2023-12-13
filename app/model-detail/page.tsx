@@ -357,10 +357,10 @@ const ModelDetail = () => {
               className="flex flex-1 flex-col md:flex-row md:items-center border-y border-gray group-[.is-dark]:border-offBlack p-8"
             >
               <div className="flex flex-col items-start md:flex-1">
-                <div className="group-[.is-dark]:text-white font-normal text-[14px]">
+                <div className="group-[.is-dark]:text-white font-light text-[16px]">
                   노바 / <span className="text-[#B2B2B2]">주거용</span>
                 </div>
-                <div className="group-[.is-dark]:text-white text-[32px] md:text-[40px] lg:text-[58px] py-2">
+                <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
                   Evo
                 </div>
               </div>
