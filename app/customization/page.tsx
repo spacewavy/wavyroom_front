@@ -152,13 +152,19 @@ const Customization = () => {
   return (
     <>
       <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
-        <div className="relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden">
+        <div
+          className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
+            openMenu ? " pointer-events-none" : ""
+          }`}
+        >
           <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
             <Image src={LeftArrow} alt="leftarrow" />
             <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
           </div>
           <div className="relative flex flex-1 flex-col group">
-            <WavyCanvas />
+            {/* <div className="w-full h-full"> */}
+            <WavyCanvas openMenu={openMenu} />
+            {/* </div> */}
             <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
               <Image src={IntentRequest} alt="icon" />
               <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
@@ -211,7 +217,7 @@ const Customization = () => {
               </div>
               <div>
                 <input
-                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 mb-4"
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 mb-4 focus:outline-none"
                   type="text"
                   placeholder="이름을 입력하세요"
                   onChange={(e) => {
@@ -222,7 +228,7 @@ const Customization = () => {
 
               <div>
                 <input
-                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-4"
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-4 focus:outline-none"
                   type="text"
                   placeholder="이메일 주소를 입력하세요"
                   onChange={(e) => {
@@ -233,7 +239,7 @@ const Customization = () => {
 
               <div>
                 <input
-                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-16"
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-16 focus:outline-none"
                   type="number"
                   placeholder="휴대전화번호를 입력하세요"
                   onChange={(e) => {
