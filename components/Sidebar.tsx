@@ -107,11 +107,11 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-1 gap-8 py-12">
-          {sidebarItems.map((item: SidebarItem) => {
+          {sidebarItems.map((item: SidebarItem,index) => {
             const isLink = !!item.link;
             return isLink ? (
               <Link
-                key={item.id}
+                key={index}
                 href={item?.link || ""}
                 onClick={closeSidebar}
                 className={cn(
