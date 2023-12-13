@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import AboutDetail1 from "@/public/images/about/about_detail_1.png";
@@ -9,8 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchAboutReputationData } from "../redux/actions/aboutReputationActions";
 import { AnyAction } from "redux";
-import {AboutReputationItem} from "../redux/types"
-
+import { AboutReputationItem } from "../redux/types";
 
 const About = () => {
   const dispatch = useDispatch();
@@ -18,18 +17,17 @@ const About = () => {
     (state: RootState) => state.aboutReputataion
   );
 
-  useEffect(()=>{
-    dispatch(fetchAboutReputationData()  as unknown as AnyAction)
-  },[])
+  useEffect(() => {
+    dispatch(fetchAboutReputationData() as unknown as AnyAction);
+  }, []);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-
   const handleMuteToggle = () => {
-    if(videoRef.current){
+    if (videoRef.current) {
       videoRef.current.muted = !videoRef.current?.muted;
     }
-  }
-  
+  };
+
   return (
     <main className="flex flex-col flex-1">
       <section>
@@ -46,7 +44,15 @@ const About = () => {
             </div>
           </div>
           <div className="w-full pb-8 lg:pb-16">
-            <video id='video' autoPlay loop muted onClick={handleMuteToggle} ref={videoRef}  src="/videos/aboutPageVideo.mp4"></video>
+            <video
+              id="video"
+              autoPlay
+              loop
+              muted
+              onClick={handleMuteToggle}
+              ref={videoRef}
+              src="/videos/aboutPageVideo.mp4"
+            ></video>
           </div>
         </div>
       </section>
@@ -182,23 +188,32 @@ const About = () => {
         </div>
       </section>
       {!error && (
-      <section>
-        <div className="px-4 py-8 md:px-8 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
-            {data.map((x:AboutReputationItem,index:number) => {
-              return (
-                <div key={index} className="flex justify-center items-center flex-1 flex-col text-[12px] text-jetBlack text-center font-normal px-[60px] pb-8 border-[1px] border-gray">
-                  <div className="logo flex items-center min-h-[124px] md:min-h-[247px]">
-                    <Image src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${x.imageURL}`} alt="logo" width={247} height={247}  /> 
+        <section>
+          <div className="px-4 py-8 md:px-8 md:py-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+              {data.map((x: AboutReputationItem, index: number) => {
+                return (
+                  <div
+                    key={index}
+                    className="flex justify-center items-center flex-1 flex-col text-[12px] text-jetBlack text-center font-normal px-[60px] pb-8 border-[1px] border-gray"
+                  >
+                    <div className="logo flex items-center min-h-[124px] md:min-h-[247px]">
+                      https://spacewavy.s3.ap-northeast-2.amazonaws.com/{" "}
+                      <Image
+                        src={`${x.imageURL}`}
+                        alt="logo"
+                        width={247}
+                        height={247}
+                      />
+                    </div>
+                    <div className="title mb-4">{x.title}</div>
+                    <div className="subTitle">{x.content}</div>
                   </div>
-                  <div className="title mb-4">{x.title}</div>
-                  <div className="subTitle">{x.content}</div>
-                </div>
-              )
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
       <section className="p-4 md:p-8">
         <div className="flex flex-1 flex-col bg-offBlack items-center justify-center gap-4 px-4 py-24 md:py-42">
