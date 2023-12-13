@@ -6,7 +6,7 @@ export const FETCH_ABOUT_REPUTATION_DATA_FAILURE = 'FETCH_ABOUT_REPUTATION_DATA_
 export const fetchAboutReputationData = () => {
   return async (dispatch:any) => {
     try {
-      const response = await axios.get(`http://13.210.86.154:3000/api/v1/reputation`);
+      const response = await axios.get(`https://test-spacewavy.com/api/v1/reputation`);
       dispatch({
         type: FETCH_ABOUT_REPUTATION_DATA_SUCCESS,
         payload: response.data.data,
