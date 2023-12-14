@@ -18,6 +18,10 @@ import CardImg5 from "@/assets/custom-card/product-img5.png";
 import WavyCanvas from "@/components/canvas/WavyCanvas";
 import { useThree } from "../../context/threeContext";
 import { WAVY_MODEL_PATHS } from "../../lib/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/reducers";
+import { fetchNavigationModelData } from "../redux/actions/modelActions";
+import { AnyAction } from "redux";
 
 export interface Product {
   id: number;
@@ -29,6 +33,16 @@ export interface Product {
 }
 
 const Customization = () => {
+  const dispatch = useDispatch();
+  const { data, error } = useSelector(
+    (state: RootState) => state.navigationModel
+  );
+
+  useEffect(() => {
+    dispatch(fetchNavigationModelData() as unknown as AnyAction);
+  }, []);
+
+
   const { changeModel, changeMeshVisibilityByName } = useThree();
   const [navigateToSettings, setNavigateToSettings] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
@@ -40,74 +54,10 @@ const Customization = () => {
   });
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedItem, setSelectedTtem] = useState<number>(1);
-  const [products] = useState<Product[]>([
-    {
-      id: 1,
-      heading: "Evo",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg1,
-      path: WAVY_MODEL_PATHS.EVO,
-    },
-    {
-      id: 2,
-      heading: "Nova",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg2,
-      path: WAVY_MODEL_PATHS.NOVA,
-    },
-    {
-      id: 3,
-      heading: "Max",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg3,
-      path: WAVY_MODEL_PATHS.MAX_A,
-    },
-    {
-      id: 4,
-      heading: "Studio",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg4,
-      path: WAVY_MODEL_PATHS.STUDIO,
-    },
-    {
-      id: 5,
-      heading: "Mini",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.MINI,
-    },
-    {
-      id: 6,
-      heading: "Max RM",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.MAX_RM,
-    },
-    {
-      id: 7,
-      heading: "Max Plus",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.MAX_PLUS,
-    },
-    {
-      id: 8,
-      heading: "Studio plus",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.STUDIO_PLUS,
-    },
-  ]);
+
+
   const [selectedImage, setSelectedImage] = useState(
-    products.find((x) => x.id === selectedItem)?.Image
+    data.find((x:any) => x.id === selectedItem)?.representativeImageURL
   );
 
   const { changeModelColorFromHex, test } = useThree();
@@ -116,7 +66,7 @@ const Customization = () => {
     setSelectedTtem(id);
   };
   useEffect(() => {
-    setSelectedImage(products.find((x) => x.id === selectedItem)?.Image);
+    setSelectedImage(data.find((x:any) => x.id === selectedItem)?.representativeImageURL);
   }, [selectedItem]);
 
   const moveToCustomSettings = (value: boolean) => {
@@ -159,54 +109,50 @@ const Customization = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
-        <div
-          className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
-            openMenu ? " pointer-events-none" : ""
-          }`}
-        >
-          <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
-            <Image src={LeftArrow} alt="leftarrow" />
-            <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
-            <div onClick={() => changeModelColorFromHex("#ffffff")}>
-              Color Change BTN
-            </div>
-            <div onClick={test}>TEST</div>
-          </div>
-          <div className="relative flex flex-1 flex-col group">
-            {/* <div className="w-full h-full"> */}
+    {data && !error && (
+       <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
+       <div
+         className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
+           openMenu ? " pointer-events-none" : ""
+         }`}
+       >
+         <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
+           <Image src={LeftArrow} alt="leftarrow" />
+           <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
+         </div>
+         <div className="relative flex flex-1 flex-col group">
+           {/* <div className="w-full h-full"> */}
             <WavyCanvas openMenu={openMenu} />
-            {/* </div> */}
-            <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
-              <Image src={IntentRequest} alt="icon" />
-              <p>모델을 마우스로 드래그하여 구성을 회전하세요</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-[496px] md:w-full h-[65vh] lg:h-full relative overflow-visible lg:overflow-hidden">
-          <div
-            className={`absolute top-0 left-0 right-0 bottom-0 top-0 transition-transform duration-500 ease-out ${
-              navigateToSettings ? "translate-x-[-100%]" : "translate-x-0"
-            }`}
-          >
-            <div className="absolute top-0 left-0  w-full">
-              <CustomItems
-                navigateToSettings={moveToCustomSettings}
-                products={products}
-                selectedItem={selectedItem}
-                handleSelectedItem={handleSelectedItem}
-              />
-            </div>
-            <div className="absolute top-0 left-[100%] w-full">
-              <CustomizationPanel
-                handleMenuToggle={handleMenuToggle}
-                openMenu={openMenu}
-                handlePopupOpen={handlePopupOpen}
-              />{" "}
-            </div>
-          </div>
-        </div>
-      </div>
+           {/* </div> */}
+           <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
+             <Image src={IntentRequest} alt="icon" />
+             <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
+           </div>
+         </div>
+       </div>
+       <div className="lg:w-[496px] md:w-full h-[65vh] lg:h-full relative overflow-visible lg:overflow-hidden">
+         <div
+           className={`absolute top-0 left-0 right-0 bottom-0 top-0 transition-transform duration-500 ease-out ${
+             navigateToSettings ? "translate-x-[-100%]" : "translate-x-0"
+           }`}
+         >
+           <div className="absolute top-0 left-0  w-full">
+             <CustomItems
+               navigateToSettings={moveToCustomSettings}
+               products={data}
+             />
+           </div>
+           <div className="absolute top-0 left-[100%] w-full">
+             <CustomizationPanel
+               handleMenuToggle={handleMenuToggle}
+               openMenu={openMenu}
+               handlePopupOpen={handlePopupOpen}
+             />{" "}
+           </div>
+         </div>
+       </div>
+     </div>
+    )}
       {showOverlay && (
         <div
           id="overlay"

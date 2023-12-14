@@ -1,86 +1,31 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import CustomizationCard from "./CustomizationCard";
-import CardImg2 from "@/assets/custom-card/product-img1.png";
-import CardImg1 from "@/assets/custom-card/product-img2.png";
-import CardImg3 from "@/assets/custom-card/product-img3.png";
-import CardImg4 from "@/assets/custom-card/product-img4.png";
-import CardImg5 from "@/assets/custom-card/product-img5.png";
+import { NavigationModelItem, PortfolioItem } from "@/app/redux/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AnyAction } from "redux";
 import { WAVY_MODEL_PATHS } from "../../lib/utils";
+import { fetchCustomizationOptionsData } from "@/app/redux/actions/customizationActions";
+interface CustomItemsProps {
+  navigateToSettings:any;
+  products:NavigationModelItem[];
 
-const CustomItems = ({ navigateToSettings }: any) => {
-  const [selectedItem, setSelectedTtem] = useState<number>();
-  const data = [
-    {
-      id: 1,
-      heading: "Evo",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg1,
-      path: WAVY_MODEL_PATHS.EVO,
-    },
-    {
-      id: 2,
-      heading: "Nova",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg2,
-      path: WAVY_MODEL_PATHS.NOVA,
-    },
-    {
-      id: 3,
-      heading: "Max",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg3,
-      path: WAVY_MODEL_PATHS.MAX_A,
-    },
-    {
-      id: 4,
-      heading: "Studio",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg4,
-      path: WAVY_MODEL_PATHS.STUDIO,
-    },
-    {
-      id: 5,
-      heading: "Mini",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.MINI,
-    },
-    {
-      id: 6,
-      heading: "Max RM",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.MAX_RM,
-    },
-    {
-      id: 7,
-      heading: "Max Plus",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.MAX_PLUS,
-    },
-    {
-      id: 8,
-      heading: "Studio plus",
-      subheading: "10평",
-      price: "￦35,000,000~",
-      Image: CardImg5,
-      path: WAVY_MODEL_PATHS.STUDIO_PLUS,
-    },
-  ];
+}
 
-  const handleSelectedItem = (id: number) => {
+const CustomItems:FC<CustomItemsProps> = ({navigateToSettings,products}) => {
+  const [selectedItem, setSelectedTtem] = useState<string>();
+
+  const handleSelectedItem = (id: string) => {
     setSelectedTtem(id);
   };
+  const dispatch = useDispatch();
+  const handleNavigationClick = () => {
+    if(selectedItem) {
+      dispatch(fetchCustomizationOptionsData(selectedItem) as unknown as AnyAction);
+      navigateToSettings(true)
+    }
+  }
   return (
-    <div className="flex flex-col h-[65vh] lg:h-[100vh]">
+    <div className="flex flex-col h-[65vh] lg:h-[100vh] justify-between">
       <div className="w-full overflow-y-scroll">
         <div className="p-8">
           <div className="text-[24px] md:text-[32px] font-light mb-4">
@@ -95,15 +40,15 @@ const CustomItems = ({ navigateToSettings }: any) => {
           </div>
         </div>
         <div className="flex flex-col">
-          {data.map((d, index) => (
+          {products.map((d:NavigationModelItem, index:number) => (
             <CustomizationCard
               key={`model-${index}`}
               id={d.id}
-              heading={d.heading}
-              subheading={d.subheading}
-              price={d.price}
-              image={d.Image}
-              path={d.path}
+              heading={d.name}
+              subheading={d.description}
+              price={d.minPrice}
+              image={d.representativeImageURL}
+              path={''}
               selectedItem={selectedItem}
               handleSelectedItem={handleSelectedItem}
             />
@@ -112,8 +57,9 @@ const CustomItems = ({ navigateToSettings }: any) => {
       </div>
       <div className="p-4 border-t-[1px]">
         <button
-          onClick={() => navigateToSettings(true)}
-          className=" flex justify-center items-center gap-1 w-full bg-black text-white py-[10px] px-4 text-[12px] font-medium rounded-full"
+          disabled={!selectedItem}
+          onClick={handleNavigationClick}
+          className={`flex justify-center items-center gap-1 w-full bg-black text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${selectedItem ? 'bg-black' : 'bg-gray'}`}
         >
           <span>커스텀하기</span>
           <svg

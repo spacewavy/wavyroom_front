@@ -3,13 +3,13 @@ import Image from "next/image";
 import { useThree } from "../../context/threeContext";
 
 export interface CustomCardProps {
-  id: number;
+  id: string;
   heading: string;
   subheading: string;
   price: any;
   image: any;
   path: string;
-  selectedItem?: number;
+  selectedItem?: string;
   handleSelectedItem: any;
 }
 
@@ -24,7 +24,6 @@ const CustomizationCard = ({
   handleSelectedItem,
 }: CustomCardProps) => {
   const { changeModel, changeMeshVisibilityByName } = useThree();
-
   return (
     <div
       className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA]" 
@@ -35,7 +34,7 @@ const CustomizationCard = ({
     >
       <div
         className={`flex justify-between px-4 py-[24px] md:p-[24px] mx-6 md:mx-8 lg:mx-4 w-full" ${
-          selectedItem === id ? "bg-#F9F9FA" : ""
+          selectedItem === id ? "bg-gray" : ""
         } `}
       >
         <div>
@@ -48,7 +47,7 @@ const CustomizationCard = ({
           <p className="text-[12px] font-weight color-[#000]">{price}</p>
         </div>
         <div className="flex justify-center w-[208px]">
-          <Image src={image} alt="img" />
+          <Image src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${image}`} width={100} height={100} alt="img" />
         </div>
       </div>
     </div>

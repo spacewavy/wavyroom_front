@@ -1,136 +1,149 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
 import Select from "react-select";
-import SelectColorCard from "./SelectColorCard";
-import CustomizationOptions, {
-  Card,
-  CustomizationOptionsProps,
-} from "./CustomizationOptions";
+import SelectColorCard from './SelectColorCard'
+import CustomizationOptions, { CustomizationOptionsProps, option } from './CustomizationOptions'
+import { useDispatch, useSelector } from 'react-redux';
+import { ModelFloorOptions, ModelKitchenType } from '@/app/redux/types';
+import { customizationFloorSelectionChange, customizationKitchenOptionsSelectionChange, customizationOptionsSelectionChange } from '@/app/redux/actions/customizationActions';
+import { AnyAction } from 'redux';
 
 interface CustomizationPanelProps {
-  handleMenuToggle: any;
-  openMenu: boolean;
-  handlePopupOpen: any;
+  handleMenuToggle :any;
+  openMenu :boolean;
+  handlePopupOpen :any;
 }
 
-const CustomizationPanel: FC<CustomizationPanelProps> = ({
-  handleMenuToggle,
-  openMenu,
-  handlePopupOpen,
-}) => {
-  const [estimatedQutation, setEstimatedQutation] = useState(0);
-  const [floorOptions, setFloorOptions] = useState([
-    {
-      title: "단층",
-      price: 10000000,
-      isSelected: true,
-    },
-    {
-      title: "복층",
-      price: 10000000,
-      isSelected: false,
-    },
-  ]);
-  const [customizationOptions, setCustomizationOptions] = useState<
-    CustomizationOptionsProps[]
-  >([
-    {
-      id: 1,
-      name: "형태",
-      isMutliSelect: false,
-      options: [
+export const FloorCard: FC<option> = ({id,title, price, isSelected, onClickHandler}) => {
+  return (
+    <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`} onClick={()=>{onClickHandler(id)}}>
+      <div className={`flex flex-col gap-2 font-medium text-jetBlack ${isSelected ? 'text-jetBlack' : 'text-gray'}`}>
+        <span className='text-[14px]'>{title}</span>
+        <span className='text-[10px]'>+{price}원</span>
+      </div>
+    </div>
+  )
+}
+
+export const FloorCard: FC<option> = ({id,title, price, isSelected, onClickHandler}) => {
+  return (
+    <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`} onClick={()=>{onClickHandler(id)}}>
+      <div className={`flex flex-col gap-2 font-medium text-jetBlack ${isSelected ? 'text-jetBlack' : 'text-gray'}`}>
+        <span className='text-[14px]'>{title}</span>
+        <span className='text-[10px]'>+{price}원</span>
+      </div>
+    </div>
+  )
+}
+
+const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMenu,handlePopupOpen}) => {
+    const [estimatedQutation ,setEstimatedQutation] = useState(0)
+    const { data } = useSelector((state: any) => state.customization);
+
+    const dispatch = useDispatch();
+  
+    console.log(data,7777)
+    const [customizationOptions ,setCustomizationOptions] = useState<CustomizationOptionsProps[]>([
         {
-          optId: 1,
-          title: "선택안됨",
-          price: 0,
-          isSelected: false,
+            id: 1,
+            name: '형태',
+            isMutliSelect: false,
+            options: [
+                {   
+                    optId: 1,
+                    title:  '선택안됨',
+                    price:  0,
+                    isSelected: false
+                },	
+                {
+                    optId: 2,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+            ]
         },
         {
-          optId: 2,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "형태",
-      isMutliSelect: false,
-      options: [
-        {
-          optId: 1,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-        {
-          optId: 2,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-        {
-          optId: 3,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-        {
-          optId: 4,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "형태",
-      isMutliSelect: true,
-      options: [
-        {
-          optId: 1,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
+            id: 2,
+            name: '형태',
+            isMutliSelect: false,
+            options: [
+                {   
+                    optId: 1,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 2,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 3,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 4,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+            ]
         },
         {
-          optId: 2,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
+            id: 3,
+            name: '형태',
+            isMutliSelect: true,
+            options: [
+                {
+                    optId: 1,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 2,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 3,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 4,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+            ]
         },
         {
-          optId: 3,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-        {
-          optId: 4,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: "형태",
-      isMutliSelect: true,
-      options: [
-        {
-          optId: 1,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
-        },
-        {
-          optId: 2,
-          title: "선택안됨",
-          price: 10000000,
-          isSelected: false,
+            id: 4,
+            name: '형태',
+            isMutliSelect: true,
+            options: [
+                {
+                    optId: 1,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+                {
+                    optId: 2,
+                    title: '선택안됨',
+                    price: 10000000,
+                    isSelected: false
+                },	
+
+            ]
         },
       ],
     },
@@ -171,38 +184,23 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     { value: "Evo3", label: "Evo" },
   ];
 
-  const handleFloorChange = (value: string) => {
-    if (value) {
-      const updatedFloorOptions = floorOptions.map((x) => ({
-        ...x,
-        isSelected: x.title === value,
-      }));
-      setFloorOptions(updatedFloorOptions);
+    const handleFloorChange = (floorId: string) => {
+        if (floorId) {
+          dispatch(customizationFloorSelectionChange(floorId) as unknown as AnyAction);
+        }
+      }
+      
+    const handleOptionChange = (nodeId: string,order: number) => {
+      console.log(nodeId,order,555)
+      if(nodeId && order ) {
+        dispatch(customizationOptionsSelectionChange(nodeId,order) as unknown as AnyAction);
+      }
     }
-  };
-
-  const handleOptionChange = (nodeId: number, optId: number) => {
-    setCustomizationOptions((prevData) =>
-      prevData.map((node) =>
-        node.id === nodeId
-          ? {
-              ...node,
-              options: node.isMutliSelect
-                ? node.options.map((opt) =>
-                    opt.optId === optId
-                      ? { ...opt, isSelected: !opt.isSelected }
-                      : opt
-                  )
-                : node.options.map((opt) =>
-                    opt.optId === optId
-                      ? { ...opt, isSelected: !opt.isSelected }
-                      : { ...opt, isSelected: false }
-                  ),
-            }
-          : node
-      )
-    );
-  };
+    
+    const handleKitchenTypeSelect = (name:string) => {
+      dispatch(customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction);
+      console.log(name)
+    }
 
   return (
     <div className="flex flex-col justify-between h-[65vh] lg:h-[100vh] ">
@@ -282,13 +280,14 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 className={`options overflow-hidden transition-max-height duration-500 ease-in-out`}
               >
                 <div className="grid grid-cols-2 gap-2 pt-4">
-                  {floorOptions.map((o, index) => {
+                  {data.modelFloorOptions.map((o:ModelFloorOptions) => {
                     return (
-                      <Card
-                        key={`card-${index}`}
-                        title={o.title}
+                      <FloorCard
+                        id={o.id}
+                        key={`card-${o.id}`}
+                        title={o.name}
                         price={o.price.toLocaleString()}
-                        isSelected={o.isSelected}
+                        isSelected={o.isSelected || o.isDefault}
                         onClickHandler={handleFloorChange}
                       />
                     );
@@ -298,12 +297,13 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             </div>
           </section>
           <div className="selectColor mb-4">
-            <SelectColorCard />
+            <SelectColorCard modelColors={data.modelColors}/>
           </div>
           <div className="customOption">
             <CustomizationOptions
-              customizationOptions={customizationOptions}
+              customizationOptions={data.modelFloorOptions.find((x:ModelFloorOptions)=>(x.isSelected))}
               handleOptionChange={handleOptionChange}
+              handleKitchenTypeSelect={handleKitchenTypeSelect}
             />
           </div>
         </section>
