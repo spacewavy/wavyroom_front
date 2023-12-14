@@ -1,158 +1,73 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Select from "react-select";
-import SelectColorCard from './SelectColorCard'
-import CustomizationOptions, { CustomizationOptionsProps, option } from './CustomizationOptions'
-import { useDispatch, useSelector } from 'react-redux';
-import { ModelFloorOptions, ModelKitchenType } from '@/app/redux/types';
-import { customizationFloorSelectionChange, customizationKitchenOptionsSelectionChange, customizationOptionsSelectionChange } from '@/app/redux/actions/customizationActions';
-import { AnyAction } from 'redux';
+import SelectColorCard from "./SelectColorCard";
+import CustomizationOptions, {
+  CustomizationOptionsProps,
+  option,
+} from "./CustomizationOptions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ModelFloorOptions,
+  ModelSecondOption,
+  OptionDetail,
+} from "@/app/redux/types";
+import {
+  customizationFloorSelectionChange,
+  customizationKitchenOptionsSelectionChange,
+  customizationOptionsSelectionChange,
+} from "@/app/redux/actions/customizationActions";
+import { AnyAction } from "redux";
 
 interface CustomizationPanelProps {
-  handleMenuToggle :any;
-  openMenu :boolean;
-  handlePopupOpen :any;
+  handleMenuToggle: any;
+  openMenu: boolean;
+  handlePopupOpen: any;
 }
 
-export const FloorCard: FC<option> = ({id,title, price, isSelected, onClickHandler}) => {
+export const FloorCard: FC<option> = ({
+  id,
+  title,
+  price,
+  isSelected,
+  onClickHandler,
+}) => {
   return (
-    <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`} onClick={()=>{onClickHandler(id)}}>
-      <div className={`flex flex-col gap-2 font-medium text-jetBlack ${isSelected ? 'text-jetBlack' : 'text-gray'}`}>
-        <span className='text-[14px]'>{title}</span>
-        <span className='text-[10px]'>+{price}원</span>
+    <div
+      className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+        isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
+      }`}
+      onClick={() => {
+        onClickHandler(id);
+      }}
+    >
+      <div
+        className={`flex flex-col gap-2 font-medium text-jetBlack ${
+          isSelected ? "text-jetBlack" : "text-gray"
+        }`}
+      >
+        <span className="text-[14px]">{title}</span>
+        <span className="text-[10px]">+{price}원</span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export const FloorCard: FC<option> = ({id,title, price, isSelected, onClickHandler}) => {
-  return (
-    <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`} onClick={()=>{onClickHandler(id)}}>
-      <div className={`flex flex-col gap-2 font-medium text-jetBlack ${isSelected ? 'text-jetBlack' : 'text-gray'}`}>
-        <span className='text-[14px]'>{title}</span>
-        <span className='text-[10px]'>+{price}원</span>
-      </div>
-    </div>
-  )
-}
+const CustomizationPanel: FC<CustomizationPanelProps> = ({
+  handleMenuToggle,
+  openMenu,
+  handlePopupOpen,
+}) => {
+  const [estimatedQutation, setEstimatedQutation] = useState(0);
+  const { data } = useSelector((state: any) => state.customization);
 
-const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMenu,handlePopupOpen}) => {
-    const [estimatedQutation ,setEstimatedQutation] = useState(0)
-    const { data } = useSelector((state: any) => state.customization);
-
-    const dispatch = useDispatch();
-  
-    console.log(data,7777)
-    const [customizationOptions ,setCustomizationOptions] = useState<CustomizationOptionsProps[]>([
-        {
-            id: 1,
-            name: '형태',
-            isMutliSelect: false,
-            options: [
-                {   
-                    optId: 1,
-                    title:  '선택안됨',
-                    price:  0,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-            ]
-        },
-        {
-            id: 2,
-            name: '형태',
-            isMutliSelect: false,
-            options: [
-                {   
-                    optId: 1,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 3,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 4,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-            ]
-        },
-        {
-            id: 3,
-            name: '형태',
-            isMutliSelect: true,
-            options: [
-                {
-                    optId: 1,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 3,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 4,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-            ]
-        },
-        {
-            id: 4,
-            name: '형태',
-            isMutliSelect: true,
-            options: [
-                {
-                    optId: 1,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-
-            ]
-        },
-      ],
-    },
-  ]);
+  const dispatch = useDispatch();
   const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
   const checkButtonEnableAndDisable = () => {
     setNextBtnDisable(
-      customizationOptions.filter((x) => x.options.some((o) => o.isSelected))
+      data.modelFloorOptions.ModelSecondOption?.filter((x:ModelSecondOption) => x.optionDetails.some((o) => o.isSelected))
         .length >= 1
     );
   };
@@ -160,15 +75,17 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
   const calculateTotal = () => {
     let total = 0;
 
-    customizationOptions.forEach((node) => {
-      if (node.options.some((opt) => opt.isSelected)) {
-        node.options.forEach((opt) => {
-          if (opt.isSelected) {
-            total += Number(opt.price);
-          }
-        });
+    data.modelFloorOptions.ModelSecondOption?.forEach(
+      (node: ModelSecondOption) => {
+        if (node.optionDetails.some((opt) => opt.isSelected)) {
+          node.optionDetails.forEach((opt: OptionDetail) => {
+            if (opt.isSelected) {
+              total += Number(opt.price);
+            }
+          });
+        }
       }
-    });
+    );
 
     setEstimatedQutation(total);
   };
@@ -176,7 +93,7 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
   useEffect(() => {
     calculateTotal();
     checkButtonEnableAndDisable();
-  }, [customizationOptions]);
+  }, [data]);
 
   const OPTIONS = [
     { value: "Evo1", label: "Evo" },
@@ -184,23 +101,32 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
     { value: "Evo3", label: "Evo" },
   ];
 
-    const handleFloorChange = (floorId: string) => {
-        if (floorId) {
-          dispatch(customizationFloorSelectionChange(floorId) as unknown as AnyAction);
-        }
-      }
-      
-    const handleOptionChange = (nodeId: string,order: number) => {
-      console.log(nodeId,order,555)
-      if(nodeId && order ) {
-        dispatch(customizationOptionsSelectionChange(nodeId,order) as unknown as AnyAction);
-      }
+  const handleFloorChange = (floorId: string) => {
+    if (floorId) {
+      dispatch(
+        customizationFloorSelectionChange(floorId) as unknown as AnyAction
+      );
     }
-    
-    const handleKitchenTypeSelect = (name:string) => {
-      dispatch(customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction);
-      console.log(name)
+  };
+
+  const handleOptionChange = (nodeId: string, order: number) => {
+    console.log(nodeId, order, 555);
+    if (nodeId && order) {
+      dispatch(
+        customizationOptionsSelectionChange(
+          nodeId,
+          order
+        ) as unknown as AnyAction
+      );
     }
+  };
+
+  const handleKitchenTypeSelect = (name: string) => {
+    dispatch(
+      customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction
+    );
+    console.log(name);
+  };
 
   return (
     <div className="flex flex-col justify-between h-[65vh] lg:h-[100vh] ">
@@ -280,7 +206,7 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
                 className={`options overflow-hidden transition-max-height duration-500 ease-in-out`}
               >
                 <div className="grid grid-cols-2 gap-2 pt-4">
-                  {data.modelFloorOptions.map((o:ModelFloorOptions) => {
+                  {data.modelFloorOptions.map((o: ModelFloorOptions) => {
                     return (
                       <FloorCard
                         id={o.id}
@@ -297,11 +223,13 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
             </div>
           </section>
           <div className="selectColor mb-4">
-            <SelectColorCard modelColors={data.modelColors}/>
+            <SelectColorCard modelColors={data.modelColors} />
           </div>
           <div className="customOption">
             <CustomizationOptions
-              customizationOptions={data.modelFloorOptions.find((x:ModelFloorOptions)=>(x.isSelected))}
+              customizationOptions={data.modelFloorOptions.find(
+                (x: ModelFloorOptions) => x.isSelected
+              )}
               handleOptionChange={handleOptionChange}
               handleKitchenTypeSelect={handleKitchenTypeSelect}
             />
@@ -366,8 +294,13 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
                 className={`menu border-[1px] rounded-full p-[11px] ${
                   openMenu ? "bg-jetBlack" : ""
                 }`}
+                className={`menu border-[1px] rounded-full p-[11px] ${
+                  openMenu ? "bg-jetBlack" : ""
+                }`}
                 onClick={handleMenuToggle}
               >
+                {!openMenu ? (
+                  <svg
                 {!openMenu ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -376,20 +309,25 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
                     viewBox="0 0 18 18"
                     fill="none"
                   >
-                    <g clipPath="url(#clip0_2935_7444)">
+                    <g clip-path="url(#clip0_2935_7444)">
                       <path d="M15.75 4.5H2.25V5.25H15.75V4.5Z" fill="black" />
                       <path
                         d="M15.75 8.625H2.25V9.375H15.75V8.625Z"
                         fill="black"
                       />
                       <path
+                      />
+                      <path
                         d="M15.75 12.75H2.25V13.5H15.75V12.75Z"
                         fill="black"
+                      />
                       />
                     </g>
                     <defs>
                       <clipPath id="clip0_2935_7444">
+                      <clipPath id="clip0_2935_7444">
                         <rect width="18" height="18" fill="white" />
+                      </clipPath>
                       </clipPath>
                     </defs>
                   </svg>
@@ -402,7 +340,7 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
                       viewBox="0 0 18 18"
                       fill="none"
                     >
-                      <g clipPath="url(#clip0_3107_44132)">
+                      <g clip-path="url(#clip0_3107_44132)">
                         <path
                           d="M14.1383 4.3873L13.6133 3.8623L9.00078 8.4673L4.38828 3.8623L3.86328 4.3873L8.46828 8.9998L3.86328 13.6123L4.38828 14.1373L9.00078 9.5323L13.6133 14.1373L14.1383 13.6123L9.53328 8.9998L14.1383 4.3873Z"
                           fill="white"
@@ -455,6 +393,7 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
       </div>
     </div>
   );
+};
 };
 
 export default CustomizationPanel;
