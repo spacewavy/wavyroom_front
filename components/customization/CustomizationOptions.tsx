@@ -1,6 +1,8 @@
+import { ModelFloorOptions, ModelKitchenOption, ModelKitchenType, ModelSecondOption, OptionDetail } from '@/app/redux/types';
 import React, { FC } from 'react'
 
-interface option {
+export interface option {
+    id?:string;
     optId?: number;
     title: string ;
     price: string | number;
@@ -13,23 +15,11 @@ export interface CustomizationOptionsProps {
     isMutliSelect: boolean,
     options: option[]
 }
-
-
-export const Card: FC<option> = ({title, price, isSelected, onClickHandler}) => {
+const CustomizationOptions: FC<{ customizationOptions: ModelFloorOptions, handleOptionChange: any,handleKitchenTypeSelect:any }> = ({ customizationOptions, handleOptionChange,handleKitchenTypeSelect }) => {
   return (
-    <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`} onClick={()=>{onClickHandler(title)}}>
-      <div className={`flex flex-col gap-2 font-medium text-jetBlack ${isSelected ? 'text-jetBlack' : 'text-gray'}`}>
-        <span className='text-[14px]'>{title}</span>
-        <span className='text-[10px]'>+{price}원</span>
-      </div>
-    </div>
-  )
-}
-
-const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps[], handleOptionChange: any }> = ({ customizationOptions, handleOptionChange }) => {
-  return (
+    <>
     <div className='flex flex-col gap-4'>
-        {customizationOptions.map((opt, index) => {
+        {customizationOptions?.modelSecondOptions.map((opt:ModelSecondOption, index) => {
             return (
               <section className="px-[24px] sm:px-8 py-4" key={`opt-${index}`}>
                 <div className="flex flex-col">
@@ -40,14 +30,14 @@ const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps
                       >
                         {opt.name}
                       </span>
-                      {opt.isMutliSelect && (
+                      {opt.isMultipleSelectable && (
                         <span className='text-[12px] font-light text-midGray'>
-                          {opt.options.filter((x) => (x.isSelected === true)).length}/{opt.options.length}
+                          {opt.optionDetails.filter((x:OptionDetail) => (x.isSelected === true)).length}/{opt.optionDetails.length}
                         </span>
                       )}
                     </div>
                     <div className="flex gap-4">
-                      {opt.isMutliSelect && (
+                      {opt.isMultipleSelectable && (
                         <span
                           className='text-[12px] font-medium text-orange'
                         >
@@ -57,16 +47,14 @@ const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps
                     </div>
                   </div>
                     <div className="grid grid-cols-2 gap-2 pt-4">
-                      {opt.options.map((o, index) => {
+                      {opt.optionDetails.map((o:OptionDetail) => {
                         return (
-                          <Card
-                            key={`card-${index}`}
-                            optId={o.optId}
-                            isSelected={o.isSelected}
-                            title={o.title}
-                            price={o.price.toLocaleString()}
-                            onClickHandler={() => {handleOptionChange(opt.id, o.optId)}}
-                          />
+                          <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`} onClick={()=>{handleOptionChange(opt.name,o.order)}}>
+                          <div className={`flex flex-col gap-2 font-medium text-jetBlack ${o.isSelected ? 'text-jetBlack' : 'text-gray'}`}>
+                            <span className='text-[14px]'>{o.name}</span>
+                            <span className='text-[10px]'>+{o.price}원</span>
+                          </div>
+                        </div>
                         );
                       })}
                     </div>
@@ -75,6 +63,20 @@ const CustomizationOptions: FC<{ customizationOptions: CustomizationOptionsProps
             );
         })}
     </div>
+    <div className="grid grid-cols-2 gap-2 pt-4 px-8">
+    {customizationOptions?.ModelKitchenTypes.map((o:ModelKitchenType, index) => {
+        return (
+          <section className="" key={`opt-${index}`} onClick={()=>{handleKitchenTypeSelect(o.name)}}>
+                      <div className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"}`}>
+                      <div className={`flex flex-col gap-2 font-medium text-jetBlack ${o.isSelected ? 'text-jetBlack' : 'text-gray'}`}>
+                        <span className='text-[14px]'>{o.name}</span>
+                      </div>
+                    </div>
+          </section>
+        );
+    })}
+    </div>
+    </>
   )
 }
 

@@ -7,6 +7,7 @@ import {
   fetchNavigationModelDataReducer,
 } from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
+import fetchCustomizationOptionsDataReducer from "./customizationReducers";
 
 const rootReducer = combineReducers({
   media: fetchDataReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   navigationModel: fetchNavigationModelDataReducer,
   aboutReputataion: fetchAboutReputationDataReducer,
   modelDetail: fetchModelDetailsDataReducer,
+  customization:fetchCustomizationOptionsDataReducer
 });
 
 export default rootReducer;

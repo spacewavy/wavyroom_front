@@ -114,6 +114,7 @@ export interface ModelColors {
   name: string;
   modelIdSubstitude: string;
   modelId: string;
+  isSelected?:boolean;
 }
 
 export interface ModelExample {
@@ -123,4 +124,54 @@ export interface ModelExample {
   imageURL: string;
   modelIdSubstitude: string;
   modelId: string;
+}
+export interface OptionDetail {
+  order: number;
+  name: string;
+  price: number;
+  isDefault: boolean;
+  isSelected?: boolean;
+}
+
+export interface ModelSecondOption {
+  name: string;
+  isMultipleSelectable: boolean;
+  optionDetails: OptionDetail[];
+}
+
+export interface ModelFloorOptions {
+  id: string;
+  name: string;
+  order: number;
+  price: number;
+  isDefault: boolean;
+  isSelected?:boolean;
+  modelSecondOptions: ModelSecondOption[];
+  ModelKitchenTypes: ModelKitchenType[];
+}
+
+export interface Customization {
+  modelColors: ModelColors[];
+  modelFloorOptions: ModelFloorOptions[];
+}
+
+export interface ModelKitchenType {
+  name: string;
+  order: number;
+  options: ModelKitchenOption[];
+  isSelected?:boolean;
+}
+export interface ModelKitchenOption {
+  name: string;
+  optionDetails: ModelKitchenOptionDetail[];
+}
+export interface ModelKitchenOptionDetail {
+  name: string;
+  order: number;
+  isDefault: boolean;
+  isSelected?: boolean;
+}
+export interface CustomizationData {
+  data : Customization;
+  error:string | null
 }
