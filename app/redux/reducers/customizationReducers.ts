@@ -32,9 +32,9 @@ const fetchCustomizationOptionsDataReducer = (
     case SET_CUSTOMIZATION_SELECTED_COLOR:
       const updatedModelColors = state.data.modelColors.map((color) => {
         if (color.id === action.payload) {
-          return { ...color, isSelected: true };
+          return { ...color, isSelected: true,isDefault:false };
         }
-        return { ...color, isSelected: false };
+        return { ...color, isSelected: false,isDefault:false };
       });
       return {
         ...state,

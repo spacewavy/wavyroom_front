@@ -64,9 +64,10 @@ const CustomizationOptions: FC<{
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2 pt-4">
-                    {opt.optionDetails.map((o: OptionDetail) => {
+                    {opt.optionDetails.map((o: OptionDetail,index:number) => {
                       return (
                         <div
+                          key={index}
                           className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
                             o.isSelected
                               ? "border-[darkGray]"
@@ -142,9 +143,10 @@ const CustomizationOptions: FC<{
                     </div>
                   </div>
                   <div className="pt-4">
-                    {opt.optionDetails.map((o: ModelKitchenOptionDetail) => {
+                    {opt.optionDetails.map((o: ModelKitchenOptionDetail,ind:number) => {
                       return (
                         <div
+                        key={ind}
                           className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
                             o.isDefault
                               ? "border-[darkGray]"

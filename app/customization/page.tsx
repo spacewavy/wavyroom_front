@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
-import { ModelDetailData, ModelDetailItem } from "../redux/types";
-import { Item } from "@radix-ui/react-dropdown-menu";
+import {  ModelDetailItem } from "../redux/types";
+import axios from "axios";
 
 export interface Product {
   id: number;
@@ -32,6 +32,9 @@ const Customization = () => {
   const dispatch = useDispatch();
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
+  );
+  const {data:customizationData} = useSelector(
+    (state: RootState) => state.customization
   );
 
   useEffect(() => {
@@ -52,7 +55,7 @@ const Customization = () => {
   const [formElaments, setFormElements] = useState({
     name: "",
     email: "",
-    phone: "",
+    phone: 'null',
   });
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedItem, setSelectedTtem] = useState<number>(1);
@@ -103,6 +106,30 @@ const Customization = () => {
   };
   const handlePopupClose = () => {
     setShowOverlay(false);
+  };
+  const handleFormSubmit = () => {
+      const postData = {
+        name:formElaments.name,
+        email:formElaments.email,
+        phoneNumber:formElaments.phone,
+        data:customizationData,
+        address:''
+      }
+      axios.post('https://test-spacewavy.com/api/v1/reservation', postData,{
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'language': 'KO'
+        }
+      })
+      .then((response) => {
+        console.log('Response:', response);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+    
+      });
+
   };
 
   useEffect(() => {
@@ -180,6 +207,7 @@ const Customization = () => {
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 mb-4 focus:outline-none"
                   type="text"
                   placeholder="이름을 입력하세요"
+                  value={formElaments.name}
                   onChange={(e) => {
                     handleFormElement(e, "name");
                   }}
@@ -189,7 +217,8 @@ const Customization = () => {
               <div>
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-4 focus:outline-none"
-                  type="text"
+                  type="email"
+                  value={formElaments.email}
                   placeholder="이메일 주소를 입력하세요"
                   onChange={(e) => {
                     handleFormElement(e, "email");
@@ -201,6 +230,7 @@ const Customization = () => {
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 mb-16 focus:outline-none"
                   type="number"
+                  value={formElaments.phone}
                   placeholder="휴대전화번호를 입력하세요"
                   onChange={(e) => {
                     handleFormElement(e, "phone");
@@ -232,6 +262,7 @@ const Customization = () => {
                 </div>
                 <Link className="w-full" href="/customization-completion">
                   <button
+                    onClick={handleFormSubmit}
                     className={`flex justify-center items-center gap-1 w-full text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${
                       isButtonDisabled ? "bg-gray" : "bg-jetBlack"
                     }`}

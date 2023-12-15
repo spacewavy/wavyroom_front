@@ -161,7 +161,7 @@ const ModelDetail = () => {
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-row items-center gap-2">
                 {data.modelColors.map((item: ModelColors, index: number) => {
-                  const isSelected = selectedColor.hex === item.colorId;
+                  const isSelected = item.isDefault || selectedColor.hex === item.colorId;
                   return (
                     <div
                       key={"color" + index}
@@ -244,13 +244,22 @@ const ModelDetail = () => {
                 <div className="flex items-center justify-left gap-4">
                   {data.modelColors.map((x: any, i: number) => {
                     return (
-                      <div key={i} className="flex gap-2 items-center text-[14px] font-normal">
+                      <div
+                        key={i}
+                        className="flex gap-2 items-center text-[14px] font-normal"
+                      >
                         <div
-                          className={`w-[30px] h-[30px] border-[1px] rounded-full flex justify-center items-center`}
+                          key={"color" + i}
+                          className="relative w-8 h-8 p-1 cursor-pointer"
                         >
                           <div
-                            className={`w-[24px] h-[24px] bg-${x.colorId} rounded-full`}
-                          ></div>
+                            className="w-full h-full rounded-full"
+                            style={{
+                              backgroundColor: x.colorId,
+                              borderWidth: 1,
+                              borderColor: "rgba(0, 0, 0, 0.1)",
+                            }}
+                          />
                         </div>
                         <div className="text-[14px] font-light">{x.name}</div>
                       </div>

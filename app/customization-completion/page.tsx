@@ -1,8 +1,44 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Img from "@/assets/customization/customization-banner-img.png";
+import { useSelector } from "react-redux";
+import { ModelColors, ModelFloorOptions, ModelSecondOption, OptionDetail } from "../redux/types";
 
 const Completion = () => {
+  const { data } = useSelector((state: any) => state.customization);
+  
+  const [selectedColorName, setSelectedColorName] = useState('');
+  const [selectedColorId, setSelectedColorId] = useState('');
+  const [estimatedQutation, setEstimatedQutation] = useState(0);
+
+
+  useEffect(()=> {
+    const color=data.modelColors.find((color:ModelColors)=>color.isSelected===true);
+    setSelectedColorName(color?.name);
+    setSelectedColorId(color?.colorId);
+
+},[data.modelColors])
+
+const calculateTotal = () => {
+  let total = 0;
+
+  data.modelFloorOptions.ModelSecondOption?.forEach(
+    (node: ModelSecondOption) => {
+      if (node.optionDetails.some((opt) => opt.isSelected)) {
+        node.optionDetails.forEach((opt: OptionDetail) => {
+          if (opt.isSelected) {
+            total += Number(opt.price);
+          }
+        });
+      }
+    }
+  );
+
+  setEstimatedQutation(total);
+};
+
   return (
     <>
       <div className=" py-16 md:py-32 w-full">
@@ -90,44 +126,78 @@ const Completion = () => {
             </div>
           </div>
           <section className="cursol-pointer w-full ">
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">모델</span>
-              <span className="text-[12px] font-light">Wavyroom Evo</span>
-            </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">층수 형태</span>
-              <span className="text-[12px] font-light">단층</span>
-            </div>
+          <div className="px-8 py-4 flex justify-between">
+            <span className="text-[14px] font-normal">모델</span>
+            <span className="text-[12px] font-light">Wavyroom Evo</span>
+          </div>
+          <div className="px-8 py-4 flex justify-between">
+            <span className="text-[14px] font-normal">층수 형태</span>
+            <span className="text-[12px] font-light">
+              {data?.modelFloorOptions.find((x: ModelFloorOptions) => x.isSelected)?.name}
+            </span>
+          </div>
+          {selectedColorId && (
             <div className="px-8 py-4 flex justify-between">
               <span className="text-[14px] font-normal">외장재 색상</span>
               <div className="flex gap-4 items-center">
-                <span className="text-[12px] font-light">에보니 블랙</span>
+              <div  className="relative w-8 h-8 p-1 cursor-pointer">
+                      <div className="w-full h-full rounded-full"style={{ backgroundColor: selectedColorId, borderWidth: 1, borderColor: "rgba(0, 0, 0, 0.1)" }}/>
+                </div>
+                <span className="text-[12px] font-light">{selectedColorName}</span>
               </div>
             </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">옵션</span>
-              <span className="text-[12px] font-light">선택된 옵션 1</span>
-            </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">옵션</span>
-              <span className="text-[12px] font-light">선택된 옵션 1</span>
-            </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">옵션</span>
-              <span className="text-[12px] font-light">선택된 옵션 1</span>
-            </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">멀티플</span>
-              <div className="text-[12px] font-light flex flex-col gap-2">
-                <span>선택된 멀티플 1</span>
-                <span>선택된 멀티플 2</span>
-                <span>선택된 멀티플 3</span>
-              </div>
-            </div>
+          )}
+          {data.modelFloorOptions[
+            data.modelFloorOptions.findIndex(
+              (x: ModelFloorOptions) => x.isSelected
+            )
+          ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
+            return (
+              !sec.isMultipleSelectable &&
+              sec.optionDetails.map((opt: OptionDetail) => {
+                return (
+                  opt.isSelected && (
+                    <div className="px-8 py-4 flex justify-between">
+                      <span className="text-[14px] font-normal">옵션</span>
+                      <span className="text-[12px] font-light">{opt.name}</span>
+                    </div>
+                  )
+                );
+              })
+            );
+          })}
+          {data.modelFloorOptions[
+            data.modelFloorOptions.findIndex(
+              (x: ModelFloorOptions) => x.isSelected
+            )
+          ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
+            return (
+              sec.isMultipleSelectable && (
+                <div className="px-8 py-4 flex justify-between">
+                  <span className="text-[14px] font-normal">
+                    {sec.optionDetails.some((x) => x.isSelected)
+                      ? "Multiple"
+                      : ""}
+                  </span>
+                  <div className="flex flex-col items-end">
+                    {sec.optionDetails.map((opt: OptionDetail) => {
+                      return (
+                        opt.isSelected && (
+                          <span className="text-[12px] font-light">
+                            {opt.name}
+                          </span>
+                        )
+                      );
+                    })}
+                  </div>
+                </div>
+              )
+            );
+          })}
           </section>
           <div className="w-full flex justify-between items-center border-y-[1px] mt-0 lg:mt-8 mb-16 p-8">
             <span className="text-[14px] font-normal">예상 견적</span>
-            <span className="text-[24px] font-light">990,000,000원</span>
+            <span className="text-[24px] font-light">{estimatedQutation}원</span>
           </div>
           <div>
             <div className="px-4 py-2 flex gap-[4px] bg-jetBlack rounded-full">

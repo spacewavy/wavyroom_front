@@ -32,9 +32,12 @@ const SelectColorCard:FC<SelectColorCardPorps> = ({modelColors}) => {
                 <div className="colors flex gap-2">
                     {modelColors.map((x:ModelColors, index ) => {
                         return (
-                            <span key={`color-${index}`} onClick={()=>handleColorClick(x.id)} className={`w-[36px] h-[36px] ${ x.isSelected ? 'border-jetBlack' : 'border-[#B3B3B3]' } border-[1px] rounded-full flex justify-center items-center`}>
-                                <span className={`w-[28px] h-[28px] bg-[${x.colorId.toString()}] rounded-full`}></span>
-                            </span>
+                            <div key={"color" + index} className="relative w-8 h-8 p-1 cursor-pointer" onClick={()=>handleColorClick(x.id)}>
+                                <div className="w-full h-full rounded-full"style={{ backgroundColor: x.colorId, borderWidth: 1, borderColor: "rgba(0, 0, 0, 0.1)" }}/>
+                                {(x.isSelected || x.isDefault) && (
+                                    <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[2px] border-black rounded-full" />
+                                )}
+                            </div>                              
                         )
                     })}
                 </div>
