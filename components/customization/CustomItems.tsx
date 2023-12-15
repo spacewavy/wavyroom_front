@@ -52,19 +52,27 @@ const CustomItems = ({ navigateToSettings }: any) => {
     },
     {
       id: 6,
-      heading: "Mini",
+      heading: "Max RM",
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
-      path: WAVY_MODEL_PATHS.EVO,
+      path: WAVY_MODEL_PATHS.MAX_RM,
     },
     {
       id: 7,
-      heading: "Mini",
+      heading: "Max Plus",
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
-      path: WAVY_MODEL_PATHS.EVO,
+      path: WAVY_MODEL_PATHS.MAX_PLUS,
+    },
+    {
+      id: 8,
+      heading: "Studio plus",
+      subheading: "10평",
+      price: "￦35,000,000~",
+      Image: CardImg5,
+      path: WAVY_MODEL_PATHS.STUDIO_PLUS,
     },
   ];
 

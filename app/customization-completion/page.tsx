@@ -140,7 +140,7 @@ const Completion = () => {
                   viewBox="0 0 19 19"
                   fill="none"
                 >
-                  <g clip-path="url(#clip0_3200_1508)">
+                  <g clipPath="url(#clip0_3200_1508)">
                     <path
                       d="M10.52 4.57031L9.9875 5.10281L13.8425 8.95781H3.875V9.70781H13.85L9.9875 13.5703L10.5125 14.0953L15.2825 9.34031L10.52 4.57031Z"
                       fill="white"
@@ -164,31 +164,47 @@ const Completion = () => {
       </div>
       <div className="bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
         <div className="text-[28px] md:text-[40px] font-light">
-            <span>
-                웨이비룸에서의 <br />
-                연락을 기다려주세요.
-            </span>
+          <span>
+            웨이비룸에서의 <br />
+            연락을 기다려주세요.
+          </span>
         </div>
         <div className="w-full md:w-[80%] lg:w-[33%] mt-4 mb-8">
-            <span  className="text-[12px] md:text-[16px] font-light">
-              Every Wavyroom reservation goes through a careful review process. We’ll send an email when it’s time for next steps. We may also reach out to you to collect additional information about your property.
-            </span>
+          <span className="text-[12px] md:text-[16px] font-light">
+            Every Wavyroom reservation goes through a careful review process.
+            We’ll send an email when it’s time for next steps. We may also reach
+            out to you to collect additional information about your property.
+          </span>
         </div>
         <div className="flex items-center gap-[4px] border-[1px] border-jetBlack rounded-full px-4 py-2 text-[12px] font-normal">
-            <span>문의</span>
-            <span>+82.02.800.0000</span>
-            <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
-                <g clip-path="url(#clip0_3200_1176)">
-                <path d="M10.02 4.5708L9.4875 5.1033L13.3425 8.9583H3.375V9.7083H13.35L9.4875 13.5708L10.0125 14.0958L14.7825 9.3408L10.02 4.5708Z" fill="#1C1C1F"/>
-                </g>
-                <defs>
+          <span>문의</span>
+          <span>+82.02.800.0000</span>
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="19"
+              viewBox="0 0 18 19"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_3200_1176)">
+                <path
+                  d="M10.02 4.5708L9.4875 5.1033L13.3425 8.9583H3.375V9.7083H13.35L9.4875 13.5708L10.0125 14.0958L14.7825 9.3408L10.02 4.5708Z"
+                  fill="#1C1C1F"
+                />
+              </g>
+              <defs>
                 <clipPath id="clip0_3200_1176">
-                <rect width="18" height="18" fill="white" transform="translate(0 0.333496)"/>
+                  <rect
+                    width="18"
+                    height="18"
+                    fill="white"
+                    transform="translate(0 0.333496)"
+                  />
                 </clipPath>
-                </defs>
-                </svg>
-            </span>
+              </defs>
+            </svg>
+          </span>
         </div>
       </div>
     </>

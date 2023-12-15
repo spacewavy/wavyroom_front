@@ -40,7 +40,6 @@ const Customization = () => {
   });
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedItem, setSelectedTtem] = useState<number>(1);
-
   const [products] = useState<Product[]>([
     {
       id: 1,
@@ -84,25 +83,34 @@ const Customization = () => {
     },
     {
       id: 6,
-      heading: "Mini",
+      heading: "Max RM",
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
-      path: WAVY_MODEL_PATHS.EVO,
+      path: WAVY_MODEL_PATHS.MAX_RM,
     },
     {
       id: 7,
-      heading: "Mini",
+      heading: "Max Plus",
       subheading: "10평",
       price: "￦35,000,000~",
       Image: CardImg5,
-      path: WAVY_MODEL_PATHS.EVO,
+      path: WAVY_MODEL_PATHS.MAX_PLUS,
+    },
+    {
+      id: 8,
+      heading: "Studio plus",
+      subheading: "10평",
+      price: "￦35,000,000~",
+      Image: CardImg5,
+      path: WAVY_MODEL_PATHS.STUDIO_PLUS,
     },
   ]);
-
   const [selectedImage, setSelectedImage] = useState(
     products.find((x) => x.id === selectedItem)?.Image
   );
+
+  const { changeModelColorFromHex, test } = useThree();
 
   const handleSelectedItem = (id: number) => {
     setSelectedTtem(id);
@@ -160,6 +168,10 @@ const Customization = () => {
           <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
             <Image src={LeftArrow} alt="leftarrow" />
             <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
+            <div onClick={() => changeModelColorFromHex("#ffffff")}>
+              Color Change BTN
+            </div>
+            <div onClick={test}>TEST</div>
           </div>
           <div className="relative flex flex-1 flex-col group">
             {/* <div className="w-full h-full"> */}
@@ -167,7 +179,7 @@ const Customization = () => {
             {/* </div> */}
             <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
               <Image src={IntentRequest} alt="icon" />
-              <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
+              <p>모델을 마우스로 드래그하여 구성을 회전하세요</p>
             </div>
           </div>
         </div>
@@ -257,7 +269,7 @@ const Customization = () => {
                     viewBox="0 0 18 18"
                     fill="none"
                   >
-                    <g clip-path="url(#clip0_3111_49040)">
+                    <g clipPath="url(#clip0_3111_49040)">
                       <path
                         d="M14.6337 8.62505H4.65875L8.51375 4.77005L7.98875 4.23755L3.21875 9.00755L7.98875 13.7625L8.51375 13.2375L4.65125 9.37505H14.6337V8.62505Z"
                         fill="black"

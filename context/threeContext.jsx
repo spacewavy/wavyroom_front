@@ -4,6 +4,7 @@ import {
   FILE_EXTENSION,
   OPERATING_SYSTEM,
   WAVY_MODEL_PATHS,
+  hexToRgb,
 } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
@@ -33,6 +34,7 @@ const WAVY_MODEL = "wavy_model";
 export const useThree = () => useContext(ThreeContext);
 
 export const ThreeProvider = ({ children }) => {
+  const SCALE = 1 / 15;
   const [os, setOs] = useState(OPERATING_SYSTEM.MAC);
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
   const [isModelLoading, setIsModelLoading] = useState(false);
@@ -45,19 +47,16 @@ export const ThreeProvider = ({ children }) => {
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
   const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.STUDIO
+    WAVY_MODEL_PATHS.MAX_RM
   );
 
   const [loadPercent, setLoadPercent] = useState(0);
 
-  const { setIsLoading } = useLoading();
-
   // initialize
   useEffect(() => {
     // scene and backgorund
-    // setLoadPercent(1);
     const _scene = new THREE.Scene();
-    _scene.background = new THREE.Color(247 / 255, 247 / 255, 247 / 255, 1);
+    _scene.background = new THREE.Color(0xe5e5e5);
 
     const _renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer.setClearColor(0xffffff, 0);
@@ -65,19 +64,24 @@ export const ThreeProvider = ({ children }) => {
     _renderer.sortObjects = false;
     _renderer.shadowMap.enabled = true;
     _renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    _renderer.toneMapping = THREE.ReinhardToneMapping;
+    _renderer.toneMapping = THREE.LinearToneMapping;
+    _renderer.toneMappingExposure = 2;
 
     // lighting
     const _ambientLight = new THREE.AmbientLight();
     _ambientLight.intensity = 0.5;
 
-    const _dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
-    _dirLight1.position.set(40, 40, 30);
-    _dirLight1.intensity = 5;
-    _dirLight1.castShadow = true;
-    _dirLight1.frustumCulled = true;
+    const _directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+    _directionalLight.position.set(
+      45 * 15 * SCALE,
+      20 * 15 * SCALE,
+      30 * 15 * SCALE
+    );
+    _directionalLight.intensity = 1;
+    _directionalLight.castShadow = true;
+    _directionalLight.frustumCulled = true;
     // deleting stripe shadow pattern
-    _dirLight1.shadow.bias = -0.0001;
+    _directionalLight.shadow.bias = -0.0001;
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
     _scene.add(_ambientLight, _hemisphereLight);
@@ -85,7 +89,7 @@ export const ThreeProvider = ({ children }) => {
     const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
     // camera
     _camera.position.set(0, 3, 15);
-    _camera.add(_dirLight1);
+    _camera.add(_directionalLight);
     _camera.lookAt(new THREE.Vector3(0, 0, 0));
     _camera.setFocalLength(35);
     _scene.add(_camera);
@@ -100,6 +104,21 @@ export const ThreeProvider = ({ children }) => {
     _cameraControls.minDistance = 5;
     _cameraControls.maxDistance = 20;
     _cameraControls.maxPolarAngle = Math.PI / 2;
+
+    // const planeGeometry = new THREE.PlaneGeometry(10, 10, 1, 1);
+    const planeGeometry = new THREE.BoxGeometry(30, 30, 0.1);
+    const planeMaterial = new THREE.MeshBasicMaterial({
+      color: 0xa9a9a9,
+      // color: 0xffff00,
+      side: THREE.DoubleSide,
+      shadowSide: THREE.DoubleSide,
+    });
+
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotateX(-Math.PI / 2);
+    plane.receiveShadow = true;
+
+    _scene.add(plane);
 
     const _clock = new THREE.Clock();
 
@@ -218,9 +237,11 @@ export const ThreeProvider = ({ children }) => {
         loader = new FBXLoader();
         break;
     }
+
     setTimeout(() => {
       setLoadPercent(30);
     }, [350]);
+
     loader.load(
       url,
       function (model) {
@@ -239,37 +260,89 @@ export const ThreeProvider = ({ children }) => {
             _obj.traverse((child) => {
               child.receiveShadow = true;
               child.castShadow = true;
+              // child.receiveShadow = false;
+              // child.castShadow = false;
+              if (child.name.toLowerCase().includes("deck")) {
+                child.removeFromParent();
+              }
               child.visible = true;
               if (child.geometry) {
-                let _geometry = child.geometry;
+                let _geometry = child.geometry.clone();
                 _geometry = BufferGeometryUtils.mergeVertices(_geometry);
                 child.geometry = _geometry;
+                // const edges = new THREE.EdgesGeometry(child.geometry);
+                // const line = new THREE.LineSegments(
+                //   edges,
+                //   new THREE.LineBasicMaterial({
+                //     color: 0x4e4e4e,
+                //     linewidth: 0.5,
+                //     opacity: 0.5,
+                //   })
+                // );
+                // line.scale.x = SCALE;
+                // line.scale.y = SCALE;
+                // line.scale.z = SCALE;
+                // scene.add(line);
               }
               child.frustumCulled = false;
               child.updateMatrixWorld();
             });
           });
         }
+        object.scale.x = SCALE;
+        object.scale.y = SCALE;
+        object.scale.z = SCALE;
         object.receiveShadow = true;
         object.castShadow = true;
-        object.scale.x = 1 / 15;
-        object.scale.y = 1 / 15;
-        object.scale.z = 1 / 15;
+        // object.receiveShadow = false;
+        // object.castShadow = false;
+
         //for identifying
         object.name = WAVY_MODEL;
 
+        const _localObject = object.clone();
+        _localObject.traverse((item) => {
+          if (item.name.toLowerCase().includes("deck")) {
+            // console.log("item", item);
+            // item.parent.remove(item);
+            // item.visible = false;
+            // try {
+            //   item?.removeFromParent();
+            // } catch (e) {
+            //   console.log("error", e);
+            // }
+          }
+        });
+
         // calculate center
         const _localCenter = new THREE.Vector3();
-        new THREE.Box3().setFromObject(object).getCenter(_localCenter);
+        const _localSphere = new THREE.Sphere();
+        const box3 = new THREE.Box3().setFromObject(_localObject);
+        box3.getCenter(_localCenter);
+        box3.getBoundingSphere(_localSphere);
+        const _localRadius = Math.ceil(_localSphere.radius);
+
+        console.log("_localCenter", _localCenter);
+        // cameraControls.minDistance = _localRadius;
 
         // camera lookat center of obj
-        console.log("center is", _localCenter);
         cameraControls.target.set(
           _localCenter.x,
           _localCenter.y,
           _localCenter.z
         );
-        camera.position.set(0, 3, 15);
+        const _cameraPosition = new THREE.Vector3(0, 3, 15)
+          .normalize()
+          .multiplyScalar(_localRadius);
+
+        console.log("_cameraPosition", _cameraPosition);
+
+        camera.position.set(
+          1.5 * _cameraPosition.x,
+          1.5 * _cameraPosition.y,
+          1.5 * _cameraPosition.z
+        );
+        // console.log(camera.position);
         camera.lookAt(_localCenter);
 
         setLoadPercent(80);
@@ -281,16 +354,12 @@ export const ThreeProvider = ({ children }) => {
             setIsModelLoading(false);
           }, [500]);
         }, [500]);
-        // setIsLoading(false);
       },
       function (xhr) {
         console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-        // set for max 60%
-        // setLoadPercent(Math.ceil((xhr.loaded / xhr.total) * 60));
       },
       function (e) {
         console.log("error", e);
-        // setIsLoading(false);
       }
     );
   };
@@ -303,6 +372,37 @@ export const ThreeProvider = ({ children }) => {
     const _model = scene.getObjectByName(_name);
     if (!_model) return;
     _model.visible = _visible;
+  };
+
+  const changeModelColorFromHex = (_color) => {
+    try {
+      const model = scene.getObjectByName(WAVY_MODEL);
+      model.traverse((item) => {
+        const name = item.name;
+        if (name.includes("_color")) {
+          // change all the colors
+          item.traverse((obj) => {
+            if (obj?.isMesh) {
+              obj.material.color = new THREE.Color(
+                hexToRgb(_color).r / 255,
+                hexToRgb(_color).g / 255,
+                hexToRgb(_color).b / 255
+              );
+            }
+          });
+        }
+      });
+    } catch (e) {
+      console.error("e", e);
+    }
+  };
+
+  const test = () => {
+    console.log("test clicked", camera.uuid);
+    camera.position.set(0, 3, 5);
+    camera.position.setX(0);
+    camera.position.setY(3);
+    camera.position.setZ(5);
   };
 
   return (
@@ -325,6 +425,8 @@ export const ThreeProvider = ({ children }) => {
         loadPercent,
         isModelLoading,
         setLoadPercent,
+        changeModelColorFromHex,
+        test,
       }}
     >
       {children}
