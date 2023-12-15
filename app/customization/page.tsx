@@ -9,12 +9,6 @@ import CustomItems from "@/components/customization/CustomItems";
 import CustomizationPanel from "@/components/customization/CustomizationPanel";
 import Link from "next/link";
 
-import CardImg1 from "@/assets/custom-card/product-img2.png";
-import CardImg2 from "@/assets/custom-card/product-img1.png";
-import CardImg3 from "@/assets/custom-card/product-img3.png";
-import CardImg4 from "@/assets/custom-card/product-img4.png";
-import CardImg5 from "@/assets/custom-card/product-img5.png";
-
 import WavyCanvas from "@/components/canvas/WavyCanvas";
 import { useThree } from "../../context/threeContext";
 import { WAVY_MODEL_PATHS } from "../../lib/utils";
@@ -22,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
+import { ModelDetailData, ModelDetailItem } from "../redux/types";
+import { Item } from "@radix-ui/react-dropdown-menu";
 
 export interface Product {
   id: number;
@@ -42,6 +38,12 @@ const Customization = () => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, []);
 
+  const transformedData = data.map((Item:ModelDetailItem)=>{
+    return {
+      ...Item,
+      path: WAVY_MODEL_PATHS[Item.name.toUpperCase()]
+    }
+  })
 
   const { changeModel, changeMeshVisibilityByName } = useThree();
   const [navigateToSettings, setNavigateToSettings] = useState(false);
@@ -57,7 +59,7 @@ const Customization = () => {
 
 
   const [selectedImage, setSelectedImage] = useState(
-    data.find((x:any) => x.id === selectedItem)?.representativeImageURL
+    transformedData.find((x:any) => x.id === selectedItem)?.representativeImageURL
   );
 
   const { changeModelColorFromHex, test } = useThree();
@@ -66,7 +68,7 @@ const Customization = () => {
     setSelectedTtem(id);
   };
   useEffect(() => {
-    setSelectedImage(data.find((x:any) => x.id === selectedItem)?.representativeImageURL);
+    setSelectedImage(transformedData.find((x:any) => x.id === selectedItem)?.representativeImageURL);
   }, [selectedItem]);
 
   const moveToCustomSettings = (value: boolean) => {
@@ -109,7 +111,7 @@ const Customization = () => {
 
   return (
     <>
-    {data && !error && (
+    {transformedData && !error && (
        <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
        <div
          className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
@@ -139,7 +141,7 @@ const Customization = () => {
            <div className="absolute top-0 left-0  w-full">
              <CustomItems
                navigateToSettings={moveToCustomSettings}
-               products={data}
+               products={transformedData}
              />
            </div>
            <div className="absolute top-0 left-[100%] w-full">

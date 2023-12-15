@@ -9,6 +9,7 @@ import CustomizationOptions, {
 } from "./CustomizationOptions";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ModelColors,
   ModelFloorOptions,
   ModelSecondOption,
   OptionDetail,
@@ -60,6 +61,8 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   handlePopupOpen,
 }) => {
   const [estimatedQutation, setEstimatedQutation] = useState(0);
+  const [selectedColorName, setSelectedColorName] = useState('');
+  const [selectedColorId, setSelectedColorId] = useState('');
   const { data } = useSelector((state: any) => state.customization);
 
   const dispatch = useDispatch();
@@ -71,6 +74,12 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         .length >= 1
     );
   };
+  useEffect(()=> {
+      const color=data.modelColors.find((color:ModelColors)=>color.isSelected===true);
+      setSelectedColorName(color?.name);
+      setSelectedColorId(color?.colorId);
+
+  },[data.modelColors])
 
   const calculateTotal = () => {
     let total = 0;
@@ -125,7 +134,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     dispatch(
       customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction
     );
-    console.log(name);
   };
 
   return (
@@ -246,35 +254,66 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           </div>
           <div className="px-8 py-4 flex justify-between">
             <span className="text-[14px] font-normal">층수 형태</span>
-            <span className="text-[12px] font-light">단층</span>
+            <span className="text-[12px] font-light">
+              {data.modelFloorOptions.find((x: ModelFloorOptions) => x.isSelected).name}
+            </span>
           </div>
-          <div className="px-8 py-4 flex justify-between">
-            <span className="text-[14px] font-normal">외장재 색상</span>
-            <div className="flex gap-4 items-center">
-              <div className="w-8 h-8 bg-jetBlack rounded-full"></div>
-              <span className="text-[12px] font-light">에보니 블랙</span>
+          {selectedColorId && (
+            <div className="px-8 py-4 flex justify-between">
+              <span className="text-[14px] font-normal">외장재 색상</span>
+              <div className="flex gap-4 items-center">
+                <div className={`w-8 h-8 bg-[${selectedColorId}] rounded-full`}></div>
+                <span className="text-[12px] font-light">{selectedColorName}</span>
+              </div>
             </div>
-          </div>
-          <div className="px-8 py-4 flex justify-between">
-            <span className="text-[14px] font-normal">옵션</span>
-            <span className="text-[12px] font-light">선택된 옵션 1</span>
-          </div>
-          <div className="px-8 py-4 flex justify-between">
-            <span className="text-[14px] font-normal">옵션</span>
-            <span className="text-[12px] font-light">선택된 옵션 1</span>
-          </div>
-          <div className="px-8 py-4 flex justify-between">
-            <span className="text-[14px] font-normal">옵션</span>
-            <span className="text-[12px] font-light">선택된 옵션 1</span>
-          </div>
-          <div className="px-8 py-4 flex justify-between">
-            <span className="text-[14px] font-normal">멀티플</span>
-            <div className="text-[12px] font-light flex flex-col gap-2">
-              <span>선택된 멀티플 1</span>
-              <span>선택된 멀티플 2</span>
-              <span>선택된 멀티플 3</span>
-            </div>
-          </div>
+          )}
+          {data.modelFloorOptions[
+            data.modelFloorOptions.findIndex(
+              (x: ModelFloorOptions) => x.isSelected
+            )
+          ].modelSecondOptions.map((sec: ModelSecondOption) => {
+            return (
+              !sec.isMultipleSelectable &&
+              sec.optionDetails.map((opt: OptionDetail) => {
+                return (
+                  opt.isSelected && (
+                    <div className="px-8 py-4 flex justify-between">
+                      <span className="text-[14px] font-normal">옵션</span>
+                      <span className="text-[12px] font-light">{opt.name}</span>
+                    </div>
+                  )
+                );
+              })
+            );
+          })}
+          {data.modelFloorOptions[
+            data.modelFloorOptions.findIndex(
+              (x: ModelFloorOptions) => x.isSelected
+            )
+          ].modelSecondOptions.map((sec: ModelSecondOption) => {
+            return (
+              sec.isMultipleSelectable && (
+                <div className="px-8 py-4 flex justify-between">
+                  <span className="text-[14px] font-normal">
+                    {sec.optionDetails.some((x) => x.isSelected)
+                      ? "Multiple"
+                      : ""}
+                  </span>
+                  <div className="flex flex-col items-end">
+                    {sec.optionDetails.map((opt: OptionDetail) => {
+                      return (
+                        opt.isSelected && (
+                          <span className="text-[12px] font-light">
+                            {opt.name}
+                          </span>
+                        )
+                      );
+                    })}
+                  </div>
+                </div>
+              )
+            );
+          })}
         </section>
       )}
 
