@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import CustomizationCard from "./CustomizationCard";
-import { NavigationModelItem, PortfolioItem } from "@/app/redux/types";
-import { useDispatch, useSelector } from "react-redux";
+import { NavigationModelItem } from "@/app/redux/types";
+import { useDispatch } from "react-redux";
 import { AnyAction } from "redux";
 import { WAVY_MODEL_PATHS } from "../../lib/utils";
 import { fetchCustomizationOptionsData } from "@/app/redux/actions/customizationActions";
@@ -40,7 +40,7 @@ const CustomItems:FC<CustomItemsProps> = ({navigateToSettings,products}) => {
           </div>
         </div>
         <div className="flex flex-col">
-          {products.map((d:NavigationModelItem, index:number) => (
+          {products.map((d:any, index:number) => (
             <CustomizationCard
               key={`model-${index}`}
               id={d.id}
@@ -48,7 +48,7 @@ const CustomItems:FC<CustomItemsProps> = ({navigateToSettings,products}) => {
               subheading={d.description}
               price={d.minPrice}
               image={d.representativeImageURL}
-              path={''}
+              path={d.path}
               selectedItem={selectedItem}
               handleSelectedItem={handleSelectedItem}
             />
