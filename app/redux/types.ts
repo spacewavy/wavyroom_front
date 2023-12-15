@@ -115,6 +115,7 @@ export interface ModelColors {
   modelIdSubstitude: string;
   modelId: string;
   isSelected?:boolean;
+  isDefault:boolean
 }
 
 export interface ModelExample {

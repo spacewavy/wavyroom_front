@@ -69,13 +69,20 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
   const checkButtonEnableAndDisable = () => {
+    const selectedFloor =
+      data.modelFloorOptions[
+        data.modelFloorOptions.findIndex((x: ModelFloorOptions) => x.isSelected)
+      ];
+    const secondopt = selectedFloor?.modelSecondOptions;
     setNextBtnDisable(
-      data.modelFloorOptions.ModelSecondOption?.filter((x:ModelSecondOption) => x.optionDetails.some((o) => o.isSelected))
-        .length >= 1
+      secondopt?.find((x: ModelSecondOption) =>
+        x.optionDetails.some((o) => o.isSelected)
+      )
     );
   };
+
   useEffect(()=> {
-      const color=data.modelColors.find((color:ModelColors)=>color.isSelected===true);
+      const color=data.modelColors.find((color:ModelColors)=>color.isSelected===true || color.isDefault === true);
       setSelectedColorName(color?.name);
       setSelectedColorId(color?.colorId);
 
@@ -119,7 +126,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const handleOptionChange = (nodeId: string, order: number) => {
-    console.log(nodeId, order, 555);
     if (nodeId && order) {
       dispatch(
         customizationOptionsSelectionChange(
@@ -255,7 +261,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           <div className="px-8 py-4 flex justify-between">
             <span className="text-[14px] font-normal">층수 형태</span>
             <span className="text-[12px] font-light">
-              {data.modelFloorOptions.find((x: ModelFloorOptions) => x.isSelected).name}
+              {data.modelFloorOptions.find((x: ModelFloorOptions) => x.isSelected)?.name}
             </span>
           </div>
           {selectedColorId && (
@@ -263,6 +269,9 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
               <span className="text-[14px] font-normal">외장재 색상</span>
               <div className="flex gap-4 items-center">
                 <div className={`w-8 h-8 bg-[${selectedColorId}] rounded-full`}></div>
+                <div  className="relative w-8 h-8 p-1 cursor-pointer">
+                      <div className="w-full h-full rounded-full"style={{ backgroundColor: selectedColorId, borderWidth: 1, borderColor: "rgba(0, 0, 0, 0.1)" }}/>
+                </div>
                 <span className="text-[12px] font-light">{selectedColorName}</span>
               </div>
             </div>
@@ -271,7 +280,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             data.modelFloorOptions.findIndex(
               (x: ModelFloorOptions) => x.isSelected
             )
-          ].modelSecondOptions.map((sec: ModelSecondOption) => {
+          ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
             return (
               !sec.isMultipleSelectable &&
               sec.optionDetails.map((opt: OptionDetail) => {
@@ -290,7 +299,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             data.modelFloorOptions.findIndex(
               (x: ModelFloorOptions) => x.isSelected
             )
-          ].modelSecondOptions.map((sec: ModelSecondOption) => {
+          ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
             return (
               sec.isMultipleSelectable && (
                 <div className="px-8 py-4 flex justify-between">
