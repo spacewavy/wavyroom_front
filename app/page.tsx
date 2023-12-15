@@ -6,18 +6,30 @@ import ProductCarousel from "@/components/ProductCarousel";
 import Label from "../components/Label";
 import Button from "@/components/Button";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { fetchModelData } from "../app/redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { RootState } from "../app/redux/reducers";
 import { ModelItem } from "../app/redux/types";
+import homePageVideoLoadingImage from '../public/images/homePageVideoLoadingImage.jpeg'
+import Image from "next/image";
 
 const Home = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const dispatch = useDispatch();
   const { data, error } = useSelector((state: RootState) => state.model);
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isVideoLoaded) {
+        setIsVideoLoaded(true);
+      }
+    }, 1000);
+  });
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMuteToggle = () => {
@@ -27,9 +39,14 @@ const Home = () => {
   };
   return (
     <main className="flex flex-col flex-1">
-      <section className="md:px-8 md:pb-8 lg:pb-16">
-        <div className="relative w-full aspect-[1376/744]">
-        <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-0 p-8 bg-gradient-to-t from-black to-transparent">
+      <section>
+        <div className="flex flex-col lg:flex-col-reverse">
+          <div className="pb-8 lg:pb-16 relative pt-[53.25%]">
+            <div
+              className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
+            >
+              <div className="h-full relative">
+                <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-2 p-8 bg-gradient-to-t from-black to-transparent">
                   <div onClick={handleMuteToggle} className="cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -79,14 +96,24 @@ const Home = () => {
                     </div>
                   </a>
                 </div>
-          <video
-            id="video"
-            autoPlay
-            loop
-            muted
-            ref={videoRef}
-            src="/videos/homePageVideo.mp4"
-          ></video>
+                <video
+                  id="video"
+                  autoPlay
+                  loop
+                  muted
+                  ref={videoRef}
+                  preload={"auto"}
+                  src="/videos/homePageVideo.mp4"
+                  onCanPlayThrough={()=> setIsVideoLoaded(true)}
+                ></video>
+              </div>
+            </div>
+            <div
+              className={`absolute inset-0 ${!isVideoLoaded ? "z-10" : "z-0"}`}
+            >
+              <Image src={homePageVideoLoadingImage} alt="image" />
+            </div>
+          </div>
         </div>
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
