@@ -80,7 +80,7 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <circle
               className="text-white stroke-current"
-              stroke-width="5"
+              strokeWidth="5"
               cx="50"
               cy="50"
               r="40"
@@ -88,23 +88,22 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
             ></circle>
             <circle
               className="text-orange progress-ring__circle stroke-current"
-              stroke-width="5"
-              stroke-linecap=""
+              strokeWidth="5"
               cx="50"
               cy="50"
               r="40"
               fill="transparent"
-              stroke-dashoffset={399 - (250 * loadPercent) / 100}
+              strokeDashoffset={399 - (250 * loadPercent) / 100}
             ></circle>
             <text
               x="50"
               y="50"
-              font-family="Verdana"
-              font-size="12"
+              fontFamily="Verdana"
+              fontSize="12"
               color="#b2b2b2"
               fill="#4d4d4d"
-              text-anchor="middle"
-              alignment-baseline="middle"
+              textAnchor="middle"
+              alignmentBaseline="middle"
             >
               {loadPercent}%
             </text>

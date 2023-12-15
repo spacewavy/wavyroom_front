@@ -1,199 +1,208 @@
 "use client";
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from "react";
 import Select from "react-select";
-import SelectColorCard from './SelectColorCard'
-import CustomizationOptions, { Card, CustomizationOptionsProps } from './CustomizationOptions'
+import SelectColorCard from "./SelectColorCard";
+import CustomizationOptions, {
+  Card,
+  CustomizationOptionsProps,
+} from "./CustomizationOptions";
 
 interface CustomizationPanelProps {
-    handleMenuToggle:any;
-    openMenu:boolean;
-    handlePopupOpen:any;
+  handleMenuToggle: any;
+  openMenu: boolean;
+  handlePopupOpen: any;
 }
 
-const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMenu,handlePopupOpen}) => {
-    const [estimatedQutation ,setEstimatedQutation] = useState(0)
-    const [floorOptions ,setFloorOptions] = useState([
+const CustomizationPanel: FC<CustomizationPanelProps> = ({
+  handleMenuToggle,
+  openMenu,
+  handlePopupOpen,
+}) => {
+  const [estimatedQutation, setEstimatedQutation] = useState(0);
+  const [floorOptions, setFloorOptions] = useState([
+    {
+      title: "단층",
+      price: 10000000,
+      isSelected: true,
+    },
+    {
+      title: "복층",
+      price: 10000000,
+      isSelected: false,
+    },
+  ]);
+  const [customizationOptions, setCustomizationOptions] = useState<
+    CustomizationOptionsProps[]
+  >([
+    {
+      id: 1,
+      name: "형태",
+      isMutliSelect: false,
+      options: [
         {
-            title: "단층",
-            price: 10000000,
-            isSelected: true,
+          optId: 1,
+          title: "선택안됨",
+          price: 0,
+          isSelected: false,
         },
         {
-            title: "복층",
-            price: 10000000,
-            isSelected: false,
+          optId: 2,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
         },
-    ])
-    const [customizationOptions ,setCustomizationOptions] = useState<CustomizationOptionsProps[]>([
+      ],
+    },
+    {
+      id: 2,
+      name: "형태",
+      isMutliSelect: false,
+      options: [
         {
-            id: 1,
-            name: '형태',
-            isMutliSelect: false,
-            options: [
-                {   
-                    optId: 1,
-                    title:  '선택안됨',
-                    price:  0,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-            ]
+          optId: 1,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
         },
         {
-            id: 2,
-            name: '형태',
-            isMutliSelect: false,
-            options: [
-                {   
-                    optId: 1,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 3,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 4,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-            ]
+          optId: 2,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
         },
         {
-            id: 3,
-            name: '형태',
-            isMutliSelect: true,
-            options: [
-                {
-                    optId: 1,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 3,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 4,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-            ]
+          optId: 3,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
         },
         {
-            id: 4,
-            name: '형태',
-            isMutliSelect: true,
-            options: [
-                {
-                    optId: 1,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
-                {
-                    optId: 2,
-                    title: '선택안됨',
-                    price: 10000000,
-                    isSelected: false
-                },	
+          optId: 4,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: "형태",
+      isMutliSelect: true,
+      options: [
+        {
+          optId: 1,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+        {
+          optId: 2,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+        {
+          optId: 3,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+        {
+          optId: 4,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+      ],
+    },
+    {
+      id: 4,
+      name: "형태",
+      isMutliSelect: true,
+      options: [
+        {
+          optId: 1,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+        {
+          optId: 2,
+          title: "선택안됨",
+          price: 10000000,
+          isSelected: false,
+        },
+      ],
+    },
+  ]);
+  const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
-            ]
-        },
-    ])
-    const [nextBtnDisable,setNextBtnDisable] = useState<boolean>(true)
+  const checkButtonEnableAndDisable = () => {
+    setNextBtnDisable(
+      customizationOptions.filter((x) => x.options.some((o) => o.isSelected))
+        .length >= 1
+    );
+  };
 
-    const checkButtonEnableAndDisable = () => {
-        setNextBtnDisable(customizationOptions.filter(x => x.options.some(o => o.isSelected)).length >=1)
- 
-    }
+  const calculateTotal = () => {
+    let total = 0;
 
-    const calculateTotal = () => {
-        let total = 0;
-    
-        customizationOptions.forEach(node => {
-          if (node.options.some(opt => opt.isSelected)) {
-            node.options.forEach(opt => {
-              if (opt.isSelected) {
-                total += Number(opt.price);
-              }
-            });
+    customizationOptions.forEach((node) => {
+      if (node.options.some((opt) => opt.isSelected)) {
+        node.options.forEach((opt) => {
+          if (opt.isSelected) {
+            total += Number(opt.price);
           }
         });
+      }
+    });
 
-        setEstimatedQutation(total);
-    };
-  
+    setEstimatedQutation(total);
+  };
 
-    useEffect(()=>{
-        calculateTotal();
-        checkButtonEnableAndDisable()
-    },[customizationOptions])
+  useEffect(() => {
+    calculateTotal();
+    checkButtonEnableAndDisable();
+  }, [customizationOptions]);
 
-    const OPTIONS = [
-        {value:'Evo1' ,label:'Evo'},
-        {value:'Evo2' ,label:'Evo'},
-        {value:'Evo3' ,label:'Evo'},
-    ]
+  const OPTIONS = [
+    { value: "Evo1", label: "Evo" },
+    { value: "Evo2", label: "Evo" },
+    { value: "Evo3", label: "Evo" },
+  ];
 
-
-    const handleFloorChange = (value: string) => {
-        if (value) {
-            const updatedFloorOptions = floorOptions.map((x) => ({
-                ...x, isSelected: x.title === value
-            })); 
-            setFloorOptions(updatedFloorOptions);
-        }
+  const handleFloorChange = (value: string) => {
+    if (value) {
+      const updatedFloorOptions = floorOptions.map((x) => ({
+        ...x,
+        isSelected: x.title === value,
+      }));
+      setFloorOptions(updatedFloorOptions);
     }
+  };
 
-    const handleOptionChange = (nodeId: number,optId: number) => {
-        setCustomizationOptions((prevData) =>
-        prevData.map((node) =>
-          node.id === nodeId
-            ? {
-                ...node,
-                options: node.isMutliSelect
-                  ? node.options.map((opt) =>
-                      opt.optId === optId
-                        ? { ...opt, isSelected: !opt.isSelected }
-                        : opt
-                    )
-                  : node.options.map((opt) =>
-                      opt.optId === optId
-                        ? { ...opt, isSelected: !opt.isSelected }
-                        : { ...opt, isSelected: false }
-                    ),
-              }
-            : node
-        )
-      );
-    }
+  const handleOptionChange = (nodeId: number, optId: number) => {
+    setCustomizationOptions((prevData) =>
+      prevData.map((node) =>
+        node.id === nodeId
+          ? {
+              ...node,
+              options: node.isMutliSelect
+                ? node.options.map((opt) =>
+                    opt.optId === optId
+                      ? { ...opt, isSelected: !opt.isSelected }
+                      : opt
+                  )
+                : node.options.map((opt) =>
+                    opt.optId === optId
+                      ? { ...opt, isSelected: !opt.isSelected }
+                      : { ...opt, isSelected: false }
+                  ),
+            }
+          : node
+      )
+    );
+  };
 
   return (
     <div className="flex flex-col justify-between h-[65vh] lg:h-[100vh] ">
@@ -354,47 +363,59 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
             </div>
             <div>
               <div
-                className={`menu border-[1px] rounded-full p-[11px] ${openMenu ? 'bg-jetBlack' : ''}`}
+                className={`menu border-[1px] rounded-full p-[11px] ${
+                  openMenu ? "bg-jetBlack" : ""
+                }`}
                 onClick={handleMenuToggle}
               >
-                { !openMenu ?
-                    <svg
+                {!openMenu ? (
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="18"
                     height="18"
                     viewBox="0 0 18 18"
                     fill="none"
-                    >
-                    <g clip-path="url(#clip0_2935_7444)">
-                        <path d="M15.75 4.5H2.25V5.25H15.75V4.5Z" fill="black" />
-                        <path
+                  >
+                    <g clipPath="url(#clip0_2935_7444)">
+                      <path d="M15.75 4.5H2.25V5.25H15.75V4.5Z" fill="black" />
+                      <path
                         d="M15.75 8.625H2.25V9.375H15.75V8.625Z"
                         fill="black"
-                        />
-                        <path
+                      />
+                      <path
                         d="M15.75 12.75H2.25V13.5H15.75V12.75Z"
                         fill="black"
-                        />
+                      />
                     </g>
                     <defs>
-                        <clipPath id="clip0_2935_7444">
+                      <clipPath id="clip0_2935_7444">
                         <rect width="18" height="18" fill="white" />
-                        </clipPath>
+                      </clipPath>
                     </defs>
-                    </svg> :
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <g clip-path="url(#clip0_3107_44132)">
-                        <path d="M14.1383 4.3873L13.6133 3.8623L9.00078 8.4673L4.38828 3.8623L3.86328 4.3873L8.46828 8.9998L3.86328 13.6123L4.38828 14.1373L9.00078 9.5323L13.6133 14.1373L14.1383 13.6123L9.53328 8.9998L14.1383 4.3873Z" fill="white"/>
-                        </g>
-                        <defs>
+                  </svg>
+                ) : (
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                    >
+                      <g clipPath="url(#clip0_3107_44132)">
+                        <path
+                          d="M14.1383 4.3873L13.6133 3.8623L9.00078 8.4673L4.38828 3.8623L3.86328 4.3873L8.46828 8.9998L3.86328 13.6123L4.38828 14.1373L9.00078 9.5323L13.6133 14.1373L14.1383 13.6123L9.53328 8.9998L14.1383 4.3873Z"
+                          fill="white"
+                        />
+                      </g>
+                      <defs>
                         <clipPath id="clip0_3107_44132">
-                        <rect width="18" height="18" fill="white"/>
+                          <rect width="18" height="18" fill="white" />
                         </clipPath>
-                        </defs>
+                      </defs>
                     </svg>
-                    </div>
-                }
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -434,6 +455,6 @@ const CustomizationPanel:FC<CustomizationPanelProps> = ({handleMenuToggle,openMe
       </div>
     </div>
   );
-}
+};
 
-export default CustomizationPanel
+export default CustomizationPanel;
