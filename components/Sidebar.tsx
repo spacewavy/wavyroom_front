@@ -341,7 +341,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             <Link href="" onClick={closeSidebar}>
               <Button name="주문하기" arrow varient="default" />
             </Link>
-            <Link href="/model-details">
+            <Link href={`/model-detail?id=${selectedListId}`}>
               <Button name="제품 상세보기" />
             </Link>
           </div>

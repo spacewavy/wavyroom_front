@@ -1,6 +1,5 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import React, { FC, useEffect, useState } from "react";
 import Select from "react-select";
 import SelectColorCard from "./SelectColorCard";
 import CustomizationOptions, {
@@ -342,13 +341,8 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 className={`menu border-[1px] rounded-full p-[11px] ${
                   openMenu ? "bg-jetBlack" : ""
                 }`}
-                className={`menu border-[1px] rounded-full p-[11px] ${
-                  openMenu ? "bg-jetBlack" : ""
-                }`}
                 onClick={handleMenuToggle}
               >
-                {!openMenu ? (
-                  <svg
                 {!openMenu ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +362,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                       <path
                         d="M15.75 12.75H2.25V13.5H15.75V12.75Z"
                         fill="black"
-                      />
                       />
                     </g>
                     <defs>
@@ -442,6 +435,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     </div>
   );
 };
-};
+
 
 export default CustomizationPanel;
