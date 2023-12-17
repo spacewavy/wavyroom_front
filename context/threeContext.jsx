@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  CAMERA_VIEW_TYPE,
   FILE_EXTENSION,
   OPERATING_SYSTEM,
   WAVY_MODEL_PATHS,
@@ -47,9 +48,10 @@ export const ThreeProvider = ({ children }) => {
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
   const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.MAX_RM
+    WAVY_MODEL_PATHS.STUDIO
   );
 
+  const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [loadPercent, setLoadPercent] = useState(0);
 
   // initialize
@@ -71,17 +73,21 @@ export const ThreeProvider = ({ children }) => {
     const _ambientLight = new THREE.AmbientLight();
     _ambientLight.intensity = 0.5;
 
-    const _directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+    const _directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     _directionalLight.position.set(
       45 * 15 * SCALE,
       20 * 15 * SCALE,
       30 * 15 * SCALE
     );
-    _directionalLight.intensity = 1;
     _directionalLight.castShadow = true;
     _directionalLight.frustumCulled = true;
     // deleting stripe shadow pattern
     _directionalLight.shadow.bias = -0.0001;
+
+    const _directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+    _directionalLight2.position.set(0, 20 * 15 * SCALE, 0);
+    _directionalLight2.castShadow = true;
+    _scene.add(_directionalLight2);
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
     _scene.add(_ambientLight, _hemisphereLight);
@@ -254,76 +260,55 @@ export const ThreeProvider = ({ children }) => {
         } else {
           object = model;
         }
+        //for identifying
+        object.name = WAVY_MODEL;
 
+        let deckObjList = [];
+        let removeObjectList = [];
         if (object?.children.length) {
-          object.children.map((_obj) => {
+          object.children.reverse().map((_obj, _idx) => {
             _obj.traverse((child) => {
               child.receiveShadow = true;
               child.castShadow = true;
-              // child.receiveShadow = false;
-              // child.castShadow = false;
-              if (child.name.toLowerCase().includes("deck")) {
-                child.removeFromParent();
-              }
               child.visible = true;
               if (child.geometry) {
                 let _geometry = child.geometry.clone();
                 _geometry = BufferGeometryUtils.mergeVertices(_geometry);
                 child.geometry = _geometry;
-                // const edges = new THREE.EdgesGeometry(child.geometry);
-                // const line = new THREE.LineSegments(
-                //   edges,
-                //   new THREE.LineBasicMaterial({
-                //     color: 0x4e4e4e,
-                //     linewidth: 0.5,
-                //     opacity: 0.5,
-                //   })
-                // );
-                // line.scale.x = SCALE;
-                // line.scale.y = SCALE;
-                // line.scale.z = SCALE;
-                // scene.add(line);
               }
               child.frustumCulled = false;
               child.updateMatrixWorld();
             });
+            if (_obj.name.toLowerCase().includes("deck")) {
+              deckObjList = [...deckObjList, _obj];
+            }
+            if (_obj.isLighting || _obj.isCamera) {
+              removeObjectList = [...removeObjectList, _obj];
+            }
           });
         }
+        deckObjList.map((_obj) => {
+          object.remove(_obj);
+        });
+        removeObjectList.map((_obj) => {
+          object.remove(_obj);
+        });
         object.scale.x = SCALE;
         object.scale.y = SCALE;
         object.scale.z = SCALE;
         object.receiveShadow = true;
         object.castShadow = true;
-        // object.receiveShadow = false;
-        // object.castShadow = false;
-
-        //for identifying
-        object.name = WAVY_MODEL;
-
-        const _localObject = object.clone();
-        _localObject.traverse((item) => {
-          if (item.name.toLowerCase().includes("deck")) {
-            // console.log("item", item);
-            // item.parent.remove(item);
-            // item.visible = false;
-            // try {
-            //   item?.removeFromParent();
-            // } catch (e) {
-            //   console.log("error", e);
-            // }
-          }
-        });
 
         // calculate center
         const _localCenter = new THREE.Vector3();
         const _localSphere = new THREE.Sphere();
-        const box3 = new THREE.Box3().setFromObject(_localObject);
+        const box3 = new THREE.Box3().setFromObject(object);
         box3.getCenter(_localCenter);
         box3.getBoundingSphere(_localSphere);
         const _localRadius = Math.ceil(_localSphere.radius);
 
-        console.log("_localCenter", _localCenter);
-        // cameraControls.minDistance = _localRadius;
+        cameraControls.minDistance = _localRadius;
+        cameraControls.maxDistance = _localRadius * 3;
 
         // camera lookat center of obj
         cameraControls.target.set(
@@ -335,17 +320,18 @@ export const ThreeProvider = ({ children }) => {
           .normalize()
           .multiplyScalar(_localRadius);
 
-        console.log("_cameraPosition", _cameraPosition);
-
         camera.position.set(
-          1.5 * _cameraPosition.x,
-          1.5 * _cameraPosition.y,
-          1.5 * _cameraPosition.z
+          4 * _cameraPosition.x,
+          4 * _cameraPosition.y,
+          4 * _cameraPosition.z
         );
         // console.log(camera.position);
         camera.lookAt(_localCenter);
 
         setLoadPercent(80);
+        deckObjList.map((_obj) => {
+          object.add(_obj);
+        });
         scene.add(object);
 
         setTimeout(() => {
@@ -398,11 +384,11 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const test = () => {
-    console.log("test clicked", camera.uuid);
-    camera.position.set(0, 3, 5);
-    camera.position.setX(0);
-    camera.position.setY(3);
-    camera.position.setZ(5);
+    setCameraInnerView();
+  };
+
+  const setCameraInnerView = () => {
+    // invisible
   };
 
   return (
