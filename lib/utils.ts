@@ -10,6 +10,12 @@ export const STATUS = {
   AUTHENTICATED: "authenticated",
 };
 
+export const CAMERA_VIEW_TYPE = {
+  INNER_1: "inner_1",
+  INNER_2: "inner_2",
+  OUTER: "outer",
+};
+
 export const FILE_EXTENSION = {
   OBJ: "obj",
   FBX: "fbx",
