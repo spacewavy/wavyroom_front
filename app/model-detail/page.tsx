@@ -23,7 +23,7 @@ const ModelDetail = () => {
 
   useEffect(() => {
     dispatch(fetchModelDetailData(id || "") as unknown as AnyAction);
-  }, []);
+  }, [id]);
 
   const FAQs = [
     {
@@ -81,10 +81,12 @@ const ModelDetail = () => {
         </div> */}
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
           <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/805]">
-            <div className="flex flex-1">
+            <div className="flex flex-1 items-center justify-center">
               <Image
                 src={makeImageUrl(data.heroImageURL)}
                 alt="nova"
+                // width={1440}
+                // height={805}
                 fill={true}
               />
             </div>
