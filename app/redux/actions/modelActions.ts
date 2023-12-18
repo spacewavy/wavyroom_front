@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/api/axioInstance";
 
 export const FETCH_MODEL_DATA_SUCCESS = "FETCH_MODEL_DATA_SUCCESS";
 export const FETCH_MODEL_DATA_FAILURE = "FETCH_MODEL_DATA_FAILURE";
@@ -14,8 +14,8 @@ export const FETCH_MODEL_DETAIL_DATA_FAILURE =
 export const fetchModelData = () => {
   return async (dispatch: any) => {
     try {
-      const response = await axios.get(
-        `https://test-spacewavy.com/api/v1/model/default`,
+      const response = await axiosInstance.get(
+        `/model/default`,
         {
           headers: {
             Accept: "*/*",
@@ -38,8 +38,8 @@ export const fetchModelData = () => {
 export const fetchNavigationModelData = () => {
   return async (dispatch: any) => {
     try {
-      const response = await axios.get(
-        `https://test-spacewavy.com/api/v1/model/navigation`,
+      const response = await axiosInstance.get(
+        `/model/navigation`,
         {
           headers: {
             Accept: "*/*",
@@ -63,8 +63,8 @@ export const fetchModelDetailData = (id: string) => {
   return async (dispatch: any) => {
     try {
       // debugger;
-      const response = await axios.get(
-        `https://test-spacewavy.com/api/v1/model/${id}`,
+      const response = await axiosInstance.get(
+        `/model/${id}`,
         {
           headers: {
             Accept: "*/*",

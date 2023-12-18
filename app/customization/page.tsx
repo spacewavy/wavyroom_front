@@ -17,7 +17,7 @@ import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelDetailItem } from "../redux/types";
-import axios from "axios";
+import axiosInstance from "@/api/axioInstance";
 import { navigateToSettings } from "../redux/actions/customizationActions";
 
 export interface Product {
@@ -118,12 +118,11 @@ const Customization = () => {
       data: customizationData,
       address: "",
     };
-    axios
-      .post("https://test-spacewavy.com/api/v1/reservation", postData, {
+    axiosInstance
+      .post("/reservation", postData, {
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          language: "KO",
+          'Accept': "application/json",
+          'language': "KO",
         },
       })
       .then((response) => {
