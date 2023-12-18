@@ -11,7 +11,7 @@ import { fetchModelData } from "../app/redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { RootState } from "../app/redux/reducers";
 import { ModelItem } from "../app/redux/types";
-import homePageVideoLoadingImage from '../public/images/homePageVideoLoadingImage.jpeg'
+import homePageVideoLoadingImage from "../public/images/homePageVideoLoadingImage.jpeg";
 import Image from "next/image";
 
 const Home = () => {
@@ -55,7 +55,7 @@ const Home = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3392_9494)">
+                      <g clipPath="url(#clip0_3392_9494)">
                         <path
                           d="M16 9L22 15"
                           stroke="white"
@@ -78,7 +78,10 @@ const Home = () => {
                       </defs>
                     </svg>
                   </div>
-                  <a href="https://www.youtube.com/channel/UCkAxZb4h4AmcBs1t_x1-ieA" target="_black">
+                  <a
+                    href="https://www.youtube.com/channel/UCkAxZb4h4AmcBs1t_x1-ieA"
+                    target="_black"
+                  >
                     <div className="py-[6px] pl-[12px] pr-[16px]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +107,7 @@ const Home = () => {
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/homePageVideo.mp4"
-                  onCanPlayThrough={()=> setIsVideoLoaded(true)}
+                  onCanPlayThrough={() => setIsVideoLoaded(true)}
                 ></video>
               </div>
             </div>

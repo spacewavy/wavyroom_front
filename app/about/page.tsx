@@ -67,7 +67,7 @@ const About = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3392_9494)">
+                      <g clipPath="url(#clip0_3392_9494)">
                         <path
                           d="M16 9L22 15"
                           stroke="white"
@@ -116,7 +116,7 @@ const About = () => {
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/aboutPageVideo.mp4"
-                  onCanPlayThrough={()=> setIsVideoLoaded(true)}
+                  onCanPlayThrough={() => setIsVideoLoaded(true)}
                 ></video>
               </div>
             </div>

@@ -60,8 +60,8 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   handlePopupOpen,
 }) => {
   const [estimatedQutation, setEstimatedQutation] = useState(0);
-  const [selectedColorName, setSelectedColorName] = useState('');
-  const [selectedColorId, setSelectedColorId] = useState('');
+  const [selectedColorName, setSelectedColorName] = useState("");
+  const [selectedColorId, setSelectedColorId] = useState("");
   const { data } = useSelector((state: any) => state.customization);
 
   const dispatch = useDispatch();
@@ -80,12 +80,14 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     );
   };
 
-  useEffect(()=> {
-      const color=data.modelColors.find((color:ModelColors)=>color.isSelected===true || color.isDefault === true);
-      setSelectedColorName(color?.name);
-      setSelectedColorId(color?.colorId);
-
-  },[data.modelColors])
+  useEffect(() => {
+    const color = data.modelColors.find(
+      (color: ModelColors) =>
+        color.isSelected === true || color.isDefault === true
+    );
+    setSelectedColorName(color?.name);
+    setSelectedColorId(color?.colorId);
+  }, [data.modelColors]);
 
   const calculateTotal = () => {
     let total = 0;
@@ -260,18 +262,33 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           <div className="px-8 py-4 flex justify-between">
             <span className="text-[14px] font-normal">층수 형태</span>
             <span className="text-[12px] font-light">
-              {data.modelFloorOptions.find((x: ModelFloorOptions) => x.isSelected)?.name}
+              {
+                data.modelFloorOptions.find(
+                  (x: ModelFloorOptions) => x.isSelected
+                )?.name
+              }
             </span>
           </div>
           {selectedColorId && (
             <div className="px-8 py-4 flex justify-between">
               <span className="text-[14px] font-normal">외장재 색상</span>
               <div className="flex gap-4 items-center">
-                <div className={`w-8 h-8 bg-[${selectedColorId}] rounded-full`}></div>
-                <div  className="relative w-8 h-8 p-1 cursor-pointer">
-                      <div className="w-full h-full rounded-full"style={{ backgroundColor: selectedColorId, borderWidth: 1, borderColor: "rgba(0, 0, 0, 0.1)" }}/>
+                <div
+                  className={`w-8 h-8 bg-[${selectedColorId}] rounded-full`}
+                ></div>
+                <div className="relative w-8 h-8 p-1 cursor-pointer">
+                  <div
+                    className="w-full h-full rounded-full"
+                    style={{
+                      backgroundColor: selectedColorId,
+                      borderWidth: 1,
+                      borderColor: "rgba(0, 0, 0, 0.1)",
+                    }}
+                  />
                 </div>
-                <span className="text-[12px] font-light">{selectedColorName}</span>
+                <span className="text-[12px] font-light">
+                  {selectedColorName}
+                </span>
               </div>
             </div>
           )}
@@ -351,14 +368,13 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                     viewBox="0 0 18 18"
                     fill="none"
                   >
-                    <g clip-path="url(#clip0_2935_7444)">
+                    <g clipPath="url(#clip0_2935_7444)">
                       <path d="M15.75 4.5H2.25V5.25H15.75V4.5Z" fill="black" />
                       <path
                         d="M15.75 8.625H2.25V9.375H15.75V8.625Z"
                         fill="black"
                       />
-                      <path
-                      />
+                      <path />
                       <path
                         d="M15.75 12.75H2.25V13.5H15.75V12.75Z"
                         fill="black"
@@ -366,9 +382,9 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                     </g>
                     <defs>
                       <clipPath id="clip0_2935_7444">
-                      <clipPath id="clip0_2935_7444">
-                        <rect width="18" height="18" fill="white" />
-                      </clipPath>
+                        <clipPath id="clip0_2935_7444">
+                          <rect width="18" height="18" fill="white" />
+                        </clipPath>
                       </clipPath>
                     </defs>
                   </svg>
@@ -381,7 +397,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                       viewBox="0 0 18 18"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3107_44132)">
+                      <g clipPath="url(#clip0_3107_44132)">
                         <path
                           d="M14.1383 4.3873L13.6133 3.8623L9.00078 8.4673L4.38828 3.8623L3.86328 4.3873L8.46828 8.9998L3.86328 13.6123L4.38828 14.1373L9.00078 9.5323L13.6133 14.1373L14.1383 13.6123L9.53328 8.9998L14.1383 4.3873Z"
                           fill="white"
@@ -435,6 +451,5 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     </div>
   );
 };
-
 
 export default CustomizationPanel;
