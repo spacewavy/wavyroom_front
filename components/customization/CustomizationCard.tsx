@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useThree } from "../../context/threeContext";
+import { makeImageUrl } from "../../lib/utils";
 
 export interface CustomCardProps {
   id: string;
@@ -26,7 +27,7 @@ const CustomizationCard = ({
   const { changeModel, changeMeshVisibilityByName } = useThree();
   return (
     <div
-      className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA]" 
+      className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA]"
       onClick={() => {
         handleSelectedItem(id);
         changeModel(path);
@@ -47,7 +48,7 @@ const CustomizationCard = ({
           <p className="text-[12px] font-weight color-[#000]">{price}</p>
         </div>
         <div className="flex justify-center w-[208px]">
-          <Image src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${image}`} width={100} height={100} alt="img" />
+          <Image src={makeImageUrl(image)} width={100} height={100} alt="img" />
         </div>
       </div>
     </div>

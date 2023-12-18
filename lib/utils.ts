@@ -59,3 +59,7 @@ export const hexToRgb = (hexType: string) => {
 
   return rgb;
 };
+
+export const makeImageUrl = (_url: string) => {
+  return `https://spacewavy.s3.ap-northeast-2.amazonaws.com/${_url}`;
+};

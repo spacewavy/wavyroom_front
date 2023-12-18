@@ -12,6 +12,7 @@ import { fetchModelDetailData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelColors } from "../redux/types";
 import { useRouter } from "next/router";
+import { makeImageUrl } from "../../lib/utils";
 
 const ModelDetail = () => {
   const dispatch = useDispatch();
@@ -52,20 +53,26 @@ const ModelDetail = () => {
     },
   ];
   const [isDark, setIsDark] = useState(false);
-  const [selectedColor, setSelectedColor] = useState({ name: "", colorId: "" });
+  const [selectedColor, setSelectedColor] = useState({
+    name: "",
+    colorId: "",
+    imageURL: "",
+  });
 
   useEffect(() => {
+    console.log(data);
     setSelectedColor(
       data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
+    setIsDark(data.isDarkMode);
   }, [data]);
 
   return (
-    <>
-      <Navbar isDark={isDark} />
+    <div className="relative">
+      <Navbar isDark={isDark} isFloating={isDark} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <div
-          className="cursor-pointer"
+          className="cursor-pointer absolute top-0 z-30 group-[.is-dark]:text-white"
           onClick={() => {
             setIsDark((prev) => !prev);
           }}
@@ -73,21 +80,20 @@ const ModelDetail = () => {
           Dark trigger, {isDark ? "dark" : "white"}
         </div>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
-          <div className="flex flex-col items-center justify-center px-6 py-20 gap-6">
-            <div>
+          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-[1440/805]">
+            <div className="flex flex-1">
               <Image
-                src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.representativeImageURL}`}
+                src={makeImageUrl(data.heroImageURL)}
                 alt="nova"
-                width={500}
-                height={500}
+                fill={true}
               />
             </div>
-            <div className="flex flex-col gap-8 items-center">
+            <div className="absolute bottom-[64px] left-0 right-0 flex flex-col gap-8 items-center">
               <div className="flex flex-col gap-4 items-center">
                 <div className="text-center text-[28px] md:text-[32px] lg:text-[58px] group-[.is-dark]:text-white">
                   {data.name}
                 </div>
-                <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG group-[.is-dark]:text-gray">
+                <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG group-[.is-dark]:text-white">
                   {data.description}
                 </div>
               </div>
@@ -139,21 +145,26 @@ const ModelDetail = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-center py-40 bg-lightGray group-[.is-dark]:bg-jetBlack">
-            <Image src={ImageNova} alt="nova" />
+          <div className="relative flex flex-col items-center py-40 bg-lightGray group-[.is-dark]:bg-jetBlack aspect-[912/513]">
+            <div className="flex flex-1">
+              <Image
+                src={makeImageUrl(selectedColor?.imageURL)}
+                alt="nova"
+                fill={true}
+              />
+            </div>
           </div>
           <div className="flex flex-col items-center pt-8 pb-20 lg:pb-25">
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-row items-center gap-2">
-                {data.modelColors.map((item: ModelColors, index: number) => {
+                {data?.modelColors?.map((item: ModelColors, index: number) => {
                   const isSelected = selectedColor?.colorId === item.colorId;
-                  // console.log(selectedColor);
                   return (
                     <div
                       key={"color" + index}
                       className="relative w-8 h-8 p-1 cursor-pointer"
                       onClick={() => {
-                        setSelectedColor({ ...item });
+                        setSelectedColor(item);
                       }}
                     >
                       <div
@@ -181,7 +192,7 @@ const ModelDetail = () => {
           <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col items-center justify-center py-[125px] px-6 bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
               <Image
-                src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.representativeImageURL}`}
+                src={makeImageUrl(data.representativeImageURL)}
                 alt="nova"
                 width={500}
                 height={500}
@@ -316,10 +327,10 @@ const ModelDetail = () => {
                   <div className="text-[14px] font-light">
                     {data.purpose.map((x: any) => {
                       return (
-                        <>
+                        <React.Fragment key={x}>
                           <span>{x}</span>
                           <br />
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </div>
@@ -382,7 +393,7 @@ const ModelDetail = () => {
           ))}
         </section>
       </main>
-    </>
+    </div>
   );
 };
 

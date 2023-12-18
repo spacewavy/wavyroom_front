@@ -3,6 +3,7 @@ import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import { ModelExample } from "../app/redux/types";
+import { makeImageUrl } from "../lib/utils";
 
 interface ModelDetailCarouselProps {
   data: ModelExample[];
@@ -23,12 +24,12 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
       <div className="embla__viewport" ref={emblaRef}>
         {data && (
           <div className="embla__container">
-            {data.map((data: ModelExample,index:number) => {
+            {data.map((data: ModelExample, index: number) => {
               return (
                 <div className="embla__slide" key={index}>
                   <Image
                     className="object-cover w-full h-[420px]"
-                    src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${data.imageURL}`}
+                    src={makeImageUrl(data.imageURL)}
                     alt="Vercel Image"
                     width={800}
                     height={432}

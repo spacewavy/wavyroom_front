@@ -10,19 +10,29 @@ import HamburgerWhiteIcon from "@/assets/icons/HamburgerWhite.svg";
 import Image from "next/image";
 import Link from "next/link";
 
-const Navbar = ({ isDark }: { isDark?: boolean }) => {
+const Navbar = ({
+  isDark,
+  isFloating,
+}: {
+  isDark?: boolean;
+  isFloating?: boolean;
+}) => {
   const [lang, setLang] = useState("KOR");
   const [open, setOpen] = useState(false);
   const [menuType, setMenuType] = useState("");
 
   const openSidebar = (menuName?: string) => {
     setOpen(true);
-    setMenuType(menuName ?? '');
+    setMenuType(menuName ?? "");
   };
 
   return (
-    <nav className={`group ${isDark && "is-dark"} `}>
-      <div className="bg-white group-[.is-dark]:bg-jetBlack">
+    <nav
+      className={`group ${isDark && "is-dark"} ${
+        isFloating && "is-floating z-20 absolute top-0 left-0 right-0 w-full"
+      }`}
+    >
+      <div className="bg-white group-[.is-dark]:bg-jetBlack group-[.is-floating]:bg-transparent">
         <Sidebar open={open} setOpen={setOpen} menuType={menuType} />
         <div className="px-4 md:px-8">
           <div className="flex items-center justify-between h-24">
@@ -39,7 +49,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                   <div className="w-[100px]">
                     <div
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
-                      onClick={() => openSidebar('model')}
+                      onClick={() => openSidebar("model")}
                     >
                       모델
                     </div>
@@ -47,7 +57,7 @@ const Navbar = ({ isDark }: { isDark?: boolean }) => {
                   <div className="w-[100px]">
                     <div
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
-                      onClick={() => openSidebar('menu')}
+                      onClick={() => openSidebar("menu")}
                     >
                       메뉴
                     </div>

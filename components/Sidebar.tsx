@@ -10,7 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
+import { cn, makeImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import SelectLang from "./SelectLang";
@@ -107,7 +107,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-1 gap-8 py-12">
-          {sidebarItems.map((item: SidebarItem,index) => {
+          {sidebarItems.map((item: SidebarItem, index) => {
             const isLink = !!item.link;
             return isLink ? (
               <Link
@@ -225,7 +225,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       <section className="flex flex-col flex-1 w-[100vw]">
         <Image
           className="object-cover h-[420px] w-full sm:block hidden"
-          src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${selectedProduct.representativeImageURL}`}
+          src={makeImageUrl(selectedProduct.representativeImageURL)}
           alt="Vercel Image"
           width={800}
           height={432}
