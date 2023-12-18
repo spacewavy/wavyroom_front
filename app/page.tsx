@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import ImageNova from "@/assets/Products/Nova.svg";
 import ProductCard, { ProductAllCard } from "@/components/ProductCard";
 import ProductCarousel from "@/components/ProductCarousel";
 import Label from "../components/Label";
@@ -17,7 +16,7 @@ import Image from "next/image";
 const Home = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const dispatch = useDispatch();
-  const { data, error } = useSelector((state: RootState) => state.model);
+  const { data } = useSelector((state: RootState) => state.model);
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);

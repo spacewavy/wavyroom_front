@@ -61,5 +61,5 @@ export const hexToRgb = (hexType: string) => {
 };
 
 export const makeImageUrl = (_url: string) => {
-  return `https://spacewavy.s3.ap-northeast-2.amazonaws.com/${_url}`;
+  return `${process.env.NEXT_PUBLIC_IMAGE_URL}/${_url}`;
 };

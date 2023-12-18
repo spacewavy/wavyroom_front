@@ -13,6 +13,8 @@ import { AnyAction } from "redux";
 import { AboutReputationItem } from "../redux/types";
 import { makeImageUrl } from "../../lib/utils";
 
+
+
 const About = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const dispatch = useDispatch();

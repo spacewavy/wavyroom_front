@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from '@/api/axioInstance';
 
 export const FETCH_ABOUT_REPUTATION_DATA_SUCCESS = 'FETCH_ABOUT_REPUTATION_DATA_SUCCESS';
 export const FETCH_ABOUT_REPUTATION_DATA_FAILURE = 'FETCH_ABOUT_REPUTATION_DATA_FAILURE';
@@ -6,7 +6,7 @@ export const FETCH_ABOUT_REPUTATION_DATA_FAILURE = 'FETCH_ABOUT_REPUTATION_DATA_
 export const fetchAboutReputationData = () => {
   return async (dispatch:any) => {
     try {
-      const response = await axios.get(`https://test-spacewavy.com/api/v1/reputation`);
+      const response = await axiosInstance.get(`/reputation`);
       dispatch({
         type: FETCH_ABOUT_REPUTATION_DATA_SUCCESS,
         payload: response.data.data,
