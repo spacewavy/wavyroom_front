@@ -87,7 +87,7 @@ export const ThreeProvider = ({ children }) => {
     const _directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
     _directionalLight2.position.set(0, 20 * 15 * SCALE, 0);
     _directionalLight2.castShadow = true;
-    _scene.add(_directionalLight2);
+    // _scene.add(_directionalLight2);
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
     _scene.add(_ambientLight, _hemisphereLight);
@@ -111,13 +111,11 @@ export const ThreeProvider = ({ children }) => {
     _cameraControls.maxDistance = 20;
     _cameraControls.maxPolarAngle = Math.PI / 2;
 
-    // const planeGeometry = new THREE.PlaneGeometry(10, 10, 1, 1);
-    const planeGeometry = new THREE.BoxGeometry(30, 30, 0.1);
-    const planeMaterial = new THREE.MeshBasicMaterial({
-      color: 0xa9a9a9,
-      // color: 0xffff00,
+    const planeGeometry = new THREE.PlaneGeometry(2000, 2000, 32, 32);
+    const planeMaterial = new THREE.MeshStandardMaterial({
+      color: 0xd0d0d0,
       side: THREE.DoubleSide,
-      shadowSide: THREE.DoubleSide,
+      // shadowSide: THREE.DoubleSide,
     });
 
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
