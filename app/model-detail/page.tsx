@@ -53,7 +53,11 @@ const ModelDetail = () => {
     },
   ];
   const [isDark, setIsDark] = useState(false);
-  const [selectedColor, setSelectedColor] = useState({ name: "", colorId: "" ,imageURL:''});
+  const [selectedColor, setSelectedColor] = useState({
+    name: "",
+    colorId: "",
+    imageURL: "",
+  });
 
   useEffect(() => {
     console.log(data);
@@ -80,7 +84,6 @@ const ModelDetail = () => {
             <div className="flex flex-1">
               <Image
                 src={makeImageUrl(data.heroImageURL)}
-                className="opacity-80"
                 alt="nova"
                 fill={true}
               />
