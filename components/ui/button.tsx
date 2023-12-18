@@ -21,6 +21,7 @@ const buttonVariants = cva(
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         link: "text-black underline-offset-4 hover:underline",
         underline: "text-black underline-offset-4 underline",
+        white: "bg-white text-black",
       },
       size: {
         default: "px-4 py-2 rounded-3xl text-xs",
