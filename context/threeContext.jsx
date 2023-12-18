@@ -382,6 +382,7 @@ export const ThreeProvider = ({ children }) => {
   const setCameraInnerView = () => {
     // set roof as invisible
     changeMeshVisibilityByName("Roof", false);
+    changeMeshVisibilityByName("Roof_color", false);
 
     // calcaulate the camera's position
     const _cameraPosition = new THREE.Vector3(0, 1, 0)
@@ -403,6 +404,7 @@ export const ThreeProvider = ({ children }) => {
   const setCameraOuterView = () => {
     // set roof as invisible
     changeMeshVisibilityByName("Roof", true);
+    changeMeshVisibilityByName("Roof_color", true);
 
     // calcaulate the camera's initial position
     const _cameraPosition = new THREE.Vector3(0, 3, 15)
