@@ -397,7 +397,7 @@ export const ThreeProvider = ({ children }) => {
     );
 
     // set max angle for cameracontrol
-    cameraControls.maxPolarAngle = 0;
+    cameraControls.maxPolarAngle = Math.PI / 6;
   };
 
   const setCameraOuterView = () => {
