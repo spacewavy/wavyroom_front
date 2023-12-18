@@ -48,7 +48,7 @@ export const ThreeProvider = ({ children }) => {
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
   const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.STUDIO
+    WAVY_MODEL_PATHS.MAX
   );
 
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
@@ -316,9 +316,10 @@ export const ThreeProvider = ({ children }) => {
           _localCenter.y,
           _localCenter.z
         );
-        const _cameraPosition = new THREE.Vector3(0, 3, 15)
+        const _cameraPosition = new THREE.Vector3(0, 2, 15)
           .normalize()
-          .multiplyScalar(_localRadius);
+          .multiplyScalar(_localRadius)
+          .add(_localCenter);
 
         camera.position.set(
           4 * _cameraPosition.x,
