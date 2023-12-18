@@ -11,18 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchModelDetailData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelColors } from "../redux/types";
-import { useRouter } from "next/router";
 import { makeImageUrl } from "../../lib/utils";
+import { useSearchParams } from "next/navigation";
 
 const ModelDetail = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state: any) => state.modelDetail);
 
-  // const router = useRouter();
-  // const param = router.query;
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
 
   useEffect(() => {
-    dispatch(fetchModelDetailData("param") as unknown as AnyAction);
+    console.log("params", id);
+    dispatch(fetchModelDetailData(id || "") as unknown as AnyAction);
   }, []);
 
   const FAQs = [
@@ -149,7 +150,7 @@ const ModelDetail = () => {
             <div className="flex flex-1">
               <Image
                 src={makeImageUrl(selectedColor?.imageURL)}
-                alt="nova"
+                alt="model image"
                 fill={true}
               />
             </div>

@@ -64,7 +64,7 @@ export const fetchModelDetailData = (id: string) => {
     try {
       // debugger;
       const response = await axios.get(
-        `https://test-spacewavy.com/api/v1/model/a4a801ab-a4a7-4be8-8792-12f2de984536`,
+        `https://test-spacewavy.com/api/v1/model/${id}`,
         {
           headers: {
             Accept: "*/*",
