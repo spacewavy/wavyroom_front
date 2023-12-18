@@ -69,7 +69,7 @@ const ModelDetail = () => {
 
   return (
     <div className="relative">
-      <Navbar isDark={isDark} isFloating={isDark} />
+      <Navbar isDark={isDark} isFloating={true} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <div
           className="cursor-pointer absolute top-0 z-30 group-[.is-dark]:text-white"
@@ -80,28 +80,21 @@ const ModelDetail = () => {
           Dark trigger, {isDark ? "dark" : "white"}
         </div>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-[1440/805]">
+          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/805]">
             <div className="flex flex-1">
               <Image
                 src={makeImageUrl(data.heroImageURL)}
+                className="opacity-80"
                 alt="nova"
                 fill={true}
               />
             </div>
-            <div className="absolute bottom-[64px] left-0 right-0 flex flex-col gap-8 items-center">
-              <div className="flex flex-col gap-4 items-center">
-                <div className="text-center text-[28px] md:text-[32px] lg:text-[58px] group-[.is-dark]:text-white">
+            <div className="absolute bottom-[24px] md:bottom-[48px] lg:bottom-[96px] left-0 right-0 flex flex-col items-center">
+              <div className="flex flex-col items-center">
+                <div className="text-center text-[28px] md:text-[28px] lg:text-[40px] group-[.is-dark]:text-white">
                   {data.name}
                 </div>
-                <div className="text-center text-darkGray text-bodyMD lg:text-bodyLG group-[.is-dark]:text-white">
-                  {data.description}
-                </div>
               </div>
-              <Button
-                name="커스텀하기"
-                arrow
-                varient={isDark ? "white" : "default"}
-              />
             </div>
           </div>
         </section>
