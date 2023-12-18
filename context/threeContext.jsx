@@ -36,30 +36,28 @@ export const useThree = () => useContext(ThreeContext);
 
 export const ThreeProvider = ({ children }) => {
   const SCALE = 1 / 15;
-  const [os, setOs] = useState(OPERATING_SYSTEM.MAC);
   const [isEditorLoaded, setIsEditorLoaded] = useState(false);
   const [isModelLoading, setIsModelLoading] = useState(false);
-  const [shortcutEnabled, setShortcutEnabled] = useState(true);
+  const [loadPercent, setLoadPercent] = useState(0);
 
   const [scene, setScene] = useState(null);
   const [renderer, setRenderer] = useState(null);
   const [clock, setClock] = useState(null);
-
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
+
+  const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
+  const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(
     WAVY_MODEL_PATHS.MAX
   );
-  const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
-
-  const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
-  const [loadPercent, setLoadPercent] = useState(0);
 
   // initialize
   useEffect(() => {
     // scene and backgorund
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(0xe5e5e5);
+    _scene.fog = new THREE.Fog(0xe5e5e5, 50, 1000);
 
     const _renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer.setClearColor(0xffffff, 0);
@@ -85,7 +83,7 @@ export const ThreeProvider = ({ children }) => {
     // deleting stripe shadow pattern
     _directionalLight.shadow.bias = -0.0001;
 
-    const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
+    const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
     _scene.add(_ambientLight, _hemisphereLight);
 
     // camera
@@ -107,22 +105,22 @@ export const ThreeProvider = ({ children }) => {
     _cameraControls.maxDistance = 20;
     _cameraControls.maxPolarAngle = Math.PI / 2;
 
-    const planeGeometry = new THREE.PlaneGeometry(2000, 2000, 32, 32);
+    const planeGeometry = new THREE.PlaneGeometry(500, 500, 32, 32);
     const planeMaterial = new THREE.MeshStandardMaterial({
-      color: 0xd0d0d0,
+      // color: 0xd0d0d0,
+      color: 0xd5d5d5,
       side: THREE.DoubleSide,
+      opacity: 0.2,
+      transparent: true,
       // shadowSide: THREE.DoubleSide,
     });
-
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotateX(-Math.PI / 2);
     plane.receiveShadow = true;
-
     _scene.add(plane);
 
     const _clock = new THREE.Clock();
 
-    setOperatingSystem();
     setScene(_scene);
     setRenderer(_renderer);
     setCamera(_camera);
@@ -156,23 +154,6 @@ export const ThreeProvider = ({ children }) => {
         break;
     }
   }, [isEditorLoaded, cameraViewType]);
-
-  const setOperatingSystem = () => {
-    const _appVersion = window.navigator.appVersion;
-    if (_appVersion.indexOf("Win") !== -1) {
-      setOs(OPERATING_SYSTEM.WINDOW);
-      return;
-    } else if (_appVersion.indexOf("Mac") !== -1) {
-      setOs(OPERATING_SYSTEM.MAC);
-      return;
-    } else if (_appVersion.indexOf("X11") !== -1) {
-      setOs(OPERATING_SYSTEM.UNIX);
-      return;
-    } else if (_appVersion.indexOf("Linux") !== -1) {
-      setOs(OPERATING_SYSTEM.LINUX);
-      return;
-    }
-  };
 
   const deleteCurrentModel = () => {
     const _model = scene.getObjectByName(WAVY_MODEL);
@@ -457,7 +438,6 @@ export const ThreeProvider = ({ children }) => {
         changeMeshColor,
         deleteMeshByMesh,
         loadFile,
-        setShortcutEnabled,
         changeModel,
         deleteCurrentModel,
         changeMeshVisibilityByName,
