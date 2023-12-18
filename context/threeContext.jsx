@@ -42,7 +42,7 @@ export const ThreeProvider = ({ children }) => {
 
   const [scene, setScene] = useState(null);
   const [renderer, setRenderer] = useState(null);
-  const [clock, setClock] = useState(null);
+  const [clock, setClock] = useState(new THREE.Clock());
   const [camera, setCamera] = useState(null);
   const [cameraControls, setCameraControls] = useState(null);
 
@@ -107,25 +107,20 @@ export const ThreeProvider = ({ children }) => {
 
     const planeGeometry = new THREE.PlaneGeometry(500, 500, 32, 32);
     const planeMaterial = new THREE.MeshStandardMaterial({
-      // color: 0xd0d0d0,
       color: 0xd5d5d5,
       side: THREE.DoubleSide,
       opacity: 0.2,
       transparent: true,
-      // shadowSide: THREE.DoubleSide,
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotateX(-Math.PI / 2);
     plane.receiveShadow = true;
     _scene.add(plane);
 
-    const _clock = new THREE.Clock();
-
     setScene(_scene);
     setRenderer(_renderer);
     setCamera(_camera);
     setCameraControls(_cameraControls);
-    setClock(_clock);
 
     setIsEditorLoaded(true);
   }, []);

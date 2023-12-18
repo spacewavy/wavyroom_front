@@ -23,13 +23,6 @@ const ModelDetail = () => {
   useEffect(() => {
     dispatch(fetchModelDetailData("param") as unknown as AnyAction);
   }, []);
-  const COLORS = [
-    { hex: "#ffffff", name: "흰색" },
-    { hex: "#DADAD9", name: "연한회색" },
-    { hex: "#D7D5CC", name: "회색" },
-    { hex: "#3D4F36", name: "초록" },
-    { hex: "#4B4842", name: "먹색" },
-  ];
 
   const FAQs = [
     {
@@ -59,25 +52,17 @@ const ModelDetail = () => {
     },
   ];
   const [isDark, setIsDark] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(COLORS[0]);
+  const [selectedColor, setSelectedColor] = useState({ name: "", colorId: "" });
 
-  const InfoDetail = ({ detail }: any) => {
-    return (
-      <div className="flex flex-col border-b border-midGray py-4 gap-2">
-        <div className="text-[12px] group-[.is-dark]:text-white opacity-40">
-          {detail.title}
-        </div>
-        <div className="text-[12px] group-[.is-dark]:text-white">
-          {detail.description}
-        </div>
-      </div>
+  useEffect(() => {
+    setSelectedColor(
+      data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
-  };
+  }, [data]);
 
   return (
     <>
       <Navbar isDark={isDark} />
-
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <div
           className="cursor-pointer"
@@ -161,16 +146,14 @@ const ModelDetail = () => {
             <div className="flex flex-col items-center gap-4">
               <div className="flex flex-row items-center gap-2">
                 {data.modelColors.map((item: ModelColors, index: number) => {
-                  const isSelected = item.isDefault || selectedColor.hex === item.colorId;
+                  const isSelected = selectedColor?.colorId === item.colorId;
+                  // console.log(selectedColor);
                   return (
                     <div
                       key={"color" + index}
                       className="relative w-8 h-8 p-1 cursor-pointer"
                       onClick={() => {
-                        setSelectedColor({
-                          hex: item.colorId,
-                          name: item.name,
-                        });
+                        setSelectedColor({ ...item });
                       }}
                     >
                       <div
@@ -182,14 +165,14 @@ const ModelDetail = () => {
                         }}
                       />
                       {isSelected && (
-                        <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[2px] border-black rounded-full" />
+                        <div className="absolute top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-black group-[.is-dark]:border-orange rounded-full" />
                       )}
                     </div>
                   );
                 })}
               </div>
               <div className="font-normal text-[14px] group-[.is-dark]:text-white">
-                {selectedColor.name}
+                {selectedColor?.name || ""}
               </div>
             </div>
           </div>
@@ -204,29 +187,37 @@ const ModelDetail = () => {
                 height={500}
               />
             </div>
-            <div className="flex flex-col bg-white lg:bg-lightGray flex-1 px-8 py-20 group-[.is-dark]:bg-offBlack">
-              <div className="text-[28px] pb-4 border-b border-midGray group-[.is-dark]:text-white">
+            <div className="flex flex-col bg-white lg:bg-lightGray flex-1 px-8 py-20 group-[.is-dark]:bg-offBlack group-[.is-dark]:text-white">
+              <div className="text-[28px] pb-4 border-b border-midGray">
                 Name 스펙
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal">가격</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    가격
+                  </div>
                   <div className="text-[14px] font-light">{data.minPrice}</div>
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">규격</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    규격
+                  </div>
                   <div className="text-[14px] font-light">{data.size}</div>
                 </div>
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">평형 디테일</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    평형 디테일
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.sizeDetail}
                   </div>
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">외장재</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    외장재
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.exteriorMaterial.map((x: any) => {
                       return (
@@ -240,7 +231,9 @@ const ModelDetail = () => {
                 </div>
               </div>
               <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                <div className="text-[14px] font-normal ">외부색</div>
+                <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                  외부색
+                </div>
                 <div className="flex items-center justify-left gap-4">
                   {data.modelColors.map((x: any, i: number) => {
                     return (
@@ -269,13 +262,15 @@ const ModelDetail = () => {
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">단열</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    단열
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.insulation}
                   </div>
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
                     골조 (스트럭쳐)
                   </div>
                   <div className="text-[14px] font-light">{data.structure}</div>
@@ -283,7 +278,9 @@ const ModelDetail = () => {
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">창호</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    창호
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.windows.map((x: any) => {
                       return (
@@ -296,7 +293,9 @@ const ModelDetail = () => {
                   </div>
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">가구</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    가구
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.furniture.map((x: any) => {
                       return (
@@ -311,7 +310,9 @@ const ModelDetail = () => {
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">용도</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    용도
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.purpose.map((x: any) => {
                       return (
@@ -324,7 +325,9 @@ const ModelDetail = () => {
                   </div>
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 gap-2">
-                  <div className="text-[14px] font-normal ">용도 설명</div>
+                  <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
+                    용도 설명
+                  </div>
                   <div className="text-[14px] font-light">
                     {data.purposeDetail.map((x: any) => {
                       return (
