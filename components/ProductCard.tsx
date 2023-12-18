@@ -3,6 +3,8 @@ import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
 import { Button as CommonButton } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { makeImageUrl } from "../lib/utils";
+
 export interface ProductCardProps {
   id?: string;
   name: string;
@@ -15,7 +17,7 @@ const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
   return (
     <div className="flex flex-col justify-between w-full h-full px-4 pt-16 md:px-14 md:pt-16 lg:px-8 lg:pt-32 border-t border-r border-gray hover:bg-lightGray gap-12">
       <Image
-        src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${image}`}
+        src={makeImageUrl(image)}
         width={500}
         height={500}
         alt="product_image"

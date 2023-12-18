@@ -7,24 +7,20 @@ import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack24.svg";
 import Link from "next/link";
 import WavyDropdown from "../../components/WavyDropdown";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { fetchMediaData } from "../redux/actions/mediaActions";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
-import {NewsMediaItem} from "../redux/types"
-
-
+import { NewsMediaItem } from "../redux/types";
+import { makeImageUrl } from "../../lib/utils";
 
 const Media = () => {
   const dispatch = useDispatch();
-  const { data, error } = useSelector(
-    (state: RootState) => state.media
-  );
+  const { data, error } = useSelector((state: RootState) => state.media);
 
-
-  useEffect(()=>{
-    dispatch(fetchMediaData('news')  as unknown as AnyAction)
-  },[])
+  useEffect(() => {
+    dispatch(fetchMediaData("news") as unknown as AnyAction);
+  }, []);
 
   const OPTIONS = [
     { value: "all", label: "전체" },
@@ -33,7 +29,7 @@ const Media = () => {
   ];
 
   const onDropdownChange = (option: any) => {
-    dispatch(fetchMediaData(option.value)  as unknown as AnyAction)
+    dispatch(fetchMediaData(option.value) as unknown as AnyAction);
   };
 
   return (
@@ -55,7 +51,7 @@ const Media = () => {
       </section>
       {!error && (
         <section className="flex flex-1 flex-col p-4">
-          {data.map((item:NewsMediaItem) => (
+          {data.map((item: NewsMediaItem) => (
             <Link
               href={item.link}
               className="flex flex-1 flex-col md:flex-row py-4 gap-4 border-t border-gray"
@@ -65,7 +61,7 @@ const Media = () => {
                 <div className="w-full md:max-w-[455px]">
                   <Image
                     className="object-cover"
-                    src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${item.imageURL}`}
+                    src={makeImageUrl(item.imageURL)}
                     alt="portfolio img"
                     width={1000}
                     height={1000}

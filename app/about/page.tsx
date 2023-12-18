@@ -11,6 +11,7 @@ import { RootState } from "../redux/reducers";
 import { fetchAboutReputationData } from "../redux/actions/aboutReputationActions";
 import { AnyAction } from "redux";
 import { AboutReputationItem } from "../redux/types";
+import { makeImageUrl } from "../../lib/utils";
 
 const About = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -271,7 +272,7 @@ const About = () => {
                   >
                     <div className="logo flex items-center min-h-[124px] md:min-h-[247px]">
                       <Image
-                        src={`https://spacewavy.s3.ap-northeast-2.amazonaws.com/${x.imageURL}`}
+                        src={makeImageUrl(x.imageURL)}
                         alt="logo"
                         width={247}
                         height={247}
