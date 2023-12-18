@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
-import {  ModelDetailItem } from "../redux/types";
+import { ModelDetailItem } from "../redux/types";
 import axios from "axios";
 
 export interface Product {
@@ -33,7 +33,7 @@ const Customization = () => {
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
   );
-  const {data:customizationData} = useSelector(
+  const { data: customizationData } = useSelector(
     (state: RootState) => state.customization
   );
 
@@ -41,37 +41,38 @@ const Customization = () => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, []);
 
-  const transformedData = data.map((Item:ModelDetailItem)=>{
+  const transformedData = data.map((Item: ModelDetailItem) => {
     return {
       ...Item,
-      path: WAVY_MODEL_PATHS[Item.name.toUpperCase()]
-    }
-  })
+      path: WAVY_MODEL_PATHS[Item.name.toUpperCase()],
+    };
+  });
 
-  const { changeModel, changeMeshVisibilityByName } = useThree();
+  const { changeModel, changeMeshVisibilityByName, test } = useThree();
   const [navigateToSettings, setNavigateToSettings] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [formElaments, setFormElements] = useState({
     name: "",
     email: "",
-    phone: 'null',
+    phone: "null",
   });
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedItem, setSelectedTtem] = useState<number>(1);
 
-
   const [selectedImage, setSelectedImage] = useState(
-    transformedData.find((x:any) => x.id === selectedItem)?.representativeImageURL
+    transformedData.find((x: any) => x.id === selectedItem)
+      ?.representativeImageURL
   );
-
-  const { changeModelColorFromHex, test } = useThree();
 
   const handleSelectedItem = (id: number) => {
     setSelectedTtem(id);
   };
   useEffect(() => {
-    setSelectedImage(transformedData.find((x:any) => x.id === selectedItem)?.representativeImageURL);
+    setSelectedImage(
+      transformedData.find((x: any) => x.id === selectedItem)
+        ?.representativeImageURL
+    );
   }, [selectedItem]);
 
   const moveToCustomSettings = (value: boolean) => {
@@ -108,28 +109,27 @@ const Customization = () => {
     setShowOverlay(false);
   };
   const handleFormSubmit = () => {
-      const postData = {
-        name:formElaments.name,
-        email:formElaments.email,
-        phoneNumber:formElaments.phone,
-        data:customizationData,
-        address:''
-      }
-      axios.post('https://test-spacewavy.com/api/v1/reservation', postData,{
+    const postData = {
+      name: formElaments.name,
+      email: formElaments.email,
+      phoneNumber: formElaments.phone,
+      data: customizationData,
+      address: "",
+    };
+    axios
+      .post("https://test-spacewavy.com/api/v1/reservation", postData, {
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'language': 'KO'
-        }
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          language: "KO",
+        },
       })
       .then((response) => {
-        console.log('Response:', response);
+        console.log("Response:", response);
       })
       .catch((error) => {
-        console.log('Error:', error);
-    
+        console.log("Error:", error);
       });
-
   };
 
   useEffect(() => {
@@ -138,50 +138,53 @@ const Customization = () => {
 
   return (
     <>
-    {transformedData && !error && (
-       <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
-       <div
-         className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
-           openMenu ? " pointer-events-none" : ""
-         }`}
-       >
-         <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
-           <Image src={LeftArrow} alt="leftarrow" />
-           <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
-         </div>
-         <div className="relative flex flex-1 flex-col group">
-           {/* <div className="w-full h-full"> */}
-            <WavyCanvas openMenu={openMenu} />
-           {/* </div> */}
-           <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
-             <Image src={IntentRequest} alt="icon" />
-             <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
-           </div>
-         </div>
-       </div>
-       <div className="lg:w-[496px] md:w-full h-[65vh] lg:h-full relative overflow-visible lg:overflow-hidden">
-         <div
-           className={`absolute top-0 left-0 right-0 bottom-0 top-0 transition-transform duration-500 ease-out ${
-             navigateToSettings ? "translate-x-[-100%]" : "translate-x-0"
-           }`}
-         >
-           <div className="absolute top-0 left-0  w-full">
-             <CustomItems
-               navigateToSettings={moveToCustomSettings}
-               products={transformedData}
-             />
-           </div>
-           <div className="absolute top-0 left-[100%] w-full">
-             <CustomizationPanel
-               handleMenuToggle={handleMenuToggle}
-               openMenu={openMenu}
-               handlePopupOpen={handlePopupOpen}
-             />{" "}
-           </div>
-         </div>
-       </div>
-     </div>
-    )}
+      {transformedData && !error && (
+        <div className="flex flex-col lg:flex-row  max-w-[100vw] overflow-hidden h-[100vh]">
+          <div
+            className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
+              openMenu ? " pointer-events-none" : ""
+            }`}
+          >
+            <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
+              <Image src={LeftArrow} alt="leftarrow" />
+              <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
+              <div className="mx-[2px] my-[2px]" onClick={test}>
+                TEST
+              </div>
+            </div>
+            <div className="relative flex flex-1 flex-col group">
+              {/* <div className="w-full h-full"> */}
+              <WavyCanvas openMenu={openMenu} />
+              {/* </div> */}
+              <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
+                <Image src={IntentRequest} alt="icon" />
+                <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
+              </div>
+            </div>
+          </div>
+          <div className="lg:w-[496px] md:w-full h-[65vh] lg:h-full relative overflow-visible lg:overflow-hidden">
+            <div
+              className={`absolute top-0 left-0 right-0 bottom-0 top-0 transition-transform duration-500 ease-out ${
+                navigateToSettings ? "translate-x-[-100%]" : "translate-x-0"
+              }`}
+            >
+              <div className="absolute top-0 left-0  w-full">
+                <CustomItems
+                  navigateToSettings={moveToCustomSettings}
+                  products={transformedData}
+                />
+              </div>
+              <div className="absolute top-0 left-[100%] w-full">
+                <CustomizationPanel
+                  handleMenuToggle={handleMenuToggle}
+                  openMenu={openMenu}
+                  handlePopupOpen={handlePopupOpen}
+                />{" "}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {showOverlay && (
         <div
           id="overlay"

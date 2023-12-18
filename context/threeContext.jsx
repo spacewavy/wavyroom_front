@@ -50,6 +50,7 @@ export const ThreeProvider = ({ children }) => {
   const [currentModelPath, setCurrentModelPath] = useState(
     WAVY_MODEL_PATHS.MAX
   );
+  const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
 
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [loadPercent, setLoadPercent] = useState(0);
@@ -84,16 +85,11 @@ export const ThreeProvider = ({ children }) => {
     // deleting stripe shadow pattern
     _directionalLight.shadow.bias = -0.0001;
 
-    const _directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
-    _directionalLight2.position.set(0, 20 * 15 * SCALE, 0);
-    _directionalLight2.castShadow = true;
-    // _scene.add(_directionalLight2);
-
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
     _scene.add(_ambientLight, _hemisphereLight);
 
-    const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
     // camera
+    const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
     _camera.position.set(0, 3, 15);
     _camera.add(_directionalLight);
     _camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -136,11 +132,30 @@ export const ThreeProvider = ({ children }) => {
     setIsEditorLoaded(true);
   }, []);
 
+  // loading file
   useEffect(() => {
     if (!isEditorLoaded) return;
     deleteCurrentModel();
     loadFile(FILE_EXTENSION.FBX, `../models/${currentModelPath}`);
   }, [isEditorLoaded, currentModelPath]);
+
+  // change camera view type
+  useEffect(() => {
+    if (!isEditorLoaded) return;
+    switch (cameraViewType) {
+      case CAMERA_VIEW_TYPE.INNER_1:
+        setCameraInnerView();
+        break;
+      case CAMERA_VIEW_TYPE.INNER_2:
+        setCameraInnerView();
+        break;
+      case CAMERA_VIEW_TYPE.OUTER:
+        setCameraOuterView();
+        break;
+      default:
+        break;
+    }
+  }, [isEditorLoaded, cameraViewType]);
 
   const setOperatingSystem = () => {
     const _appVersion = window.navigator.appVersion;
@@ -163,12 +178,6 @@ export const ThreeProvider = ({ children }) => {
     const _model = scene.getObjectByName(WAVY_MODEL);
     if (!_model) return;
     deleteMeshByMesh(_model);
-  };
-
-  const deleteMeshByUuid = (_uuid) => {
-    const _mesh = scene.getObjectByProperty("uuid", _uuid);
-    if (!_mesh) return;
-    deleteMeshByMesh(_mesh);
   };
 
   const deleteMeshByMesh = (_mesh) => {
@@ -265,8 +274,13 @@ export const ThreeProvider = ({ children }) => {
         let removeObjectList = [];
         if (object?.children.length) {
           object.children.reverse().map((_obj, _idx) => {
+            const receiveShadow =
+              _obj.name.toLowerCase().includes("roof") ||
+              _obj.name.toLowerCase().includes("deck") ||
+              _obj.name.toLowerCase().includes("roof");
+
             _obj.traverse((child) => {
-              child.receiveShadow = true;
+              child.receiveShadow = receiveShadow;
               child.castShadow = true;
               child.visible = true;
               if (child.geometry) {
@@ -303,7 +317,8 @@ export const ThreeProvider = ({ children }) => {
         const box3 = new THREE.Box3().setFromObject(object);
         box3.getCenter(_localCenter);
         box3.getBoundingSphere(_localSphere);
-        const _localRadius = Math.ceil(_localSphere.radius);
+        const _localRadius = 1.2 * Math.ceil(_localSphere.radius);
+        setLocalCenter(_localCenter);
 
         cameraControls.minDistance = _localRadius;
         cameraControls.maxDistance = _localRadius * 3;
@@ -383,11 +398,51 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const test = () => {
-    setCameraInnerView();
+    cameraViewType === CAMERA_VIEW_TYPE.INNER_1
+      ? setCameraViewType(CAMERA_VIEW_TYPE.OUTER)
+      : setCameraViewType(CAMERA_VIEW_TYPE.INNER_1);
   };
 
   const setCameraInnerView = () => {
-    // invisible
+    // set roof as invisible
+    changeMeshVisibilityByName("Roof", false);
+
+    // calcaulate the camera's position
+    const _cameraPosition = new THREE.Vector3(0, 1, 0)
+      .normalize()
+      .multiplyScalar(100)
+      .add(localCenter);
+
+    // place the camera
+    camera.position.set(
+      _cameraPosition.x,
+      _cameraPosition.y,
+      _cameraPosition.z
+    );
+
+    // set max angle for cameracontrol
+    cameraControls.maxPolarAngle = 0;
+  };
+
+  const setCameraOuterView = () => {
+    // set roof as invisible
+    changeMeshVisibilityByName("Roof", true);
+
+    // calcaulate the camera's initial position
+    const _cameraPosition = new THREE.Vector3(0, 3, 15)
+      .normalize()
+      .multiplyScalar(100)
+      .add(localCenter);
+
+    // place the camera
+    camera.position.set(
+      _cameraPosition.x,
+      _cameraPosition.y,
+      _cameraPosition.z
+    );
+
+    // set max angle for cameracontrol
+    cameraControls.maxPolarAngle = Math.PI / 2;
   };
 
   return (
@@ -400,7 +455,6 @@ export const ThreeProvider = ({ children }) => {
         renderer,
         clock,
         changeMeshColor,
-        deleteMeshByUuid,
         deleteMeshByMesh,
         loadFile,
         setShortcutEnabled,
