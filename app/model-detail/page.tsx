@@ -22,7 +22,6 @@ const ModelDetail = () => {
   const id = searchParams.get("id");
 
   useEffect(() => {
-    console.log("params", id);
     dispatch(fetchModelDetailData(id || "") as unknown as AnyAction);
   }, []);
 
@@ -98,7 +97,11 @@ const ModelDetail = () => {
                   {data.description}
                 </div>
               </div>
-              <Button name="커스텀하기" arrow varient="default" />
+              <Button
+                name="커스텀하기"
+                arrow
+                varient={isDark ? "white" : "default"}
+              />
             </div>
           </div>
         </section>
