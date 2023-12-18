@@ -18,6 +18,7 @@ import { fetchNavigationModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelDetailItem } from "../redux/types";
 import axios from "axios";
+import { navigateToSettings } from "../redux/actions/customizationActions";
 
 export interface Product {
   id: number;
@@ -36,6 +37,9 @@ const Customization = () => {
   const { data: customizationData } = useSelector(
     (state: RootState) => state.customization
   );
+  const { data: navigateSettings } = useSelector(
+    (state: RootState) => state.navigation
+  );
 
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
@@ -49,7 +53,6 @@ const Customization = () => {
   });
 
   const { changeModel, changeMeshVisibilityByName, test } = useThree();
-  const [navigateToSettings, setNavigateToSettings] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [formElaments, setFormElements] = useState({
@@ -76,8 +79,7 @@ const Customization = () => {
   }, [selectedItem]);
 
   const moveToCustomSettings = (value: boolean) => {
-    console.log(value);
-    setNavigateToSettings(value);
+    dispatch(navigateToSettings(value) as unknown as AnyAction);
   };
 
   const handleMenuToggle = () => {
@@ -146,11 +148,10 @@ const Customization = () => {
             }`}
           >
             <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
-              <Image src={LeftArrow} alt="leftarrow" />
+              <Link href="/">
+                <Image src={LeftArrow} alt="leftarrow" />
+              </Link>
               <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
-              <div className="mx-[2px] my-[2px]" onClick={test}>
-                TEST
-              </div>
             </div>
             <div className="relative flex flex-1 flex-col group">
               <WavyCanvas openMenu={openMenu} />
@@ -163,7 +164,9 @@ const Customization = () => {
           <div className="lg:w-[496px] md:w-full h-[65vh] lg:h-full relative overflow-visible lg:overflow-hidden">
             <div
               className={`absolute top-0 left-0 right-0 bottom-0 top-0 transition-transform duration-500 ease-out ${
-                navigateToSettings ? "translate-x-[-100%]" : "translate-x-0"
+                navigateSettings.navigateToSettings
+                  ? "translate-x-[-100%]"
+                  : "translate-x-0"
               }`}
             >
               <div className="absolute top-0 left-0  w-full">

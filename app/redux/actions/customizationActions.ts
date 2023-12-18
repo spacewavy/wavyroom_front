@@ -6,12 +6,13 @@ export const SET_CUSTOMIZATION_SELECTED_COLOR = "SET_CUSTOMIZATION_SELECTED_COLO
 export const SET_CUSTOMIZATION_FLOOR_CHANGE = "SET_CUSTOMIZATION_FLOOR_CHANGE";
 export const SET_CUSTOMIZATION_OPTION_CHANGE = "SET_CUSTOMIZATION_OPTION_CHANGE";
 export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE = "SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE";
+export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
 
 export const fetchCustomizationOptionsData = (itemId: string) => {
   return async (dispatch: any) => {
     try {
       const response = await axios.get(
-        `http://13.210.86.154:3000/api/v1/model/${itemId}/custom-selections`
+        `https://test-spacewavy.com/api/v1/model/${itemId}/custom-selections`
       );
       dispatch({
         type: FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
@@ -55,6 +56,14 @@ export const customizationKitchenOptionsSelectionChange = (name:string) => {
     dispatch({
       type:SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
       payload:name
+    });
+}
+}
+export const navigateToSettings = (value:boolean) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type:SET_NAVIGATE_TO_SETTINGS,
+      payload:value
     });
 }
 }

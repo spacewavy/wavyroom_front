@@ -5,14 +5,19 @@ import {
   SET_CUSTOMIZATION_FLOOR_CHANGE,
   SET_CUSTOMIZATION_OPTION_CHANGE,
   SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
+  SET_NAVIGATE_TO_SETTINGS,
 } from "../actions/customizationActions";
 import { CustomizationData, OptionDetail } from "../types";
 const initialState: CustomizationData = {
   data: { modelColors: [], modelFloorOptions: [] },
   error: null,
 };
+const navigation = {
+  data: {navigateToSettings:false},
+  error: null,
+};
 
-const fetchCustomizationOptionsDataReducer = (
+export const fetchCustomizationOptionsDataReducer = (
   state = initialState,
   action: any
 ) => {
@@ -124,4 +129,19 @@ const fetchCustomizationOptionsDataReducer = (
   }
 };
 
-export default fetchCustomizationOptionsDataReducer;
+
+export const navigateToSettings = (
+  state = navigation,
+  action: any
+) => {
+  switch (action.type) {
+    case SET_NAVIGATE_TO_SETTINGS:
+      return {
+        ...state,
+        data: {navigateToSettings:action.payload},
+        error: action.payload,
+    };
+    default:
+      return state;
+  }
+};

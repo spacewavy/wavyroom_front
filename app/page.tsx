@@ -45,8 +45,8 @@ const Home = () => {
             <div
               className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
             >
-              <div className="h-full relative">
-                <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-2 p-8 bg-gradient-to-t from-black to-transparent">
+              <div className="relative">
+                <div className="absolute h-fit z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-0 p-4 lg:p-8 bg-gradient-to-t from-black to-transparent">
                   <div onClick={handleMuteToggle} className="cursor-pointer">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +140,7 @@ const Home = () => {
           혁신적인 제품으로 <br /> 재탄생하다
         </h1>
       </section>
-      <section className="grid w-full grid-cols-1 lg:grid-cols-2 mb-[32px]">
+      <section className="grid w-full grid-cols-1 lg:grid-cols-2">
         {data.map((item: ModelItem, index: number) => {
           return (
             <ProductCard
