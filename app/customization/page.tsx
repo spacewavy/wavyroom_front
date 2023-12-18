@@ -147,12 +147,12 @@ const Customization = () => {
               openMenu ? " pointer-events-none" : ""
             }`}
           >
-            <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
-              <Link href="/">
-                <Image src={LeftArrow} alt="leftarrow" />
-              </Link>
-              <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
-            </div>
+            <Link href="/">
+              <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
+                  <Image src={LeftArrow} alt="leftarrow" />
+                  <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
+              </div>
+            </Link>
             <div className="relative flex flex-1 flex-col group">
               <WavyCanvas openMenu={openMenu} />
               <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">

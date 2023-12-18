@@ -18,7 +18,7 @@ import Link from "next/link";
 import CallInquery from "./CallInquery";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/redux/reducers";
-import { fetchNavigationModelData } from "@/app/redux/actions/modelActions";
+import { fetchModelDetailData, fetchNavigationModelData } from "@/app/redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { NavigationModelItem } from "@/app/redux/types";
 import {
@@ -230,6 +230,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   };
 
   const renderModelDetail = () => {
+    const handleNavigateToModelDetail = () => {
+      dispatch(fetchModelDetailData(selectedListId|| "") as unknown as AnyAction)
+      setOpen(false);
+    }
     if (!selectedListId) return;
     return (
       <section className="flex flex-col flex-1 w-[100vw]">
@@ -242,7 +246,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         />
         <div className="w-full p-8 h-full">
           <h2 className="h-14">{selectedProduct?.name}</h2>
-          <ul className="flex flex-col flex-1 text-xs font-light">
+          <ul className="flex flex-col flex-1 text-xs font-light h-[73%]">
             <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
               <span className="truncate">
                 가격
@@ -348,43 +352,30 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             </li>
           </ul>
           <Link href="/customization">
-            <div
-              className="flex flex-row gap-2 fixed bottom-[33px]"
-              onClick={handlePlaceOrderClick}
-            >
-              <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">
-                <span>주문하기</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                >
-                  <g clip-path="url(#clip0_4008_2982)">
-                    <path
-                      d="M10.02 4.2373L9.4875 4.7698L13.3425 8.6248H3.375V9.3748H13.35L9.4875 13.2373L10.0125 13.7623L14.7825 9.0073L10.02 4.2373Z"
-                      fill="white"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_4008_2982">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </button>
+          <div className="flex flex-row gap-2 py-8 " onClick={handlePlaceOrderClick}>
 
-              <Link
-                href={`/model-detail?id=${selectedListId}`}
-                onClick={closeSidebar}
-              >
-                <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">
-                  상세보기
-                </button>
-              </Link>
-            </div>
-          </Link>
+            <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">  
+              <span>
+              주문하기
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <g clip-path="url(#clip0_4008_2982)">
+              <path d="M10.02 4.2373L9.4875 4.7698L13.3425 8.6248H3.375V9.3748H13.35L9.4875 13.2373L10.0125 13.7623L14.7825 9.0073L10.02 4.2373Z" fill="white"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_4008_2982">
+              <rect width="18" height="18" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+           </button> 
+           <div onClick={handleNavigateToModelDetail}>
+            <Link href={`/model-detail?id=${selectedListId}`}>
+              <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">상세보기</button>
+            </Link>
+           </div>
+          </div>
+        </Link>
         </div>
       </section>
     );

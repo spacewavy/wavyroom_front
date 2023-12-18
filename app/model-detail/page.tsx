@@ -60,7 +60,6 @@ const ModelDetail = () => {
   });
 
   useEffect(() => {
-    console.log(data);
     setSelectedColor(
       data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
@@ -223,9 +222,9 @@ const ModelDetail = () => {
                     외장재
                   </div>
                   <div className="text-[14px] font-light">
-                    {data.exteriorMaterial.map((x: any) => {
+                    {data.exteriorMaterial.map((x: any ,index:number) => {
                       return (
-                        <React.Fragment key={x}>
+                        <React.Fragment key={"material" + index}>
                           <span>{x}</span>
                           <br />
                         </React.Fragment>
@@ -242,7 +241,7 @@ const ModelDetail = () => {
                   {data.modelColors.map((x: any, i: number) => {
                     return (
                       <div
-                        key={i}
+                        key={'color' + i}
                         className="flex gap-2 items-center text-[14px] font-normal"
                       >
                         <div
@@ -286,9 +285,9 @@ const ModelDetail = () => {
                     창호
                   </div>
                   <div className="text-[14px] font-light">
-                    {data.windows.map((x: any) => {
+                    {data.windows.map((x: any,i:number) => {
                       return (
-                        <React.Fragment key={x}>
+                        <React.Fragment key={'window' + i}>
                           <span>{x}</span>
                           <br />
                         </React.Fragment>
