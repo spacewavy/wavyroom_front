@@ -2,10 +2,14 @@ import axios from "axios";
 
 export const FETCH_MODEL_DATA_SUCCESS = "FETCH_MODEL_DATA_SUCCESS";
 export const FETCH_MODEL_DATA_FAILURE = "FETCH_MODEL_DATA_FAILURE";
-export const FETCH_NAVIGATION_MODEL_DATA_SUCCESS = "FETCH_NAVIGATION_MODEL_DATA_SUCCESS";
-export const FETCH_NAVIGATION_MODEL_DATA_FAILURE = "FETCH_NAVIGATION_MODEL_DATA_FAILURE";
-export const FETCH_MODEL_DETAIL_DATA_SUCCESS = "FETCH_MODEL_DETAIL_DATA_SUCCESS";
-export const FETCH_MODEL_DETAIL_DATA_FAILURE = "FETCH_MODEL_DETAIL_DATA_FAILURE";
+export const FETCH_NAVIGATION_MODEL_DATA_SUCCESS =
+  "FETCH_NAVIGATION_MODEL_DATA_SUCCESS";
+export const FETCH_NAVIGATION_MODEL_DATA_FAILURE =
+  "FETCH_NAVIGATION_MODEL_DATA_FAILURE";
+export const FETCH_MODEL_DETAIL_DATA_SUCCESS =
+  "FETCH_MODEL_DETAIL_DATA_SUCCESS";
+export const FETCH_MODEL_DETAIL_DATA_FAILURE =
+  "FETCH_MODEL_DETAIL_DATA_FAILURE";
 
 export const fetchModelData = () => {
   return async (dispatch: any) => {
@@ -58,7 +62,7 @@ export const fetchNavigationModelData = () => {
 export const fetchModelDetailData = (id: string) => {
   return async (dispatch: any) => {
     try {
-      debugger;
+      // debugger;
       const response = await axios.get(
         `https://test-spacewavy.com/api/v1/model/a4a801ab-a4a7-4be8-8792-12f2de984536`,
         {
@@ -72,7 +76,7 @@ export const fetchModelDetailData = (id: string) => {
         payload: response.data.data,
       });
     } catch (error: any) {
-      debugger;
+      // debugger;
       dispatch({
         type: FETCH_MODEL_DETAIL_DATA_FAILURE,
         payload: error.message,
