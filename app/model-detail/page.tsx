@@ -85,9 +85,12 @@ const ModelDetail = () => {
               <Image
                 src={makeImageUrl(data.heroImageURL)}
                 alt="nova"
-                objectFit="cover"
-                fill={true}
                 priority={true}
+                quality={100}
+                fill={true}
+                unoptimized={true}
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
               />
             </div>
             <div className="absolute bottom-[24px] md:bottom-[48px] lg:bottom-[96px] left-0 right-0 flex flex-col items-center">
