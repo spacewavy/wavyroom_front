@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { cn, makeImageUrl } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SelectLang from "./SelectLang";
 import Button from "./Button";
 import Link from "next/link";
@@ -254,10 +254,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <br />
                 {selectedProduct.exteriorMaterial.map((x: any) => {
                   return (
-                    <>
+                    <React.Fragment key={x}>
                       <span>{x}</span>
                       <br />
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </span>
@@ -268,10 +268,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <br />
                 {selectedProduct.modelColors.map((x: any) => {
                   return (
-                    <>
+                    <React.Fragment key={x}>
                       <span>{x.name}</span>
                       <br />
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </span>
@@ -290,10 +290,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <br />
                 {selectedProduct.windows.map((x: any) => {
                   return (
-                    <>
+                    <React.Fragment key={x}>
                       <span>{x}</span>
                       <br />
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </span>
@@ -304,10 +304,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <br />
                 {selectedProduct.furniture.map((x: any) => {
                   return (
-                    <>
+                    <React.Fragment key={x}>
                       <span>{x}</span>
                       <br />
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </span>
@@ -316,10 +316,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <br />
                 {selectedProduct.purpose.map((x: any) => {
                   return (
-                    <>
+                    <React.Fragment key={x}>
                       <span>{x}</span>
                       <br />
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </span>
@@ -328,10 +328,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <br />
                 {selectedProduct.purposeDetail.map((x: any) => {
                   return (
-                    <>
+                    <React.Fragment key={x}>
                       <span>{x}</span>
                       <br />
-                    </>
+                    </React.Fragment>
                   );
                 })}
               </span>
