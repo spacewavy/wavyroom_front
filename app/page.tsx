@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <main className="flex flex-col flex-1">
       <section>
-        <div className="flex flex-col lg:flex-col-reverse">
+        <div className="flex flex-col lg:flex-col-reverse md:pr-8 md:pl-8  md:pb-8 lg:pb-16">
           <div className="pb-8 lg:pb-16 relative pt-[53.25%]">
             <div
               className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
@@ -132,7 +132,7 @@ const Home = () => {
           <Button name="주문하기" arrow varient="default" />
         </div>
       </section>
-      <section className="py-8 md:py-16 lg:py-24">
+      <section className="pb-4 pt-8 md:pt-16 md:pb-8 lg:pt-24 lg:pb-16">
         <ProductCarousel />
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">

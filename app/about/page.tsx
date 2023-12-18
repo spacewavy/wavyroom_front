@@ -58,7 +58,7 @@ const About = () => {
           </div>
           <div className="pb-8 lg:pb-16 relative pt-[53.25%]">
             <div
-              className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
+              className={`absolute inset-0 md:pr-8 md:pl-8  md:pb-8 lg:pb-16 ${isVideoLoaded ? "z-10" : "z-0"}`}
             >
               <div className="relative">
                 {isVideoLoaded && (
@@ -126,7 +126,7 @@ const About = () => {
               </div>
             </div>
             <div
-              className={`absolute inset-0 ${!isVideoLoaded ? "z-10" : "z-0"}`}
+              className={` md:pr-8 md:pl-8  md:pb-8 lg:pb-16 absolute inset-0 ${!isVideoLoaded ? "z-10" : "z-0"}`}
             >
               <Image src={VideoLoadingImage} alt="image" />
             </div>
