@@ -1,5 +1,5 @@
 import Imageh from "@/assets/how-to-order/order-page-img.png";
-import SidebarProduct from "@/assets/Products/SidebarProduct.png";
+import howToOrderImage from "@/assets/how-to-order/how-to-order.png";
 import OrderCard from "@/components/OrderCard";
 import Image from "next/image";
 
@@ -106,7 +106,7 @@ const HowToOrder = () => {
           <Image
             layout="fill"
             objectFit="cover"
-            src={SidebarProduct}
+            src={howToOrderImage}
             alt="Main Image"
           />
         </div>

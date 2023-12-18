@@ -53,11 +53,7 @@ const ModelDetail = () => {
     },
   ];
   const [isDark, setIsDark] = useState(false);
-  const [selectedColor, setSelectedColor] = useState({
-    name: "",
-    colorId: "",
-    imageURL: "",
-  });
+  const [selectedColor, setSelectedColor] = useState({ name: "", colorId: "" ,imageURL:''});
 
   useEffect(() => {
     console.log(data);

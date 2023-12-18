@@ -9,6 +9,10 @@ import HamburgerIcon from "@/assets/icons/Hamburger.svg";
 import HamburgerWhiteIcon from "@/assets/icons/HamburgerWhite.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { navigateToSettings } from "@/app/redux/actions/customizationActions";
+import { AnyAction } from "redux";
+import { useDispatch } from "react-redux";
+
 
 const Navbar = ({
   isDark,
@@ -20,10 +24,15 @@ const Navbar = ({
   const [lang, setLang] = useState("KOR");
   const [open, setOpen] = useState(false);
   const [menuType, setMenuType] = useState("");
+  const dispatch=useDispatch();
 
   const openSidebar = (menuName?: string) => {
     setOpen(true);
     setMenuType(menuName ?? "");
+  };
+  const handleButtonClick = () => {
+    dispatch(navigateToSettings(false) as unknown as AnyAction);
+
   };
 
   return (
@@ -95,9 +104,11 @@ const Navbar = ({
                 </div>
               </div>
               <div className="flex flex-row gap-4">
-                <Link href="/customization">
-                  <Button name="주문하기" arrow varient="default" />
-                </Link>
+                <div onClick={handleButtonClick}>
+                  <Link href="/customization">
+                    <Button name="주문하기" arrow varient="default" />
+                  </Link>
+                </div>
                 <div className="flex lg:hidden" onClick={() => openSidebar()}>
                   <Image
                     className="cursor-pointer"

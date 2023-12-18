@@ -15,11 +15,11 @@ export interface ProductCardProps {
 
 const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
   return (
-    <div className="flex flex-col justify-between w-full h-full px-4 pt-16 md:px-14 md:pt-16 lg:px-8 lg:pt-32 border-t border-r border-gray hover:bg-lightGray gap-12">
+    <div className=" aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-14 md:pt-16 lg:px-8 lg:pt-32 pb-8 border-t border-r border-gray hover:bg-lightGray gap-12">
       <Image
         src={makeImageUrl(image)}
         width={500}
-        height={500}
+        height={100}
         alt="product_image"
         className="w-full h-full"
       />
@@ -28,7 +28,7 @@ const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
           <p>
             {name} /<span className="text-midGray ml-[4px]"> {purpose} </span>
           </p>
-          <span>{value}</span>
+          <span>{value.toLocaleString()}</span>
         </div>
         <Link href={`/model-detail?id=${id}`}>
           <CommonButton className="text-labelSM" variant="secondary">
@@ -45,19 +45,21 @@ export default ProductCard;
 
 export function ProductAllCard() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full gap-4 px-8 py-24 text-white border-t border-r border-gray bg-offBlack">
-      <p className="text-center">
-        웨이비룸 모듈을 결합하여 다양한
-        <br />
-        형태의 공간 제작이 가능합니다.
-      </p>
-      <CommonButton
-        className="p-0 bg-transparent !text-labelMD"
-        variant="ghostOrange"
-      >
-        제품 전체보기{" "}
-        <Image alt="right-arrow" src={RightArrowOrange} className="ml-2" />
-      </CommonButton>
+    <div className="p-8 border-t">
+      <div className="flex h-full flex-col items-center justify-center w-full gap-4 p-8 text-white border-r border-gray bg-offBlack">
+        <p className="text-center">
+          웨이비룸 모듈을 결합하여 다양한
+          <br />
+          형태의 공간 제작이 가능합니다.
+        </p>
+        <CommonButton
+          className="p-0 bg-transparent !text-labelMD"
+          variant="ghostOrange"
+        >
+          제품 전체보기{" "}
+          <Image alt="right-arrow" src={RightArrowOrange} className="ml-2" />
+        </CommonButton>
+      </div>
     </div>
   );
 }
