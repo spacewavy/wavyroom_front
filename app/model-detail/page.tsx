@@ -71,14 +71,14 @@ const ModelDetail = () => {
     <div className="relative">
       <Navbar isDark={isDark} isFloating={true} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
-        <div
+        {/* <div
           className="cursor-pointer absolute top-0 z-30 group-[.is-dark]:text-white"
           onClick={() => {
             setIsDark((prev) => !prev);
           }}
         >
           Dark trigger, {isDark ? "dark" : "white"}
-        </div>
+        </div> */}
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
           <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/805]">
             <div className="flex flex-1">
