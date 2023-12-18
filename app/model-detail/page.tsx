@@ -221,10 +221,10 @@ const ModelDetail = () => {
                   <div className="text-[14px] font-light">
                     {data.exteriorMaterial.map((x: any) => {
                       return (
-                        <>
+                        <React.Fragment key={x}>
                           <span>{x}</span>
                           <br />
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </div>
@@ -284,10 +284,10 @@ const ModelDetail = () => {
                   <div className="text-[14px] font-light">
                     {data.windows.map((x: any) => {
                       return (
-                        <>
+                        <React.Fragment key={x}>
                           <span>{x}</span>
                           <br />
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </div>
@@ -299,10 +299,10 @@ const ModelDetail = () => {
                   <div className="text-[14px] font-light">
                     {data.furniture.map((x: any) => {
                       return (
-                        <>
+                        <React.Fragment key={x}>
                           <span>{x}</span>
                           <br />
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </div>
@@ -331,10 +331,10 @@ const ModelDetail = () => {
                   <div className="text-[14px] font-light">
                     {data.purposeDetail.map((x: any) => {
                       return (
-                        <>
+                        <React.Fragment key={x}>
                           <span>{x}</span>
                           <br />
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </div>
