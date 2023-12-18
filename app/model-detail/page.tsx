@@ -85,9 +85,9 @@ const ModelDetail = () => {
               <Image
                 src={makeImageUrl(data.heroImageURL)}
                 alt="nova"
-                // width={1440}
-                // height={805}
+                objectFit="cover"
                 fill={true}
+                priority={true}
               />
             </div>
             <div className="absolute bottom-[24px] md:bottom-[48px] lg:bottom-[96px] left-0 right-0 flex flex-col items-center">

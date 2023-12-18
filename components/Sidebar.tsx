@@ -21,7 +21,10 @@ import { RootState } from "@/app/redux/reducers";
 import { fetchNavigationModelData } from "@/app/redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { NavigationModelItem } from "@/app/redux/types";
-import { fetchCustomizationOptionsData, navigateToSettings } from "@/app/redux/actions/customizationActions";
+import {
+  fetchCustomizationOptionsData,
+  navigateToSettings,
+} from "@/app/redux/actions/customizationActions";
 
 interface SidebarItemChildren {
   id: number;
@@ -73,17 +76,17 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     initData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
-  
+
   const selectedMenu: SidebarItem | undefined = useMemo(
     () => sidebarItems.find((obj) => obj.id === selectedMenuId),
     [selectedMenuId]
-    );
-    
-    const selectedProduct = useMemo(
-      () => data.find((obj: any) => obj.id === selectedListId),
-      [selectedListId]
-      );
-      
+  );
+
+  const selectedProduct = useMemo(
+    () => data.find((obj: any) => obj.id === selectedListId),
+    [selectedListId]
+  );
+
   const initData = () => {
     setSelectedMenuId(menuType === "model" ? 2 : 0);
     setSelectedListId("");
@@ -94,11 +97,11 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   };
 
   const handlePlaceOrderClick = () => {
-    dispatch(fetchCustomizationOptionsData(selectedListId) as unknown as AnyAction);
+    dispatch(
+      fetchCustomizationOptionsData(selectedListId) as unknown as AnyAction
+    );
     dispatch(navigateToSettings(true) as unknown as AnyAction);
-
-  }
-
+  };
 
   const renderMenus = () => {
     return (
@@ -345,29 +348,43 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             </li>
           </ul>
           <Link href="/customization">
-          <div className="flex flex-row gap-2 fixed bottom-[33px]" onClick={handlePlaceOrderClick}>
+            <div
+              className="flex flex-row gap-2 fixed bottom-[33px]"
+              onClick={handlePlaceOrderClick}
+            >
+              <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">
+                <span>주문하기</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_4008_2982)">
+                    <path
+                      d="M10.02 4.2373L9.4875 4.7698L13.3425 8.6248H3.375V9.3748H13.35L9.4875 13.2373L10.0125 13.7623L14.7825 9.0073L10.02 4.2373Z"
+                      fill="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_4008_2982">
+                      <rect width="18" height="18" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </button>
 
-            <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">  
-              <span>
-              주문하기
-              </span>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <g clip-path="url(#clip0_4008_2982)">
-              <path d="M10.02 4.2373L9.4875 4.7698L13.3425 8.6248H3.375V9.3748H13.35L9.4875 13.2373L10.0125 13.7623L14.7825 9.0073L10.02 4.2373Z" fill="white"/>
-              </g>
-              <defs>
-              <clipPath id="clip0_4008_2982">
-              <rect width="18" height="18" fill="white"/>
-              </clipPath>
-              </defs>
-              </svg>
-           </button> 
-           
-            <Link href={`/model-detail?id=${selectedListId}`}>
-              <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">상세보기</button>
-            </Link>
-          </div>
-        </Link>
+              <Link
+                href={`/model-detail?id=${selectedListId}`}
+                onClick={closeSidebar}
+              >
+                <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">
+                  상세보기
+                </button>
+              </Link>
+            </div>
+          </Link>
         </div>
       </section>
     );
