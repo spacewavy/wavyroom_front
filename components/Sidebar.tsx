@@ -252,25 +252,27 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           />
         </div>
         <div className="flex flex-1 flex-col p-8 gap-8">
-          <h2 className="text-[20px]">{selectedProduct?.name} 스펙</h2>
+          <h2 className="text-[20px] font-normal">
+            {selectedProduct?.name} 스펙
+          </h2>
           <ul className="flex flex-col flex-1 text-xs font-light pb-10">
             <li className="grid grid-cols-4 py-4 gap-6 text-sm">
               <div className="flex flex-col gap-2">
-                <span className="truncate">가격</span>
+                <span className="truncate font-normal">가격</span>
                 <span className="truncate">
                   {selectedProduct.minPrice.toLocaleString()}
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">규격</span>
+                <span className="truncate font-normal">규격</span>
                 <span className="truncate">{selectedProduct.size}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">평형 디테일</span>
+                <span className="truncate font-normal">평형 디테일</span>
                 <span className="truncate">{selectedProduct.sizeDetail}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">외장재</span>
+                <span className="truncate font-normal">외장재</span>
                 <span className="truncate">
                   {selectedProduct.exteriorMaterial.map((x: any) => {
                     return (
@@ -283,7 +285,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">외부색</span>
+                <span className="truncate font-normal">외부색</span>
                 <span className="truncate">
                   {selectedProduct.modelColors.map((x: any) => {
                     return (
@@ -296,15 +298,15 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">단열</span>
+                <span className="truncate font-normal">단열</span>
                 <span className="truncate">{selectedProduct.insulation}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">골조 (스트럭쳐)</span>
+                <span className="truncate font-normal">골조 (스트럭쳐)</span>
                 <span className="truncate">{selectedProduct.structure}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">창호</span>
+                <span className="truncate font-normal">창호</span>
                 <span className="truncate">
                   {selectedProduct.windows.map((x: any) => {
                     return (
@@ -317,7 +319,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">가구</span>
+                <span className="truncate font-normal">가구</span>
                 <span className="truncate">
                   {" "}
                   {selectedProduct.furniture.map((x: any) => {
@@ -331,7 +333,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">용도</span>
+                <span className="truncate font-normal">용도</span>
                 <span className="truncate">
                   {selectedProduct.purpose.map((x: any) => {
                     return (
@@ -344,7 +346,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate">용도 설명</span>
+                <span className="truncate font-normal">용도 설명</span>
                 <span className="truncate">
                   {selectedProduct.purposeDetail.map((x: any) => {
                     return (
