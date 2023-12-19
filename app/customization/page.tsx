@@ -68,15 +68,20 @@ const Customization = () => {
       ?.representativeImageURL
   );
 
-  const handleSelectedItem = (id: number) => {
-    setSelectedTtem(id);
-  };
   useEffect(() => {
     setSelectedImage(
       transformedData.find((x: any) => x.id === selectedItem)
         ?.representativeImageURL
     );
   }, [selectedItem]);
+
+  useEffect(() => {
+    validateInputs();
+  }, [formElaments]);
+
+  const handleSelectedItem = (id: number) => {
+    setSelectedTtem(id);
+  };
 
   const moveToCustomSettings = (value: boolean) => {
     dispatch(navigateToSettings(value) as unknown as AnyAction);
@@ -85,6 +90,7 @@ const Customization = () => {
   const handleMenuToggle = () => {
     setOpenMenu((prev) => !prev);
   };
+
   const handleFormElement = (e: any, value: string) => {
     if (value === "name") {
       setFormElements((prev) => ({ ...prev, name: e.target.value }));
@@ -104,12 +110,15 @@ const Customization = () => {
       setIsButtonDisabled(false);
     }
   };
+
   const handlePopupOpen = () => {
     setShowOverlay(true);
   };
+
   const handlePopupClose = () => {
     setShowOverlay(false);
   };
+
   const handleFormSubmit = () => {
     const postData = {
       name: formElaments.name,
@@ -118,11 +127,12 @@ const Customization = () => {
       data: customizationData,
       address: "",
     };
+
     axiosInstance
       .post("/reservation", postData, {
         headers: {
-          'Accept': "application/json",
-          'language': "KO",
+          Accept: "application/json",
+          language: "KO",
         },
       })
       .then((response) => {
@@ -132,10 +142,6 @@ const Customization = () => {
         console.log("Error:", error);
       });
   };
-
-  useEffect(() => {
-    validateInputs();
-  }, [formElaments]);
 
   return (
     <>
@@ -148,8 +154,12 @@ const Customization = () => {
           >
             <Link href="/">
               <div className="absolute top-0 z-30 w-[100%] flex pt-[24px] lg:pt-8 pl-[24px] lg:pl-8 pb-[20px] lg:pb-[24px] gap-[8px]">
-                  <Image src={LeftArrow} alt="leftarrow" />
-                  <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
+                <Image src={LeftArrow} alt="leftarrow" />
+                <Image
+                  className="mx-[2px] my-[2px]"
+                  src={Vector}
+                  alt="vector"
+                />
               </div>
             </Link>
             <div className="relative flex flex-1 flex-col group">
