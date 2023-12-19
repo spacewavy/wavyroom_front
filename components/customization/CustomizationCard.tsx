@@ -25,29 +25,30 @@ const CustomizationCard = ({
   handleSelectedItem,
 }: CustomCardProps) => {
   const { changeModel, changeMeshVisibilityByName } = useThree();
+  console.log("test");
   return (
     <div
-      className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA]"
+      className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA] px-[16px] md:px-[32px] py-[24px]"
       onClick={() => {
         handleSelectedItem(id);
         changeModel(path);
       }}
     >
       <div
-        className={`flex justify-between px-4 py-[24px] md:p-[24px] mx-6 md:mx-8 lg:mx-4 w-full" ${
+        className={`flex justify-between w-full" ${
           selectedItem === id ? "bg-gray" : ""
         } `}
       >
-        <div>
+        <div className="flex flex-col flex-1">
           <h1 className="text-[16px] font-light color-[#000] mb-[12px]">
             {heading}
           </h1>
-          <h2 className="text-[12px] font-weight mb-[4px] color-[#000]">
+          {/* <h2 className="text-[12px] font-weight mb-[4px] color-[#000]">
             {subheading}
-          </h2>
+          </h2> */}
           <p className="text-[12px] font-weight color-[#000]">{price}</p>
         </div>
-        <div className="flex justify-center w-[208px]">
+        <div className="flex justify-center w-[208px] bg-red-400">
           <Image src={makeImageUrl(image)} width={100} height={100} alt="img" />
         </div>
       </div>

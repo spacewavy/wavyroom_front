@@ -6,12 +6,14 @@ import { AnyAction } from "redux";
 import { WAVY_MODEL_PATHS } from "../../lib/utils";
 import { fetchCustomizationOptionsData } from "@/app/redux/actions/customizationActions";
 interface CustomItemsProps {
-  navigateToSettings:any;
-  products:NavigationModelItem[];
-
+  navigateToSettings: any;
+  products: NavigationModelItem[];
 }
 
-const CustomItems:FC<CustomItemsProps> = ({navigateToSettings,products}) => {
+const CustomItems: FC<CustomItemsProps> = ({
+  navigateToSettings,
+  products,
+}) => {
   const [selectedItem, setSelectedTtem] = useState<string>();
 
   const handleSelectedItem = (id: string) => {
@@ -19,11 +21,13 @@ const CustomItems:FC<CustomItemsProps> = ({navigateToSettings,products}) => {
   };
   const dispatch = useDispatch();
   const handleNavigationClick = () => {
-    if(selectedItem) {
-      dispatch(fetchCustomizationOptionsData(selectedItem) as unknown as AnyAction);
-      navigateToSettings(true)
+    if (selectedItem) {
+      dispatch(
+        fetchCustomizationOptionsData(selectedItem) as unknown as AnyAction
+      );
+      navigateToSettings(true);
     }
-  }
+  };
   return (
     <div className="flex flex-col h-[65vh] lg:h-[100vh] justify-between">
       <div className="w-full overflow-y-scroll">
@@ -40,26 +44,31 @@ const CustomItems:FC<CustomItemsProps> = ({navigateToSettings,products}) => {
           </div>
         </div>
         <div className="flex flex-col">
-          {products.map((d:any, index:number) => (
-            <CustomizationCard
-              key={`model-${index}`}
-              id={d.id}
-              heading={d.name}
-              subheading={d.description}
-              price={d.minPrice}
-              image={d.representativeImageURL}
-              path={d.path}
-              selectedItem={selectedItem}
-              handleSelectedItem={handleSelectedItem}
-            />
-          ))}
+          {products.map((d: any, index: number) => {
+            console.log("d", d);
+            return (
+              <CustomizationCard
+                key={`model-${index}`}
+                id={d.id}
+                heading={d.name}
+                subheading={d.description}
+                price={d.minPrice}
+                image={d.representativeImageURL}
+                path={d.path}
+                selectedItem={selectedItem}
+                handleSelectedItem={handleSelectedItem}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="p-4 border-t-[1px]">
         <button
           disabled={!selectedItem}
           onClick={handleNavigationClick}
-          className={`flex justify-center items-center gap-1 w-full bg-black text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${selectedItem ? 'bg-black' : 'bg-gray'}`}
+          className={`flex justify-center items-center gap-1 w-full bg-black text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${
+            selectedItem ? "bg-black" : "bg-gray"
+          }`}
         >
           <span>커스텀하기</span>
           <svg
