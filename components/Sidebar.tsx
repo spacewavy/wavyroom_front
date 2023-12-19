@@ -242,118 +242,120 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     if (!selectedListId) return;
     return (
       <section className="flex flex-col flex-1 w-[100vw]">
-        <div className="relative sm:block hidden w-full aspect-[800/432]">
+        <div className="relative sm:block hidden w-full aspect-[800/432] bg-red-400">
           <Image
             src={makeImageUrl(selectedProduct.heroImageURL)}
             alt="Model Hero Image"
-            fill={true}
+            // fill={true}
+            fill
+            objectFit="cover"
           />
         </div>
         <div className="flex flex-1 flex-col p-8 gap-8">
           <h2 className="text-[20px]">{selectedProduct?.name} 스펙</h2>
-          <ul className="flex flex-col flex-1 text-xs font-light">
-            <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
-              <span className="truncate">
-                가격
-                <br />
-                {selectedProduct.minPrice.toLocaleString()}
-              </span>
-              <span className="truncate">
-                가격
-                <br />
-                {selectedProduct.size}
-              </span>
-              <span className="truncate">
-                평형 디테일
-                <br />
-                {selectedProduct.sizeDetail}
-              </span>
-              <span className="truncate">
-                외장재
-                <br />
-                {selectedProduct.exteriorMaterial.map((x: any) => {
-                  return (
-                    <React.Fragment key={x}>
-                      <span>{x}</span>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </span>
-            </li>
-            <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
-              <span className="truncate">
-                외부색
-                <br />
-                {selectedProduct.modelColors.map((x: any) => {
-                  return (
-                    <React.Fragment key={x}>
-                      <span>{x.name}</span>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </span>
-              <span className="truncate">
-                단열
-                <br />
-                {selectedProduct.insulation}
-              </span>
-              <span className="truncate">
-                골조 (스트럭쳐)
-                <br />
-                {selectedProduct.structure}
-              </span>
-              <span className="truncate">
-                창호
-                <br />
-                {selectedProduct.windows.map((x: any) => {
-                  return (
-                    <React.Fragment key={x}>
-                      <span>{x}</span>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </span>
-            </li>
-            <li className={cn("grid grid-cols-4 py-4 gap-6 text-sm")}>
-              <span className="truncate">
-                가구
-                <br />
-                {selectedProduct.furniture.map((x: any) => {
-                  return (
-                    <React.Fragment key={x}>
-                      <span>{x}</span>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </span>
-              <span className="truncate">
-                용도
-                <br />
-                {selectedProduct.purpose.map((x: any) => {
-                  return (
-                    <React.Fragment key={x}>
-                      <span>{x}</span>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </span>
-              <span className="truncate">
-                용도 설명
-                <br />
-                {selectedProduct.purposeDetail.map((x: any) => {
-                  return (
-                    <React.Fragment key={x}>
-                      <span>{x}</span>
-                      <br />
-                    </React.Fragment>
-                  );
-                })}
-              </span>
+          <ul className="flex flex-col flex-1 text-xs font-light pb-10">
+            <li className="grid grid-cols-4 py-4 gap-6 text-sm">
+              <div className="flex flex-col gap-2">
+                <span className="truncate">가격</span>
+                <span className="truncate">
+                  {selectedProduct.minPrice.toLocaleString()}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">규격</span>
+                <span className="truncate">{selectedProduct.size}</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">평형 디테일</span>
+                <span className="truncate">{selectedProduct.sizeDetail}</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">외장재</span>
+                <span className="truncate">
+                  {selectedProduct.exteriorMaterial.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span className="truncate">{x}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">외부색</span>
+                <span className="truncate">
+                  {selectedProduct.modelColors.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span className="truncate">{x.name}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">단열</span>
+                <span className="truncate">{selectedProduct.insulation}</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">골조 (스트럭쳐)</span>
+                <span className="truncate">{selectedProduct.structure}</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">창호</span>
+                <span className="truncate">
+                  {selectedProduct.windows.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span>{x}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">가구</span>
+                <span className="truncate">
+                  {" "}
+                  {selectedProduct.furniture.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span>{x}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">용도</span>
+                <span className="truncate">
+                  {selectedProduct.purpose.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span>{x}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="truncate">용도 설명</span>
+                <span className="truncate">
+                  {selectedProduct.purposeDetail.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span>{x}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
             </li>
           </ul>
           <div className="flex flex-row gap-2 fixed bottom-[33px]">
