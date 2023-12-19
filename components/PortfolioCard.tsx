@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
@@ -20,7 +20,9 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
     <div
       className="flex flex-1 flex-col"
       onClick={() => {
-        setIsModalOpen(true);
+        if(!isModalOpen) {
+          setIsModalOpen(true);
+        }
       }}
     >
       <div className="relative w-full aspect-[3/2]">

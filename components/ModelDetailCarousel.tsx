@@ -20,21 +20,22 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
     useDotButton(emblaApi);
 
   return (
-    <div className="embla">
+    <div className="embla p-0">
       <div className="embla__viewport" ref={emblaRef}>
         {data && (
           <div className="embla__container">
             {data.map((data: ModelExample, index: number) => {
               return (
-                <div className="embla__slide" key={index}>
+                <div className="embla__slide" key={`product-carosel-${index}`}>
+                <div className="relative w-full aspect-[16/9]">
                   <Image
-                    className="object-cover w-full h-[420px]"
+                    layout="fill"
+                    objectFit="cover"
                     src={makeImageUrl(data.imageURL)}
                     alt="Vercel Image"
-                    width={800}
-                    height={432}
                   />
-                  <div className="flex flex-col items-center justify-between pt-6">
+                </div>
+                  <div className="flex flex-col items-center justify-between pt-8">
                     <span className="text-[16px]">
                       {data.address} /{" "}
                       <span className="text-midGray">{name}</span>
