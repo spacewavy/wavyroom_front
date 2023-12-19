@@ -57,6 +57,7 @@ interface SheetContentProps
   overlayClassName?: string;
   onCloseClick?: any;
   menuType?: string;
+  selectedMenuId?:number;
 }
 
 const SheetContent = React.forwardRef<
@@ -71,6 +72,7 @@ const SheetContent = React.forwardRef<
       children,
       onCloseClick,
       menuType,
+      selectedMenuId,
       ...props
     },
     ref
@@ -83,7 +85,7 @@ const SheetContent = React.forwardRef<
         {...props}
       >
         {children}
-        {menuType !== "menu" && (
+        {((menuType == "menu" && selectedMenuId==2)|| menuType=='model')   && (
           <span
             className="absolute right-8 top-8 cursor-pointer"
             onClick={onCloseClick}

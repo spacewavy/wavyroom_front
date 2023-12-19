@@ -212,7 +212,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               href="/models"
               onClick={closeSidebar}
               className={cn(
-                "flex justify-between py-4 border-b text-black border-black items-center "
+                "flex justify-between py-4 border-b text-black border-black items-center",
+                selectedListId != "" &&
+                "!text-midGray !border-midGray"
               )}
             >
               <span className="flex flex-1 text-sm">전체보기</span>
@@ -221,7 +223,11 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               <Image
                 className="cursor-pointer"
                 alt="right-arrow"
-                src={RightArrowBlack}
+                src={
+                   selectedListId === ""
+                    ? RightArrowBlack
+                    : RightArrowGray
+                }
                 width={24}
                 height={24}
               />
@@ -416,6 +422,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           onInteractOutside={closeSidebar}
           onCloseClick={closeSidebar}
           menuType={menuType}
+          selectedMenuId={selectedMenuId}
         >
           {renderMenus()}
           {renderModels()}

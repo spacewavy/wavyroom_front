@@ -303,7 +303,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 return (
                   opt.isSelected && (
                     <div className="px-8 py-4 flex justify-between">
-                      <span className="text-[14px] font-normal">옵션</span>
+                      <span className="text-[14px] font-normal">{sec.name}</span>
                       <span className="text-[12px] font-light">{opt.name}</span>
                     </div>
                   )
@@ -321,7 +321,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 <div className="px-8 py-4 flex justify-between">
                   <span className="text-[14px] font-normal">
                     {sec.optionDetails.some((x) => x.isSelected)
-                      ? "Multiple"
+                      ? sec.name
                       : ""}
                   </span>
                   <div className="flex flex-col items-end">
@@ -355,7 +355,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             </div>
             <div>
               <div
-                className={`menu border-[1px] rounded-full p-[11px] ${
+                className={`menu border-[1px] rounded-full p-[11px] cursor-pointer ${
                   openMenu ? "bg-jetBlack" : ""
                 }`}
                 onClick={handleMenuToggle}
@@ -413,7 +413,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           </div>
           <div
             onClick={handlePopupOpen}
-            className={`customizeButton flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
+            className={`cursor-pointer customizeButton flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
               !nextBtnDisable ? "bg-[#D2D2D2]" : "bg-offBlack"
             }`}
           >
