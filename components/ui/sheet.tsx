@@ -56,7 +56,7 @@ interface SheetContentProps
     VariantProps<typeof sheetVariants> {
   overlayClassName?: string;
   onCloseClick?: any;
-  menuType?:string
+  menuType?: string;
 }
 
 const SheetContent = React.forwardRef<
@@ -83,20 +83,32 @@ const SheetContent = React.forwardRef<
         {...props}
       >
         {children}
-        {menuType !== 'menu' && (
-        <span className="absolute right-8 top-8 cursor-pointer" onClick={onCloseClick}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <g clip-path="url(#clip0_4008_2359)">
-            <path d="M25.1339 7.79954L24.2005 6.86621L16.0005 15.0529L7.80052 6.86621L6.86719 7.79954L15.0539 15.9995L6.86719 24.1995L7.80052 25.1329L16.0005 16.9462L24.2005 25.1329L25.1339 24.1995L16.9472 15.9995L25.1339 7.79954Z" fill="black"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_4008_2359">
-            <rect width="32" height="32" fill="white"/>
-            </clipPath>
-            </defs>
-          </svg>
-        </span>
-        )}      
+        {menuType !== "menu" && (
+          <span
+            className="absolute right-8 top-8 cursor-pointer"
+            onClick={onCloseClick}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_4008_2359)">
+                <path
+                  d="M25.1339 7.79954L24.2005 6.86621L16.0005 15.0529L7.80052 6.86621L6.86719 7.79954L15.0539 15.9995L6.86719 24.1995L7.80052 25.1329L16.0005 16.9462L24.2005 25.1329L25.1339 24.1995L16.9472 15.9995L25.1339 7.79954Z"
+                  fill="black"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_4008_2359">
+                  <rect width="32" height="32" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+        )}
       </SheetPrimitive.Content>
     </SheetPortal>
   )

@@ -368,7 +368,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                     viewBox="0 0 18 18"
                     fill="none"
                   >
-                    <g clip-path="url(#clip0_2935_7444)">
+                    <g clipPath="url(#clip0_2935_7444)">
                       <path d="M15.75 4.5H2.25V5.25H15.75V4.5Z" fill="black" />
                       <path
                         d="M15.75 8.625H2.25V9.375H15.75V8.625Z"
@@ -394,7 +394,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                       viewBox="0 0 18 18"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3107_44132)">
+                      <g clipPath="url(#clip0_3107_44132)">
                         <path
                           d="M14.1383 4.3873L13.6133 3.8623L9.00078 8.4673L4.38828 3.8623L3.86328 4.3873L8.46828 8.9998L3.86328 13.6123L4.38828 14.1373L9.00078 9.5323L13.6133 14.1373L14.1383 13.6123L9.53328 8.9998L14.1383 4.3873Z"
                           fill="white"
