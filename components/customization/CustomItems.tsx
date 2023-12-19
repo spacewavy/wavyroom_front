@@ -35,12 +35,10 @@ const CustomItems: FC<CustomItemsProps> = ({
           <div className="text-[24px] md:text-[32px] font-light mb-4">
             <h1>웨이비룸</h1>
           </div>
-          <div>
-            <p className="text-[14px] font-light color-[#4D4D4D]">
-              {
-                "모듈러건축시스템 기반으로 '웨이비룸'이라는 주거공간을 만들고 있으며, '공간의 제품화'에 집중합니다."
-              }
-            </p>
+          <div className="text-[12px] md:text-[14px] lg:text-[16px] font-light text-[#4D4D4D]">
+            웨이비룸은 이런 저런 것입니다.
+            <br />
+            고객님께 알맞는 모델을 선택하여 커스텀 해보세요.
           </div>
         </div>
         <div className="flex flex-col">
