@@ -242,7 +242,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     if (!selectedListId) return;
     return (
       <section className="flex flex-col flex-1 w-[100vw]">
-        <div className="relative sm:block hidden w-full aspect-[800/432] bg-red-400">
+        <div className="relative sm:block hidden w-full aspect-[800/432]">
           <Image
             src={makeImageUrl(selectedProduct.heroImageURL)}
             alt="Model Hero Image"
