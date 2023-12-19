@@ -252,9 +252,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           />
         </div>
         <div className="flex flex-1 flex-col p-8 gap-8">
-          <h2 className="text-[20px] font-normal">
-            {selectedProduct?.name} 스펙
-          </h2>
+          <h2 className="text-[20px]">{selectedProduct?.name} 스펙</h2>
           <ul className="flex flex-col flex-1 text-xs font-light pb-10">
             <li className="grid grid-cols-4 py-4 gap-6 text-sm">
               <div className="flex flex-col gap-2">

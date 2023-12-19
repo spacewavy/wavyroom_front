@@ -48,7 +48,7 @@ const About = () => {
               Spacewavy
             </div>
             <div className="flex flex-1 items-end">
-              <div className="text-titleSM md:text-titleMD lg:text-titleLG font-light">
+              <div className="text-titleSM md:text-titleMD lg:text-titleLG font-light max-w-[564px]">
                 우리는 집의 제품화, 건설업의 제조업화를 통하여 정교하게 설계되고
                 완벽하게 제작된 제품에 집중합니다.
               </div>
@@ -139,7 +139,7 @@ const About = () => {
         <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 md:gap-4">
           <div className="flex-1 hidden md:flex" />
           <div className="flex flex-1 flex-col gap-8">
-            <div className="max-w-[564px]">
+            <div className="flex flex-col max-w-[564px] gap-8">
               <div className="flex flex-col gap-2">
                 <Label>우리의 비전과 미션</Label>
                 <div className="text-displaySM md:text-displayMD lg:text-displayLG">
