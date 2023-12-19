@@ -258,7 +258,7 @@ export const ThreeProvider = ({ children }) => {
             _obj.traverse((child) => {
               child.receiveShadow = receiveShadow;
               child.castShadow = true;
-              child.visible = true;
+              // child.visible = true;
               if (child.geometry) {
                 let _geometry = child.geometry.clone();
                 _geometry = BufferGeometryUtils.mergeVertices(_geometry);
