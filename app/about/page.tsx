@@ -13,8 +13,6 @@ import { AnyAction } from "redux";
 import { AboutReputationItem } from "../redux/types";
 import { makeImageUrl } from "../../lib/utils";
 
-
-
 const About = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -45,7 +43,7 @@ const About = () => {
     <main className="flex flex-col flex-1">
       <section>
         <div className="flex flex-col lg:flex-col-reverse">
-          <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 gap-2">
+          <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-4">
             <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
               Spacewavy
             </div>
@@ -58,7 +56,9 @@ const About = () => {
           </div>
           <div className="pb-8 lg:pb-16 relative pt-[53.25%]">
             <div
-              className={`absolute inset-0 md:pr-8 md:pl-8  md:pb-8 lg:pb-16 ${isVideoLoaded ? "z-10" : "z-0"}`}
+              className={`absolute inset-0 md:pr-8 md:pl-8  md:pb-8 lg:pb-16 ${
+                isVideoLoaded ? "z-10" : "z-0"
+              }`}
             >
               <div className="relative">
                 {isVideoLoaded && (
@@ -126,7 +126,9 @@ const About = () => {
               </div>
             </div>
             <div
-              className={` md:pr-8 md:pl-8  md:pb-8 lg:pb-16 absolute inset-0 ${!isVideoLoaded ? "z-10" : "z-0"}`}
+              className={` md:pr-8 md:pl-8  md:pb-8 lg:pb-16 absolute inset-0 ${
+                !isVideoLoaded ? "z-10" : "z-0"
+              }`}
             >
               <Image src={VideoLoadingImage} alt="image" />
             </div>
@@ -136,31 +138,34 @@ const About = () => {
       <section>
         <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 md:gap-4">
           <div className="flex-1 hidden md:flex" />
-          <div className="flex flex-1 flex-col gap-8 pr-0 lg:pr-[116px]">
-            <div className="flex flex-col gap-2">
-              <Label>우리의 비전과 미션</Label>
-              <div className="text-displaySM md:text-displayMD lg:text-displayLG">
-                공간의 제품화를 통한 문화의 움직임
+          <div className="flex flex-1 flex-col gap-8">
+            <div className="max-w-[564px]">
+              <div className="flex flex-col gap-2">
+                <Label>우리의 비전과 미션</Label>
+                <div className="text-displaySM md:text-displayMD lg:text-displayLG">
+                  공간의 제품화를 통한 문화의 움직임
+                </div>
               </div>
-            </div>
-            <div className="text-bodySM md:text-bodyMD lg:text-bodyLG">
-              우리는 건설방식에서의 더 나은 방법을 만들었습니다. 설계와 디자인에
-              대한 확실성을 최우선으로 고려하고 품질을 타협하지 않습니다.
-              <br />
-              <br />
-              당사는 자체 생산시설을 보유한 공장에서부터 프로젝트 관리 서비스 및
-              설치 현장까지 당사 팀은 모듈화된 공간을 설계하고 수행할 수 있는
-              지식과 경험을 보유하고 있습니다. 2019년부터 국내에서 공급을
-              시작하고 현재 해외시장에 수출을 진행하며, 이 모든 과정의 중심에
-              고객을 두고 있습니다. &quot;집&quot;의 의미를 재정립하고, 제품화를
-              통하여 영구적인 공간을 창출하고 있습니다.
-            </div>
-            <div className="w-full">
-              <Image
-                className="object-cover w-full h-full"
-                src={AboutDetail1}
-                alt="Main Image"
-              />
+              <div className="text-bodySM md:text-bodyMD lg:text-bodyLG">
+                우리는 건설방식에서의 더 나은 방법을 만들었습니다. 설계와
+                디자인에 대한 확실성을 최우선으로 고려하고 품질을 타협하지
+                않습니다.
+                <br />
+                <br />
+                당사는 자체 생산시설을 보유한 공장에서부터 프로젝트 관리 서비스
+                및 설치 현장까지 당사 팀은 모듈화된 공간을 설계하고 수행할 수
+                있는 지식과 경험을 보유하고 있습니다. 2019년부터 국내에서 공급을
+                시작하고 현재 해외시장에 수출을 진행하며, 이 모든 과정의 중심에
+                고객을 두고 있습니다. &quot;집&quot;의 의미를 재정립하고,
+                제품화를 통하여 영구적인 공간을 창출하고 있습니다.
+              </div>
+              <div className="w-full">
+                <Image
+                  className="object-cover w-full h-full"
+                  src={AboutDetail1}
+                  alt="Main Image"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -174,19 +179,21 @@ const About = () => {
               <br />
               완벽하게 제작된 공간
             </div>
-            <div className="lg:flex lg:flex-1 text-bodySM md:text-bodyMD lg:text-bodyLG pr-0 lg:pr-[116px]">
-              우리는 모두에게 더 나은 집이 있는 미래를 바라봅니다. 모든 사람들이
-              각자 세심하게 설계되고 잘 지어진 집에서 사는 것, 공간이 영감을
-              주고 기능하며 환경을 생각하는 것, 우리가 사는 공간이 우리의 삶을
-              개선하는 세상을 바라봅니다.
-              <br />
-              <br />
-              웨이비룸은 여러분이 사는 방식에 맞게 아름답고 유연한 공간을 갖춘
-              모든 부지에서의 잠재력을 새롭게 상상하도록 영감을 드립니다. 내가
-              쉴 수 있는 세컨드하우스, 사업화를 통한 추가 수입 목적의 숙박 공간,
-              손님과 가족을 초대하여 행복한 시간을 보내기 위한 게스트 홈, 그리고
-              사무실, F&B 등 여러분을 중심으로 지금, 그리고 미래에 맞는 공간을
-              제공합니다.
+            <div className="lg:flex lg:flex-1">
+              <div className="max-w-[564px] text-bodySM md:text-bodyMD lg:text-bodyLG">
+                우리는 모두에게 더 나은 집이 있는 미래를 바라봅니다. 모든
+                사람들이 각자 세심하게 설계되고 잘 지어진 집에서 사는 것, 공간이
+                영감을 주고 기능하며 환경을 생각하는 것, 우리가 사는 공간이
+                우리의 삶을 개선하는 세상을 바라봅니다.
+                <br />
+                <br />
+                웨이비룸은 여러분이 사는 방식에 맞게 아름답고 유연한 공간을 갖춘
+                모든 부지에서의 잠재력을 새롭게 상상하도록 영감을 드립니다. 내가
+                쉴 수 있는 세컨드하우스, 사업화를 통한 추가 수입 목적의 숙박
+                공간, 손님과 가족을 초대하여 행복한 시간을 보내기 위한 게스트
+                홈, 그리고 사무실, F&B 등 여러분을 중심으로 지금, 그리고 미래에
+                맞는 공간을 제공합니다.
+              </div>
             </div>
           </div>
           <div className="flex flex-1 hidden md:flex lg:hidden" />

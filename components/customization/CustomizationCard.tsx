@@ -25,7 +25,6 @@ const CustomizationCard = ({
   handleSelectedItem,
 }: CustomCardProps) => {
   const { changeModel, changeMeshVisibilityByName } = useThree();
-  console.log("test");
   return (
     <div
       className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA] px-[16px] md:px-[32px] py-[24px]"
@@ -43,7 +42,7 @@ const CustomizationCard = ({
           <h1 className="text-[14px] font-light color-[#000]">{heading}</h1>
           <p className="text-[14px] font-weight color-[#000]">{price}</p>
         </div>
-        <div className="relative flex justify-center aspect-[144/51] w-[144px] md:w-[288px] ">
+        <div className="relative flex justify-center aspect-[144/51] w-[144px] md:w-[288px]">
           <Image src={makeImageUrl(image)} alt="img" fill objectFit="cover" />
         </div>
       </div>
