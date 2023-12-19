@@ -69,13 +69,13 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
     >
       <div
         ref={ref}
-        className="z-10 bg-black"
+        className="z-10"
         style={{ flex: 1 }}
         onClick={() => {
           console.log(scene);
         }}
       ></div>
-      <div className="absolute z-20 top-0 w-full h-full items-center justify-center bg-lightGray transition-all ease-in duration-500 hidden group-[.show-loading]:flex">
+      <div className="absolute z-20 top-0 w-full h-full items-center justify-center bg-gray transition-all ease-in duration-500 hidden group-[.show-loading]:flex">
         <div className="relative w-40 h-40">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <circle

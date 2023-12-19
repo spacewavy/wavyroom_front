@@ -71,7 +71,7 @@ const Navbar = ({
                       메뉴
                     </div>
                   </div>
-                  <div className="lg:w-[100px] flex flex-row gap-2 items-center">
+                  <div className="lg:w-[100px] invisible flex-row gap-2 items-center">
                     <div
                       className={`text-xs font-normal ${
                         lang === "KOR"

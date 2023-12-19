@@ -24,7 +24,7 @@ const FaqItem = ({
 
   return (
     <div
-      className={`flex flex-col py-8 border-b gap-4 group duration-500 ${
+      className={`flex flex-col py-8 pr-8 border-b gap-4 group duration-500 ${
         isOpen
           ? "border-orange is-active"
           : isDark
@@ -33,7 +33,7 @@ const FaqItem = ({
       } ${isDark ? "is-dark" : ""}`}
     >
       <div className="flex flex-row items-center justify-between">
-        <div className="text-bodyMD lg:text-bodyLG text-jetBlack group-[.is-dark]:text-white">
+        <div className="text-bodySM md:text-bodyMD lg:text-bodyLG text-jetBlack group-[.is-dark]:text-white">
           {question}
         </div>
         <button
@@ -54,7 +54,7 @@ const FaqItem = ({
           />
         </button>
       </div>
-      <div className="text-bodyMD lg:text-bodyLG text-darkGray group-[.is-dark]:text-lightGray hidden group-[.is-active]:flex">
+      <div className="text-bodySM md:text-bodyMD lg:text-bodyLG text-darkGray group-[.is-dark]:text-lightGray hidden group-[.is-active]:flex">
         {answer}
       </div>
     </div>

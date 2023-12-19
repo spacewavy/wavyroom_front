@@ -27,17 +27,15 @@ const CustomizationCard = ({
   const { changeModel, changeMeshVisibilityByName } = useThree();
   return (
     <div
-      className="cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA] px-[16px] md:px-[32px] py-[24px]"
+      className={`cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA] px-[16px] md:px-[32px] py-[24px] ${
+        selectedItem === id ? "bg-gray" : ""
+      }`}
       onClick={() => {
         handleSelectedItem(id);
         changeModel(path);
       }}
     >
-      <div
-        className={`flex justify-between w-full" ${
-          selectedItem === id ? "bg-gray" : ""
-        } `}
-      >
+      <div className="flex justify-between w-full">
         <div className="flex flex-col flex-1 items-start justify-center">
           <h1 className="text-[14px] font-light color-[#000]">{heading}</h1>
           <p className="text-[14px] font-weight color-[#000]">{price}</p>
