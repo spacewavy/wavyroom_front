@@ -39,17 +39,12 @@ const CustomizationCard = ({
           selectedItem === id ? "bg-gray" : ""
         } `}
       >
-        <div className="flex flex-col flex-1">
-          <h1 className="text-[16px] font-light color-[#000] mb-[12px]">
-            {heading}
-          </h1>
-          {/* <h2 className="text-[12px] font-weight mb-[4px] color-[#000]">
-            {subheading}
-          </h2> */}
-          <p className="text-[12px] font-weight color-[#000]">{price}</p>
+        <div className="flex flex-col flex-1 items-start justify-center">
+          <h1 className="text-[14px] font-light color-[#000]">{heading}</h1>
+          <p className="text-[14px] font-weight color-[#000]">{price}</p>
         </div>
-        <div className="flex justify-center w-[208px] bg-red-400">
-          <Image src={makeImageUrl(image)} width={100} height={100} alt="img" />
+        <div className="relative flex justify-center aspect-[144/51] w-[144px] md:w-[288px] ">
+          <Image src={makeImageUrl(image)} alt="img" fill objectFit="cover" />
         </div>
       </div>
     </div>
