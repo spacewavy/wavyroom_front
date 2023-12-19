@@ -15,11 +15,12 @@ const CustomItems: FC<CustomItemsProps> = ({
   products,
 }) => {
   const [selectedItem, setSelectedTtem] = useState<string>();
+  const dispatch = useDispatch();
 
   const handleSelectedItem = (id: string) => {
     setSelectedTtem(id);
   };
-  const dispatch = useDispatch();
+
   const handleNavigationClick = () => {
     if (selectedItem) {
       dispatch(
@@ -28,9 +29,10 @@ const CustomItems: FC<CustomItemsProps> = ({
       navigateToSettings(true);
     }
   };
+
   return (
-    <div className="flex flex-col h-[65vh] lg:h-[100vh] justify-between">
-      <div className="w-full overflow-y-scroll">
+    <div className="flex flex-col flex-1 items-between">
+      <div className="flex flex-col flex-1 grow basis-0 overflow-y-auto scrollbar-hide">
         <div className="p-8">
           <div className="text-[24px] md:text-[32px] font-light mb-4">
             <h1>웨이비룸</h1>
@@ -43,7 +45,6 @@ const CustomItems: FC<CustomItemsProps> = ({
         </div>
         <div className="flex flex-col">
           {products.map((d: any, index: number) => {
-            console.log("d", d);
             return (
               <CustomizationCard
                 key={`model-${index}`}

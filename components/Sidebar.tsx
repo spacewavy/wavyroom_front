@@ -52,7 +52,6 @@ const sidebarItemChildrens: SidebarItemChildren[] = [
 ];
 
 const sidebarItems: SidebarItem[] = [
-  { id: 1, title: "메뉴", link: "/" },
   { id: 1, title: "회사소개", link: "/about" },
   { id: 2, title: "모델", childrens: sidebarItemChildrens },
   { id: 3, title: "주문방법", link: "/how-to-order" },
@@ -120,6 +119,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-1 gap-8 py-12">
+          <div className="hidden md:flex text-[20px] mb-4">메뉴</div>
           {sidebarItems.map((item: SidebarItem, index) => {
             const isLink = !!item.link;
             return isLink ? (
@@ -174,6 +174,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         )}
       >
         <p className="text-lg pt-16">{selectedProduct?.title}</p>
+        <div className="flex text-[20px]">모델</div>
         <ul className="flex flex-col flex-1 text-xs font-light">
           {data.map((obj: NavigationModelItem, i: number) => (
             <li key={obj.name}>
