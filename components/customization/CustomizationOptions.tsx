@@ -64,7 +64,7 @@ const CustomizationOptions: FC<{
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2 pt-4">
-                    {opt.optionDetails.map((o: OptionDetail,index:number) => {
+                    {opt.optionDetails.map((o: OptionDetail, index: number) => {
                       return (
                         <div
                           key={index}
@@ -83,7 +83,9 @@ const CustomizationOptions: FC<{
                             }`}
                           >
                             <span className="text-[14px]">{o.name}</span>
-                            <span className="text-[10px]">+{o.price}원</span>
+                            <span className="text-[10px]">
+                              +{o.price.toLocaleString()}원
+                            </span>
                           </div>
                         </div>
                       );
@@ -143,26 +145,28 @@ const CustomizationOptions: FC<{
                     </div>
                   </div>
                   <div className="pt-4">
-                    {opt.optionDetails.map((o: ModelKitchenOptionDetail,ind:number) => {
-                      return (
-                        <div
-                        key={ind}
-                          className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
-                            o.isDefault
-                              ? "border-[darkGray]"
-                              : "border-[#B3B3B3]"
-                          }`}
-                        >
+                    {opt.optionDetails.map(
+                      (o: ModelKitchenOptionDetail, ind: number) => {
+                        return (
                           <div
-                            className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                              o.isSelected ? "text-jetBlack" : "text-gray"
+                            key={ind}
+                            className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+                              o.isDefault
+                                ? "border-[darkGray]"
+                                : "border-[#B3B3B3]"
                             }`}
                           >
-                            <span className="text-[14px]">{o.name}</span>
+                            <div
+                              className={`flex flex-col gap-2 font-medium text-jetBlack ${
+                                o.isSelected ? "text-jetBlack" : "text-gray"
+                              }`}
+                            >
+                              <span className="text-[14px]">{o.name}</span>
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      }
+                    )}
                   </div>
                 </div>
               </section>

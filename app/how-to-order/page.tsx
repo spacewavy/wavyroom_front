@@ -1,40 +1,46 @@
 import Imageh from "@/assets/how-to-order/order-page-img.png";
-import howToOrderImage from "@/assets/how-to-order/how-to-order.png";
+import howToOrderImage from "@/assets/how-to-order/how-to-order.webp";
+import image1 from "@/assets/how-to-order/Wavyroom_How_to_Order_1.png";
+import image2 from "@/assets/how-to-order/Wavyroom_How_to_Order_2.png";
+import image3 from "@/assets/how-to-order/Wavyroom_How_to_Order_3.png";
+import image4 from "@/assets/how-to-order/Wavyroom_How_to_Order_4.png";
+import image5 from "@/assets/how-to-order/Wavyroom_How_to_Order_5.png";
+
 import OrderCard from "@/components/OrderCard";
 import Image from "next/image";
 
 const HowToOrder = () => {
   const data = [
     {
-      Image: Imageh,
+      Image: image1,
       heading: "1일",
       subHeading: "계약 진행",
       text: "주문하기를 통해 산출된 견적서 토대로 담당자가 1일내로 연락하여 계약절차를 안내드립니다.",
       imageRight: false,
     },
     {
-      Image: Imageh,
+      Image: image2,
       heading: "3~6개월",
       subHeading: "계약 진행",
       text: "건축을 위한 인허가는 통상적으로 3~6개월 정도 소요됩니다. 웨이비룸은 인허가 절차에 필요한 모든 도면과 서류가 준비되어있어 보다 빠른 진행이 가능합니다.",
       imageRight: true,
     },
     {
-      Image: Imageh,
+      Image: image3,
       heading: "6~12주",
       subHeading: "웨이비룸 제작",
       text: "건축신고를 마친 후 제작 동의서를 안내드립니다. 제작을 시작할 수 있는 가장 빠른 일정이 정해지는대로 예상 일정을 고객에게 전달드립니다.*기초작업이 필요한 경우 별도로 제작을 시작할 수 있는 가장 빠른 일정이 정해지는대로 예상 일정을 고객에게 전달드립니다.*기초 인프라작업이 필요한 경우 별도로 문의주시면 함께 진행해드립니다.",
       imageRight: false,
     },
     {
-      Image: Imageh,
+      Image: image4,
       heading: "2일",
       subHeading: "제품 검수 및 출고",
       text: "제작 완료 후 웨이비룸 공장에서 고객님과 최종 검수를 진행합니다.",
       imageRight: true,
     },
     {
-      Image: Imageh,
+      Image: image5,
       heading: "1일",
       subHeading: "설치",
       text: "출고 후 운반팀을 통해 현장에 설치합니다.",
