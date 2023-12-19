@@ -1,0 +1,12 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="intent-request--scale-out 1" clip-path="url(#clip0_1099_10167)">
+<path id="Vector" d="M11.875 12.75L12.75 11.875L17.5 16.625V12.5H18.75V18.75H12.5V17.5H16.625L11.875 12.75Z" fill="black" fill-opacity="0.5"/>
+<path id="Vector_2" d="M8.125 12.75L7.25 11.875L2.5 16.625V12.5H1.25V18.75H7.5V17.5H3.375L8.125 12.75Z" fill="black" fill-opacity="0.5"/>
+<path id="Vector_3" d="M10.625 10H9.375V3.625L6.5 6.5L5.625 5.625L10 1.25L14.375 5.625L13.5 6.5L10.625 3.625V10Z" fill="black" fill-opacity="0.5"/>
+</g>
+<defs>
+<clipPath id="clip0_1099_10167">
+<rect width="20" height="20" fill="white"/>
+</clipPath>
+</defs>
+</svg>

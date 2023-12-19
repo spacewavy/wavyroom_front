@@ -9,15 +9,22 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
+    screens: {
+      sm: "320px",
+      md: "576px",
+      lg: "1080px",
+      xl: "1960px",
+    },
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        sm: "320px",
-        lg: "1440px",
-      },
     },
     extend: {
+      flex: {
+        "2": 2,
+        "3": 3,
+        "4": 4,
+      },
       fontFamily: {
         sans: ["var(--font-pretendard)"],
       },
@@ -84,6 +91,7 @@ module.exports = {
         lightGray: "#f7f7f7",
         midGray: "#b2b2b2",
         darkGray: "#4d4d4d",
+        wavyGary: "#6E6E73",
         gray: "#e5e5e5",
         jetBlack: "#000000",
         spaceBlack: "#0e0e0e",

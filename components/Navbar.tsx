@@ -2,63 +2,121 @@
 
 import { useState } from "react";
 import Button from "./Button";
-import Dropdown from "./Dropdown";
 import Sidebar from "./Sidebar";
+import Logo from "@/public/images/Logo.svg";
+import LogoWhite from "@/public/images/LogoWhite.svg";
+import HamburgerIcon from "@/assets/icons/Hamburger.svg";
+import HamburgerWhiteIcon from "@/assets/icons/HamburgerWhite.svg";
+import Image from "next/image";
+import Link from "next/link";
+import { navigateToSettings } from "@/app/redux/actions/customizationActions";
+import { AnyAction } from "redux";
+import { useDispatch } from "react-redux";
 
-const Navbar = () => {
+
+const Navbar = ({
+  isDark,
+  isFloating,
+}: {
+  isDark?: boolean;
+  isFloating?: boolean;
+}) => {
   const [lang, setLang] = useState("KOR");
+  const [open, setOpen] = useState(false);
+  const [menuType, setMenuType] = useState("");
+  const dispatch=useDispatch();
+
+  const openSidebar = (menuName?: string) => {
+    setOpen(true);
+    setMenuType(menuName ?? "");
+  };
+  const handleButtonClick = () => {
+    dispatch(navigateToSettings(false) as unknown as AnyAction);
+
+  };
+
   return (
-    <nav className="bg-white">
-      <div className="px-2 mx-auto sm:px-6 lg:px-6">
-        <div className="flex items-center justify-between h-24">
-          <Sidebar />
-          <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-20 sm:space-x-8">
-                <Dropdown
-                  name="모델"
-                  list={[
-                    { name: "Demo1", href: "#" },
-                    { name: "Demo2", href: "#" },
-                    { name: "Demo3", href: "#" },
-                    { name: "Demo4", href: "#" },
-                  ]}
-                />
-                <Dropdown
-                  name="메뉴"
-                  list={[
-                    { name: "Demo1", href: "#" },
-                    { name: "Demo2", href: "#" },
-                    { name: "Demo3", href: "#" },
-                    { name: "Demo4", href: "#" },
-                  ]}
-                />
-                <div className="flex flex-row gap-2">
-                  <div
-                    className={`px-3 py-2 text-xs font-normal ${
-                      lang === "KOR" ? "text-black" : "text-[#B2B2B2]"
-                    } rounded-md cursor-pointer`}
-                    onClick={() => {
-                      setLang("KOR");
-                    }}
-                  >
-                    KOR
+    <nav
+      className={`group ${isDark && "is-dark"} ${
+        isFloating && "is-floating z-20 absolute top-0 left-0 right-0 w-full"
+      }`}
+    >
+      <div className="bg-white group-[.is-dark]:bg-jetBlack group-[.is-floating]:bg-transparent">
+        <Sidebar open={open} setOpen={setOpen} menuType={menuType} />
+        <div className="px-4 md:px-8">
+          <div className="flex items-center justify-between h-24">
+            <Link href="/">
+              <Image
+                className="h-8 cursor-pointer"
+                src={isDark ? LogoWhite : Logo}
+                alt="Spacewavy"
+              />
+            </Link>
+            <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto md:gap-4 lg:gap-6">
+              <div className="hidden lg:flex">
+                <div className="flex items-center gap-5 lg:gap-32">
+                  <div className="w-[100px]">
+                    <div
+                      className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
+                      onClick={() => openSidebar("model")}
+                    >
+                      모델
+                    </div>
                   </div>
-                  <div
-                    className={`px-3 py-2 text-xs font-normal ${
-                      lang === "ENG" ? "text-black" : "text-[#B2B2B2]"
-                    } rounded-md cursor-pointer`}
-                    onClick={() => {
-                      setLang("ENG");
-                    }}
-                  >
-                    ENG
+                  <div className="w-[100px]">
+                    <div
+                      className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
+                      onClick={() => openSidebar("menu")}
+                    >
+                      메뉴
+                    </div>
+                  </div>
+                  <div className="lg:w-[100px] flex flex-row gap-2 items-center">
+                    <div
+                      className={`text-xs font-normal ${
+                        lang === "KOR"
+                          ? isDark
+                            ? "text-white"
+                            : "text-black"
+                          : "text-midGray"
+                      } cursor-pointer`}
+                      onClick={() => {
+                        setLang("KOR");
+                      }}
+                    >
+                      KOR
+                    </div>
+                    <div
+                      className={`text-xs font-normal ${
+                        lang === "ENG"
+                          ? isDark
+                            ? "text-white"
+                            : "text-black"
+                          : "text-midGray"
+                      } cursor-pointer`}
+                      onClick={() => {
+                        setLang("ENG");
+                      }}
+                    >
+                      ENG
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="ml-[80px]">
-              <Button name="주문하기" arrow varient="default" />
+              <div className="flex flex-row gap-4">
+                <div onClick={handleButtonClick}>
+                  <Link href="/customization">
+                    <Button name="주문하기" arrow varient="default" />
+                  </Link>
+                </div>
+                <div className="flex lg:hidden" onClick={() => openSidebar()}>
+                  <Image
+                    className="cursor-pointer"
+                    src={isDark ? HamburgerWhiteIcon : HamburgerIcon}
+                    alt="Hamburger"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
