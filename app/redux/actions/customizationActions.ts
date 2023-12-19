@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "@/api/axioInstance";
 
 export const FETCH_CUSTOMIZATION_OPTIONS_SUCCESS = "FETCH_CUSTOMIZATION_OPTIONS_SUCCESS";
 export const FETCH_CUSTOMIZATION_OPTIONS_FAILURE = "FETCH_CUSTOMIZATION_OPTIONS_FAILURE";
@@ -11,8 +11,12 @@ export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
 export const fetchCustomizationOptionsData = (itemId: string) => {
   return async (dispatch: any) => {
     try {
-      const response = await axios.get(
-        `https://test-spacewavy.com/api/v1/model/${itemId}/custom-selections`
+      const response = await axiosInstance.get(
+        `/model/${itemId}/custom-selections`,{
+          headers: {
+            'language': "KO",
+          },
+        }
       );
       dispatch({
         type: FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
