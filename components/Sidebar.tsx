@@ -357,11 +357,8 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </span>
             </li>
           </ul>
-          <div
-            className="flex flex-row gap-2 fixed bottom-[33px]"
-            onClick={handlePlaceOrderClick}
-          >
-            <Link href="/customization">
+          <div className="flex flex-row gap-2 fixed bottom-[33px]">
+            <Link href="/customization" onClick={handlePlaceOrderClick}>
               <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">
                 <span>주문하기</span>
                 <svg
@@ -385,13 +382,14 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </svg>
               </button>
             </Link>
-            <div onClick={handleNavigateToModelDetail}>
-              <Link href={`/model-detail?id=${selectedListId}`}>
-                <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">
-                  상세보기
-                </button>
-              </Link>
-            </div>
+            <Link
+              href={`/model-detail?id=${selectedListId}`}
+              onClick={handleNavigateToModelDetail}
+            >
+              <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">
+                상세보기
+              </button>
+            </Link>
           </div>
         </div>
       </section>
