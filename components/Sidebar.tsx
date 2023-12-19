@@ -240,7 +240,6 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       setOpen(false);
     };
     if (!selectedListId) return;
-    console.log("selectedProduct", selectedProduct);
     return (
       <section className="flex flex-col flex-1 w-[100vw]">
         <div className="relative sm:block hidden w-full aspect-[800/432]">
