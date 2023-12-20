@@ -16,27 +16,15 @@ import CallInquery from "../../components/CallInquery";
 import { makeImageUrl } from "../../lib/utils";
 
 const Completion = () => {
-  const { data } = useSelector((state: any) => state.customization);
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
   const [result, setResult] = useState<any>(null);
-  const [selectedColorName, setSelectedColorName] = useState("");
-  const [selectedColorId, setSelectedColorId] = useState("");
-  const [estimatedQutation, setEstimatedQutation] = useState(0);
 
   useEffect(() => {
     if (!id) return;
     fetchReservation(id);
   }, [id]);
-
-  useEffect(() => {
-    const color = data.modelColors.find(
-      (color: ModelColors) => color.isSelected === true
-    );
-    setSelectedColorName(color?.name);
-    setSelectedColorId(color?.colorId);
-  }, [data.modelColors]);
 
   const fetchReservation = async (id: string) => {
     try {
@@ -53,24 +41,6 @@ const Completion = () => {
     } catch (e) {
       console.error("e", e);
     }
-  };
-
-  const calculateTotal = () => {
-    let total = 0;
-
-    data.modelFloorOptions.ModelSecondOption?.forEach(
-      (node: ModelSecondOption) => {
-        if (node.optionDetails.some((opt) => opt.isSelected)) {
-          node.optionDetails.forEach((opt: OptionDetail) => {
-            if (opt.isSelected) {
-              total += Number(opt.price);
-            }
-          });
-        }
-      }
-    );
-
-    setEstimatedQutation(total);
   };
 
   return (

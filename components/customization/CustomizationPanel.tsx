@@ -125,7 +125,8 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const calculateTotal = () => {
-    let total = 0;
+    if (!data) return;
+    let total = data.minPrice;
 
     data.modelFloorOptions.map((_option: ModelFloorOptions) => {
       if (_option.isSelected) {
