@@ -347,7 +347,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 {"공간의 제품화"}에 집중합니다.
               </span>
             </div>
-            <div className="px-[24px] md:px-8 py-4 md:py-8 mb-4 border-t-[1px] border-[wavyGary]">
+            <div className="px-[24px] md:px-8 py-4 md:py-8 mb-4 border-t-[1px] border-[wavyGray]">
               <div className="flex flex-col">
                 <div className="flex justify-between">
                   <span className="optionName text-[14px] font-medium">

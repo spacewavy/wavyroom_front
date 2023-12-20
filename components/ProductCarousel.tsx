@@ -1,4 +1,5 @@
 "use client";
+
 import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
@@ -13,40 +14,42 @@ import carosolImg5 from "@/assets/carosol-images/carosolImage-5.png";
 const ProductCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
-    loop: true,
+    loop: false,
+    skipSnaps: false,
+    inViewThreshold: 0.7,
   });
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
-  const CarosolItems = [
+  const CAROUSEL_ITEMS = [
     {
       image: carosolImg1,
-      imageText: ["Evo /", "숙박"],
+      imageText: ["Evo /", "숙박용"],
     },
     {
       image: carosolImg2,
-      imageText: ["Max /", "주거"],
+      imageText: ["Max /", "주거용"],
     },
     {
       image: carosolImg3,
-      imageText: ["Studio /", "주거"],
+      imageText: ["Studio /", "주거용"],
     },
     {
       image: carosolImg4,
-      imageText: ["Mini /", "다용도"],
+      imageText: ["Mini /", "다용도용"],
     },
     {
       image: carosolImg5,
-      imageText: ["Nova /", "주거,숙박"],
+      imageText: ["Nova /", "주거, 숙박용"],
     },
   ];
 
   return (
-    <div className="embla p-0 ">
-      <div className="embla__viewport" ref={emblaRef}>
+    <div className="embla p-0">
+      <div className="embla__viewport relative" ref={emblaRef}>
         <div className="embla__container">
-          {CarosolItems.map((c, index) => {
+          {CAROUSEL_ITEMS.map((c, index) => {
             return (
               <div className="embla__slide" key={`product-carosel-${index}`}>
                 <div className="relative w-full aspect-[16/9]">
@@ -57,36 +60,41 @@ const ProductCarousel = () => {
                     alt="Vercel Image"
                   />
                 </div>
-                <div className="flex flex-col items-center justify-between gap-8 pt-8">
-                  <div className="flex gap-[4px] text-[12px] md:text-[14px] lg:text-[16px] font-light">
-                    <span>{c.imageText[0]}</span>
-                    <span className="opacity-40">{c.imageText[1]}</span>
-                  </div>
-                  <div className="px-4 py-2">
-                    <Link
-                      href="/portfolio"
-                      className="p-0 flex flex-row gap-[4px] text-labelMD text-orange"
-                    >
-                      <span className="text-[14px] font-normal">더보기</span>
-                      <Image alt="right-arrow" src={RightArrowOrange} />
-                    </Link>
-                  </div>
-                </div>
               </div>
             );
           })}
         </div>
-      </div>
-      <div className="embla__dots">
-        {[1, 2, 3].map((_, index) => (
-          <DotButton
-            key={index}
-            onClick={() => onDotButtonClick(index)}
-            className={"embla__dot".concat(
-              index === selectedIndex ? " embla__dot--selected" : ""
-            )}
-          />
-        ))}
+        <div className="embla__dots">
+          {CAROUSEL_ITEMS.map((_, index) => {
+            // return <div key={index}>hi</div>;
+            return (
+              <DotButton
+                key={index}
+                onClick={() => onDotButtonClick(index)}
+                className={"embla__dot".concat(
+                  index === selectedIndex ? " embla__dot--selected" : ""
+                )}
+              />
+            );
+          })}
+        </div>
+        <div className="flex flex-col items-center justify-between gap-8 pt-8">
+          <div className="flex gap-[4px] text-[12px] md:text-[14px] lg:text-[16px] font-light">
+            <span>{CAROUSEL_ITEMS[selectedIndex].imageText[0]}</span>
+            <span className="opacity-40">
+              {CAROUSEL_ITEMS[selectedIndex].imageText[1]}
+            </span>
+          </div>
+          <div className="px-4 py-2">
+            <Link
+              href="/portfolio"
+              className="p-0 flex flex-row gap-[4px] text-labelMD text-orange"
+            >
+              <span className="text-[14px] font-normal">더보기</span>
+              <Image alt="right-arrow" src={RightArrowOrange} />
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
