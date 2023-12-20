@@ -406,13 +406,9 @@ const ModelDetail = () => {
           {modelsList
             .filter((x: ModelDetailItem) => x.name !== data?.name)
             .map((item: ModelDetailItem, index: number) => {
-              console.log("item", item);
               return (
-                <Link href={`model-detail?id=${item.id}`}>
-                  <div
-                    key={"item" + index}
-                    className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12"
-                  >
+                <Link key={"item" + index} href={`model-detail?id=${item.id}`}>
+                  <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12">
                     <div className="flex flex-col items-start md:flex-1">
                       <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
                         노바 /{" "}
