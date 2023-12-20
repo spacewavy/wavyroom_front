@@ -59,7 +59,7 @@
 }
 .embla__dot {
   -webkit-appearance: none;
-  background-color: transparent;
+  /* background-color: transparent; */
   touch-action: manipulation;
   display: inline-flex;
   text-decoration: none;

@@ -31,6 +31,34 @@ const CustomizationOptions: FC<{
   handleOptionChange,
   handleKitchenTypeSelect,
 }) => {
+  const renderOption = (
+    o: OptionDetail,
+    opt: ModelSecondOption,
+    showPrice?: boolean
+  ) => {
+    return (
+      <div
+        className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+          o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
+        }`}
+        onClick={() => {
+          handleOptionChange(opt.name, o.order);
+        }}
+      >
+        <div
+          className={`flex flex-col gap-2 font-medium text-jetBlack ${
+            o.isSelected ? "text-jetBlack" : "text-gray"
+          }`}
+        >
+          <span className="text-[14px]">{o.name}</span>
+          {showPrice && (
+            <span className="text-[10px]">+{o.price.toLocaleString()}원</span>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -65,30 +93,7 @@ const CustomizationOptions: FC<{
                   </div>
                   <div className="grid grid-cols-2 gap-2 pt-4">
                     {opt.optionDetails.map((o: OptionDetail, index: number) => {
-                      return (
-                        <div
-                          key={index}
-                          className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
-                            o.isSelected
-                              ? "border-[darkGray]"
-                              : "border-[#B3B3B3]"
-                          }`}
-                          onClick={() => {
-                            handleOptionChange(opt.name, o.order);
-                          }}
-                        >
-                          <div
-                            className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                              o.isSelected ? "text-jetBlack" : "text-gray"
-                            }`}
-                          >
-                            <span className="text-[14px]">{o.name}</span>
-                            <span className="text-[10px]">
-                              +{o.price.toLocaleString()}원
-                            </span>
-                          </div>
-                        </div>
-                      );
+                      return renderOption(o, opt, true);
                     })}
                   </div>
                 </div>
@@ -173,9 +178,7 @@ const CustomizationOptions: FC<{
             );
           })}
         </div>
-      ) : (
-        <></>
-      )}
+      ) : null}
     </>
   );
 };

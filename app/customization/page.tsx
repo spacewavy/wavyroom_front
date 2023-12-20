@@ -18,8 +18,11 @@ import { fetchNavigationModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelDetailItem } from "../redux/types";
 import axiosInstance from "@/api/axioInstance";
-import { navigateToSettings } from "../redux/actions/customizationActions";
-import { useRouter } from "next/navigation";
+import {
+  fetchCustomizationOptionsData,
+  navigateToSettings,
+} from "../redux/actions/customizationActions";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface Product {
   id: number;
@@ -33,6 +36,10 @@ export interface Product {
 const Customization = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
   );
@@ -59,10 +66,10 @@ const Customization = () => {
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedItem, setSelectedTtem] = useState<number>(1);
+  const [selectedItemId, setSelectedItemId] = useState<string>("");
 
   const [selectedImage, setSelectedImage] = useState(
-    transformedData.find((x: any) => x.id === selectedItem)
+    transformedData.find((x: any) => x.id === selectedItemId)
       ?.representativeImageURL
   );
 
@@ -71,22 +78,39 @@ const Customization = () => {
   }, []);
 
   useEffect(() => {
+    if (!transformedData) return;
+    if (!id) {
+      setSelectedItemId(
+        transformedData.find((_item: ModelDetailItem) => _item.name === "Mini")
+          .id
+      );
+    } else {
+      setSelectedItemId(id);
+    }
+  }, [id, transformedData]);
+
+  useEffect(() => {
     setSelectedImage(
-      transformedData.find((x: any) => x.id === selectedItem)
+      transformedData.find((x: any) => x.id === selectedItemId)
         ?.representativeImageURL
     );
-  }, [selectedItem]);
+  }, [selectedItemId]);
 
   useEffect(() => {
     validateInputs();
   }, [formElements]);
 
   useEffect(() => {
-    console.log("customizationData", customizationData);
-  }, [customizationData]);
+    if (!selectedItemId) return;
+    const path = transformedData.find(
+      (_data: any) => _data.id === selectedItemId
+    )?.path;
+    if (!path) return;
+    changeModel(path);
+  }, [selectedItemId, transformedData]);
 
-  const handleSelectedItem = (id: number) => {
-    setSelectedTtem(id);
+  const handleSelectedItemId = (id: string) => {
+    setSelectedItemId(id);
   };
 
   const moveToCustomSettings = (value: boolean) => {
@@ -324,12 +348,22 @@ const Customization = () => {
               <CustomItems
                 navigateToSettings={moveToCustomSettings}
                 products={transformedData}
+                selectedItemId={selectedItemId}
+                handleSelectedItemId={handleSelectedItemId}
               />
               <div className="absolute top-0 bottom-0 left-[100%] w-full flex flex-1">
                 <CustomizationPanel
                   handleMenuToggle={handleMenuToggle}
                   openMenu={openMenu}
                   handlePopupOpen={handlePopupOpen}
+                  selectedItemId={selectedItemId}
+                  handleSelectedItemId={(_id: string) => {
+                    if (!_id) return;
+                    handleSelectedItemId(_id);
+                    dispatch(
+                      fetchCustomizationOptionsData(_id) as unknown as AnyAction
+                    );
+                  }}
                 />
               </div>
             </div>

@@ -57,29 +57,44 @@ const ModelDetail = () => {
 
   const FAQs = [
     {
-      question: "Wavyroom은 다른 모듈식 하우스와 어떻게 다르나요?",
+      question: "웨이비룸의 장점은 뭔가요?",
       answer:
-        "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
+        "품질: 웨이비룸은 스페이스웨이비만의 노하우가 담긴 설비 및 공정 시스템으로 이뤄진 공장에서 늘 일정한 품질로 제작이 됩니다. 특히 웨이비룸에는 창호, 가구, 욕실, 주방, 내부 마감재 등 영역에서 당사의 투자사 현대리바트와 공동개발한 고품질의 현대리바트와 현대L&C 자재들이 적용됩니다. 속도: 체계화된 모듈 제조 시스템을 갖추고 있어 1달에 40채 모듈을 생산할 수 있습니다. 일반 건축 과정 대비 최대 70% 기간을 단축시킬 수 있습니다. 토탈솔루션: 스페이스웨이비를 통해 웨이비룸 제작과 함께 프로젝트 관리를 의뢰할 수 있습니다. 고객의 우려를 덜어드리고자 기초 인프라 공사, 건축사무소 소개, 조경 등 모든 영역에서 0부터 100까지 완성될 수 있도록 관리를 해드립니다.",
     },
     {
-      question: "장치가 완성된 형태로 운송되나요?",
+      question: "웨이비룸은 어디에나 운송가능한가요?",
       answer:
-        "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
+        "네, 국내 모든지역에 운송 가능합니다.(제주도 등 배로 들어갈 수 있는 섬 포함). 다만, 설치 위치까지 도로 폭 4M가 확보 된 상태에서 5톤 트럭 진입이 가능해야합니다.",
     },
     {
-      question: "Wavyroom은 배송 시간은 어떻게 되나요?",
+      question: "배송이나 설치비는 예상금액이 어떻게 되나요?",
       answer:
-        "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
+        "배송비는 웨이비룸 제작소(경기도 화성)로부터의 거리에 따라 상이합니다. 설치비 또한 모듈의 개수, 결합여부 등에 따라 다르기 때문에 유선상담을 통해 안내드리고 있습니다.",
     },
     {
-      question: "Wavyroom은 몇년 동안 사용하기에 적합하나요?",
+      question: "제작 기간은 얼마나 걸리나요?",
       answer:
-        "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
+        "순수 제작 기간은 통상 4주~6주 정도 소요됩니다.",
     },
     {
-      question: "Wavyroom은 다른 모듈식 하우스와 어떻게 다르나요?",
+      question: "사이즈는 원하는 대로 제작이 되나요?",
       answer:
-        "무통장 입금은 상품 구매 대금은 PC뱅킹, 인터넷뱅킹, 텔레뱅킹 혹은 가까운 은행에서 직접 입금하시면 됩니다.주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.",
+        "기본 모듈은 웨이비 MAX (9평), 웨이비 STUDIO(6평)입니다. MAX와 STUDIO를 얼마든지 자유롭게 결합하여 공간 확장이 가능합니다.",
+    },
+    {
+      question: "A/S는 어떻게 되나요?",
+      answer:
+        "무상 A/S 기간은 1년이며, 1년 이후 유상 A/S(출장비+재료비)가 가능합니다. 고객 부주의x",
+    },
+    {
+      question: "한번 설치한 뒤에도 다른 부지로 이동이 가능한가요?",
+      answer:
+        "모듈러 시스템의 장점으로, 처음 설치 시 연결한 배관을 분리하여 이동이 가능합니다.",
+    },
+    {
+      question: "단열 기준은 어떻게 되나요?",
+      answer:
+        "웨이비룸은 기본적으로 건축법상 중부 1지역을 기준으로 제작되고 있습니다.",
     },
   ];
   const faqRef = useRef<HTMLElement>(null);
@@ -110,7 +125,7 @@ const ModelDetail = () => {
       <Navbar isDark={isDark} isFloating={true} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/805]">
+          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/785]">
             <div className="flex flex-1 items-center justify-center">
               <Image
                 src={makeImageUrl(data.heroImageURL)}
@@ -124,38 +139,9 @@ const ModelDetail = () => {
               />
             </div>
             <div className="absolute bottom-[24px] md:bottom-[48px] lg:bottom-[96px] left-0 right-0 flex flex-col items-center">
-              <div className="flex flex-col items-center gap-2 mb-8">
+              <div className="flex flex-col items-center">
                 <div className="text-center text-[28px] lg:text-[40px] group-[.is-dark]:text-white">
                   {data.name}
-                </div>
-                <div className="sm:text-[12px] md:text-[14px] lg:text-[16px] font-light">
-                  {data.description}
-                </div>
-              </div>
-              <div className="bg-black rounded-full flex items-center gap-[4px] px-4 py-2">
-                <span className="text-white text-[12px] font-normal">
-                  주문하기
-                </span>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_4119_3244)">
-                      <path
-                        d="M10.02 4.2373L9.4875 4.7698L13.3425 8.6248H3.375V9.3748H13.35L9.4875 13.2373L10.0125 13.7623L14.7825 9.0073L10.02 4.2373Z"
-                        fill="white"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_4119_3244">
-                        <rect width="18" height="18" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
                 </div>
               </div>
             </div>
@@ -286,7 +272,7 @@ const ModelDetail = () => {
                     외장재
                   </div>
                   <div className="text-[14px] font-light">
-                    {data.exteriorMaterial.map((x: any, index: number) => {
+                    {data.exteriorMaterial?.map((x: any, index: number) => {
                       return (
                         <React.Fragment key={"material" + index}>
                           <span>{x}</span>
@@ -434,29 +420,33 @@ const ModelDetail = () => {
         <section className="group-[.is-dark]:bg-jetBlack">
           {modelsList
             .filter((x: ModelDetailItem) => x.name !== data?.name)
-            .map((item: ModelDetailItem, index: number) => (
-              <div
-                key={"item" + index}
-                className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12"
-              >
-                <div className="flex flex-col items-start md:flex-1">
-                  <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
-                    노바 / <span className="text-[#B2B2B2]">주거용</span>
+            .map((item: ModelDetailItem, index: number) => {
+              return (
+                <Link key={"item" + index} href={`model-detail?id=${item.id}`}>
+                  <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12">
+                    <div className="flex flex-col items-start md:flex-1">
+                      <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
+                        노바 /{" "}
+                        <span className="text-[#B2B2B2]">
+                          {item.purpose[0]}
+                        </span>
+                      </div>
+                      <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
+                        {item.name}
+                      </div>
+                    </div>
+                    <div className="flex items-center jusitfy-center">
+                      <Image
+                        src={`${makeImageUrl(item.representativeImageURL)}`}
+                        alt="nova"
+                        width={475}
+                        height={475}
+                      />
+                    </div>
                   </div>
-                  <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
-                    {item.name}
-                  </div>
-                </div>
-                <div className="flex items-center jusitfy-center">
-                  <Image
-                    src={`${makeImageUrl(item.representativeImageURL)}`}
-                    alt="nova"
-                    width={475}
-                    height={475}
-                  />
-                </div>
-              </div>
-            ))}
+                </Link>
+              );
+            })}
         </section>
       </main>
     </div>

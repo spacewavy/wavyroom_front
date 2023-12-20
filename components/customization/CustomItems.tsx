@@ -8,23 +8,26 @@ import { fetchCustomizationOptionsData } from "@/app/redux/actions/customization
 interface CustomItemsProps {
   navigateToSettings: any;
   products: NavigationModelItem[];
+  handleSelectedItemId: any;
+  selectedItemId: string;
 }
 
 const CustomItems: FC<CustomItemsProps> = ({
   navigateToSettings,
   products,
+  selectedItemId,
+  handleSelectedItemId,
 }) => {
-  const [selectedItem, setSelectedTtem] = useState<string>();
   const dispatch = useDispatch();
 
   const handleSelectedItem = (id: string) => {
-    setSelectedTtem(id);
+    handleSelectedItemId(id);
   };
 
   const handleNavigationClick = () => {
-    if (selectedItem) {
+    if (selectedItemId) {
       dispatch(
-        fetchCustomizationOptionsData(selectedItem) as unknown as AnyAction
+        fetchCustomizationOptionsData(selectedItemId) as unknown as AnyAction
       );
       navigateToSettings(true);
     }
@@ -38,7 +41,7 @@ const CustomItems: FC<CustomItemsProps> = ({
             <h1>웨이비룸</h1>
           </div>
           <div className="text-[12px] md:text-[14px] lg:text-[16px] font-light text-[#4D4D4D]">
-            웨이비룸은 이런 저런 것입니다.
+            웨이비룸은 삶을 담은 공간입니다.
             <br />
             고객님께 알맞는 모델을 선택하여 커스텀 해보세요.
           </div>
@@ -54,7 +57,7 @@ const CustomItems: FC<CustomItemsProps> = ({
                 price={d.minPrice}
                 image={d.representativeImageURL}
                 path={d.path}
-                selectedItem={selectedItem}
+                selectedItem={selectedItemId}
                 handleSelectedItem={handleSelectedItem}
               />
             );
@@ -63,10 +66,10 @@ const CustomItems: FC<CustomItemsProps> = ({
       </div>
       <div className="p-4 border-t-[1px]">
         <button
-          disabled={!selectedItem}
+          disabled={!selectedItemId}
           onClick={handleNavigationClick}
           className={`flex justify-center items-center gap-1 w-full bg-black text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${
-            selectedItem ? "bg-black" : "bg-gray"
+            selectedItemId ? "bg-black" : "bg-gray"
           }`}
         >
           <span>커스텀하기</span>

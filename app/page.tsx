@@ -15,6 +15,7 @@ import Image from "next/image";
 
 const Home = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.model);
 
@@ -31,13 +32,21 @@ const Home = () => {
   });
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleMuteToggle = () => {
+  const handleMute = () => {
     if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current?.muted;
+      setIsMuted(true);
+      videoRef.current.muted = true;
     }
   };
-  return (
-    <main className="flex flex-col flex-1">
+  const handleUnMute = () => {
+    if (videoRef.current) {
+      setIsMuted(false);
+      videoRef.current.muted = false;
+    }
+  };
+
+  const renderVideoSection = () => {
+    return (
       <section>
         <div className="flex flex-col lg:flex-col-reverse md:pr-8 md:pl-8  md:pb-8 lg:pb-16">
           <div className="pb-8 lg:pb-16 relative pt-[53.25%]">
@@ -47,36 +56,70 @@ const Home = () => {
               <div className="relative">
                 {isVideoLoaded && (
                   <div className="absolute h-fit z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-0 p-4 lg:p-8 bg-gradient-to-t from-black to-transparent">
-                    <div onClick={handleMuteToggle} className="cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <g clipPath="url(#clip0_3392_9494)">
-                          <path
-                            d="M16 9L22 15"
-                            stroke="white"
-                            stroke-linejoin="bevel"
-                          />
-                          <path
-                            d="M16 15L22 9"
-                            stroke="white"
-                            stroke-linejoin="bevel"
-                          />
-                          <path
-                            d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
-                            fill="white"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_3392_9494">
-                            <rect width="24" height="24" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
+                    <div className="cursor-pointer">
+                      {!isMuted ? (
+                        <div onClick={handleMute}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g clip-path="url(#clip0_991_26195)">
+                              <path
+                                d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
+                                fill="white"
+                              />
+                              <path
+                                d="M22.0007 11.9998C22.0007 9.76984 21.2307 7.70984 19.9307 6.08984L19.2207 6.79984C20.3407 8.22984 21.0007 10.0398 21.0007 11.9998C21.0007 13.9598 20.3407 15.7698 19.2207 17.1998L19.9307 17.9098C21.2307 16.2898 22.0007 14.2298 22.0007 11.9998Z"
+                                fill="white"
+                              />
+                              <path
+                                d="M17.9997 11.9996C17.9997 13.1396 17.6997 14.2096 17.1697 15.1496L16.4297 14.4096C16.7997 13.6796 16.9997 12.8596 16.9997 11.9996C16.9997 11.1396 16.7997 10.3196 16.4297 9.58961L17.1697 8.84961C17.6997 9.78961 17.9997 10.8596 17.9997 11.9996Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_991_26195">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      ) : (
+                        <div onClick={handleUnMute}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g clipPath="url(#clip0_3392_9494)">
+                              <path
+                                d="M16 9L22 15"
+                                stroke="white"
+                                stroke-linejoin="bevel"
+                              />
+                              <path
+                                d="M16 15L22 9"
+                                stroke="white"
+                                stroke-linejoin="bevel"
+                              />
+                              <path
+                                d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_3392_9494">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      )}
                     </div>
                     <a
                       href="https://www.youtube.com/channel/UCkAxZb4h4AmcBs1t_x1-ieA"
@@ -120,6 +163,12 @@ const Home = () => {
           </div>
         </div>
       </section>
+    );
+  };
+
+  return (
+    <main className="flex flex-col flex-1">
+      {renderVideoSection()}
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
         <Label>웨이비룸</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">

@@ -18,9 +18,11 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   return (
     <Provider store={store}>
     <LoadingProvider>
-      {showLayout && <Navbar />}
-      {children}
-      {showFooter && <Footer />}
+      <div id="main">
+        {showLayout && <Navbar />}
+        {children}
+        {showFooter && <Footer />}
+      </div>
     </LoadingProvider>
     </Provider>
   );

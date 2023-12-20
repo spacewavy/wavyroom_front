@@ -11,17 +11,30 @@ export interface PortfolioCardProps {
 
 const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const main = document.getElementById("main");
 
   const handleModalClose = () => {
     setIsModalOpen(false);
+    if (main) {
+      main.style.overflow = "auto";
+      main.style.height = "auto";
+    }
+  };
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+    if (main) {
+      main.style.overflow = "hidden";
+      main.style.height = "100vh";
+    }
   };
 
   return (
     <div
       className="flex flex-1 flex-col"
       onClick={() => {
-        if(!isModalOpen) {
-          setIsModalOpen(true);
+        if (!isModalOpen) {
+          handleModalOpen();
         }
       }}
     >
@@ -39,11 +52,15 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
           <Image alt="right-arrow" src={RightArrowBlack} />
         </div>
         <div className="flex flex-row gap-2">
-          <div className="text-[14px] font-medium">{portfolio.model}</div>
           <div className="text-[14px] font-medium">{portfolio.size}평</div>
         </div>
       </div>
-      {isModalOpen && <PortfolioModal handleClose={handleModalClose} />}
+      {isModalOpen && (
+        <PortfolioModal
+          portfolioImages={portfolio.images}
+          handleClose={handleModalClose}
+        />
+      )}
     </div>
   );
 };
