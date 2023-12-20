@@ -48,9 +48,7 @@ export const ThreeProvider = ({ children }) => {
 
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
-  const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.MINI
-  );
+  const [currentModelPath, setCurrentModelPath] = useState(null);
 
   // initialize
   useEffect(() => {
@@ -128,6 +126,7 @@ export const ThreeProvider = ({ children }) => {
   // loading file
   useEffect(() => {
     if (!isEditorLoaded) return;
+    if (!currentModelPath) return;
     deleteCurrentModel();
     loadFile(FILE_EXTENSION.FBX, `../models/${currentModelPath}`);
   }, [isEditorLoaded, currentModelPath]);
