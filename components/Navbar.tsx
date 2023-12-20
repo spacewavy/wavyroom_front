@@ -13,7 +13,6 @@ import { navigateToSettings } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
 import { useDispatch } from "react-redux";
 
-
 const Navbar = ({
   isDark,
   isFloating,
@@ -24,7 +23,7 @@ const Navbar = ({
   const [lang, setLang] = useState("KOR");
   const [open, setOpen] = useState(false);
   const [menuType, setMenuType] = useState("");
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const openSidebar = (menuName?: string) => {
     setOpen(true);
@@ -32,7 +31,6 @@ const Navbar = ({
   };
   const handleButtonClick = () => {
     dispatch(navigateToSettings(false) as unknown as AnyAction);
-
   };
 
   return (
@@ -54,7 +52,7 @@ const Navbar = ({
             </Link>
             <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto md:gap-4 lg:gap-6">
               <div className="hidden lg:flex">
-                <div className="flex items-center gap-5 lg:gap-32">
+                <div className="flex items-center gap-5 lg:gap-16">
                   <div className="w-[100px]">
                     <div
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
@@ -71,7 +69,7 @@ const Navbar = ({
                       메뉴
                     </div>
                   </div>
-                  <div className="lg:w-[100px] invisible flex-row gap-2 items-center">
+                  <div className="lg:w-[100px] hidden flex-row gap-2 items-center">
                     <div
                       className={`text-xs font-normal ${
                         lang === "KOR"

@@ -336,7 +336,7 @@ export const ThreeProvider = ({ children }) => {
         }, [500]);
       },
       function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
       },
       function (e) {
         console.log("error", e);

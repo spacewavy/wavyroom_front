@@ -31,12 +31,6 @@ interface CustomizationPanelProps {
   handleSelectedItemId: any;
 }
 
-const OPTIONS = [
-  { value: "Evo1", label: "Evo" },
-  { value: "Evo2", label: "Evo" },
-  { value: "Evo3", label: "Evo" },
-];
-
 export const FloorCard: FC<option> = ({
   id,
   title,
@@ -73,17 +67,15 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   handleSelectedItemId,
 }) => {
   const [estimatedQutation, setEstimatedQutation] = useState(0);
-  const [selectedColorName, setSelectedColorName] = useState("");
-  const [selectedColorId, setSelectedColorId] = useState("");
   const [selectedColor, setSelectedColor] = useState({ colorId: "", name: "" });
-  const [options, setOptions] = useState(OPTIONS);
+  const [options, setOptions] = useState([{ value: "Evo1", label: "Evo" }]);
   const { data } = useSelector((state: any) => state.customization);
   const { data: modelsList } = useSelector(
     (state: RootState) => state.navigationModel
   );
+  const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
   const dispatch = useDispatch();
-  const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
   // get the color data
   useEffect(() => {
@@ -91,18 +83,16 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
       (color: ModelColors) =>
         color.isSelected === true || color.isDefault === true
     );
-    setSelectedColorName(color?.name);
-    setSelectedColorId(color?.colorId);
     setSelectedColor(color);
   }, [data.modelColors]);
 
   useEffect(() => {
     calculateTotal();
     checkButtonEnableAndDisable();
+    console.log(data);
   }, [data]);
 
   useEffect(() => {
-    console.log("modelsList", modelsList);
     if (!modelsList.length) return;
     setOptions(
       modelsList.map((_model: ModelDetailItem) => {
@@ -117,16 +107,19 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         data.modelFloorOptions.findIndex((x: ModelFloorOptions) => x.isSelected)
       ];
     const secondOpt = selectedFloor?.modelSecondOptions;
-    setNextBtnDisable(
-      secondOpt?.every((item: ModelSecondOption) =>
-        item.optionDetails.some((o) => o.isSelected)
-      )
+    const _valid = secondOpt?.every((item: ModelSecondOption) =>
+      item.optionDetails.some((o) => o.isSelected)
     );
+    if (_valid) {
+      setNextBtnDisable(false);
+    } else {
+      setNextBtnDisable(true);
+    }
   };
 
   const calculateTotal = () => {
     if (!data) return;
-    let total = data.minPrice;
+    let total = data?.minPrice || 0;
 
     data.modelFloorOptions.map((_option: ModelFloorOptions) => {
       if (_option.isSelected) {
@@ -140,7 +133,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         });
       });
     });
-
     setEstimatedQutation(total);
   };
 
@@ -241,9 +233,12 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             </div>
           </div>
           <div
-            onClick={handlePopupOpen}
-            className={`cursor-pointer flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
-              !nextBtnDisable ? "bg-[#D2D2D2]" : "bg-offBlack"
+            onClick={() => {
+              if (nextBtnDisable) return;
+              handlePopupOpen();
+            }}
+            className={`flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
+              nextBtnDisable ? "bg-[#D2D2D2]" : "bg-offBlack cursor-pointer"
             }`}
           >
             <span className={`text-[12px] font-medium hidden md:block`}>
@@ -281,7 +276,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     <div className="flex flex-col flex-1 items-between">
       <div className="flex flex-col flex-1 grow overflow-y-auto scrollbar-hide">
         {!openMenu ? (
-          <div className="flex flex-col flex-1 grow">
+          <div className="flex flex-col flex-1 grow mb-8">
             <div className="flex flex-col gap-4 lg:gap-0 mx-[24px] md:mx-8 my-8">
               <span className="text-[24px] lg:text-[32px] font-light items-center">
                 <Select
@@ -342,10 +337,10 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
               </span>
 
               <span className="block lg:hidden">
-                모듈러건축시스템 기반으로 {"웨이비룸"}이라는 주거공간을 만들고
+                모듈러건축시스템 기반으로 웨이비룸이라는 주거공간을 만들고
                 있으며,
                 <br />
-                {"공간의 제품화"}에 집중합니다.
+                공간의 제품화에 집중합니다.
               </span>
             </div>
             <div className="px-[24px] md:px-8 py-4 md:py-8 mb-4 border-t-[1px] border-[wavyGray]">
