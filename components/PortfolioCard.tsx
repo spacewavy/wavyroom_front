@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
@@ -7,12 +7,27 @@ import { makeImageUrl } from "../lib/utils";
 
 export interface PortfolioCardProps {
   portfolio: PortfolioItem;
-  isModalOpen:boolean;
-  handleModalOpen:any;
 }
 
-const PortfolioCard = ({ portfolio ,isModalOpen ,handleModalOpen }: PortfolioCardProps) => {
+const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const main = document.getElementById('main');
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    if(main) {
+      main.style.overflow = 'auto';
+      main.style.height = 'auto'
+    }
+  };
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+    if(main) {
+      main.style.overflow = 'hidden';
+      main.style.height = '100vh'
+    }
+  };
 
   return (
     <div
@@ -41,6 +56,7 @@ const PortfolioCard = ({ portfolio ,isModalOpen ,handleModalOpen }: PortfolioCar
           <div className="text-[14px] font-medium">{portfolio.size}평</div>
         </div>
       </div>
+      {isModalOpen && <PortfolioModal portfolioImages={portfolio.images} handleClose={handleModalClose} />}
     </div>
   );
 };
