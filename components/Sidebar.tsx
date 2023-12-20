@@ -214,8 +214,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               onClick={closeSidebar}
               className={cn(
                 "flex justify-between py-4 border-b text-black border-black items-center",
-                selectedListId != "" &&
-                "!text-midGray !border-midGray"
+                selectedListId != "" && "!text-midGray !border-midGray"
               )}
             >
               <span className="flex flex-1 text-sm">전체보기</span>
@@ -224,11 +223,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               <Image
                 className="cursor-pointer"
                 alt="right-arrow"
-                src={
-                   selectedListId === ""
-                    ? RightArrowBlack
-                    : RightArrowGray
-                }
+                src={selectedListId === "" ? RightArrowBlack : RightArrowGray}
                 width={24}
                 height={24}
               />
@@ -249,7 +244,8 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     if (!selectedListId) return;
     return (
       <section className="flex flex-col flex-1 w-[100vw]">
-        <div className="relative sm:block hidden w-full aspect-[800/432]">
+        {/* <div className="relative sm:block hidden w-full aspect-[800/432]"> */}
+        <div className="relative sm:block hidden w-full h-[432px]">
           <Image
             src={makeImageUrl(selectedProduct.heroImageURL)}
             alt="Model Hero Image"
@@ -258,7 +254,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             objectFit="cover"
           />
         </div>
-        <div className="flex flex-1 flex-col p-8 gap-8">
+        <div className="flex flex-1 flex-col p-8 gap-4">
           <h2 className="text-[20px]">{selectedProduct?.name} 스펙</h2>
           <ul className="flex flex-col flex-1 text-xs font-light pb-10">
             <li className="grid grid-cols-4 py-4 gap-6 text-sm">

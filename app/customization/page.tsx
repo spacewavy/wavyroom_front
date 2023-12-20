@@ -85,10 +85,6 @@ const Customization = () => {
   }, [formElements]);
 
   useEffect(() => {
-    console.log("customizationData", customizationData);
-  }, [customizationData]);
-
-  useEffect(() => {
     if (!selectedItemId) return;
     const path = transformedData.find(
       (_data: any) => _data.id === selectedItemId
