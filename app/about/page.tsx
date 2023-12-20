@@ -16,6 +16,9 @@ import { makeImageUrl } from "../../lib/utils";
 const About = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const [videoRendered, setVideoRendered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const dispatch = useDispatch();
   const { data, error } = useSelector(
     (state: RootState) => state.aboutReputataion
@@ -26,13 +29,18 @@ const About = () => {
   }, []);
 
   useEffect(() => {
+    if(videoRef.current && videoRef.current.offsetHeight > 150) {
+        setVideoRendered(true)
+    }
+  },[videoRef.current?.offsetHeight])
+
+  useEffect(() => {
     setTimeout(() => {
       if (!isVideoLoaded) {
         setIsVideoLoaded(true);
       }
     }, 1000);
   });
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMute = () => {
     if (videoRef.current) {
@@ -69,8 +77,8 @@ const About = () => {
               }`}
             >
               <div className="relative">
-                {isVideoLoaded && (
-                  <div className="absolute h-fit z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-0 p-4 lg:p-8 bg-gradient-to-t from-black to-transparent">
+                {videoRendered && (
+                  <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
                     {!isMuted ? 
                       <div onClick={handleMute}>
