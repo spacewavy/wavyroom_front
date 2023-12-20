@@ -9,6 +9,8 @@ import CustomizationOptions, {
 import { useDispatch, useSelector } from "react-redux";
 import {
   ModelColors,
+  ModelData,
+  ModelDetailItem,
   ModelFloorOptions,
   ModelSecondOption,
   OptionDetail,
@@ -19,11 +21,14 @@ import {
   customizationOptionsSelectionChange,
 } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
+import { RootState } from "../../app/redux/reducers";
 
 interface CustomizationPanelProps {
   handleMenuToggle: any;
   openMenu: boolean;
   handlePopupOpen: any;
+  selectedItemId: string;
+  handleSelectedItemId: any;
 }
 
 const OPTIONS = [
@@ -64,12 +69,18 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   handleMenuToggle,
   openMenu,
   handlePopupOpen,
+  selectedItemId,
+  handleSelectedItemId,
 }) => {
   const [estimatedQutation, setEstimatedQutation] = useState(0);
   const [selectedColorName, setSelectedColorName] = useState("");
   const [selectedColorId, setSelectedColorId] = useState("");
   const [selectedColor, setSelectedColor] = useState({ colorId: "", name: "" });
+  const [options, setOptions] = useState(OPTIONS);
   const { data } = useSelector((state: any) => state.customization);
+  const { data: modelsList } = useSelector(
+    (state: RootState) => state.navigationModel
+  );
 
   const dispatch = useDispatch();
   const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
@@ -89,6 +100,16 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     calculateTotal();
     checkButtonEnableAndDisable();
   }, [data]);
+
+  useEffect(() => {
+    console.log("modelsList", modelsList);
+    if (!modelsList.length) return;
+    setOptions(
+      modelsList.map((_model: ModelDetailItem) => {
+        return { label: _model.name, value: _model.id };
+      })
+    );
+  }, [modelsList]);
 
   const checkButtonEnableAndDisable = () => {
     const selectedFloor =
@@ -118,18 +139,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         });
       });
     });
-
-    // data.modelFloorOptions.ModelSecondOption?.forEach(
-    //   (node: ModelSecondOption) => {
-    //     if (node.optionDetails.some((opt) => opt.isSelected)) {
-    //       node.optionDetails.forEach((opt: OptionDetail) => {
-    //         if (opt.isSelected) {
-    //           total += Number(opt.price);
-    //         }
-    //       });
-    //     }
-    //   }
-    // );
 
     setEstimatedQutation(total);
   };
@@ -305,6 +314,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                     indicatorsContainer: (baseStyles: any) => ({
                       display: "flex",
                       alignItems: "center",
+                      cursor: "pointer",
                     }),
                     option: (baseStyles: any) => ({
                       background: "#F7F7F7",
@@ -317,11 +327,16 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                         backgroundColor: "#E5E5E5",
                         color: "black",
                       },
+                      cursor: "pointer",
                     }),
                   }}
-                  options={OPTIONS}
-                  value={OPTIONS[0]}
-                  onChange={() => {}}
+                  options={options}
+                  value={options.find(
+                    (option) => option.value === selectedItemId
+                  )}
+                  onChange={(_item) => {
+                    handleSelectedItemId(_item?.value || "");
+                  }}
                 />
               </span>
 

@@ -32,7 +32,6 @@ const CustomizationCard = ({
       }`}
       onClick={() => {
         handleSelectedItem(id);
-        changeModel(path);
       }}
     >
       <div className="flex justify-between w-full">
