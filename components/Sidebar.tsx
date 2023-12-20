@@ -362,7 +362,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             </li>
           </ul>
           <div className="flex flex-row gap-2 fixed bottom-[33px]">
-            <Link href="/customization" onClick={handlePlaceOrderClick}>
+            <Link
+              href={`/customization?id=${selectedListId}`}
+              onClick={handlePlaceOrderClick}
+            >
               <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">
                 <span>주문하기</span>
                 <svg
