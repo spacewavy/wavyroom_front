@@ -44,8 +44,9 @@ const Home = () => {
       videoRef.current.muted = false;
     }
   };
-  return (
-    <main className="flex flex-col flex-1">
+
+  const renderVideoSection = () => {
+    return (
       <section>
         <div className="flex flex-col lg:flex-col-reverse md:pr-8 md:pl-8  md:pb-8 lg:pb-16">
           <div className="pb-8 lg:pb-16 relative pt-[53.25%]">
@@ -162,6 +163,12 @@ const Home = () => {
           </div>
         </div>
       </section>
+    );
+  };
+
+  return (
+    <main className="flex flex-col flex-1">
+      {renderVideoSection()}
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
         <Label>웨이비룸</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">

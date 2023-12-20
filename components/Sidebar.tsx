@@ -287,16 +287,19 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">외부색</span>
-                <span className="truncate">
+                <div className="flex flex-row gap-1 flex-wrap">
                   {selectedProduct.modelColors.map((x: any) => {
+                    console.log(x);
                     return (
-                      <React.Fragment key={x}>
-                        <span className="truncate">{x.name}</span>
-                        <br />
-                      </React.Fragment>
+                      <div
+                        className="h-6 w-6 rounded-full border border-wavyGray"
+                        style={{
+                          backgroundColor: x.colorId,
+                        }}
+                      />
                     );
                   })}
-                </span>
+                </div>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">단열</span>
