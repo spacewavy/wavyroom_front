@@ -257,7 +257,7 @@ const ModelDetail = () => {
                     외장재
                   </div>
                   <div className="text-[14px] font-light">
-                    {data.exteriorMaterial.map((x: any, index: number) => {
+                    {data.exteriorMaterial?.map((x: any, index: number) => {
                       return (
                         <React.Fragment key={"material" + index}>
                           <span>{x}</span>
