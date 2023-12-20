@@ -7,7 +7,7 @@ export const fetchPortfolioData = (option: string) => {
   return async (dispatch: any) => {
     try {
       const response = await axiosInstance.get(
-        `/portfolio`
+        `/portfolio?size=${option}`
       );
       dispatch({
         type: FETCH_PORTFOLIO_DATA_SUCCESS,
