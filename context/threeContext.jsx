@@ -48,9 +48,7 @@ export const ThreeProvider = ({ children }) => {
 
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
-  const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.MAX
-  );
+  const [currentModelPath, setCurrentModelPath] = useState(null);
 
   // initialize
   useEffect(() => {
@@ -128,6 +126,7 @@ export const ThreeProvider = ({ children }) => {
   // loading file
   useEffect(() => {
     if (!isEditorLoaded) return;
+    if (!currentModelPath) return;
     deleteCurrentModel();
     loadFile(FILE_EXTENSION.FBX, `../models/${currentModelPath}`);
   }, [isEditorLoaded, currentModelPath]);
@@ -151,9 +150,11 @@ export const ThreeProvider = ({ children }) => {
   }, [isEditorLoaded, cameraViewType]);
 
   const deleteCurrentModel = () => {
-    const _model = scene.getObjectByName(WAVY_MODEL);
-    if (!_model) return;
-    deleteMeshByMesh(_model);
+    const _models = scene.getObjectsByProperty("name", WAVY_MODEL);
+    if (!_models.length) return;
+    _models.map((_model) => {
+      deleteMeshByMesh(_model);
+    });
   };
 
   const deleteMeshByMesh = (_mesh) => {
@@ -198,9 +199,11 @@ export const ThreeProvider = ({ children }) => {
 
   const loadFile = (extension, url) => {
     let loader;
+    if (isModelLoading) return;
     setIsModelLoading(true);
     setLoadPercent(0);
 
+    deleteCurrentModel();
     switch (extension) {
       case FILE_EXTENSION.OBJ:
         loader = new OBJLoader();
@@ -332,7 +335,7 @@ export const ThreeProvider = ({ children }) => {
         }, [500]);
       },
       function (xhr) {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        // console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
       },
       function (e) {
         console.log("error", e);
