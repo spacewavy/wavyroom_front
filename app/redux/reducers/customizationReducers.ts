@@ -13,7 +13,7 @@ const initialState: CustomizationData = {
   error: null,
 };
 const navigation = {
-  data: {navigateToSettings:false},
+  data: { navigateToSettings: false },
   error: null,
 };
 
@@ -37,9 +37,9 @@ export const fetchCustomizationOptionsDataReducer = (
     case SET_CUSTOMIZATION_SELECTED_COLOR:
       const updatedModelColors = state.data.modelColors.map((color) => {
         if (color.id === action.payload) {
-          return { ...color, isSelected: true,isDefault:false };
+          return { ...color, isSelected: true, isDefault: false };
         }
-        return { ...color, isSelected: false,isDefault:false };
+        return { ...color, isSelected: false, isDefault: false };
       });
       return {
         ...state,
@@ -99,14 +99,20 @@ export const fetchCustomizationOptionsDataReducer = (
       };
 
     case SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE:
-      const floorSelected = state.data.modelFloorOptions.find((x) => x.isSelected);
-      const updatedModelKitchenTypes = floorSelected?.ModelKitchenTypes.map((kitchenType) => {
-        if (kitchenType.name === action.payload) {
-          return {
-            ...kitchenType, isSelected: true };
+      const floorSelected = state.data.modelFloorOptions.find(
+        (x) => x.isSelected
+      );
+      const updatedModelKitchenTypes = floorSelected?.ModelKitchenTypes.map(
+        (kitchenType) => {
+          if (kitchenType.name === action.payload) {
+            return {
+              ...kitchenType,
+              isSelected: true,
+            };
+          }
+          return { ...kitchenType, isSelected: false };
         }
-        return {...kitchenType, isSelected:false};
-      });
+      );
 
       const updateFloorOptions = state.data.modelFloorOptions.map((floor) => {
         if (floor.isSelected) {
@@ -117,30 +123,26 @@ export const fetchCustomizationOptionsDataReducer = (
         }
         return floor;
       });
-     
+
       return {
         ...state,
         data: { ...state.data, modelFloorOptions: updateFloorOptions },
         error: action.payload,
       };
-      
+
     default:
       return state;
   }
 };
 
-
-export const navigateToSettings = (
-  state = navigation,
-  action: any
-) => {
+export const navigateToSettings = (state = navigation, action: any) => {
   switch (action.type) {
     case SET_NAVIGATE_TO_SETTINGS:
       return {
         ...state,
-        data: {navigateToSettings:action.payload},
+        data: { navigateToSettings: action.payload },
         error: action.payload,
-    };
+      };
     default:
       return state;
   }
