@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
@@ -52,7 +52,6 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
           <Image alt="right-arrow" src={RightArrowBlack} />
         </div>
         <div className="flex flex-row gap-2">
-          <div className="text-[14px] font-medium">{portfolio.model}</div>
           <div className="text-[14px] font-medium">{portfolio.size}평</div>
         </div>
       </div>
