@@ -164,7 +164,7 @@ const ModelDetail = () => {
                 >
                   제품 사양보기
                 </div>
-                <Link href="/customization">
+                <Link href={`/customization?id=${id}`}>
                   <div
                     className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
                     onClick={onCustomizeClick}
@@ -255,7 +255,7 @@ const ModelDetail = () => {
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
                     규격
                   </div>
-                  <div className="text-[14px] font-light">{data.size}</div>
+                  <div className="text-[14px] font-light">{data.size}평형</div>
                 </div>
               </div>
               <div className="grid grid-cols-2">
