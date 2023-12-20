@@ -289,9 +289,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <span className="truncate font-normal">외부색</span>
                 <div className="flex flex-row gap-1 flex-wrap">
                   {selectedProduct.modelColors.map((x: any) => {
-                    console.log(x);
                     return (
                       <div
+                        key={x.colorId}
                         className="h-6 w-6 rounded-full border border-wavyGray"
                         style={{
                           backgroundColor: x.colorId,

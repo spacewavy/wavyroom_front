@@ -5,11 +5,15 @@ import Close from "@/assets/icons/ModalClose.svg";
 import Image from "next/image";
 import { makeImageUrl } from "@/lib/utils";
 
-const PortfolioModal = ({ handleClose ,portfolioImages }: { handleClose: any, portfolioImages:string[] }) => {
+const PortfolioModal = ({
+  handleClose,
+  portfolioImages,
+}: {
+  handleClose: any;
+  portfolioImages: string[];
+}) => {
   return ReactDOM.createPortal(
-    <div
-      className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8"
-    >
+    <div className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8">
       <div
         className="bg-white flex flex-1 shrink flex-col p-4 md:p-8 gap-4"
         onClick={(e) => {
@@ -32,17 +36,17 @@ const PortfolioModal = ({ handleClose ,portfolioImages }: { handleClose: any, po
           </div>
         </div>
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
-          {portfolioImages.map((image:string)=> {
+          {portfolioImages.map((image: string) => {
             return (
-            <div className="relative w-full aspect-[3/2]">
-            <Image
-              src={makeImageUrl(image)}
-              alt="test"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-            )
+              <div key={image} className="relative w-full aspect-[3/2]">
+                <Image
+                  src={makeImageUrl(image)}
+                  alt="test"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+            );
           })}
         </div>
       </div>
