@@ -106,8 +106,6 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
           backgroundColor: "#f7f7f7",
           ":focus": {
             borderWidth: 2,
-            borderColor: "yellow",
-            backgroundColor: "blue",
           },
         }),
         control: (baseStyles) => ({
@@ -135,7 +133,7 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
         valueContainer: (baseStyles) => ({
           ...baseStyles,
           backgroundColor: "#f7f7f7",
-          fontSize:'14px'
+          fontSize: "14px",
         }),
         indicatorsContainer: (baseStyles) => ({
           ...baseStyles,
@@ -143,11 +141,10 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
         }),
         option: (baseStyles) => ({
           ...baseStyles,
-          fontSize:'14px',
+          fontSize: "14px",
           ":hover": {
             backgroundColor: "#b2b2b2",
             color: "white",
-           
           },
         }),
       }}
