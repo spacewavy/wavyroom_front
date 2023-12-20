@@ -16,7 +16,6 @@ import { makeImageUrl } from "../../lib/utils";
 const About = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [videoRendered, setVideoRendered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const dispatch = useDispatch();
@@ -27,20 +26,6 @@ const About = () => {
   useEffect(() => {
     dispatch(fetchAboutReputationData() as unknown as AnyAction);
   }, []);
-
-  useEffect(() => {
-    if(videoRef.current && videoRef.current.offsetHeight > 150) {
-        setVideoRendered(true)
-    }
-  },[videoRef.current?.offsetHeight])
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isVideoLoaded) {
-        setIsVideoLoaded(true);
-      }
-    }, 1000);
-  });
 
   const handleMute = () => {
     if (videoRef.current) {
@@ -77,7 +62,7 @@ const About = () => {
               }`}
             >
               <div className="relative">
-                {videoRendered && (
+                {isVideoLoaded && (
                   <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
                     {!isMuted ? 
@@ -158,7 +143,7 @@ const About = () => {
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/aboutPageVideo.mp4"
-                  onCanPlayThrough={() => setIsVideoLoaded(true)}
+                  onPlaying={() => setIsVideoLoaded(true)}
                 ></video>
               </div>
             </div>
