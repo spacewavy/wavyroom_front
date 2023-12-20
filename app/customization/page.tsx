@@ -22,7 +22,7 @@ import {
   fetchCustomizationOptionsData,
   navigateToSettings,
 } from "../redux/actions/customizationActions";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface Product {
   id: number;
@@ -36,6 +36,10 @@ export interface Product {
 const Customization = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
   );
@@ -72,6 +76,11 @@ const Customization = () => {
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, []);
+
+  useEffect(() => {
+    if (!id) return;
+    setSelectedItemId(id);
+  }, [id]);
 
   useEffect(() => {
     setSelectedImage(

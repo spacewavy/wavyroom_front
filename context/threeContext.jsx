@@ -49,7 +49,7 @@ export const ThreeProvider = ({ children }) => {
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(
-    WAVY_MODEL_PATHS.MAX
+    WAVY_MODEL_PATHS.MINI
   );
 
   // initialize
@@ -151,9 +151,11 @@ export const ThreeProvider = ({ children }) => {
   }, [isEditorLoaded, cameraViewType]);
 
   const deleteCurrentModel = () => {
-    const _model = scene.getObjectByName(WAVY_MODEL);
-    if (!_model) return;
-    deleteMeshByMesh(_model);
+    const _models = scene.getObjectsByProperty("name", WAVY_MODEL);
+    if (!_models.length) return;
+    _models.map((_model) => {
+      deleteMeshByMesh(_model);
+    });
   };
 
   const deleteMeshByMesh = (_mesh) => {
@@ -198,9 +200,11 @@ export const ThreeProvider = ({ children }) => {
 
   const loadFile = (extension, url) => {
     let loader;
+    if (isModelLoading) return;
     setIsModelLoading(true);
     setLoadPercent(0);
 
+    deleteCurrentModel();
     switch (extension) {
       case FILE_EXTENSION.OBJ:
         loader = new OBJLoader();
