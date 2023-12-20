@@ -65,10 +65,26 @@ const ContactUs = () => {
               </div>
             </div>
             <div className="flex flex-col md:flex-row border-b border-gray py-12 gap-4">
-              <div className="flex md:flex-1">제품 & 파트너십 문의</div>
+              <div className="flex md:flex-1">제품문의</div>
+              <div className="flex flex-col items-start gap-4 md:flex-1 lg:flex-2">
+                <div className="text-titleSM lg:text-titleMD text-darkGray">
+                  hello@spacewavy.com
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row border-b border-gray py-12 gap-4">
+              <div className="flex md:flex-1">비즈니스 | 파트너쉽 문의</div>
               <div className="flex flex-col items-start gap-4 md:flex-1 lg:flex-2">
                 <div className="text-titleSM lg:text-titleMD text-darkGray">
                   info@spacewavy.com
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row border-b border-gray py-12 gap-4">
+              <div className="flex md:flex-1">채용문의</div>
+              <div className="flex flex-col items-start gap-4 md:flex-1 lg:flex-2">
+                <div className="text-titleSM lg:text-titleMD text-darkGray">
+                  career@spacewavy.com
                 </div>
               </div>
             </div>
