@@ -70,7 +70,6 @@ const DropdownMenuContent = React.forwardRef<
     )}
     style={{
       width: "100%",
-      backgroundColor: "yellow",
     }}
     {...props}
   />
