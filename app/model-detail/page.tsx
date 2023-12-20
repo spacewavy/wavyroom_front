@@ -110,7 +110,7 @@ const ModelDetail = () => {
       <Navbar isDark={isDark} isFloating={true} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/805]">
+          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/785]">
             <div className="flex flex-1 items-center justify-center">
               <Image
                 src={makeImageUrl(data.heroImageURL)}
@@ -124,38 +124,9 @@ const ModelDetail = () => {
               />
             </div>
             <div className="absolute bottom-[24px] md:bottom-[48px] lg:bottom-[96px] left-0 right-0 flex flex-col items-center">
-              <div className="flex flex-col items-center gap-2 mb-8">
+              <div className="flex flex-col items-center">
                 <div className="text-center text-[28px] lg:text-[40px] group-[.is-dark]:text-white">
                   {data.name}
-                </div>
-                <div className="sm:text-[12px] md:text-[14px] lg:text-[16px] font-light">
-                  {data.description}
-                </div>
-              </div>
-              <div className="bg-black rounded-full flex items-center gap-[4px] px-4 py-2">
-                <span className="text-white text-[12px] font-normal">
-                  주문하기
-                </span>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_4119_3244)">
-                      <path
-                        d="M10.02 4.2373L9.4875 4.7698L13.3425 8.6248H3.375V9.3748H13.35L9.4875 13.2373L10.0125 13.7623L14.7825 9.0073L10.02 4.2373Z"
-                        fill="white"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_4119_3244">
-                        <rect width="18" height="18" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
                 </div>
               </div>
             </div>
@@ -434,29 +405,37 @@ const ModelDetail = () => {
         <section className="group-[.is-dark]:bg-jetBlack">
           {modelsList
             .filter((x: ModelDetailItem) => x.name !== data?.name)
-            .map((item: ModelDetailItem, index: number) => (
-              <div
-                key={"item" + index}
-                className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12"
-              >
-                <div className="flex flex-col items-start md:flex-1">
-                  <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
-                    노바 / <span className="text-[#B2B2B2]">주거용</span>
+            .map((item: ModelDetailItem, index: number) => {
+              console.log("item", item);
+              return (
+                <Link href={`model-detail?id=${item.id}`}>
+                  <div
+                    key={"item" + index}
+                    className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12"
+                  >
+                    <div className="flex flex-col items-start md:flex-1">
+                      <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
+                        노바 /{" "}
+                        <span className="text-[#B2B2B2]">
+                          {item.purpose[0]}
+                        </span>
+                      </div>
+                      <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
+                        {item.name}
+                      </div>
+                    </div>
+                    <div className="flex items-center jusitfy-center">
+                      <Image
+                        src={`${makeImageUrl(item.representativeImageURL)}`}
+                        alt="nova"
+                        width={475}
+                        height={475}
+                      />
+                    </div>
                   </div>
-                  <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
-                    {item.name}
-                  </div>
-                </div>
-                <div className="flex items-center jusitfy-center">
-                  <Image
-                    src={`${makeImageUrl(item.representativeImageURL)}`}
-                    alt="nova"
-                    width={475}
-                    height={475}
-                  />
-                </div>
-              </div>
-            ))}
+                </Link>
+              );
+            })}
         </section>
       </main>
     </div>
