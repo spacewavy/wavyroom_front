@@ -120,7 +120,10 @@ const About = () => {
                       </div>
                     }
                     </div>
-                    <a href="">
+                    <a
+                      href="https://www.youtube.com/channel/UCkAxZb4h4AmcBs1t_x1-ieA"
+                      target="_black"
+                    >
                       <div className="py-[6px] pl-[12px] pr-[16px]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

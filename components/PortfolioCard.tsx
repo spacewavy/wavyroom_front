@@ -58,6 +58,8 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
       {isModalOpen && (
         <PortfolioModal
           portfolioImages={portfolio.images}
+          title={portfolio.model}
+          size={portfolio.size}
           handleClose={handleModalClose}
         />
       )}
