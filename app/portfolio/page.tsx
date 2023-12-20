@@ -1,7 +1,7 @@
 "use client";
 // hmmm...
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import WavyDropdown from "@/components/WavyDropdown";
 import PortfolioCard from "../../components/PortfolioCard";
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { fetchPortfolioData } from "../redux/actions/portfolioActions";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
 import {PortfolioItem} from "../redux/types"
+import PortfolioModal from "@/components/PortfolioModal";
 
 const Portfolio = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,27 @@ const Portfolio = () => {
   const onDropdownChange = (newValue: any) => {
     dispatch(fetchPortfolioData(newValue.value)  as unknown as AnyAction)
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const main = document.getElementById('main');
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    if(main) {
+      main.style.overflow = 'auto';
+      main.style.height = 'auto'
+    }
+  };
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+    if(main) {
+      main.style.overflow = 'hidden';
+      main.style.height = '100vh'
+    }
+  };
 
   return (
-    <main className="flex flex-col flex-1">
+    <main className="flex flex-col flex-1" >
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col md:flex-row gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
@@ -52,11 +71,12 @@ const Portfolio = () => {
         {!error && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 md:gap-y-8 lg:gap-y-12 py-4 md:py-8">
           {data.map((item:PortfolioItem, index:number) => (
-            <PortfolioCard key={index} portfolio={item} />
+            <PortfolioCard key={index} portfolio={item} isModalOpen={isModalOpen} handleModalOpen={handleModalOpen} />
           ))}
         </div>
         )}  
       </section>
+      {isModalOpen && <PortfolioModal handleClose={handleModalClose} />}
     </main>
   );
 };

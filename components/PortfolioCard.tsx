@@ -7,21 +7,19 @@ import { makeImageUrl } from "../lib/utils";
 
 export interface PortfolioCardProps {
   portfolio: PortfolioItem;
+  isModalOpen:boolean;
+  handleModalOpen:any;
 }
 
-const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const PortfolioCard = ({ portfolio ,isModalOpen ,handleModalOpen }: PortfolioCardProps) => {
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <div
       className="flex flex-1 flex-col"
       onClick={() => {
         if(!isModalOpen) {
-          setIsModalOpen(true);
+          handleModalOpen();
         }
       }}
     >
@@ -43,7 +41,6 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
           <div className="text-[14px] font-medium">{portfolio.size}평</div>
         </div>
       </div>
-      {isModalOpen && <PortfolioModal handleClose={handleModalClose} />}
     </div>
   );
 };
