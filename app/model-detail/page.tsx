@@ -125,7 +125,7 @@ const ModelDetail = () => {
       <Navbar isDark={isDark} isFloating={true} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[1440/785]">
+          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square aspect-[1440/785]">
             <div className="flex flex-1 items-center justify-center">
               <Image
                 src={makeImageUrl(data.heroImageURL)}
