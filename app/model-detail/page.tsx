@@ -73,8 +73,7 @@ const ModelDetail = () => {
     },
     {
       question: "제작 기간은 얼마나 걸리나요?",
-      answer:
-        "순수 제작 기간은 통상 4주~6주 정도 소요됩니다.",
+      answer: "순수 제작 기간은 통상 4주~6주 정도 소요됩니다.",
     },
     {
       question: "사이즈는 원하는 대로 제작이 되나요?",
@@ -110,6 +109,7 @@ const ModelDetail = () => {
       data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
     setIsDark(data.isDarkMode);
+    console.log(data);
   }, [data]);
 
   const handleSrcollToFAQ = () => {
@@ -133,6 +133,7 @@ const ModelDetail = () => {
                 priority={true}
                 quality={100}
                 fill={true}
+                objectFit="contain"
                 unoptimized={true}
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
