@@ -16,21 +16,13 @@ import Image from "next/image";
 const Home = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.model);
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isVideoLoaded) {
-        setIsVideoLoaded(true);
-      }
-    }, 1000);
-  });
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMute = () => {
     if (videoRef.current) {
@@ -54,8 +46,8 @@ const Home = () => {
               className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
             >
               <div className="relative">
-                {isVideoLoaded && (
-                  <div className="absolute h-fit z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-0 p-4 lg:p-8 bg-gradient-to-t from-black to-transparent">
+              {isVideoLoaded && (
+                  <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
                       {!isMuted ? (
                         <div onClick={handleMute}>
@@ -151,7 +143,7 @@ const Home = () => {
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/homePageVideo.mp4"
-                  onCanPlayThrough={() => setIsVideoLoaded(true)}
+                  onPlaying={() => setIsVideoLoaded(true)}
                 ></video>
               </div>
             </div>
