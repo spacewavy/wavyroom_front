@@ -78,16 +78,8 @@ const Customization = () => {
   }, []);
 
   useEffect(() => {
-    if (!transformedData) return;
-    if (!id) {
-      setSelectedItemId(
-        transformedData.find((_item: ModelDetailItem) => _item.name === "Mini")
-          .id
-      );
-    } else {
-      setSelectedItemId(id);
-    }
-  }, [id, transformedData]);
+      setSelectedItemId(id || '');
+  }, [id]);
 
   useEffect(() => {
     setSelectedImage(

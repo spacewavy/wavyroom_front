@@ -16,6 +16,8 @@ import { makeImageUrl } from "../../lib/utils";
 const About = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   const dispatch = useDispatch();
   const { data, error } = useSelector(
     (state: RootState) => state.aboutReputataion
@@ -24,15 +26,6 @@ const About = () => {
   useEffect(() => {
     dispatch(fetchAboutReputationData() as unknown as AnyAction);
   }, []);
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (!isVideoLoaded) {
-        setIsVideoLoaded(true);
-      }
-    }, 1000);
-  });
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMute = () => {
     if (videoRef.current) {
@@ -70,7 +63,7 @@ const About = () => {
             >
               <div className="relative">
                 {isVideoLoaded && (
-                  <div className="absolute h-fit z-10 w-full flex gap-4 justify-end items-center h-[50px] bottom-0 p-4 lg:p-8 bg-gradient-to-t from-black to-transparent">
+                  <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
                     {!isMuted ? 
                       <div onClick={handleMute}>
@@ -120,7 +113,10 @@ const About = () => {
                       </div>
                     }
                     </div>
-                    <a href="">
+                    <a
+                      href="https://www.youtube.com/channel/UCkAxZb4h4AmcBs1t_x1-ieA"
+                      target="_black"
+                    >
                       <div className="py-[6px] pl-[12px] pr-[16px]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +143,7 @@ const About = () => {
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/aboutPageVideo.mp4"
-                  onCanPlayThrough={() => setIsVideoLoaded(true)}
+                  onPlaying={() => setIsVideoLoaded(true)}
                 ></video>
               </div>
             </div>

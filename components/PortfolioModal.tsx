@@ -8,9 +8,14 @@ import { makeImageUrl } from "@/lib/utils";
 const PortfolioModal = ({
   handleClose,
   portfolioImages,
+  size,
+  location
+
 }: {
   handleClose: any;
   portfolioImages: string[];
+  size:number;
+  location:string;
 }) => {
   return ReactDOM.createPortal(
     <div className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8">
@@ -28,11 +33,10 @@ const PortfolioModal = ({
         </div>
         <div className="flex flex-col py-4 gap-4">
           <div className="text-bodyMD lg:text-bodyLG">
-            990 헬렌 에브뉴, 서니베일, 캘리포니아
+           {location}
           </div>
           <div className="flex flex-row gap-2">
-            <div className="text-bodyMD lg:text-bodyLG font-normal">Evo</div>
-            <div className="text-bodyMD lg:text-bodyLG font-normal">8평</div>
+            <div className="text-bodyMD lg:text-bodyLG font-normal">{size}평</div>
           </div>
         </div>
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">

@@ -41,7 +41,7 @@ const OrderCard = ({
         <div className="h-full w-[1px] bg-midGray"></div>
       </div>
 
-      <div className="contentSection text-left px-4 md:px-0">
+      <div className="contentSection text-left px-4 md:px-0" style={{direction:'ltr'}}>
         <div>
           <div className="mb-4 md:mb-[24px]">
             <span className="text-[24px] md:text-[32px] font-light">
