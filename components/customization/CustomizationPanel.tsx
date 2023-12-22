@@ -234,7 +234,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           </div>
           <div
             onClick={() => {
-              if (nextBtnDisable) return;
+              if (!nextBtnDisable) return;
               handlePopupOpen();
             }}
             className={`flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
