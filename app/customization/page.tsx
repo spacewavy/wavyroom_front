@@ -60,8 +60,8 @@ const Customization = () => {
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
-  const [transformedData, setTransformedData] = useState([]);
-  const [selectedItemId, setSelectedItemId] = useState<string>();
+  const [transformedData, setTransformedData] = useState<any[]>([]);
+  const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
 
   useEffect(() => {
