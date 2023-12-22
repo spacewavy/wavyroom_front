@@ -17,14 +17,15 @@ export interface CustomCardProps {
 const CustomizationCard = ({
   id,
   heading,
-  subheading,
   price,
   image,
   path,
   selectedItem,
   handleSelectedItem,
 }: CustomCardProps) => {
-  const { changeModel, changeMeshVisibilityByName } = useThree();
+  // const { changeModel, changeMeshVisibilityByName } = useThree();
+  // console.log(heading, selectedItem === id, selectedItem, id);
+
   return (
     <div
       className={`cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA] px-[16px] md:px-[32px] py-[24px] ${
