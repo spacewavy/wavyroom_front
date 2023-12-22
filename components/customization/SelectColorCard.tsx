@@ -3,6 +3,7 @@ import { ModelColors } from "@/app/redux/types";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AnyAction } from "redux";
+import { useThree } from "../../context/threeContext";
 
 interface SelectColorCardPorps {
   modelColors: ModelColors[];
@@ -10,7 +11,10 @@ interface SelectColorCardPorps {
 
 const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
   const [selectedColorName, setSelectedColorName] = useState("");
+
+  const { changeModelColorFromHex } = useThree();
   const dispatch = useDispatch();
+
   const handleColorClick = (id: string) => {
     dispatch(setCustomizationSelectedColor(id) as unknown as AnyAction);
   };
@@ -37,7 +41,10 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
                 <div
                   key={"color" + index}
                   className="relative w-8 h-8 p-1 cursor-pointer"
-                  onClick={() => handleColorClick(x.id)}
+                  onClick={() => {
+                    handleColorClick(x.id);
+                    changeModelColorFromHex(x.colorId);
+                  }}
                 >
                   <div
                     className="w-full h-full rounded-full"

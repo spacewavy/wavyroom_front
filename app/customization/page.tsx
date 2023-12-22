@@ -49,12 +49,6 @@ const Customization = () => {
   const { data: navigateSettings } = useSelector(
     (state: RootState) => state.navigation
   );
-  const transformedData = data.map((item: ModelDetailItem) => {
-    return {
-      ...item,
-      path: WAVY_MODEL_PATHS[item.name.toUpperCase()],
-    };
-  });
 
   const { changeModel, changeMeshVisibilityByName } = useThree();
   const [showOverlay, setShowOverlay] = useState(false);
@@ -66,40 +60,49 @@ const Customization = () => {
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedItemId, setSelectedItemId] = useState<string>("");
-
-  const [selectedImage, setSelectedImage] = useState(
-    transformedData.find((x: any) => x.id === selectedItemId)
-      ?.representativeImageURL
-  );
+  const [transformedData, setTransformedData] = useState([]);
+  const [selectedItemId, setSelectedItemId] = useState<string>();
+  const [selectedModel, setSelectedModel] = useState<any>(null);
 
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, []);
 
   useEffect(() => {
-      setSelectedItemId(id || '');
-  }, [id]);
+    if (!data) return;
+    const _transformedData = data.map((item: ModelDetailItem) => {
+      return {
+        ...item,
+        path: WAVY_MODEL_PATHS[item.name.toUpperCase()],
+      };
+    });
+    setTransformedData(_transformedData);
+  }, [data]);
 
   useEffect(() => {
-    setSelectedImage(
-      transformedData.find((x: any) => x.id === selectedItemId)
-        ?.representativeImageURL
+    if (!transformedData.length) return;
+    setSelectedItemId(
+      id || transformedData.find((x: any) => x.name === "Mini")?.id
     );
+  }, [transformedData]);
+
+  useEffect(() => {
+    if (!selectedItemId) return;
+    const _selectedItem = transformedData.find(
+      (x: any) => x.id === selectedItemId
+    );
+    setSelectedModel(_selectedItem);
+    console.log("selectedItem", _selectedItem);
   }, [selectedItemId]);
+
+  useEffect(() => {
+    if (!selectedModel) return;
+    changeModel(selectedModel?.path);
+  }, [selectedModel]);
 
   useEffect(() => {
     validateInputs();
   }, [formElements]);
-
-  useEffect(() => {
-    if (!selectedItemId) return;
-    const path = transformedData.find(
-      (_data: any) => _data.id === selectedItemId
-    )?.path;
-    if (!path) return;
-    changeModel(path);
-  }, [selectedItemId, transformedData]);
 
   const handleSelectedItemId = (id: string) => {
     setSelectedItemId(id);
