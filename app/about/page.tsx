@@ -302,9 +302,9 @@ const About = () => {
       <section className="p-4 md:p-8">
         <div className="flex flex-1 flex-col bg-offBlack items-center justify-center gap-4 px-4 py-24 md:py-42">
           <div className="text-white text-[14px] md:text-[24px]">
-            스페이스웨이비에 합류하고 싶나요?
+            {t('about-us.card.text')}
           </div>
-          <div className="text-orange text-[14px]">채용정보 보기</div>
+          <div className="text-orange text-[14px]">{t('about-us.card.navigation-text')}</div>
         </div>
       </section>
     </main>

@@ -14,6 +14,7 @@ import { AnyAction } from "redux";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n/i18n";
+import { changeLanguage } from "@/app/redux/actions/localeActions";
 
 
 const Navbar = ({
@@ -28,12 +29,11 @@ const Navbar = ({
   const [menuType, setMenuType] = useState("");
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const setLanguage = useCallback(
-    (lang: 'ko' | 'en') => {
-      i18n.changeLanguage(lang);
-    },
-    [i18n]
-  );
+
+  
+  const setLanguage = (lang:'en' | 'ko') => {
+    dispatch(changeLanguage(lang) as unknown as AnyAction);
+  }
 
   const openSidebar = (menuName?: string) => {
     setOpen(true);
