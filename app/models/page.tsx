@@ -6,8 +6,10 @@ import { fetchModelData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
 import { ModelItem } from "../redux/types";
+import { useTranslation } from "react-i18next";
 
 const Models = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { data, error } = useSelector((state: RootState) => state.model);
 
@@ -20,7 +22,7 @@ const Models = () => {
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-            모델
+          {t('models.section-1.title')}
           </div>
         </div>
       </section>
