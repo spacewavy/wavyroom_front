@@ -13,19 +13,21 @@ import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
 import { NewsMediaItem } from "../redux/types";
 import { makeImageUrl } from "../../lib/utils";
+import { useTranslation } from "react-i18next";
 
 const Media = () => {
   const dispatch = useDispatch();
   const { data, error } = useSelector((state: RootState) => state.media);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchMediaData("news") as unknown as AnyAction);
   }, []);
 
   const OPTIONS = [
-    { value: "all", label: "전체" },
-    { value: "news", label: "뉴스" },
-    { value: "video", label: "영상" },
+    { value: "all", label: t('media.dropdown-opts.opt-1')},
+    { value: "news", label: t('media.dropdown-opts.opt-2') },
+    { value: "video", label: t('media.dropdown-opts.opt-3') },
   ];
 
   const onDropdownChange = (option: any) => {
@@ -37,10 +39,10 @@ const Media = () => {
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col md:flex-row gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
-            미디어
+            {t('media.title')}
           </div>
           <div className="flex flex-1 flex-col gap-2">
-            <div className="text-[12px] text-midGray">미디어 종류</div>
+            <div className="text-[12px] text-midGray">{t('media.dropdown-title')}</div>
             <WavyDropdown
               options={OPTIONS}
               defaultValue={OPTIONS[0]}
