@@ -130,6 +130,94 @@
         "navigation-button": "Order"
 
     }
+  },
+  "contact-us": {
+    "section-1": {
+      "title" : "Customer Service Center"
+    },
+    "section-1-side": {
+      "heading-1" : "Consultaion Center",
+      "para-1" : "Wavyroom customer support center representatives are available for assistance at all times.",
+      "btn-text" : "Contact",
+      "btn-number" : "+82.02.6085.1896",
+      "heading-2" : "Operating Hours ",
+      "para-2" : "Mon~Fri: 09:00 ~ 18:00",
+      "heading-3" : "Office Address",
+      "para-3" : {
+        "text-1" : "HQ: 17-10 Cheongdam-dong, Gangnam-gu, Seoul",
+        "text-2" : "Factory: 1088-6, Jeongok-ri, Seosin-myeon, Hwaseong-si, Gyeonggi-do"
+      },
+      "heading-4" : "Product & Partnership Inquiries",
+      "para-4" : {
+        "text-1" : "Product inquiry",
+        "text-2" : "Business | Partnership Inquiry",
+        "text-3" : "Recruitment Inquiry"
+      }
+    },
+    "section-2" : {
+      "title" : "Frequently Asked Question"
+    },
+    "section-2-faq" : {
+      "faq-1" : {
+        "question" :"How is Wavyroom different from other modular houses?",
+        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+      },
+      "faq-2" : {
+        "question" : "Will the device be shipped complete?",
+        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+      },
+      "faq-3" : {
+        "question" : "What is Wavyroom’s delivery time?",
+        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+      },
+      "faq-4" : {
+        "question" : "How many years is Wavyroom suitable for use?",
+        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+      },
+      "faq-5" : {
+        "question" : "How is Wavyroom different from other modular houses?",
+        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+      }
+    }
+  },
+  "footer" : {
+    "section-1-links" : {
+      "link-1" : "Model introduction",
+      "link-2" : "About Us",
+      "link-3" : "customer service center",
+      "link-4" : "Customize" 
+    },
+    "section-2" :{
+      "company-name" : {
+        "name" : "Space Wave Co., Ltd."
+      },
+      "ceo-name" : {
+        "name" : " CEO: Hong Yoon-taek"
+      },
+      "address" : {
+        "add" : "Business address: 17-10 Cheongdam-dong, Gangnam-gu, Seoul"
+      },
+      "registration-no" : {
+        "text" : "Business registration number: 179-81-02642"
+      },
+      "phone-no" : {
+        "ph" : "Phone number: 02-6085-1896"
+      },
+      "email" : {
+        "mail" : "Email: info@spacewavy.com"
+      }
+    },
+    "section-3" :{
+      "copy-right" : "All rights reserved"
+    }
+  },
+  "models" : {
+    "section-1" : {
+      "title" : "Model"
+    },
+    "button" : {
+      "text"  : "Order"
+    }
   }
 
 }

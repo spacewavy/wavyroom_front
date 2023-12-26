@@ -16,6 +16,7 @@ export interface ProductCardProps {
 }
 
 const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
+  const { t } = useTranslation();
   return (
     <div className="aspect-[3/3] md:aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12">
       <div className="relative flex flex-1">
@@ -38,7 +39,7 @@ const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
         </div>
         <Link href={`/model-detail?id=${id}`}>
           <CommonButton className="text-labelSM" variant="secondary">
-            주문하기{" "}
+          {t('models.button.text')}{" "}
             <Image alt="right-arrow" src={RightArrowBlack} className="ml-2" />
           </CommonButton>
         </Link>

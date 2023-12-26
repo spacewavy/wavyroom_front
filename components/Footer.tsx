@@ -5,8 +5,10 @@ import Image from "next/image";
 import instagram from "@/assets/icons/instagram.svg";
 import youtube from "@/assets/icons/youtube.svg";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const scrollToTop = () => {
     window.scroll({
       top: 0,
@@ -17,24 +19,24 @@ const Footer = () => {
   return (
     <footer className="w-full flex flex-col gap-16 items-start justify-evenly lg:justify-between bg-offBlack bottom-0 sm:py-[2.06rem] sm:px-8 px-4 py-8">
       <nav className="flex w-full gap-6 text-white text-labelSM sm:text-labelMD">
-        <Link href="/models">모델소개</Link>
-        <Link href="/about">회사소개</Link>
-        <Link href="/contact-us">고객센터</Link>
-        <Link href="#">커스텀하기</Link>
+        <Link href="/models">{t('footer.section-1-links.link-1')}</Link>
+        <Link href="/about">{t('footer.section-1-links.link-2')}</Link>
+        <Link href="/contact-us">{t('footer.section-1-links.link-3')}</Link>
+        <Link href="#">{t('footer.section-1-links.link-4')}</Link>
       </nav>
       <section className="flex flex-col w-full gap-8">
         <p className="w-48 font-light sm:w-56 text-bodySM sm:text-bodyMD text-darkGray">
-          ㈜스페이스웨이비
+          {t('footer.section-2.company-name.name')}
           <br />
-          대표이사: 홍윤택
+          {t('footer.section-2.ceo-name.name')}
           <br />
-          사업장 주소: 서울시 강남구 청담동 17-10
+          {t('footer.section-2.address.add')}
           <br />
-          사업자 등록번호: 179-81-02642
+          {t('footer.section-2.registration-no.text')}
           <br />
-          전화번호: 02-6085-1896
+          {t('footer.section-2.phone-no.ph')}
           <br />
-          이메일: info@spacewavy.com
+          {t('footer.section-2.email.mail')}
         </p>
         <div className="flex flex-row items-end justify-between gap-3 lg:gap-20">
           <div className="flex flex-1 flex-col lg:flex-row justify-between gap-8">
@@ -65,11 +67,11 @@ const Footer = () => {
               </Link>
             </nav>
             <p className="hidden md:flex flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
-              Copyright @ 2024 Spacewavy Co., Ltd. 모든 권리 보유.
+              Copyright @ 2024 Spacewavy Co., Ltd. {t('footer.section-3.copy-right')}.
             </p>
             <p className="flex md:hidden flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
               Copyright @<br />
-              2024 Spacewavy Co., Ltd. 모든 권리 보유.
+              2024 Spacewavy Co., Ltd. {t('footer.section-3.copy-right')}.
             </p>
           </div>
           <CommonButton
