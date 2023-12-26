@@ -30,6 +30,19 @@
     "menu": "Menu",
     "order-button": "Order"
   },
+  "sidebar": {
+    "items":{
+        "menu": "Menu",
+        "about": "About us",
+        "model": "Model",
+        "how-to-order": "How to order",
+        "portfolio": "Portfolio",
+        "media": "Media",
+        "customer": "Customer Service"
+    },
+    "call-inquire": "Contact"
+
+  },
   "about-us": {
     "section-1": {
       "text": "Spacewavy",
@@ -73,6 +86,50 @@
         "heading": "An outstanding design",
         "sub-heading": "We provide beautiful and functional designs through our R&D organization, comprised of architects, industrial designers, and spatial designers who have been active in the global construction market."
       }
+    },
+    "card": {
+        "text": "Do you want to join Spacewavy?",
+        "navigation-text": "View all products"
+    }
+  },
+  "how-to-order": {
+    "heading": {
+        "text-1": "Create your own space with ease.",
+        "text-2": "Explore the manufacturing process of Wavyroom."
+    },
+    "card-1": {
+        "period": "1 day",
+        "heading": "Advancing the contract",
+        "description": "Upon placing an order, based on the estimate generated, a representative will contact you within one day to guide you through the contract process."
+    },
+    "card-2": {
+        "period": "3~6 months",
+        "heading": "Permit processing",
+        "description": "For construction, obtaining permits typically takes around 3 to 6 months. Wavyroom has all the necessary drawings and documents prepared for the permitting process, enabling a faster progression."
+    },
+    "card-3": {
+        "period": "6~12 weeks",
+        "heading": "Wavyroom production",
+        "description": "After completing the construction filing, we will guide you through the production consent process. Once the earliest possible start date for production is determined, we will communicate the estimated schedule to the customer. *If foundation work is required, a separate estimated schedule will be provided as soon as the earliest start date for production is determined.*For projects requiring basic infrastructure work, please inquire separately, and we will assist you throughout the process."
+    },
+    "card-4": {
+        "period": "2 days",
+        "heading": "Product inspection and shipping",
+        "description": "After the completion of the production, a final inspection will be conducted at the Wavyroom factory with the customer. "
+    },
+    "card-5": {
+        "period": "1 day ",
+        "heading": "Installation",
+        "description": "After shipping, the installation will be carried out on-site through the transportation team. "
+    },
+    "info-card": {
+        "title": {
+            "text-1": "Say goodbye to complicated construction processes and join us for a party at Wavyroom!",
+            "text-2": ""
+        },
+        "navigation-button": "Order"
+
     }
   }
+
 }

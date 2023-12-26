@@ -8,6 +8,7 @@ import {
 } from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
 import {fetchCustomizationOptionsDataReducer,navigateToSettings} from "./customizationReducers";
+import localeReducer from "./localeReducers";
 
 const rootReducer = combineReducers({
   media: fetchDataReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   aboutReputataion: fetchAboutReputationDataReducer,
   modelDetail: fetchModelDetailsDataReducer,
   customization:fetchCustomizationOptionsDataReducer,
-  navigation:navigateToSettings
+  navigation:navigateToSettings,
+  locale:localeReducer
 });
 
 export default rootReducer;

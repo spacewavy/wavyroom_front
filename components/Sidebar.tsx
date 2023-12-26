@@ -28,6 +28,7 @@ import {
   fetchCustomizationOptionsData,
   navigateToSettings,
 } from "@/app/redux/actions/customizationActions";
+import { useTranslation } from "react-i18next";
 
 interface SidebarItemChildren {
   id: number;
@@ -51,24 +52,25 @@ const sidebarItemChildrens: SidebarItemChildren[] = [
   { id: 6, title: "전체보기", desc: "", rate: "" },
 ];
 
-const sidebarItems: SidebarItem[] = [
-  { id: 1, title: "회사소개", link: "/about" },
-  { id: 2, title: "모델", childrens: sidebarItemChildrens },
-  { id: 3, title: "주문방법", link: "/how-to-order" },
-  { id: 4, title: "포트폴리오", link: "/portfolio" },
-  { id: 5, title: "미디어", link: "/media" },
-  { id: 6, title: "고객센터", link: "/contact-us" },
-];
 
 const Sidebar = ({ open, setOpen, menuType }: any) => {
   const [selectedMenuId, setSelectedMenuId] = useState(0);
   const [selectedListId, setSelectedListId] = useState("");
-
+  const { t } = useTranslation() 
+  
+  const sidebarItems: SidebarItem[] = [
+    { id: 1, title: t('sidebar.items.about'), link: "/about" },
+    { id: 2, title: t('sidebar.items.model'), childrens: sidebarItemChildrens },
+    { id: 3, title: t('sidebar.items.how-to-order'), link: "/how-to-order" },
+    { id: 4, title: t('sidebar.items.portfolio'), link: "/portfolio" },
+    { id: 5, title: t('sidebar.items.media'), link: "/media" },
+    { id: 6, title: t('sidebar.items.customer'), link: "/contact-us" },
+  ];
   const dispatch = useDispatch();
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
-  );
-
+    );
+    
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, []);
@@ -119,7 +121,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-1 gap-8 py-12">
-          <div className="hidden md:flex text-[20px] mb-4">메뉴</div>
+          <div className="hidden md:flex text-[20px] mb-4">{t('sidebar.items.menu')}</div>
           {sidebarItems.map((item: SidebarItem, index) => {
             const isLink = !!item.link;
             return isLink ? (
@@ -157,7 +159,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           })}
         </div>
         <div className="flex flex-col items-start w-full gap-8">
-          <SelectLang fontStyleClass="" />
+          <SelectLang />
           <CallInquery />
         </div>
       </section>
