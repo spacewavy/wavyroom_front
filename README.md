@@ -35,4 +35,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 ## Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-ssh -i “wavyroom-front.pem” ubuntu@ec2-43-202-41-92.ap-northeast-2.compute.amazonaws.com
+ssh -i "wavyroom-front.pem" ubuntu@ec2-43-202-41-92.ap-northeast-2.compute.amazonaws.com

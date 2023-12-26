@@ -64,7 +64,7 @@ const ProductCarousel = () => {
             );
           })}
         </div>
-        <div className="embla__dots">
+        {/* <div className="embla__dots">
           {CAROUSEL_ITEMS.map((_, index) => {
             // return <div key={index}>hi</div>;
             return (
@@ -77,7 +77,7 @@ const ProductCarousel = () => {
               />
             );
           })}
-        </div>
+        </div> */}
         <div className="flex flex-col items-center justify-between gap-8 pt-8">
           <div className="flex gap-[4px] text-[12px] md:text-[14px] lg:text-[16px] font-light">
             <span>{CAROUSEL_ITEMS[selectedIndex].imageText[0]}</span>
@@ -94,6 +94,17 @@ const ProductCarousel = () => {
               <Image alt="right-arrow" src={RightArrowOrange} />
             </Link>
           </div>
+        </div>
+        <div className="embla__dots flex flex-row gap-2">
+          {CAROUSEL_ITEMS.map((_, index) => (
+            <div
+              className={`h-2 w-2 rounded cursor-pointer ${
+                index === selectedIndex ? "bg-orange" : "bg-gray"
+              }`}
+              key={index}
+              onClick={() => onDotButtonClick(index)}
+            />
+          ))}
         </div>
       </div>
     </div>
