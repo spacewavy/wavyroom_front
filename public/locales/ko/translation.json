@@ -40,7 +40,23 @@
         "media": "미디어",
         "customer": "고객센터"
     },
-    "call-inquire": "문의"
+    "call-inquire": "문의",
+    "details": {
+      "specification": "스펙",
+      "price": "가격",
+      "standard": "규격",
+      "floor-plain": "평형 디테일",
+      "exterior-material": "외장재",
+      "exterior-color": "외부색",
+      "insulation": "단열",
+      "framework": "골조 (스트럭쳐)",
+      "windows": "창호",
+      "furniture": "가구",
+      "purpose": "용도",
+      "purpose-discription": "용도 설명",
+      "order": "주문하기",
+      "see-product": "제품 상세보기"
+  }
   },
   "about-us": {
     "section-1": {
@@ -128,6 +144,44 @@
       },
       "navigation-button": "주문하기"
   }
+  },
+  "media": {
+    "title": "미디어",
+    "dropdown-title": "미디어 종류",
+    "dropdown-opts": {
+      "opt-1": "전체",
+      "opt-2": "뉴스",
+      "opt-3": "영상"
+    } 
+  },
+  "customization": {
+    "canvas-text": "모델을 마우스로 드래그하여 구성을 회전하세요 ",
+    "tire-1": {
+        "heading": "웨이비룸",
+        "description": {
+          "text-1":"웨이비룸은 이런 저런 것입니다.",
+          "text-2":"고객님께 알맞는 모델을 선택하여 커스텀 해보세요."
+        },
+        "next": "다음"
+    },
+    "popup":{
+      "title": "내가 만든 모델을 예약해보세요",
+      "sub-title": "고객님의 정보를 입력하시면 이메일로 보내드리겠습니다.",
+      "name-placeholder": "이름을 입력하세요",
+      "email-placeholder": "이메일 주소를 입력하세요",
+      "phone-placeholder": "휴대전화번호를 입력하세요",
+      "address-placeholder": "주소를 입력하세요",
+      "button-text": "완료"
+    },
+    "summery": {
+      "header": "주문 요약",
+      "model-type": "모델",
+      "floor-type": "층수 형태",
+      "exterior-color": "외장재 색상",
+      "estimated": "예상 견적",
+      "currency": "원",
+      "button-text": "다음"
+    }
   },
   "contact-us": {
     "section-1": {

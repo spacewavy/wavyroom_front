@@ -40,7 +40,23 @@
         "media": "Media",
         "customer": "Customer Service"
     },
-    "call-inquire": "Contact"
+    "call-inquire": "Contact",
+    "details": {
+        "specification": "specifications",
+        "price": "Price",
+        "standard": "Standard",
+        "floor-plan": "Detailed floor plan",
+        "exterior-material": "Exterior material",
+        "exterior-color": "Exterior material color",
+        "insulation": "Insulation",
+        "framework": "Structural framework (Structure)",
+        "windows": "Windows",
+        "furniture": "Furniture",
+        "purpose": "Purpose",
+        "purpose-discription": "Purpose description",
+        "order": "Order",
+        "see-product": "See product details"
+    }
 
   },
   "about-us": {
@@ -130,6 +146,44 @@
         "navigation-button": "Order"
 
     }
+  },
+  "media": {
+    "title": "Media",
+    "dropdown-title": "Media type",
+    "dropdown-opts": {
+      "opt-1": "all",
+      "opt-2": "news",
+      "opt-3": "videos"
+    } 
+  },
+  "customization": {
+    "canvas-text": "Drag the model with the mouse to rotate the configuration",
+    "tire-1": {
+        "heading": "Wavyroom",
+        "description": {
+          "text-1":"Wavyroom is one thing or another.",
+          "text-2":"Choose the model that suits you and customize it."
+        },
+        "next": "Next"
+    },
+    "popup":{
+        "title": "Reserve the model you created",
+        "sub-title": "If you provide your information, we will send it to you via email.",
+        "name-placeholder": "Please enter your name",
+        "email-placeholder": "Please enter your email address",
+        "phone-placeholder": "Please enter your mobile phone number",
+        "address-placeholder": "Please enter your address",
+        "button-text": "Complete"
+      },
+      "summery": {
+        "header": "Order summary",
+        "model-type": "Model",
+        "floor-type": "Floor type",
+        "exterior-color": "Exterior material color",
+        "estimated": "Estimated quote",
+        "currency": "₩",
+        "button-text": "Next"
+      }
   },
   "contact-us": {
     "section-1": {

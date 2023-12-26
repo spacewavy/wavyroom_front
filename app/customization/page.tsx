@@ -23,6 +23,7 @@ import {
   navigateToSettings,
 } from "../redux/actions/customizationActions";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export interface Product {
   id: number;
@@ -200,16 +201,16 @@ const Customization = () => {
         >
           <div className="px-[24px] pt-8 pb-4 lg:px-8 lg:py-8">
             <div className="lg:text-[32px] text-[24px] font-light pb-[8px] color=[#000]">
-              <h1>내가 만든 모델을 예약해보세요</h1>
+              <h1>{t('customization.popup.title')}</h1>
             </div>
             <div className="lg:text-[14px] text-[12px] font-light pb-4 color=[#4D4D4D]">
-              <p>고객님의 정보를 입력하시면 이메일로 보내드리겠습니다.</p>
+              <p>{t('customization.popup.sub-title')}</p>
             </div>
             <div className="gap-4 mb-16">
               <input
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="text"
-                placeholder="이름을 입력하세요"
+                placeholder={t('customization.popup.name-placeholder')}
                 value={formElements.name}
                 onChange={(e) => {
                   handleFormElement(e, "name");
@@ -219,7 +220,7 @@ const Customization = () => {
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="email"
                 value={formElements.email}
-                placeholder="이메일 주소를 입력하세요"
+                placeholder={t('customization.popup.email-placeholder')}
                 onChange={(e) => {
                   handleFormElement(e, "email");
                 }}
@@ -228,7 +229,7 @@ const Customization = () => {
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="number"
                 value={formElements.phone}
-                placeholder="휴대전화번호를 입력하세요"
+                placeholder={t('customization.popup.phone-placeholder')}
                 onChange={(e) => {
                   handleFormElement(e, "phone");
                 }}
@@ -237,7 +238,7 @@ const Customization = () => {
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="address"
                 value={formElements.address}
-                placeholder="주소를 입력하세요"
+                placeholder={t('customization.popup.address-placeholder')}
                 onChange={(e) => {
                   handleFormElement(e, "address");
                 }}
@@ -272,7 +273,7 @@ const Customization = () => {
                   isButtonDisabled ? "bg-gray pointer-events-none" : "bg-jetBlack"
                 }`}
               >
-                <span>완료</span>
+                <span>{t('customization.popup.button-text')}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -302,6 +303,8 @@ const Customization = () => {
 
   if (error) return;
   if (!transformedData) return;
+  const { t } = useTranslation();
+
   return (
     <div>
       <div className="relative flex flex-col lg:flex-row max-w-[100vw] overflow-hidden h-[100vh]">
@@ -327,7 +330,7 @@ const Customization = () => {
             <WavyCanvas openMenu={openMenu} />
             <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
               <Image src={IntentRequest} alt="icon" />
-              <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
+              <p>{t('customization.canvas-text')}</p>
             </div>
           </div>
         </div>
