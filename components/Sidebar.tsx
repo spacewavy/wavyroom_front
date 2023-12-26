@@ -70,10 +70,11 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
     );
+    const { language } = useSelector((state: any) => state.locale);
     
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (!open) return;

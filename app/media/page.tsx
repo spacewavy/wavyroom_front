@@ -18,11 +18,13 @@ import { useTranslation } from "react-i18next";
 const Media = () => {
   const dispatch = useDispatch();
   const { data, error } = useSelector((state: RootState) => state.media);
+  const { language } = useSelector((state: any) => state.locale);
+
   const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchMediaData("news") as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   const OPTIONS = [
     { value: "all", label: t('media.dropdown-opts.opt-1')},

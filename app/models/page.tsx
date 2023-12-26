@@ -12,10 +12,12 @@ const Models = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { data, error } = useSelector((state: RootState) => state.model);
+  const { language } = useSelector((state: any) => state.locale);
+
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   return (
     <main className="flex flex-col flex-1">

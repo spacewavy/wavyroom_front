@@ -15,10 +15,11 @@ const Portfolio = () => {
   const { data, error } = useSelector(
     (state: RootState) => state.portfolio
   );
+  const { language } = useSelector((state: any) => state.locale);
 
   useEffect(()=>{
     dispatch(fetchPortfolioData('all')  as unknown as AnyAction)
-  },[])
+  },[language])
 
 
   const OPTIONS = [
