@@ -70,11 +70,13 @@
 }
 .embla__dots {
   z-index: 1;
-  bottom: 1.6rem;
-  position: absolute;
-  left: 0;
-  right: 0;
+  /* bottom: 1.6rem; */
+  /* position: absolute; */
+  /* left: 0; */
+  /* right: 0; */
+  padding-top: 32px;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
@@ -85,6 +87,7 @@
   align-items: center;
   margin-right: 0.75rem;
   margin-left: 0.75rem;
+  background-color: yellow;
 }
 .embla__dot:after {
   background: var(--background-site);
