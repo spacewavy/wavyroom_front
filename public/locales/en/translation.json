@@ -1,0 +1,78 @@
+{
+  "home": {
+    "section-2": {
+      "title": "Wavyroom",
+      "heading": {
+        "text-1": "“Simply order,",
+        "text-2": "and get a quality space”"
+      },
+      "description": "Choose the right model for you and create yout own space.",
+      "button-text": "Order"
+    },
+    "section-4": {
+      "title": "Our Vision",
+      "heading": {
+        "text-1": "Transformed into",
+        "text-2": "an innovative product"
+      }
+    },
+    "card": {
+      "title": {
+        "text-1": "It is possible to create various",
+        "text-2": "types of spaces by combining",
+        "text-3": "Wavyroom modules."
+      },
+      "navigation-text": "Product Full View"
+    }
+  },
+  "navbar": {
+    "model": "Model",
+    "menu": "Menu",
+    "order-button": "Order"
+  },
+  "about-us": {
+    "section-1": {
+      "text": "Spacewavy",
+      "para": "We focus on products that are elaborately designed and perfecty manufactured through the commercialization of homes and the manufacturing of construction."
+    },
+    "section-2": {
+      "title": "Our vision and mission",
+      "header": "Movement of culture through commercialization of space",
+      "description": {
+        "desc-1": "We have developed a better approach in construction methods, prioritizing certainty in design and ensuring uncompromised quality.",
+        "desc-2": "From our self-owned production facilities to project management services and installation sites, our team possesses the knowledge and experience to design and execute modular spaces. Since 2019, we have started supplying doemstically and are currently exporting to international markets, placing customers at the center of this entire process. We aim to redefine the meaning of ‘home’ and create permanent spaces through productization."
+      }
+    },
+    "section-3": {
+      "title": "Our products",
+      "header": {
+        "text-1": "Carefully designed,",
+        "text-2": "perfectly constructed space"
+      },
+      "description": {
+        "desc-1": "We envision a future where everyone has a better home. Everyone living in a meticulously designed and well-built dwelling that inspires, functions seamlessly, and considers the environment, we aspire to a world where our living splaces enhance our lives.",
+        "desc-2": "Wavyroom inspires you to reimagine the potential of every site, offering beautiful and flexible spaces tailored to your lifestyle. Whether it’s a second home for relaxation, a guest home for inviting friends and family to share happy moments, or a space for additional income through commercialization, such as offices or F&B ventures, Wavyroom is committed to providing spaces that align with you, both now and in the future."
+      }
+    },
+    "section-4": {
+      "title": "Our value",
+      "header": {
+        "text-1": "Easy Construction Process",
+        "text-2": "A valuable residential space"
+      },
+      "description": "Technology has transformed industries, and the construction sector is no exception. We have now created better methods for building homes. We prioritize transparency in pricing and certainty in design, refusing to compromise on quality. We produce a meticulously crafted product - a high-quality “home” with impeccable completion.",
+      "list-1": {
+        "heading": "Constant and high quality production",
+        "sub-heading": "We produce consistently high-quality homes through Spacewavy's expertise embedded in our self-operated manufacturing facility. Our production line reflects the know-how of SpaceWavy, ensuring a consistently high level of quality."
+      },
+      "list-2": {
+        "heading": "An outstanding design",
+        "sub-heading": "We provide beautiful and functional designs through our R&D organization, comprised of architects, industrial designers, and spatial designers who have been active in the global construction market."
+      },
+      "list-3": {
+        "heading": "An outstanding design",
+        "sub-heading": "We provide beautiful and functional designs through our R&D organization, comprised of architects, industrial designers, and spatial designers who have been active in the global construction market."
+      }
+    }
+  }
+}

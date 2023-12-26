@@ -12,6 +12,7 @@ import { RootState } from "../app/redux/reducers";
 import { ModelItem } from "../app/redux/types";
 import homePageVideoLoadingImage from "../public/images/homePageVideoLoadingImage.jpeg";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -19,6 +20,7 @@ const Home = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.model);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
@@ -162,24 +164,25 @@ const Home = () => {
     <main className="flex flex-col flex-1">
       {renderVideoSection()}
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
-        <Label>웨이비룸</Label>
+        <Label>{t('home.section-2.title')}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">
-          간편하게 주문하고 <br /> 품질 높은 공간을 받아보세요
+        {t('home.section-2.heading.text-1')} <br /> {t('home.section-2.heading.text-2')}
+          
         </h1>
         <p className="font-light text-bodySM md:text-[14px] lg:text-bodyLG">
-          나에게 맞는 모델을 선택하여 나만의 공간을 만들어 보세요
+        {t('home.section-2.description')}
         </p>
         <div className="flex flex-row gap-4 pt-[32px] font-size: 12px;">
-          <Button name="주문하기" arrow varient="default" />
+          <Button name= {t('home.section-2.button-text')} arrow varient="default" />
         </div>
       </section>
       <section className="pb-4 pt-8 md:pt-16 md:pb-8 lg:pt-24 lg:pb-16">
         <ProductCarousel />
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
-        <Label>우리의 비전</Label>
+        <Label>{t('home.section-4.title')}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG">
-          혁신적인 제품으로 <br /> 재탄생하다
+        {t('home.section-4.heading.text-1')} <br /> {t('home.section-4.heading.text-2')}
         </h1>
       </section>
       <section className="grid w-full grid-cols-1 lg:grid-cols-2">
