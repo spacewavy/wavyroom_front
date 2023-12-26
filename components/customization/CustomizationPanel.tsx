@@ -439,7 +439,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                   return (
                     opt.isSelected && (
                       <div className="px-8 py-4 flex justify-between">
-                        <span className="text-[14px] font-normal">옵션</span>
+                        <span className="text-[14px] font-normal">{sec.name}</span>
                         <span className="text-[12px] font-light">
                           {opt.name}
                         </span>
@@ -459,7 +459,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                   <div className="px-8 py-4 flex justify-between">
                     <span className="text-[14px] font-normal">
                       {sec.optionDetails.some((x) => x.isSelected)
-                        ? "Multiple"
+                        ? sec.name
                         : ""}
                     </span>
                     <div className="flex flex-col items-end">

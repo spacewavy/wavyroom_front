@@ -245,7 +245,7 @@ const Customization = () => {
             </div>
 
             <div className="flex justify-center items-center gap-2">
-              <div className="w-[42px] h-[42px] p-[11px] border-[1px] rounded-full flex justify-center items-center">
+              <div className="w-[42px] h-[42px] p-[11px] border-[1px] rounded-full flex justify-center items-center cursor-pointer" onClick={handlePopupClose}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -269,7 +269,7 @@ const Customization = () => {
               <button
                 onClick={handleFormSubmit}
                 className={`flex justify-center items-center gap-1 w-full text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${
-                  isButtonDisabled ? "bg-gray" : "bg-jetBlack"
+                  isButtonDisabled ? "bg-gray pointer-events-none" : "bg-jetBlack"
                 }`}
               >
                 <span>완료</span>
