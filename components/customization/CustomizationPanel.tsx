@@ -107,9 +107,9 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         data.modelFloorOptions.findIndex((x: ModelFloorOptions) => x.isSelected)
       ];
     const secondOpt = selectedFloor?.modelSecondOptions;
-    const _valid = secondOpt?.every((item: ModelSecondOption) =>
+    const _valid = secondOpt?.filter((item: ModelSecondOption) =>
       item.optionDetails.some((o) => o.isSelected)
-    );
+    ).length >= 1;
     if (_valid) {
       setNextBtnDisable(false);
     } else {
@@ -234,7 +234,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           </div>
           <div
             onClick={() => {
-              if (!nextBtnDisable) return;
+              if (nextBtnDisable) return;
               handlePopupOpen();
             }}
             className={`flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
