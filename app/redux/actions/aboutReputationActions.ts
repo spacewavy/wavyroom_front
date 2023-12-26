@@ -4,14 +4,17 @@ export const FETCH_ABOUT_REPUTATION_DATA_SUCCESS = 'FETCH_ABOUT_REPUTATION_DATA_
 export const FETCH_ABOUT_REPUTATION_DATA_FAILURE = 'FETCH_ABOUT_REPUTATION_DATA_FAILURE';
 
 export const fetchAboutReputationData = () => {
-  return async (dispatch:any) => {
+  return async (dispatch: any, getState: any) => {
     try {
-      const response = await axiosInstance.get(`/reputation`);
+      const language = getState().locale.language;
+      const response = await axiosInstance.get(`/reputation`, {
+        headers: { 'language': language },
+      });
       dispatch({
         type: FETCH_ABOUT_REPUTATION_DATA_SUCCESS,
         payload: response.data.data,
       });
-    } catch (error:any) {
+    } catch (error: any) {
       dispatch({
         type: FETCH_ABOUT_REPUTATION_DATA_FAILURE,
         payload: error.message,

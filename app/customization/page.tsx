@@ -64,10 +64,11 @@ const Customization = () => {
   const [transformedData, setTransformedData] = useState<any[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
+  const { language} = useSelector((state: any) => state.locale);
 
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (!data) return;
@@ -172,7 +173,7 @@ const Customization = () => {
       } = await axiosInstance.post("/reservation", postData, {
         headers: {
           Accept: "application/json",
-          language: "KO",
+          'language': language,
         },
       });
       router.push(`/customization-completion?id=${data.id}`);

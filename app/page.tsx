@@ -21,10 +21,11 @@ const Home = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.model);
   const { t } = useTranslation();
+  const { language} = useSelector((state: any) => state.locale);
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   const handleMute = () => {
     if (videoRef.current) {

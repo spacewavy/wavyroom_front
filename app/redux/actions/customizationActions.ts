@@ -9,12 +9,13 @@ export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE = "SET_CUSTOMIZATION_KITCHE
 export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
 
 export const fetchCustomizationOptionsData = (itemId: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: any, getState: any) => {
     try {
+      const language = getState().locale.language;
       const response = await axiosInstance.get(
         `/model/${itemId}/custom-selections`,{
           headers: {
-            'language': "KO",
+            'language': language,
           },
         }
       );

@@ -8,6 +8,7 @@ import axiosInstance from "../../api/axioInstance";
 import { useSearchParams } from "next/navigation";
 import CallInquery from "../../components/CallInquery";
 import { makeImageUrl } from "../../lib/utils";
+import { useSelector } from "react-redux";
 
 const Completion = () => {
   const searchParams = useSearchParams();
@@ -15,6 +16,8 @@ const Completion = () => {
   const pdfRefElement = useRef<HTMLDivElement>(null);
 
   const [result, setResult] = useState<any>(null);
+  const { language } = useSelector((state: any) => state.locale);
+
 
   useEffect(() => {
     if (!id) return;
@@ -28,7 +31,7 @@ const Completion = () => {
       } = await axiosInstance.get(`/reservation/${id}`, {
         headers: {
           Accept: "application/json",
-          language: "KO",
+          'language': language,
         },
       });
       setResult(data);

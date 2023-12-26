@@ -25,10 +25,11 @@ const About = () => {
   const { data, error } = useSelector(
     (state: RootState) => state.aboutReputataion
   );
+  const { language } = useSelector((state: any) => state.locale);
 
   useEffect(() => {
     dispatch(fetchAboutReputationData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   const handleMute = () => {
     if (videoRef.current) {

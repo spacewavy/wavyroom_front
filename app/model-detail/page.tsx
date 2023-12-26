@@ -27,10 +27,11 @@ const ModelDetail = () => {
   );
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const { language } = useSelector((state: any) => state.locale);  
 
   useEffect(() => {
     dispatch(fetchModelDetailData(id || "") as unknown as AnyAction);
-  }, [id]);
+  }, [id, language]);
 
   const modelDescription = [
     {
