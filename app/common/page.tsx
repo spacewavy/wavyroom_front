@@ -1,3 +1,4 @@
+"use client";
 import ImageNova from '@/assets/Products/Nova.svg';
 import AddCircleBlack from '@/assets/icons/AddCircleBlack.svg';
 import CloseBlack from '@/assets/icons/CloseBlack.svg';
