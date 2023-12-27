@@ -1,3 +1,4 @@
+"use client"
 import Imageh from "@/assets/how-to-order/order-page-img.png";
 import howToOrderImage from "@/assets/how-to-order/how-to-order.webp";
 import image1 from "@/assets/how-to-order/Wavyroom_How_to_Order_1.png";
@@ -8,42 +9,44 @@ import image5 from "@/assets/how-to-order/Wavyroom_How_to_Order_5.png";
 
 import OrderCard from "@/components/OrderCard";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const HowToOrder = () => {
+  const {t} = useTranslation()
   const data = [
     {
       Image: image1,
-      heading: "1일",
-      subHeading: "계약 진행",
-      text: "주문하기를 통해 산출된 견적서 토대로 담당자가 1일내로 연락하여 계약절차를 안내드립니다.",
+      heading: t('how-to-order.card-1.period'),
+      subHeading: t('how-to-order.card-1.heading'),
+      text: t('how-to-order.card-1.description'),
       imageRight: false,
     },
     {
       Image: image2,
-      heading: "3~6개월",
-      subHeading: "계약 진행",
-      text: "건축을 위한 인허가는 통상적으로 3~6개월 정도 소요됩니다. 웨이비룸은 인허가 절차에 필요한 모든 도면과 서류가 준비되어있어 보다 빠른 진행이 가능합니다.",
+      heading: t('how-to-order.card-2.period'),
+      subHeading: t('how-to-order.card-2.heading'),
+      text: t('how-to-order.card-2.description'),
       imageRight: true,
     },
     {
       Image: image3,
-      heading: "6~12주",
-      subHeading: "웨이비룸 제작",
-      text: "건축신고를 마친 후 제작 동의서를 안내드립니다. 제작을 시작할 수 있는 가장 빠른 일정이 정해지는대로 예상 일정을 고객에게 전달드립니다.*기초작업이 필요한 경우 별도로 제작을 시작할 수 있는 가장 빠른 일정이 정해지는대로 예상 일정을 고객에게 전달드립니다.*기초 인프라작업이 필요한 경우 별도로 문의주시면 함께 진행해드립니다.",
+      heading: t('how-to-order.card-3.period'),
+      subHeading: t('how-to-order.card-3.heading'),
+      text: t('how-to-order.card-3.description'),
       imageRight: false,
     },
     {
       Image: image4,
-      heading: "2일",
-      subHeading: "제품 검수 및 출고",
-      text: "제작 완료 후 웨이비룸 공장에서 고객님과 최종 검수를 진행합니다.",
+      heading: t('how-to-order.card-4.period'),
+      subHeading: t('how-to-order.card-4.heading'),
+      text: t('how-to-order.card-4.description'),
       imageRight: true,
     },
     {
       Image: image5,
-      heading: "1일",
-      subHeading: "설치",
-      text: "출고 후 운반팀을 통해 현장에 설치합니다.",
+      heading: t('how-to-order.card-5.period'),
+      subHeading: t('how-to-order.card-5.heading'),
+      text: t('how-to-order.card-5.description'),
       imageRight: false,
     },
   ];
@@ -51,9 +54,10 @@ const HowToOrder = () => {
     <main className="flex flex-col flex-1">
       <section className="pt-16 md:pt-32 lg:pt-[120px] px-8 lg:px-0 pb-8 lg:pb-[120px] text-[28px] md:text-[40px] lg:text-[58px] font-light text-center">
         <h1 className="text-darkGray">
-          나만의 공간을 최대한 쉽게. <br />
+          {t('how-to-order.heading.text-1')}
+          <br />
         </h1>
-        <h1 className="text-jetBlack">웨이비룸의 제작 과정을 알아보세요.</h1>
+        <h1 className="text-jetBlack">{t('how-to-order.heading.text-2')}</h1>
       </section>
 
       <section className="grid w-full grid-cols-1 gap-[48px] md:gap-0 py-16 lg:py-[120px] px-0 md:px-8 lg:px-[264px]">
@@ -73,12 +77,12 @@ const HowToOrder = () => {
       <hr className="my-0 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
       <section className="flex justify-center align-center flex-col gap-4 p-8 bg-black m-4 md:m-8">
         <p className="text-white text-center text-[18px] md:text-[28px] font-light">
-          Welcome!<br></br>복잡한 건설과정과 작별인사를 하고,<br></br>
-          웨이비룸에서 파티를 열어보세요!
+          Welcome!<br></br>{t('how-to-order.info-card.title.text-1')}<br></br>
+          {t('how-to-order.info-card.title.text-2')}
         </p>
         <div className="flex justify-center gap-[4px] px-4 py-2">
           <p className="text-orange text-center text-sm font-medium text-[14px]">
-            주문하기
+            {t('how-to-order.info-card.navigation-button')}
           </p>
           <svg
             xmlns="http://www.w3.org/2000/svg"

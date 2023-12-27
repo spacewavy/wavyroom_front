@@ -1,4 +1,5 @@
 import axiosInstance from "@/api/axioInstance";
+import store from "../store";
 
 export const FETCH_MODEL_DATA_SUCCESS = "FETCH_MODEL_DATA_SUCCESS";
 export const FETCH_MODEL_DATA_FAILURE = "FETCH_MODEL_DATA_FAILURE";
@@ -12,13 +13,15 @@ export const FETCH_MODEL_DETAIL_DATA_FAILURE =
   "FETCH_MODEL_DETAIL_DATA_FAILURE";
 
 export const fetchModelData = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: any, getState: any) => {
     try {
+      const language = getState().locale.language;
       const response = await axiosInstance.get(
         `/model/default`,
         {
           headers: {
             Accept: "*/*",
+            'language':language
           },
         }
       );
@@ -36,13 +39,15 @@ export const fetchModelData = () => {
 };
 
 export const fetchNavigationModelData = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: any, getState:any) => {
     try {
+      const language = getState().locale.language;
       const response = await axiosInstance.get(
         `/model/navigation`,
         {
           headers: {
             Accept: "*/*",
+            'language':language
           },
         }
       );
@@ -60,14 +65,15 @@ export const fetchNavigationModelData = () => {
 };
 
 export const fetchModelDetailData = (id: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: any, getState: any) => {
     try {
-      // debugger;
+      const language = getState().locale.language;
       const response = await axiosInstance.get(
         `/model/${id}`,
         {
           headers: {
             Accept: "*/*",
+            'language': language
           },
         }
       );
