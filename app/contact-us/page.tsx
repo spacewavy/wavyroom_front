@@ -102,7 +102,7 @@ const ContactUs = () => {
       </section>
       <section className="px-4 py-16 md:px-8 md:py-32">
         <div className="flex flex-col lg:flex-row gap-4">
-          <Title className="flex flex-1">  {t('contact-us.section-2.title')}</Title>
+          <Title className="flex flex-1">{t('contact-us.section-2.title')}</Title>
           <div className="flex flex-col flex-1 md:py-8 lg:py-0">
             {FAQs.map((item, index) => (
               <FaqItem
