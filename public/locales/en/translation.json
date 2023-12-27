@@ -183,6 +183,22 @@
         "estimated": "Estimated quote",
         "currency": "₩",
         "button-text": "Next"
+      },
+      "customization-completion" : {
+        "title" : "Congratulations!",
+        "sub-title" : "model has been completed.",
+        "mail" : "A quotation was sent to"
+      },
+      "section-2" :{
+        "download" : "Download",
+        "listItem-1" : "Model",
+        "bottom-price" : "Estimated quote",
+        "price-symbol" : "₩",
+        "button-text" : "Home"
+      },
+      "section-3" : {
+        "heading" : "Please await contact from",
+        "sub-heading" : "Wavyroom."
       }
   },
   "contact-us": {
