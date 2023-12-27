@@ -302,9 +302,9 @@ const Customization = () => {
     );
   };
 
+  const { t } = useTranslation();
   if (error) return;
   if (!transformedData) return;
-  const { t } = useTranslation();
 
   return (
     <div>
