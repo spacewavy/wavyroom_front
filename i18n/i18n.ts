@@ -6,8 +6,8 @@ i18n
   .use(Backend)
   .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
-    lng:'en',
+    fallbackLng: 'ko',
+    lng:'ko',
     supportedLngs: ['en', 'ko'],
     debug: process.env.NODE_ENV === 'development',
     backend: {
