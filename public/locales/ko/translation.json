@@ -181,6 +181,22 @@
       "estimated": "예상 견적",
       "currency": "원",
       "button-text": "다음"
+    },
+    "customization-completion" : {
+      "title" : "축하합니다!",
+      "sub-title" : "모델이 완성되었습니다.",
+      "mail" : "로 견적서를 보냈습니다"
+    },
+    "section-2" :{
+      "download" : "다운받기",
+      "listItem-1" : "모델",
+      "bottom-price" : "예상 견적",
+      "price-symbol" : "원",
+      "button-text" : "홈으로 이동"
+    },
+    "section-3" : {
+      "heading" : "웨이비룸에서의",
+      "sub-heading" : "연락을 기다려주세요."
     }
   },
   "contact-us": {
