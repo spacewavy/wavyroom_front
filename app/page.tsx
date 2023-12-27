@@ -95,12 +95,12 @@ const Home = () => {
                               <path
                                 d="M16 9L22 15"
                                 stroke="white"
-                                stroke-linejoin="bevel"
+                                strokeLinejoin="bevel"
                               />
                               <path
                                 d="M16 15L22 9"
                                 stroke="white"
-                                stroke-linejoin="bevel"
+                                strokeLinejoin="bevel"
                               />
                               <path
                                 d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"

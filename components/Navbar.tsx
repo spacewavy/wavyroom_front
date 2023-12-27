@@ -11,7 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { navigateToSettings } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n/i18n";
 import { changeLanguage } from "@/app/redux/actions/localeActions";
@@ -24,16 +24,20 @@ const Navbar = ({
   isDark?: boolean;
   isFloating?: boolean;
 }) => {
-  const [lang, setLang] = useState("ENG");
   const [open, setOpen] = useState(false);
   const [menuType, setMenuType] = useState("");
   const dispatch = useDispatch();
+  const { language} = useSelector((state: any) => state.locale);
   const { t } = useTranslation();
 
   
-  const setLanguage = (lang:'en' | 'ko') => {
-    dispatch(changeLanguage(lang) as unknown as AnyAction);
-  }
+  const setLanguage = useCallback(
+    (lang: "ko" | "en") => {
+      i18n.changeLanguage(lang);
+      dispatch(changeLanguage(lang) as unknown as AnyAction);
+    },
+    [i18n]
+  );
 
   const openSidebar = (menuName?: string) => {
     setOpen(true);
@@ -82,7 +86,7 @@ const Navbar = ({
                   <div className="lg:w-[100px] flex flex-row gap-2 items-center">
                     <div
                       className={`text-xs font-normal ${
-                        lang === "KOR"
+                        language == "ko"
                           ? isDark
                             ? "text-white"
                             : "text-black"
@@ -90,14 +94,13 @@ const Navbar = ({
                       } cursor-pointer`}
                       onClick={() => {
                         setLanguage("ko");
-                        setLang("KOR");
                       }}
                     >
                       KOR
                     </div>
                     <div
                       className={`text-xs font-normal ${
-                        lang === "ENG"
+                        language == "en"
                           ? isDark
                             ? "text-white"
                             : "text-black"
@@ -105,7 +108,6 @@ const Navbar = ({
                       } cursor-pointer`}
                       onClick={() => {
                         setLanguage("en");
-                        setLang("ENG");
                       }}
                     >
                       ENG
