@@ -229,24 +229,32 @@
     },
     "section-2-faq" : {
       "faq-1" : {
-        "question" :"How is Wavyroom different from other modular houses?",
-        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+        "question" :"Can Wavyroom be setup anywhere?",
+        "answer" : "Wavyroom can be sent and assembled anywhere in the world, but our project management services are only available in South Korea currently. Services will be soon ready in some parts of the United States, including California and Texas."
       },
       "faq-2" : {
-        "question" : "Will the device be shipped complete?",
-        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+        "question" : "How much does it cost for transportation and setup?",
+        "answer" : "It depends on the location to which the product is sent. Due to the costs being dependent on the site situation contact us for further information."
       },
       "faq-3" : {
         "question" : "What is Wavyroom’s delivery time?",
-        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+        "answer" : "It takes up to four to six weeks for manufacturing of the product. Transportation and setup takes up to a month, depending on your location."
       },
       "faq-4" : {
-        "question" : "How many years is Wavyroom suitable for use?",
-        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+        "question" : "How many size choices are there?",
+        "answer" : "Our main wavyroom product sizes vary from 20m^2 to 30m^2 per module, for other size preferences please contact us via email."
       },
       "faq-5" : {
-        "question" : "How is Wavyroom different from other modular houses?",
-        "answer" : "For non-bankbook deposits, you can deposit the product purchase price through PC banking, internet banking, telephone banking, or directly at a nearby bank. The name of the depositor entered at the time of order must match the name of the actual depositor, and the deposit must be made within 7 days. Orders that have not been deposited will be automatically canceled."
+        "question" : "How is the after-sales services?",
+        "answer" : "We have a one-year guarantee on the product free-of-charge. Any product defects caused by the user after setup is not covered by the guarantee."
+      },
+      "faq-6" : {
+        "question" : "Can the module be relocated once it has been setup?",
+        "answer" : "The benefits of modular construction is that it can be easily detached from the real estate and moved to another location."
+      },
+      "faq-7" : {
+        "question" : "How are the insulation standards met?",
+        "answer" : "The insulation in the modular products sufficiently meet standards in most parts of the world including all areas in South Korea and the United States."
       }
     }
   },
