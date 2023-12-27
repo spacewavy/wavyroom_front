@@ -272,7 +272,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <span className="truncate">{selectedProduct.size}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.floor-plain')}</span>
+                <span className="truncate font-normal">{t('sidebar.details.floor-plan')}</span>
                 <span className="truncate">{selectedProduct.sizeDetail}</span>
               </div>
               <div className="flex flex-col gap-2">
