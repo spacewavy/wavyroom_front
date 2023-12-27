@@ -22,6 +22,7 @@ import {
 } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
 import { RootState } from "../../app/redux/reducers";
+import { useTranslation } from "react-i18next";
 
 interface CustomizationPanelProps {
   handleMenuToggle: any;
@@ -160,6 +161,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
       customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction
     );
   };
+  const { t } = useTranslation();
 
   const renderResults = () => {
     return (
@@ -168,10 +170,10 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           <div className="flex justify-between w-full items-end">
             <div className="flex-col flex">
               <span className="text-[12px] font-normal text-darkGray">
-                예상 견적
+                {t('customization.summery.estimated')}
               </span>
               <span className="text-[24px] font-light">
-                {estimatedQutation.toLocaleString()}원
+                {estimatedQutation.toLocaleString()}{t('customization.summery.currency')}
               </span>
             </div>
             <div>
@@ -242,7 +244,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             }`}
           >
             <span className={`text-[12px] font-medium hidden md:block`}>
-              다음
+              {t('customization.summery.button-text')}
             </span>
             <span className={`text-[12px] font-medium block md:hidden`}>
               커스텀하기
@@ -389,14 +391,14 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         ) : (
           <section className="cursol-pointer">
             <div className="p-8">
-              <span className="text-[28px] font-light">주문 요약</span>
+              <span className="text-[28px] font-light">{t('customization.summery.header')}</span>
             </div>
             <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">모델</span>
+              <span className="text-[14px] font-normal">{t('customization.summery.model-type')}</span>
               <span className="text-[12px] font-light">Wavyroom Evo</span>
             </div>
             <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">층수 형태</span>
+              <span className="text-[14px] font-normal">{t('customization.summery.floor-type')}</span>
               <span className="text-[12px] font-light">
                 {
                   data.modelFloorOptions.find(
@@ -407,7 +409,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             </div>
             {selectedColor.name && (
               <div className="px-8 py-4 flex justify-between">
-                <span className="text-[14px] font-normal">외장재 색상</span>
+                <span className="text-[14px] font-normal">{t('customization.summery.exterior-color')}</span>
                 <div className="flex gap-4 items-center">
                   <div
                     className={`w-8 h-8 bg-[${selectedColor.colorId}] rounded-full`}
