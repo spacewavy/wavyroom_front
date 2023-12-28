@@ -3,7 +3,7 @@ import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import PortfolioModal from "./PortfolioModal";
 import { useState } from "react";
 import { PortfolioItem } from "../app/redux/types";
-import { makeImageUrl } from "../lib/utils";
+import { makeFullUrl } from "../lib/utils";
 
 export interface PortfolioCardProps {
   portfolio: PortfolioItem;
@@ -42,7 +42,7 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
         <Image
           layout="fill"
           objectFit="cover"
-          src={makeImageUrl(portfolio.images[0])}
+          src={makeFullUrl(portfolio.images[0])}
           alt="portfolio img"
         />
       </div>
@@ -52,7 +52,7 @@ const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
           <Image alt="right-arrow" src={RightArrowBlack} />
         </div>
         <div className="flex flex-row gap-2">
-          <div className="text-[14px] font-medium">{portfolio.size}평</div>
+          <div className="text-[14px] font-medium">{portfolio.size}</div>
         </div>
       </div>
       {isModalOpen && (

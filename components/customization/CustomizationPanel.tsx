@@ -24,7 +24,7 @@ import { AnyAction } from "redux";
 import { RootState } from "../../app/redux/reducers";
 import { useTranslation } from "react-i18next";
 import { useThree } from "../../context/threeContext";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
 
 interface CustomizationPanelProps {
   handleMenuToggle: any;
@@ -71,7 +71,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
 }) => {
   const [estimatedQutation, setEstimatedQutation] = useState(0);
   const [selectedColor, setSelectedColor] = useState({ colorId: "", name: "" });
-  const [options, setOptions] = useState([{ value: "Evo1", label: "Evo" }]);
+  const [options, setOptions] = useState([{ value: "", label: "" }]);
   const { data } = useSelector((state: any) => state.customization);
   const { data: modelsList } = useSelector(
     (state: RootState) => state.navigationModel
@@ -93,7 +93,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   useEffect(() => {
     calculateTotal();
     checkButtonEnableAndDisable();
-    console.log(data);
   }, [data]);
 
   useEffect(() => {
@@ -143,11 +142,10 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
 
   const handleFloorChange = (_option: ModelFloorOptions) => {
     if (!_option.id) return;
-    console.log("hello", _option.id);
     dispatch(
       customizationFloorSelectionChange(_option.id) as unknown as AnyAction
     );
-    changeModel(makeImageUrl(_option.threeDFileURL));
+    changeModel(makeFullUrl(_option.threeDFileURL));
   };
 
   const handleOptionChange = (nodeId: string, order: number) => {
@@ -310,7 +308,15 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                       marginTop: "-4px",
                       marginBottom: "-4px",
                     }),
-                    valueContainer: (baseStyles: any) => ({}),
+                    valueContainer: (baseStyles: any) => ({
+                      display: "flex",
+                      WebkitOverflowScrolling: "touch",
+                      alignItems: "center",
+                      boxSizing: "border-box",
+                      flexWrap: "wrap",
+                      overflow: "hidden",
+                      position: "relative",
+                    }),
                     indicatorsContainer: (baseStyles: any) => ({
                       display: "flex",
                       alignItems: "center",
@@ -339,7 +345,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                   }}
                 />
               </span>
-
               <span className="block lg:hidden">
                 모듈러건축시스템 기반으로 웨이비룸이라는 주거공간을 만들고
                 있으며,
@@ -347,7 +352,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 공간의 제품화에 집중합니다.
               </span>
             </div>
-            <div className="px-[24px] md:px-8 py-4 md:py-8 mb-4 border-t-[1px] border-[wavyGray]">
+            <div className="px-[24px] md:px-8 py-4 md:py-8 border-t-[1px] border-[wavyGray]">
               <div className="flex flex-col">
                 <div className="flex justify-between">
                   <span className="optionName text-[14px] font-medium">
@@ -379,7 +384,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 </div>
               </div>
             </div>
-            <div className="selectColor mb-4">
+            <div className="selectColor">
               <SelectColorCard modelColors={data.modelColors} />
             </div>
             <div className="customOption">

@@ -3,22 +3,21 @@ import ReactDOM from "react-dom";
 import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
 import Close from "@/assets/icons/ModalClose.svg";
 import Image from "next/image";
-import { makeImageUrl } from "@/lib/utils";
+import { makeFullUrl } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
 const PortfolioModal = ({
   handleClose,
   portfolioImages,
   size,
-  location
-
+  location,
 }: {
   handleClose: any;
   portfolioImages: string[];
-  size:number;
-  location:string;
+  size: number;
+  location: string;
 }) => {
-  const { t } = useTranslation() 
+  const { t } = useTranslation();
   return ReactDOM.createPortal(
     <div className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8">
       <div
@@ -34,11 +33,12 @@ const PortfolioModal = ({
           </div>
         </div>
         <div className="flex flex-col py-4 gap-4">
-          <div className="text-bodyMD lg:text-bodyLG">
-           {location}
-          </div>
+          <div className="text-bodyMD lg:text-bodyLG">{location}</div>
           <div className="flex flex-row gap-2">
-            <div className="text-bodyMD lg:text-bodyLG font-normal">{size}{t('portfolio.currency')}</div>
+            <div className="text-bodyMD lg:text-bodyLG font-normal">
+              {size}
+              {t("portfolio.currency")}
+            </div>
           </div>
         </div>
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">
@@ -46,7 +46,7 @@ const PortfolioModal = ({
             return (
               <div key={image} className="relative w-full aspect-[3/2]">
                 <Image
-                  src={makeImageUrl(image)}
+                  src={makeFullUrl(image)}
                   alt="test"
                   layout="fill"
                   objectFit="cover"

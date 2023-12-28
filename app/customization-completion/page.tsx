@@ -7,7 +7,7 @@ import jsPDF from "jspdf";
 import axiosInstance from "../../api/axioInstance";
 import { useSearchParams } from "next/navigation";
 import CallInquery from "../../components/CallInquery";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 
@@ -19,7 +19,6 @@ const Completion = () => {
 
   const [result, setResult] = useState<any>(null);
   const { language } = useSelector((state: any) => state.locale);
-
 
   useEffect(() => {
     if (!id) return;
@@ -33,7 +32,7 @@ const Completion = () => {
       } = await axiosInstance.get(`/reservation/${id}`, {
         headers: {
           Accept: "application/json",
-          'language': language,
+          language: language,
         },
       });
       setResult(data);
@@ -101,19 +100,21 @@ const Completion = () => {
         <div className="flex flex-col justify-center items-center text-center w-full md:w-[600px] m-auto">
           <div className="text-[28px] md:text-[40px] font-light mb-4">
             <span>
-            {t('customization.customization-completion.title')}
+              {t("customization.customization-completion.title")}
               <br />
-              {result?.user?.name}님의 {result?.model?.name} {t('customization.customization-completion.sub-title')}
+              {result?.user?.name}님의 {result?.model?.name}{" "}
+              {t("customization.customization-completion.sub-title")}
             </span>
           </div>
           <div className="mb-16">
             <span className="text-[12px] md:text-[16px] font-light">
-            {t('customization.customization-completion.mail')} {result?.user?.email}.
+              {t("customization.customization-completion.mail")}{" "}
+              {result?.user?.email}.
             </span>
           </div>
           <div className="relative flex flex-1 aspect-[600/273] w-full">
             <Image
-              src={makeImageUrl(result?.model?.imageURL)}
+              src={makeFullUrl(result?.model?.imageURL)}
               alt="img"
               fill
               objectFit="cover"
@@ -144,7 +145,9 @@ const Completion = () => {
                       />
                     </svg>
                   </div>
-                  <span className="text-[12px] font-normal">PDF {t('customization.section-2.download')}</span>
+                  <span className="text-[12px] font-normal">
+                    PDF {t("customization.section-2.download")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -153,7 +156,9 @@ const Completion = () => {
           )}
           <section className="cursol-pointer w-full ">
             <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">{t('customization.section-2.listItem-1')}</span>
+              <span className="text-[14px] font-normal">
+                {t("customization.section-2.listItem-1")}
+              </span>
               <span className="text-[12px] font-light">
                 {result?.model?.name}
               </span>
@@ -173,15 +178,20 @@ const Completion = () => {
               })}
           </section>
           <div className="w-full flex justify-between items-center border-y-[1px] mt-0 lg:mt-8 mb-16 p-8">
-            <span className="text-[14px] font-normal">{t('customization.section-2.bottom-price')}</span>
+            <span className="text-[14px] font-normal">
+              {t("customization.section-2.bottom-price")}
+            </span>
             <span className="text-[24px] font-light">
-              {result?.totalPrice.toLocaleString()}{t('customization.section-2.price-symbol')}
+              {result?.totalPrice.toLocaleString()}
+              {t("customization.section-2.price-symbol")}
             </span>
           </div>
           {!isPDfElement ? (
             <div className="flex justify-center">
               <div className="px-4 py-2 flex items-center gap-[8px] bg-jetBlack rounded-full w-fit">
-                <span className="text-white text-[12px]">{t('customization.section-2.button-text')}</span>
+                <span className="text-white text-[12px]">
+                  {t("customization.section-2.button-text")}
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="19"
@@ -217,8 +227,9 @@ const Completion = () => {
         <div className="bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
           <div className="text-[28px] md:text-[40px] font-light">
             <span>
-            {t('customization.section-3.heading')}<br />
-            {t('customization.section-3.sub-heading')}
+              {t("customization.section-3.heading")}
+              <br />
+              {t("customization.section-3.sub-heading")}
             </span>
           </div>
           <div className="w-full md:w-[80%] lg:w-[33%] mt-4 mb-8">

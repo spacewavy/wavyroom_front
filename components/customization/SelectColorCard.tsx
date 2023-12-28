@@ -12,7 +12,7 @@ interface SelectColorCardPorps {
 
 const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
   const [selectedColorName, setSelectedColorName] = useState("");
-  const  { t } = useTranslation();
+  const { t } = useTranslation();
 
   const { changeModelColorFromHex } = useThree();
   const dispatch = useDispatch();
@@ -34,7 +34,9 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
     <section className="px-[24px] md:px-8 py-4">
       <div className="materialColor flex flex-col gap-4">
         <div className="flex justify-between title text-[14px] font-medium">
-          <span className="text-jetBlack">{t('customization.exterior-color')}</span>
+          <span className="text-jetBlack">
+            {t("customization.exterior-color")}
+          </span>
         </div>
         <div className="flex justify-between flex-col md:flex-row gap-2">
           <div className="colors flex gap-2">
@@ -42,7 +44,7 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
               return (
                 <div
                   key={"color" + index}
-                  className="relative w-8 h-8 p-1 cursor-pointer"
+                  className="relative w-10 h-10 p-1 cursor-pointer"
                   onClick={() => {
                     handleColorClick(x.id);
                     changeModelColorFromHex(x.colorId);
@@ -57,7 +59,7 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
                     }}
                   />
                   {(x.isSelected || x.isDefault) && (
-                    <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[2px] border-black rounded-full" />
+                    <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-black rounded-full" />
                   )}
                 </div>
               );

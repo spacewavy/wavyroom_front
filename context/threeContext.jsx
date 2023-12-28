@@ -6,7 +6,7 @@ import {
   OPERATING_SYSTEM,
   WAVY_MODEL_PATHS,
   hexToRgb,
-  makeImageUrl,
+  makeFullUrl,
 } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
@@ -128,7 +128,6 @@ export const ThreeProvider = ({ children }) => {
   useEffect(() => {
     if (!isEditorLoaded) return;
     if (!currentModelPath) return;
-    console.log("===", currentModelPath);
     loadFile(currentModelPath);
   }, [isEditorLoaded, currentModelPath]);
 
@@ -261,44 +260,62 @@ export const ThreeProvider = ({ children }) => {
         let removeObjectList = [];
         if (object?.children.length) {
           object.children.reverse().map((_obj, _idx) => {
-            const receiveShadow =
+            const _receiveShadow =
               _obj.name.toLowerCase().includes("roof") ||
               _obj.name.toLowerCase().includes("deck") ||
               _obj.name.toLowerCase().includes("roof");
 
             _obj.traverse((child) => {
-              child.receiveShadow = receiveShadow;
               child.castShadow = true;
-              // child.visible = true;
+
+              // setup receiveShadow by parent
+              child.receiveShadow = _receiveShadow;
+
+              // setting roof visiblity by cameraViewType
+              if (
+                (cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
+                  cameraViewType === CAMERA_VIEW_TYPE.INNER_2) &&
+                _obj.name.toLowerCase().includes("roof")
+              ) {
+                _obj.visible = false;
+              }
+
+              // optimization
               if (child.geometry) {
                 let _geometry = child.geometry.clone();
                 _geometry = BufferGeometryUtils.mergeVertices(_geometry);
                 child.geometry = _geometry;
               }
+
               child.frustumCulled = false;
               child.updateMatrixWorld();
             });
+
+            // later, apply the deck seperatly
             if (_obj.name.toLowerCase().includes("deck")) {
               deckObjList = [...deckObjList, _obj];
             }
+
+            // later, will remove lighting and camera in the data
             if (_obj.isLighting || _obj.isCamera) {
               removeObjectList = [...removeObjectList, _obj];
             }
           });
         }
-        deckObjList.map((_obj) => {
+
+        // remove the deck & lighting, camera
+        [...deckObjList, ...removeObjectList].map((_obj) => {
           object.remove(_obj);
         });
-        removeObjectList.map((_obj) => {
-          object.remove(_obj);
-        });
+
+        // do the scale
         object.scale.x = SCALE;
         object.scale.y = SCALE;
         object.scale.z = SCALE;
         object.receiveShadow = true;
         object.castShadow = true;
 
-        // calculate center
+        // calculate center which doesn't include the deck
         const _localCenter = new THREE.Vector3();
         const _localSphere = new THREE.Sphere();
         const box3 = new THREE.Box3().setFromObject(object);
@@ -307,6 +324,7 @@ export const ThreeProvider = ({ children }) => {
         const _localRadius = 1.2 * Math.ceil(_localSphere.radius);
         setLocalCenter(_localCenter);
 
+        // setup the possible range of the camera movement (1x ~ 3x)
         cameraControls.minDistance = _localRadius;
         cameraControls.maxDistance = _localRadius * 3;
 
@@ -321,18 +339,22 @@ export const ThreeProvider = ({ children }) => {
           .multiplyScalar(_localRadius)
           .add(_localCenter);
 
+        // place the camera farthest place as possible, since we don't want to zoom out from the start position.
         camera.position.set(
           4 * _cameraPosition.x,
           4 * _cameraPosition.y,
           4 * _cameraPosition.z
         );
-        // console.log(camera.position);
         camera.lookAt(_localCenter);
 
         setLoadPercent(80);
+
+        // include the deck
         deckObjList.map((_obj) => {
           object.add(_obj);
         });
+
+        // add the object to the scene
         scene.add(object);
 
         setTimeout(() => {
@@ -359,7 +381,6 @@ export const ThreeProvider = ({ children }) => {
       const newFileName = modelPath.split("/")[modelPath.split("/").length - 1];
       const currentFileName =
         currentModelPath.split("/")[currentModelPath.split("/").length - 1];
-      console.log(newFileName, currentFileName);
       _isSameFile = newFileName === currentFileName;
     } catch (e) {
       _isSameFile = false;
@@ -426,7 +447,7 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const setCameraOuterView = () => {
-    // set roof as invisible
+    // set roof as visible
     changeMeshVisibilityByName("Roof", true);
     changeMeshVisibilityByName("Roof_color", true);
 
