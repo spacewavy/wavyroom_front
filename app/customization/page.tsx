@@ -11,7 +11,7 @@ import Link from "next/link";
 
 import WavyCanvas from "@/components/canvas/WavyCanvas";
 import { useThree } from "../../context/threeContext";
-import { WAVY_MODEL_PATHS } from "../../lib/utils";
+import { WAVY_MODEL_PATHS, makeImageUrl } from "../../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
@@ -64,7 +64,8 @@ const Customization = () => {
   const [transformedData, setTransformedData] = useState<any[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
-  const { language} = useSelector((state: any) => state.locale);
+  const { language } = useSelector((state: any) => state.locale);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
@@ -72,13 +73,7 @@ const Customization = () => {
 
   useEffect(() => {
     if (!data) return;
-    const _transformedData = data.map((item: ModelDetailItem) => {
-      return {
-        ...item,
-        path: WAVY_MODEL_PATHS[item.name.toUpperCase()],
-      };
-    });
-    setTransformedData(_transformedData);
+    setTransformedData(data);
   }, [data]);
 
   useEffect(() => {
@@ -97,9 +92,10 @@ const Customization = () => {
     console.log("selectedItem", _selectedItem);
   }, [selectedItemId]);
 
+  // when model is changed, update the 3d modeling
   useEffect(() => {
     if (!selectedModel) return;
-    changeModel(selectedModel?.path);
+    changeModel(makeImageUrl(selectedModel?.threeDFileURL));
   }, [selectedModel]);
 
   useEffect(() => {
@@ -173,7 +169,7 @@ const Customization = () => {
       } = await axiosInstance.post("/reservation", postData, {
         headers: {
           Accept: "application/json",
-          'language': language,
+          language: language,
         },
       });
       router.push(`/customization-completion?id=${data.id}`);
@@ -181,6 +177,7 @@ const Customization = () => {
       console.error("e", e);
     }
   };
+
   const handleBackTireClick = () => {
     dispatch(navigateToSettings(false) as unknown as AnyAction);
   };
@@ -202,16 +199,16 @@ const Customization = () => {
         >
           <div className="px-[24px] pt-8 pb-4 lg:px-8 lg:py-8">
             <div className="lg:text-[32px] text-[24px] font-light pb-[8px] color=[#000]">
-              <h1>{t('customization.popup.title')}</h1>
+              <h1>{t("customization.popup.title")}</h1>
             </div>
             <div className="lg:text-[14px] text-[12px] font-light pb-4 color=[#4D4D4D]">
-              <p>{t('customization.popup.sub-title')}</p>
+              <p>{t("customization.popup.sub-title")}</p>
             </div>
             <div className="gap-4 mb-16">
               <input
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="text"
-                placeholder={t('customization.popup.name-placeholder')}
+                placeholder={t("customization.popup.name-placeholder")}
                 value={formElements.name}
                 onChange={(e) => {
                   handleFormElement(e, "name");
@@ -221,7 +218,7 @@ const Customization = () => {
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="email"
                 value={formElements.email}
-                placeholder={t('customization.popup.email-placeholder')}
+                placeholder={t("customization.popup.email-placeholder")}
                 onChange={(e) => {
                   handleFormElement(e, "email");
                 }}
@@ -230,7 +227,7 @@ const Customization = () => {
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="number"
                 value={formElements.phone}
-                placeholder={t('customization.popup.phone-placeholder')}
+                placeholder={t("customization.popup.phone-placeholder")}
                 onChange={(e) => {
                   handleFormElement(e, "phone");
                 }}
@@ -239,7 +236,7 @@ const Customization = () => {
                 className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
                 type="address"
                 value={formElements.address}
-                placeholder={t('customization.popup.address-placeholder')}
+                placeholder={t("customization.popup.address-placeholder")}
                 onChange={(e) => {
                   handleFormElement(e, "address");
                 }}
@@ -247,7 +244,10 @@ const Customization = () => {
             </div>
 
             <div className="flex justify-center items-center gap-2">
-              <div className="w-[42px] h-[42px] p-[11px] border-[1px] rounded-full flex justify-center items-center cursor-pointer" onClick={handlePopupClose}>
+              <div
+                className="w-[42px] h-[42px] p-[11px] border-[1px] rounded-full flex justify-center items-center cursor-pointer"
+                onClick={handlePopupClose}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -271,10 +271,12 @@ const Customization = () => {
               <button
                 onClick={handleFormSubmit}
                 className={`flex justify-center items-center gap-1 w-full text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${
-                  isButtonDisabled ? "bg-gray pointer-events-none" : "bg-jetBlack"
+                  isButtonDisabled
+                    ? "bg-gray pointer-events-none"
+                    : "bg-jetBlack"
                 }`}
               >
-                <span>{t('customization.popup.button-text')}</span>
+                <span>{t("customization.popup.button-text")}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -302,7 +304,6 @@ const Customization = () => {
     );
   };
 
-  const { t } = useTranslation();
   if (error) return;
   if (!transformedData) return;
 
@@ -327,13 +328,7 @@ const Customization = () => {
               <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
             </Link>
           </div>
-          <div className="relative flex flex-1 flex-col group">
-            <WavyCanvas openMenu={openMenu} />
-            <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
-              <Image src={IntentRequest} alt="icon" />
-              <p>{t('customization.canvas-text')}</p>
-            </div>
-          </div>
+          <WavyCanvas openMenu={openMenu} />
         </div>
         <div className="relative flex flex-1 flex-col w-full lg:max-w-[496px]">
           <div

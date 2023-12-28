@@ -6,6 +6,7 @@ import {
   OPERATING_SYSTEM,
   WAVY_MODEL_PATHS,
   hexToRgb,
+  makeImageUrl,
 } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
@@ -127,8 +128,8 @@ export const ThreeProvider = ({ children }) => {
   useEffect(() => {
     if (!isEditorLoaded) return;
     if (!currentModelPath) return;
-    deleteCurrentModel();
-    loadFile(FILE_EXTENSION.FBX, `../models/${currentModelPath}`);
+    console.log("===", currentModelPath);
+    loadFile(currentModelPath);
   }, [isEditorLoaded, currentModelPath]);
 
   // change camera view type
@@ -197,11 +198,20 @@ export const ThreeProvider = ({ children }) => {
     _mesh.frustumCulled = false;
   };
 
-  const loadFile = (extension, url) => {
+  const loadFile = (url) => {
     let loader;
+    if (!url) return;
     if (isModelLoading) return;
+    const extension = url.split(".")[url.split(".").length - 1];
+    if (!extension) {
+      return;
+    }
+    console.log("load file...", url, extension);
+
     setIsModelLoading(true);
     setLoadPercent(0);
+
+    // const _url = URL.createObjectURL(url);
 
     deleteCurrentModel();
     switch (extension) {
@@ -238,6 +248,8 @@ export const ThreeProvider = ({ children }) => {
       url,
       function (model) {
         let object;
+        console.log("hihihi load file", model);
+
         if (
           extension === FILE_EXTENSION.GLTF ||
           extension === FILE_EXTENSION.GLB
@@ -339,6 +351,8 @@ export const ThreeProvider = ({ children }) => {
       },
       function (e) {
         console.log("error", e);
+        setLoadPercent(100);
+        setIsModelLoading(false);
       }
     );
   };
@@ -446,6 +460,8 @@ export const ThreeProvider = ({ children }) => {
         setLoadPercent,
         changeModelColorFromHex,
         test,
+        cameraViewType,
+        setCameraViewType,
       }}
     >
       {children}

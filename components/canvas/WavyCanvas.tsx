@@ -3,7 +3,11 @@
 import React, { FC, useEffect, useRef } from "react";
 import { useLoading } from "@/context/loadingContext";
 import { useThree } from "@/context/threeContext";
-import { FILE_EXTENSION } from "../../lib/utils";
+import IntentRequest from "@/assets/icons/intent-request--scale-out 1.svg";
+import { useTranslation } from "react-i18next";
+
+import { CAMERA_VIEW_TYPE, FILE_EXTENSION } from "../../lib/utils";
+import Image from "next/image";
 
 interface WavyCanvasProps {
   openMenu?: boolean;
@@ -22,10 +26,14 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
     loadPercent,
     isModelLoading,
     setLoadPercent,
+    cameraViewType,
+    setCameraViewType,
   } = useThree();
   const ref = useRef<HTMLDivElement>(null);
   const { setIsLoading } = useLoading();
+  const { t } = useTranslation();
 
+  // Linking with Next <> Threejs context
   useEffect(() => {
     if (!isEditorLoaded || !ref || !ref?.current) {
       return;
@@ -34,6 +42,7 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
     setIsLoading(false);
     onWindowResize(false);
     animate();
+    console.log("cameraViewType", cameraViewType);
 
     window.addEventListener("resize", () => onWindowResize());
 
@@ -74,7 +83,34 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
         onClick={() => {
           console.log(scene);
         }}
-      ></div>
+      />
+      <div className="absolute z-10 bottom-[32px] left-0 right-0 flex flex-col items-center justify-center gap-4 px-4">
+        <p className="transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 text-[10px] md:text-[12px] lg:text-[14px]">
+          {t("customization.canvas-text")}
+        </p>
+        <div className="flex flex-row bg-white p-[2px] rounded-full">
+          <div
+            className={`text-[10px] md:text-[12px] py-[4px] md:py-[8px] px-[10px] md:px-[28px] cursor-pointer rounded-full ${
+              cameraViewType === CAMERA_VIEW_TYPE.OUTER ? "bg-gray" : ""
+            }`}
+            onClick={() => {
+              setCameraViewType(CAMERA_VIEW_TYPE.OUTER);
+            }}
+          >
+            외부
+          </div>
+          <div
+            className={`text-[10px] md:text-[12px] py-[4px] md:py-[8px] px-[10px] md:px-[28px] cursor-pointer rounded-full ${
+              cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ? "bg-gray" : ""
+            }`}
+            onClick={() => {
+              setCameraViewType(CAMERA_VIEW_TYPE.INNER_1);
+            }}
+          >
+            내부
+          </div>
+        </div>
+      </div>
       <div className="absolute z-20 top-0 w-full h-full items-center justify-center bg-gray transition-all ease-in duration-500 hidden group-[.show-loading]:flex">
         <div className="relative w-40 h-40">
           <svg className="w-full h-full" viewBox="0 0 100 100">
