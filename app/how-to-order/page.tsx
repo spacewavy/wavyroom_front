@@ -53,12 +53,12 @@ const HowToOrder = () => {
   ];
   return (
     <main className="flex flex-col flex-1">
-      <section className="pt-16 md:pt-32 lg:pt-[120px] px-8 lg:px-0 pb-8 lg:pb-[120px] text-[28px] md:text-[40px] lg:text-[58px] font-light text-center">
-        <h1 className="text-darkGray">
+      <section className="pt-16 md:pt-32 lg:pt-[120px] px-8 lg:px-0 pb-8 lg:pb-[120px] text-[28px] md:text-[40px] lg:text-[58px] font-light text-center text-jetBlack">
+        <h1>
           {t('how-to-order.heading.text-1')}
           <br />
         </h1>
-        <h1 className="text-jetBlack">{t('how-to-order.heading.text-2')}</h1>
+        <h1>{t('how-to-order.heading.text-2')}</h1>
       </section>
 
       <section className="grid w-full grid-cols-1 gap-[48px] md:gap-0 py-16 lg:py-[120px] px-0 md:px-8 lg:px-[264px]">

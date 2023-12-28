@@ -35,6 +35,10 @@ const ContactUs = () => {
     {
       question:  t('contact-us.section-2-faq.faq-7.question'),
       answer: t('contact-us.section-2-faq.faq-7.answer'),
+    },
+    {
+      question:  t('contact-us.section-2-faq.faq-8.question'),
+      answer: t('contact-us.section-2-faq.faq-8.answer'),
     }
   ];
 

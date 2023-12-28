@@ -94,8 +94,13 @@ const ModelDetail = () => {
       question: t("contact-us.section-2-faq.faq-7.question"),
       answer: t("contact-us.section-2-faq.faq-7.answer"),
     },
+    {
+      question: t("contact-us.section-2-faq.faq-8.question"),
+      answer: t("contact-us.section-2-faq.faq-8.answer"),
+    },
   ];
-  const faqRef = useRef<HTMLElement>(null);
+
+  const specRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(false);
   const [selectedColor, setSelectedColor] = useState({
     name: "",
@@ -111,7 +116,7 @@ const ModelDetail = () => {
   }, [data]);
 
   const handleSrcollToFAQ = () => {
-    window.scrollTo({ top: faqRef.current?.offsetTop, behavior: "smooth" });
+    window.scrollTo({ top: specRef.current?.offsetTop, behavior: "smooth" });
   };
 
   const onCustomizeClick = () => {
@@ -177,7 +182,7 @@ const ModelDetail = () => {
               </div>
             </div>
           </div>
-          <div className=" sm:pb-16 lg:pb-24 sm:pt-16 lg:pt-24 bg-lightGray ">
+          <div className=" sm:pb-16 lg:pb-24 sm:pt-16 lg:pt-24">
             <ModelDetailCarousel data={data.modelExamples} name={data.name} />
           </div>
         </section>
@@ -218,21 +223,21 @@ const ModelDetail = () => {
                             }}
                           />
                           {isSelected && (
-                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-black group-[.is-dark]:border-orange rounded-full" />
+                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-orange group-[.is-dark]:border-orange rounded-full" />
                           )}
                         </div>
                       );
                     }
                   )}
                 </div>
-                <div className="font-normal text-[14px] group-[.is-dark]:text-white">
+                <div className="font-light text-[14px] group-[.is-dark]:text-white">
                   {selectedColor?.name || ""}
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section className="group-[.is-dark]:bg-spaceBlack">
+        <section className="group-[.is-dark]:bg-spaceBlack" ref={specRef}>
           <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col items-center justify-center  bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
               <Image
@@ -399,7 +404,6 @@ const ModelDetail = () => {
           </div>
         </section>
         <section
-          ref={faqRef}
           className="px-6 md:px-8 lg:px-[280px] py-16 lg:py-25 group-[.is-dark]:bg-jetBlack"
         >
           <div className="flex flex-col items-center gap-16 w-full px-4 py-8 md:p-8">

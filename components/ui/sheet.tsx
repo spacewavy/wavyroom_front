@@ -85,7 +85,7 @@ const SheetContent = React.forwardRef<
         {...props}
       >
         {children}
-        {((menuType == "menu" && selectedMenuId==2)|| menuType=='model')   && (
+        {((menuType == "menu" && selectedMenuId==2) || menuType =='model' || !menuType)   && (
           <span
             className="absolute right-8 top-8 cursor-pointer"
             onClick={onCloseClick}

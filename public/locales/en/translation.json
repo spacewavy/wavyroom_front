@@ -232,30 +232,34 @@
     },
     "section-2-faq" : {
       "faq-1" : {
+        "question" :"What are the advantages of Wavyroom?",
+        "answer" : "Quality: Wavyroom is always manufactured with consistent quality in a factory equipped with facilities and process systems that incorporate Spacewavy’s unique know-how. In particular, high-quality Hyundai Livart and Hyundai L&C materials jointly developed with our investment company, Hyundai Livart, are used in the Wavyroom in areas such as windows, furniture, bathroom, kitchen, and interior finishing materials. Speed: Equipped with a systematic module manufacturing system, we can produce 40 modules per month. The period can be shortened by up to 70% compared to the general construction process. Total solution: Through Spacewavy, you can request project management along with Wavyroom production. To alleviate customer concerns, we manage all areas from 0 to 100, including basic infrastructure construction, architectural office introduction, and landscaping."
+      },
+      "faq-2" : {
         "question" :"Can Wavyroom be setup anywhere?",
         "answer" : "Wavyroom can be sent and assembled anywhere in the world, but our project management services are only available in South Korea currently. Services will be soon ready in some parts of the United States, including California and Texas."
       },
-      "faq-2" : {
+      "faq-3" : {
         "question" : "How much does it cost for transportation and setup?",
         "answer" : "It depends on the location to which the product is sent. Due to the costs being dependent on the site situation contact us for further information."
       },
-      "faq-3" : {
+      "faq-4" : {
         "question" : "What is Wavyroom’s delivery time?",
         "answer" : "It takes up to four to six weeks for manufacturing of the product. Transportation and setup takes up to a month, depending on your location."
       },
-      "faq-4" : {
+      "faq-5" : {
         "question" : "How many size choices are there?",
         "answer" : "Our main wavyroom product sizes vary from 20m^2 to 30m^2 per module, for other size preferences please contact us via email."
       },
-      "faq-5" : {
+      "faq-6" : {
         "question" : "How is the after-sales services?",
         "answer" : "We have a one-year guarantee on the product free-of-charge. Any product defects caused by the user after setup is not covered by the guarantee."
       },
-      "faq-6" : {
+      "faq-7" : {
         "question" : "Can the module be relocated once it has been setup?",
         "answer" : "The benefits of modular construction is that it can be easily detached from the real estate and moved to another location."
       },
-      "faq-7" : {
+      "faq-8" : {
         "question" : "How are the insulation standards met?",
         "answer" : "The insulation in the modular products sufficiently meet standards in most parts of the world including all areas in South Korea and the United States."
       }

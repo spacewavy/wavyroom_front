@@ -59,6 +59,7 @@ const CustomItems: FC<CustomItemsProps> = ({
                 price={d.minPrice}
                 image={d.representativeImageURL}
                 path={d.path}
+                purpose={d.purpose}
                 selectedItem={selectedItemId}
                 handleSelectedItem={handleSelectedItem}
               />
