@@ -12,6 +12,7 @@ import { RootState } from "../app/redux/reducers";
 import { ModelItem } from "../app/redux/types";
 import homePageVideoLoadingImage from "../public/images/homePageVideoLoadingImage.jpeg";
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
 const Home = () => {
@@ -174,7 +175,9 @@ const Home = () => {
         {t('home.section-2.description')}
         </p>
         <div className="flex flex-row gap-4 pt-[32px] font-size: 12px;">
-          <Button name= {t('home.section-2.button-text')} arrow varient="default" />
+        <Link href="/customization">
+          <Button name= {t('home.section-2.button-text')} arrow varient="default"  />
+        </Link>
         </div>
       </section>
       <section className="pb-4 pt-8 md:pt-16 md:pb-8 lg:pt-24 lg:pb-16">
