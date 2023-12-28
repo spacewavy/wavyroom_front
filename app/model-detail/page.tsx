@@ -37,24 +37,29 @@ const ModelDetail = () => {
 
   const modelDescription = [
     {
-      title: "Mini",
-      value: "웨이비룸 미니로 내 취향에 맞는 다목적 공간을 만들어 보세요.",
+      titleEng: "Mini",
+      titleKO: "미니",
+      value: t("models.description.mini-desc")
     },
     {
-      title: "Studio",
-      value: "웨이비룸 스튜디오로 나만의 아지트를 만들어 보세요.",
+      titleEng: "Studio",
+      titleKO: "스튜디오",
+      value: t("models.description.studio-desc")
     },
     {
-      title: "Max",
-      value: "웨이비룸 맥스로 나만의 세컨하우스를 만들어 보세요",
+      titleEng: "Max",
+      titleKO: "맥스",
+      value: t("models.description.max-desc")
     },
     {
-      title: "Evo",
-      value: "웨이비룸 이보로 리조트, 펜션 등의 숙박사업을 시작해 보세요.",
+      titleEng: "Evo",
+      titleKO: "이보",
+      value: t("models.description.evo-desc")
     },
     {
-      title: "Nova",
-      value: "웨이비룸 노바로 미래에 한발짝 더 나아가 보세요. ",
+      titleEng: "Nova",
+      titleKO: "노바",
+      value: t("models.description.nova-desc")
     },
   ];
 
@@ -146,7 +151,7 @@ const ModelDetail = () => {
               <div className="flex flex-col items-center gap-4">
                 <div className="text-[16px] text-darkGray text-center group-[.is-dark]:text-gray">
                   <span className="text-[24px] md:text-[28px] lg:text-[32px]">
-                    {modelDescription.find((x) => x.title === data.name)?.value}
+                    <span>{modelDescription.find((x) => x.titleEng == data.name || x.titleKO == data.name)?.value}</span>
                   </span>
                 </div>
               </div>
@@ -155,14 +160,14 @@ const ModelDetail = () => {
                   className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
                   onClick={handleSrcollToFAQ}
                 >
-                  제품 사양보기
+                    {t('models.button.specification')}
                 </div>
                 <Link href={`/customization?id=${id}`}>
                   <div
                     className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
                     onClick={onCustomizeClick}
                   >
-                    3D 커스텀하기
+                    {t('models.button.customize')}
                   </div>
                 </Link>
               </div>
