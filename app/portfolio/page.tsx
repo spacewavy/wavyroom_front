@@ -1,7 +1,7 @@
 "use client";
 // hmmm...
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import WavyDropdown from "@/components/WavyDropdown";
 import PortfolioCard from "../../components/PortfolioCard";
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,26 +9,29 @@ import { fetchPortfolioData } from "../redux/actions/portfolioActions";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
 import {PortfolioItem} from "../redux/types"
+import { useTranslation } from "react-i18next";
 
 const Portfolio = () => {
+  const { t } =useTranslation()
   const dispatch = useDispatch();
   const { data, error } = useSelector(
     (state: RootState) => state.portfolio
   );
   const { language } = useSelector((state: any) => state.locale);
+   const OPTIONS= [
+    { value: "all", label: t('portfolio.dropdown-opts.opt-1') },
+    { value: "toTen", label: t('portfolio.dropdown-opts.opt-2') },
+    { value: "elevenToTwenty", label: t('portfolio.dropdown-opts.opt-3') },
+    { value: "twentyToThirty", label: t('portfolio.dropdown-opts.opt-4') },
+    { value: "moreThanThirty", label: t('portfolio.dropdown-opts.opt-5') },
+  ];
 
   useEffect(()=>{
-    dispatch(fetchPortfolioData('all')  as unknown as AnyAction)
+    dispatch(fetchPortfolioData('all')  as unknown as AnyAction);
   },[language])
 
 
-  const OPTIONS = [
-    { value: "all", label: "전체" },
-    { value: "toTen", label: "~10평" },
-    { value: "elevenToTwenty", label: "11~20평" },
-    { value: "twentyToThirty", label: "20~30평" },
-    { value: "moreThanThirty", label: "30평~" },
-  ];
+ 
 
   const onDropdownChange = (newValue: any) => {
     dispatch(fetchPortfolioData(newValue.value)  as unknown as AnyAction)
@@ -39,10 +42,10 @@ const Portfolio = () => {
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col md:flex-row gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
-            포트폴리오
+          {t('portfolio.title')}
           </div>
           <div className="flex flex-1 flex-col gap-2">
-            <div className="text-[12px] text-midGray">프로젝트 사이즈</div>
+            <div className="text-[12px] text-midGray">{t('portfolio.dropdown-title')}</div>
             <WavyDropdown
               options={OPTIONS}
               defaultValue={OPTIONS[0]}

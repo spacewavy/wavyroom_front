@@ -10,6 +10,7 @@ import carosolImg2 from "@/assets/carosol-images/carosolImage-2.png";
 import carosolImg3 from "@/assets/carosol-images/carosolImage-3.png";
 import carosolImg4 from "@/assets/carosol-images/carosolImage-4.png";
 import carosolImg5 from "@/assets/carosol-images/carosolImage-5.png";
+import { useTranslation } from "react-i18next";
 
 const ProductCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -21,6 +22,7 @@ const ProductCarousel = () => {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
+    const { t } = useTranslation()
 
   const CAROUSEL_ITEMS = [
     {
@@ -90,7 +92,7 @@ const ProductCarousel = () => {
               href="/portfolio"
               className="p-0 flex flex-row gap-[4px] text-labelMD text-orange"
             >
-              <span className="text-[14px] font-normal">더보기</span>
+              <span className="text-[14px] font-normal">{t('home.see-more')}</span>
               <Image alt="right-arrow" src={RightArrowOrange} />
             </Link>
           </div>
