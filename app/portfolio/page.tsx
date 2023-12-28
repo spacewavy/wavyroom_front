@@ -18,6 +18,7 @@ const Portfolio = () => {
     (state: RootState) => state.portfolio
   );
   const { language } = useSelector((state: any) => state.locale);
+  const [dropdownKey, setDropdownKey] = useState(1);
    const OPTIONS= [
     { value: "all", label: t('portfolio.dropdown-opts.opt-1') },
     { value: "toTen", label: t('portfolio.dropdown-opts.opt-2') },
@@ -28,6 +29,10 @@ const Portfolio = () => {
 
   useEffect(()=>{
     dispatch(fetchPortfolioData('all')  as unknown as AnyAction);
+  },[language])
+
+  useEffect(()=>{
+    setDropdownKey((prevKey) => prevKey + 1);
   },[language])
 
 
@@ -47,6 +52,7 @@ const Portfolio = () => {
           <div className="flex flex-1 flex-col gap-2">
             <div className="text-[12px] text-midGray">{t('portfolio.dropdown-title')}</div>
             <WavyDropdown
+              key={dropdownKey}
               options={OPTIONS}
               defaultValue={OPTIONS[0]}
               onChange={onDropdownChange}
