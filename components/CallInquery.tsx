@@ -8,10 +8,10 @@ const CallInquery = () => {
   return (
     <a
       href="tel:+82-02-6085-1896"
-      className="flex  items-center bg-transparent rounded-full px-2 py-2 gap-[5px] border border-black"
+      className="flex h-[34px] items-center bg-transparent rounded-full pl-4 pr-3 gap-[5px] border border-black"
     >
-      <div className="align-middle text-labelSM">{t('sidebar.call-inquire')}</div>
-      <div className="align-middle text-darkGray text-labelSM">
+      <div className="align-middle text-labelSM whitespace-nowrap">{t('sidebar.call-inquire')}</div>
+      <div className="align-middle text-darkGray text-labelSM leading-4">
         +82.02.6085.1896
       </div>
       <Image alt="right-arrow" src={RightArrowBlack} />

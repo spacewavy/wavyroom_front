@@ -112,16 +112,16 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "w-full lg:w-[240px] flex lg:flex gap-8 flex-col p-8 md:border-r md:border-r-black",
+          "w-full lg:w-[240px] flex lg:flex gap-8 flex-col py-8 md:border-r md:border-r-black",
           !!selectedMenuId && "hidden"
         )}
       >
-        <SheetHeader>
+        <SheetHeader className="px-8">
           <SheetTitle>
             <Image className="w-auto h-8" src={Logo} alt="Spacewavy" />
           </SheetTitle>
         </SheetHeader>
-        <div className="flex flex-col flex-1 gap-8 py-12">
+        <div className="flex flex-col flex-1 gap-8 py-12 px-8">
           <div className="hidden md:flex text-[20px] mb-4">
             {t("sidebar.items.menu")}
           </div>
@@ -161,7 +161,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             );
           })}
         </div>
-        <div className="flex flex-col items-start w-full gap-8">
+        <div className="flex flex-col items-start w-full gap-8 pl-8">
           <SelectLang />
           <CallInquery />
         </div>
