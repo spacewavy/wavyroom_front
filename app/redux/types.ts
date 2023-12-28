@@ -114,8 +114,8 @@ export interface ModelColors {
   name: string;
   modelIdSubstitude: string;
   modelId: string;
-  isSelected?:boolean;
-  isDefault:boolean
+  isSelected?: boolean;
+  isDefault: boolean;
 }
 
 export interface ModelExample {
@@ -146,7 +146,8 @@ export interface ModelFloorOptions {
   order: number;
   price: number;
   isDefault: boolean;
-  isSelected?:boolean;
+  isSelected?: boolean;
+  threeDFileURL: string;
   modelSecondOptions: ModelSecondOption[];
   ModelKitchenTypes: ModelKitchenType[];
 }
@@ -160,7 +161,7 @@ export interface ModelKitchenType {
   name: string;
   order: number;
   options: ModelKitchenOption[];
-  isSelected?:boolean;
+  isSelected?: boolean;
 }
 export interface ModelKitchenOption {
   name: string;
@@ -173,6 +174,6 @@ export interface ModelKitchenOptionDetail {
   isSelected?: boolean;
 }
 export interface CustomizationData {
-  data : Customization;
-  error:string | null
+  data: Customization;
+  error: string | null;
 }
