@@ -17,10 +17,10 @@ const OrderCard = ({
 }: OrderCardProps) => {
   return (
     <div
-      className="grid w-full grid-cols-1 md:grid-cols-3 gap-4 md:gap-0 max-h-fit md:min-h-[262px] lg:min-h-[379px] last:min-h-fit"
+      className="grid w-full grid-cols-1 md:grid-cols-5 gap-4 md:gap-0 max-h-fit md:min-h-[262px] lg:min-h-[379px] last:min-h-fit"
       style={{ direction: imageRight ? "rtl" : "ltr" }}
     >
-      <div className="imageSection">
+      <div className="imageSection col-span-2">
         <Image
           src={image}
           alt="order_image"
@@ -28,7 +28,7 @@ const OrderCard = ({
         />
       </div>
 
-      <div className="hidden md:flex items-center md:flex-col">
+      <div className="hidden md:flex items-center md:flex-col col-span-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="15"
@@ -41,7 +41,7 @@ const OrderCard = ({
         <div className="h-full w-[1px] bg-midGray"></div>
       </div>
 
-      <div className="contentSection text-left px-4 md:px-0" style={{direction:'ltr'}}>
+      <div className="contentSection text-left px-4 md:px-0 col-span-2" style={{direction:'ltr'}}>
         <div>
           <div className="mb-4 md:mb-[24px]">
             <span className="text-[24px] md:text-[32px] font-light">
