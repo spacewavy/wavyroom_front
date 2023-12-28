@@ -90,6 +90,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     () => data.find((obj: any) => obj.id === selectedListId),
     [selectedListId]
   );
+  const sortedModelColors = selectedProduct?.modelColors.sort((a:any, b:any) => a.order - b.order);
 
   const initData = () => {
     setSelectedMenuId(menuType === "model" ? 2 : 0);
@@ -304,7 +305,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   {t("sidebar.details.exterior-color")}
                 </span>
                 <div className="flex flex-row gap-1 flex-wrap">
-                  {selectedProduct.modelColors.map((x: any) => {
+                  {sortedModelColors.map((x: any) => {
                     return (
                       <div
                         key={x.colorId}

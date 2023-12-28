@@ -124,7 +124,7 @@ const ModelDetail = () => {
       <Navbar isDark={isDark} isFloating={true} />
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[768/482] lg:aspect-[1440/785]">
+          <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square aspect-[580/320] md:aspect-[890/482] lg:aspect-[1440/785]">
             <div className="flex flex-1 items-center justify-center">
               <Image
                 src={makeFullUrl(
@@ -290,7 +290,7 @@ const ModelDetail = () => {
                   {t("sidebar.details.exterior-color")}
                 </div>
                 <div className="flex flex-col md:flex-row items-start justify-left gap-2 md:gap-4 md:items-center">
-                  {data.modelColors.map((x: any, i: number) => {
+                  {data.modelColors.sort((a:any, b:any) => a.order - b.order).map((x: any, i: number) => {
                     return (
                       <div
                         key={"color" + i}
@@ -416,7 +416,6 @@ const ModelDetail = () => {
                 />
               ))}
             </div>
-            <Button name="카카오톡 상담하기" arrow varient="lightGray" />
           </div>
         </section>
         <section className="group-[.is-dark]:bg-jetBlack">

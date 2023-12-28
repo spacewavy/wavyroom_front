@@ -6,6 +6,7 @@ import image2 from "@/assets/how-to-order/Wavyroom_How_to_Order_2.png";
 import image3 from "@/assets/how-to-order/Wavyroom_How_to_Order_3.png";
 import image4 from "@/assets/how-to-order/Wavyroom_How_to_Order_4.png";
 import image5 from "@/assets/how-to-order/Wavyroom_How_to_Order_5.png";
+import Link from "next/link";
 
 import OrderCard from "@/components/OrderCard";
 import Image from "next/image";
@@ -82,7 +83,9 @@ const HowToOrder = () => {
         </p>
         <div className="flex justify-center gap-[4px] px-4 py-2">
           <p className="text-orange text-center text-sm font-medium text-[14px]">
+          <Link href="/customization">
             {t('how-to-order.info-card.navigation-button')}
+          </Link>
           </p>
           <svg
             xmlns="http://www.w3.org/2000/svg"

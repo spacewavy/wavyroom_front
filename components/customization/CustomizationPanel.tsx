@@ -385,7 +385,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
               </div>
             </div>
             <div className="selectColor">
-              <SelectColorCard modelColors={data.modelColors} />
+              <SelectColorCard modelColors={data.modelColors.sort((a:any, b:any) => a.order - b.order)} />
             </div>
             <div className="customOption">
               <CustomizationOptions

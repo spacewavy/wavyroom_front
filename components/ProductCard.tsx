@@ -5,6 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { makeFullUrl } from "../lib/utils";
 import { useTranslation } from "react-i18next";
+import {
+  fetchCustomizationOptionsData,
+  navigateToSettings,
+} from "@/app/redux/actions/customizationActions";
+import { AnyAction } from "redux";
+import { useDispatch } from "react-redux";
 
 export interface ProductCardProps {
   id?: string;
@@ -16,34 +22,44 @@ export interface ProductCardProps {
 
 const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const handlePlaceOrderClick = () => {
+    dispatch(fetchCustomizationOptionsData(id || "") as unknown as AnyAction);
+    dispatch(navigateToSettings(true) as unknown as AnyAction);
+  };
   return (
-    <div className="aspect-[3/3] md:aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12">
-      <div className="relative flex flex-1">
-        <Image
-          src={makeFullUrl(image)}
-          alt="product_image"
-          objectFit="cover"
-          priority
-          fill
-          unoptimized
-          quality={100}
-        />
-      </div>
-      <div className="flex justify-between">
-        <div className="text-black text-bodyMD md:text-bodyLG">
-          <p>
-            {name} /<span className="text-midGray ml-[4px]"> {purpose} </span>
-          </p>
-          <span>{value.toLocaleString()}</span>
+    <Link href={`/model-detail?id=${id}`}>
+      <div className="aspect-[3/3] md:aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12">
+        <div className="relative flex flex-1">
+          <Image
+            src={makeFullUrl(image)}
+            alt="product_image"
+            objectFit="cover"
+            priority
+            fill
+            unoptimized
+            quality={100}
+          />
         </div>
-        <Link href={`/model-detail?id=${id}`}>
-          <CommonButton className="text-labelSM" variant="secondary">
-            {t("models.button.text")}{" "}
-            <Image alt="right-arrow" src={RightArrowBlack} className="ml-2" />
-          </CommonButton>
-        </Link>
+        <div className="flex justify-between">
+          <div className="text-black text-bodyMD md:text-bodyLG">
+            <p>
+              {name} /<span className="text-midGray ml-[4px]"> {purpose} </span>
+            </p>
+            <span>{value.toLocaleString()}</span>
+          </div>
+          <Link
+            href={`/customization?id=${id}`}
+            onClick={handlePlaceOrderClick}
+          >
+            <CommonButton className="text-labelSM" variant="secondary">
+              {t("models.button.text")}{" "}
+              <Image alt="right-arrow" src={RightArrowBlack} className="ml-2" />
+            </CommonButton>
+          </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -61,13 +77,15 @@ export function ProductAllCard() {
           <br />
           {t("home.card.title.text-3")}
         </p>
-        <CommonButton
-          className="p-0 bg-transparent !text-labelMD"
-          variant="ghostOrange"
-        >
-          {t("home.card.navigation-text")}{" "}
-          <Image alt="right-arrow" src={RightArrowOrange} className="ml-2" />
-        </CommonButton>
+        <Link href={"/models"}>
+          <CommonButton
+            className="p-0 bg-transparent !text-labelMD"
+            variant="ghostOrange"
+          >
+            {t("home.card.navigation-text")}{" "}
+            <Image alt="right-arrow" src={RightArrowOrange} className="ml-2" />
+          </CommonButton>
+        </Link>
       </div>
     </div>
   );
