@@ -206,12 +206,9 @@ export const ThreeProvider = ({ children }) => {
     if (!extension) {
       return;
     }
-    console.log("load file...", url, extension);
 
     setIsModelLoading(true);
     setLoadPercent(0);
-
-    // const _url = URL.createObjectURL(url);
 
     deleteCurrentModel();
     switch (extension) {
@@ -248,7 +245,6 @@ export const ThreeProvider = ({ children }) => {
       url,
       function (model) {
         let object;
-        console.log("hihihi load file", model);
 
         if (
           extension === FILE_EXTENSION.GLTF ||
@@ -357,8 +353,19 @@ export const ThreeProvider = ({ children }) => {
     );
   };
 
-  const changeModel = (model) => {
-    setCurrentModelPath(model);
+  const changeModel = (modelPath) => {
+    let _isSameFile = false;
+    try {
+      const newFileName = modelPath.split("/")[modelPath.split("/").length - 1];
+      const currentFileName =
+        currentModelPath.split("/")[currentModelPath.split("/").length - 1];
+      console.log(newFileName, currentFileName);
+      _isSameFile = newFileName === currentFileName;
+    } catch (e) {
+      _isSameFile = false;
+    }
+    if (_isSameFile) return;
+    setCurrentModelPath(modelPath);
   };
 
   const changeMeshVisibilityByName = (_name, _visible) => {

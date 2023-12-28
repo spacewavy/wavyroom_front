@@ -23,6 +23,8 @@ import {
 import { AnyAction } from "redux";
 import { RootState } from "../../app/redux/reducers";
 import { useTranslation } from "react-i18next";
+import { useThree } from "../../context/threeContext";
+import { makeImageUrl } from "../../lib/utils";
 
 interface CustomizationPanelProps {
   handleMenuToggle: any;
@@ -77,6 +79,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
   const dispatch = useDispatch();
+  const { changeModel } = useThree();
 
   // get the color data
   useEffect(() => {
@@ -108,9 +111,10 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         data.modelFloorOptions.findIndex((x: ModelFloorOptions) => x.isSelected)
       ];
     const secondOpt = selectedFloor?.modelSecondOptions;
-    const _valid = secondOpt?.filter((item: ModelSecondOption) =>
-      item.optionDetails.some((o) => o.isSelected)
-    ).length >= 1;
+    const _valid =
+      secondOpt?.filter((item: ModelSecondOption) =>
+        item.optionDetails.some((o) => o.isSelected)
+      ).length >= 1;
     if (_valid) {
       setNextBtnDisable(false);
     } else {
@@ -137,23 +141,20 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     setEstimatedQutation(total);
   };
 
-  const handleFloorChange = (floorId: string) => {
-    if (floorId) {
-      dispatch(
-        customizationFloorSelectionChange(floorId) as unknown as AnyAction
-      );
-    }
+  const handleFloorChange = (_option: ModelFloorOptions) => {
+    if (!_option.id) return;
+    console.log("hello", _option.id);
+    dispatch(
+      customizationFloorSelectionChange(_option.id) as unknown as AnyAction
+    );
+    changeModel(makeImageUrl(_option.threeDFileURL));
   };
 
   const handleOptionChange = (nodeId: string, order: number) => {
-    if (nodeId && order) {
-      dispatch(
-        customizationOptionsSelectionChange(
-          nodeId,
-          order
-        ) as unknown as AnyAction
-      );
-    }
+    if (!nodeId || !order) return;
+    dispatch(
+      customizationOptionsSelectionChange(nodeId, order) as unknown as AnyAction
+    );
   };
 
   const handleKitchenTypeSelect = (name: string) => {
@@ -170,10 +171,11 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           <div className="flex justify-between w-full items-end">
             <div className="flex-col flex">
               <span className="text-[12px] font-normal text-darkGray">
-                {t('customization.summery.estimated')}
+                {t("customization.summery.estimated")}
               </span>
               <span className="text-[24px] font-light">
-                {estimatedQutation.toLocaleString()}{t('customization.summery.currency')}
+                {estimatedQutation.toLocaleString()}
+                {t("customization.summery.currency")}
               </span>
             </div>
             <div>
@@ -244,7 +246,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             }`}
           >
             <span className={`text-[12px] font-medium hidden md:block`}>
-              {t('customization.summery.button-text')}
+              {t("customization.summery.button-text")}
             </span>
             <span className={`text-[12px] font-medium block md:hidden`}>
               커스텀하기
@@ -367,7 +369,9 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                           title={o.name}
                           price={o.price.toLocaleString()}
                           isSelected={o.isSelected || o.isDefault}
-                          onClickHandler={handleFloorChange}
+                          onClickHandler={() => {
+                            handleFloorChange(o);
+                          }}
                         />
                       );
                     })}
@@ -391,14 +395,20 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
         ) : (
           <section className="cursol-pointer">
             <div className="p-8">
-              <span className="text-[28px] font-light">{t('customization.summery.header')}</span>
+              <span className="text-[28px] font-light">
+                {t("customization.summery.header")}
+              </span>
             </div>
             <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">{t('customization.summery.model-type')}</span>
+              <span className="text-[14px] font-normal">
+                {t("customization.summery.model-type")}
+              </span>
               <span className="text-[12px] font-light">Wavyroom Evo</span>
             </div>
             <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">{t('customization.summery.floor-type')}</span>
+              <span className="text-[14px] font-normal">
+                {t("customization.summery.floor-type")}
+              </span>
               <span className="text-[12px] font-light">
                 {
                   data.modelFloorOptions.find(
@@ -409,7 +419,9 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             </div>
             {selectedColor.name && (
               <div className="px-8 py-4 flex justify-between">
-                <span className="text-[14px] font-normal">{t('customization.summery.exterior-color')}</span>
+                <span className="text-[14px] font-normal">
+                  {t("customization.summery.exterior-color")}
+                </span>
                 <div className="flex gap-4 items-center">
                   <div
                     className={`w-8 h-8 bg-[${selectedColor.colorId}] rounded-full`}
@@ -441,7 +453,9 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                   return (
                     opt.isSelected && (
                       <div className="px-8 py-4 flex justify-between">
-                        <span className="text-[14px] font-normal">{sec.name}</span>
+                        <span className="text-[14px] font-normal">
+                          {sec.name}
+                        </span>
                         <span className="text-[12px] font-light">
                           {opt.name}
                         </span>
