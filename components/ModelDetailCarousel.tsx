@@ -18,7 +18,6 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
     inViewThreshold: 0.7,
   });
 
-  console.log(";data", data);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);

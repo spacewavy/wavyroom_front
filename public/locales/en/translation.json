@@ -297,7 +297,16 @@
       "title" : "Model"
     },
     "button" : {
-      "text"  : "Order"
+      "text"  : "Order",
+      "specification": "Specifications",
+      "customize": "Customize Your Wavyroom"
+    },
+    "description": {
+      "evo-desc": "Start a lodging business like resort or pension with Wavyroom Evo.",
+      "studio-desc": "Create your own hideout with Wavyroom Studio.",
+      "max-desc": "Create your own second home with Wavyroom Max",
+      "nova-desc": "Take a step into the future with Wavy Room Nova.",
+      "mini-desc": "Create a multi-purpose space that suits your taste with Wavyroom Mini."
     }
   },
   "portfolio" : {
