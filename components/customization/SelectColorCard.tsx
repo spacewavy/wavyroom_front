@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AnyAction } from "redux";
 import { useThree } from "../../context/threeContext";
+import { useTranslation } from "react-i18next";
 
 interface SelectColorCardPorps {
   modelColors: ModelColors[];
@@ -11,6 +12,7 @@ interface SelectColorCardPorps {
 
 const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
   const [selectedColorName, setSelectedColorName] = useState("");
+  const  { t } = useTranslation();
 
   const { changeModelColorFromHex } = useThree();
   const dispatch = useDispatch();
@@ -32,7 +34,7 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
     <section className="px-[24px] md:px-8 py-4">
       <div className="materialColor flex flex-col gap-4">
         <div className="flex justify-between title text-[14px] font-medium">
-          <span className="text-jetBlack">외장재 색상</span>
+          <span className="text-jetBlack">{t('customization.exterior-color')}</span>
         </div>
         <div className="flex justify-between flex-col md:flex-row gap-2">
           <div className="colors flex gap-2">

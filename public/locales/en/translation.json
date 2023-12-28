@@ -23,7 +23,8 @@
         "text-3": "Wavyroom modules."
       },
       "navigation-text": "Product Full View"
-    }
+    },
+    "see-more": "More"
   },
   "navbar": {
     "model": "Model",
@@ -158,6 +159,8 @@
   },
   "customization": {
     "canvas-text": "Drag the model with the mouse to rotate the configuration",
+    "select-floor-type": "Please select a floor type",
+    "exterior-color": "Exterior material color",
     "tire-1": {
         "heading": "Wavyroom",
         "description": {
@@ -296,6 +299,18 @@
     "button" : {
       "text"  : "Order"
     }
+  },
+  "portfolio" : {
+    "title": "Portfolio",
+    "dropdown-title": "Project size",
+    "dropdown-opts": {
+      "opt-1": "All size(All suare footage)", 
+      "opt-2": "10 pyeong", 
+      "opt-3": "11~20 pyeong", 
+      "opt-4": "20~30 pyeong",
+      "opt-5": "30 pyeong"
+    },
+    "currency": "pyeong"
   }
 
 }

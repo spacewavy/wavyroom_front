@@ -349,10 +349,10 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
               <div className="flex flex-col">
                 <div className="flex justify-between">
                   <span className="optionName text-[14px] font-medium">
-                    층수 형태
+                    {t("customization.summery.floor-type")}
                   </span>
                   <span className="text-[12px] font-light text-orange">
-                    층수 형태를 선택해주세요
+                    {t("customization.select-floor-type")}
                   </span>
                 </div>
                 <div
