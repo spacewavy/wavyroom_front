@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { cn, makeImageUrl } from "@/lib/utils";
+import { cn, makeFullUrl } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import SelectLang from "./SelectLang";
@@ -52,26 +52,25 @@ const sidebarItemChildrens: SidebarItemChildren[] = [
   { id: 6, title: "전체보기", desc: "", rate: "" },
 ];
 
-
 const Sidebar = ({ open, setOpen, menuType }: any) => {
   const [selectedMenuId, setSelectedMenuId] = useState(0);
   const [selectedListId, setSelectedListId] = useState("");
-  const { t } = useTranslation() 
-  
+  const { t } = useTranslation();
+
   const sidebarItems: SidebarItem[] = [
-    { id: 1, title: t('sidebar.items.about'), link: "/about" },
-    { id: 2, title: t('sidebar.items.model'), childrens: sidebarItemChildrens },
-    { id: 3, title: t('sidebar.items.how-to-order'), link: "/how-to-order" },
-    { id: 4, title: t('sidebar.items.portfolio'), link: "/portfolio" },
-    { id: 5, title: t('sidebar.items.media'), link: "/media" },
-    { id: 6, title: t('sidebar.items.customer'), link: "/contact-us" },
+    { id: 1, title: t("sidebar.items.about"), link: "/about" },
+    { id: 2, title: t("sidebar.items.model"), childrens: sidebarItemChildrens },
+    { id: 3, title: t("sidebar.items.how-to-order"), link: "/how-to-order" },
+    { id: 4, title: t("sidebar.items.portfolio"), link: "/portfolio" },
+    { id: 5, title: t("sidebar.items.media"), link: "/media" },
+    { id: 6, title: t("sidebar.items.customer"), link: "/contact-us" },
   ];
   const dispatch = useDispatch();
   const { data, error } = useSelector(
     (state: RootState) => state.navigationModel
-    );
-    const { language } = useSelector((state: any) => state.locale);
-    
+  );
+  const { language } = useSelector((state: any) => state.locale);
+
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, [language]);
@@ -122,7 +121,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-1 gap-8 py-12">
-          <div className="hidden md:flex text-[20px] mb-4">{t('sidebar.items.menu')}</div>
+          <div className="hidden md:flex text-[20px] mb-4">
+            {t("sidebar.items.menu")}
+          </div>
           {sidebarItems.map((item: SidebarItem, index) => {
             const isLink = !!item.link;
             return isLink ? (
@@ -177,7 +178,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         )}
       >
         <p className="text-lg pt-16">{selectedProduct?.title}</p>
-        <div className="flex text-[20px]">{t('sidebar.items.model')}</div>
+        <div className="flex text-[20px]">{t("sidebar.items.model")}</div>
         <ul className="flex flex-col flex-1 text-xs font-light">
           {data.map((obj: NavigationModelItem, i: number) => (
             <li key={obj.name}>
@@ -250,7 +251,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         {/* <div className="relative sm:block hidden w-full aspect-[800/432]"> */}
         <div className="relative sm:block hidden w-full h-[432px]">
           <Image
-            src={makeImageUrl(selectedProduct.heroImageURL)}
+            src={makeFullUrl(selectedProduct.heroImageURL)}
             alt="Model Hero Image"
             // fill={true}
             fill
@@ -258,25 +259,35 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           />
         </div>
         <div className="flex flex-1 flex-col p-8 gap-4">
-          <h2 className="text-[20px]">{selectedProduct?.name} {t('sidebar.details.specification')}</h2>
+          <h2 className="text-[20px]">
+            {selectedProduct?.name} {t("sidebar.details.specification")}
+          </h2>
           <ul className="flex flex-col flex-1 text-xs font-light pb-10">
             <li className="grid grid-cols-4 py-4 gap-6 text-sm">
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.price')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.price")}
+                </span>
                 <span className="truncate">
                   {selectedProduct.minPrice.toLocaleString()}
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.standard')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.standard")}
+                </span>
                 <span className="truncate">{selectedProduct.size}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.floor-plan')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.floor-plan")}
+                </span>
                 <span className="truncate">{selectedProduct.sizeDetail}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.exterior-material')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.exterior-material")}
+                </span>
                 <span className="truncate">
                   {selectedProduct.exteriorMaterial.map((x: any) => {
                     return (
@@ -289,7 +300,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.exterior-color')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.exterior-color")}
+                </span>
                 <div className="flex flex-row gap-1 flex-wrap">
                   {selectedProduct.modelColors.map((x: any) => {
                     return (
@@ -305,15 +318,21 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.insulation')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.insulation")}
+                </span>
                 <span className="truncate">{selectedProduct.insulation}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.framework')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.framework")}
+                </span>
                 <span className="truncate">{selectedProduct.structure}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.windows')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.windows")}
+                </span>
                 <span className="truncate">
                   {selectedProduct.windows.map((x: any) => {
                     return (
@@ -326,7 +345,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.furniture')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.furniture")}
+                </span>
                 <span className="truncate">
                   {" "}
                   {selectedProduct.furniture.map((x: any) => {
@@ -340,7 +361,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.purpose')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.purpose")}
+                </span>
                 <span className="truncate">
                   {selectedProduct.purpose.map((x: any) => {
                     return (
@@ -353,7 +376,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">{t('sidebar.details.purpose-discription')}</span>
+                <span className="truncate font-normal">
+                  {t("sidebar.details.purpose-discription")}
+                </span>
                 <span className="truncate">
                   {selectedProduct.purposeDetail.map((x: any) => {
                     return (
@@ -373,7 +398,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               onClick={handlePlaceOrderClick}
             >
               <button className="border-[1px] rounded-full border-[black] px-4 py-2 bg-black text-white flex gap-[4px] items-center text-[12px] font-normal">
-                <span>{t('sidebar.details.order')}</span>
+                <span>{t("sidebar.details.order")}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -400,7 +425,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               onClick={handleNavigateToModelDetail}
             >
               <button className="border-[1px] rounded-full border-[black] px-4 py-2 text-[12px] font-normal">
-              {t('sidebar.details.see-product')}
+                {t("sidebar.details.see-product")}
               </button>
             </Link>
           </div>

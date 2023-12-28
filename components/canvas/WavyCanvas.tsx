@@ -42,7 +42,6 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
     setIsLoading(false);
     onWindowResize(false);
     animate();
-    console.log("cameraViewType", cameraViewType);
 
     window.addEventListener("resize", () => onWindowResize());
 

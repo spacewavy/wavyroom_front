@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchModelDetailData } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelColors, ModelDetailItem } from "../redux/types";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
 import { useSearchParams } from "next/navigation";
 import {
   fetchCustomizationOptionsData,
@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import { RootState } from "../redux/reducers";
 import { useTranslation } from "react-i18next";
+import { useMediaQuery } from "react-responsive";
 
 const ModelDetail = () => {
   const { t } = useTranslation();
@@ -29,7 +30,8 @@ const ModelDetail = () => {
   );
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
-  const { language } = useSelector((state: any) => state.locale);  
+  const { language } = useSelector((state: any) => state.locale);
+  const isMobile = useMediaQuery({ query: "(max-width: 576px)" });
 
   useEffect(() => {
     dispatch(fetchModelDetailData(id || "") as unknown as AnyAction);
@@ -65,34 +67,34 @@ const ModelDetail = () => {
 
   const FAQs = [
     {
-        question:  t('contact-us.section-2-faq.faq-1.question'),
-        answer: t('contact-us.section-2-faq.faq-1.answer'),
-      },
-      {
-        question:  t('contact-us.section-2-faq.faq-2.question'),
-        answer: t('contact-us.section-2-faq.faq-2.answer'),   
-      },
-      {
-        question:  t('contact-us.section-2-faq.faq-3.question'),
-        answer: t('contact-us.section-2-faq.faq-3.answer'),
-      },
-      {
-        question: t('contact-us.section-2-faq.faq-4.question'),
-        answer: t('contact-us.section-2-faq.faq-4.answer'),
-      },
-      {
-        question:  t('contact-us.section-2-faq.faq-5.question'),
-        answer: t('contact-us.section-2-faq.faq-5.answer'),
-      },
-      {
-        question:  t('contact-us.section-2-faq.faq-6.question'),
-        answer: t('contact-us.section-2-faq.faq-6.answer'),
-      },
-      {
-        question:  t('contact-us.section-2-faq.faq-7.question'),
-        answer: t('contact-us.section-2-faq.faq-7.answer'),
-      }
-    ];
+      question: t("contact-us.section-2-faq.faq-1.question"),
+      answer: t("contact-us.section-2-faq.faq-1.answer"),
+    },
+    {
+      question: t("contact-us.section-2-faq.faq-2.question"),
+      answer: t("contact-us.section-2-faq.faq-2.answer"),
+    },
+    {
+      question: t("contact-us.section-2-faq.faq-3.question"),
+      answer: t("contact-us.section-2-faq.faq-3.answer"),
+    },
+    {
+      question: t("contact-us.section-2-faq.faq-4.question"),
+      answer: t("contact-us.section-2-faq.faq-4.answer"),
+    },
+    {
+      question: t("contact-us.section-2-faq.faq-5.question"),
+      answer: t("contact-us.section-2-faq.faq-5.answer"),
+    },
+    {
+      question: t("contact-us.section-2-faq.faq-6.question"),
+      answer: t("contact-us.section-2-faq.faq-6.answer"),
+    },
+    {
+      question: t("contact-us.section-2-faq.faq-7.question"),
+      answer: t("contact-us.section-2-faq.faq-7.answer"),
+    },
+  ];
   const faqRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(false);
   const [selectedColor, setSelectedColor] = useState({
@@ -106,7 +108,6 @@ const ModelDetail = () => {
       data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
     setIsDark(data.isDarkMode);
-    console.log(data);
   }, [data]);
 
   const handleSrcollToFAQ = () => {
@@ -117,6 +118,7 @@ const ModelDetail = () => {
     dispatch(fetchCustomizationOptionsData(id || "") as unknown as AnyAction);
     dispatch(navigateToSettings(true) as unknown as AnyAction);
   };
+
   return (
     <div className="relative">
       <Navbar isDark={isDark} isFloating={true} />
@@ -125,12 +127,14 @@ const ModelDetail = () => {
           <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square md:aspect-[768/482] lg:aspect-[1440/785]">
             <div className="flex flex-1 items-center justify-center">
               <Image
-                src={makeImageUrl(data.heroImageURL)}
+                src={makeFullUrl(
+                  isMobile ? data.mobileHeroImageURL : data.heroImageURL
+                )}
                 alt="nova"
                 priority={true}
                 quality={100}
                 fill={true}
-                objectFit="contain"
+                objectFit="cover"
                 unoptimized={true}
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
@@ -184,7 +188,7 @@ const ModelDetail = () => {
             </div>
             <div className="flex flex-col">
               <Image
-                src={makeImageUrl(selectedColor?.imageURL)}
+                src={makeFullUrl(selectedColor?.imageURL)}
                 alt="model image"
                 height={500}
                 width={1800}
@@ -232,7 +236,7 @@ const ModelDetail = () => {
           <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col items-center justify-center  bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
               <Image
-                src={makeImageUrl(data.representativeImageURL)}
+                src={makeFullUrl(data.representativeImageURL)}
                 alt="nova"
                 width={1000}
                 height={1000}
@@ -240,26 +244,26 @@ const ModelDetail = () => {
             </div>
             <div className="flex flex-col bg-white lg:bg-lightGray flex-1 sm:px-4 md:px-8 py-12 group-[.is-dark]:bg-offBlack group-[.is-dark]:text-white">
               <div className="text-[24px] md:text-[28px] lg:text-[32px] pb-6 border-b border-midGray">
-                {data.name} {t('sidebar.details.specification')}
+                {data.name} {t("sidebar.details.specification")}
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2 pr-4">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.price')}
+                    {t("sidebar.details.price")}
                   </div>
                   <div className="text-[14px] font-light">{data.minPrice}</div>
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.standard')}
+                    {t("sidebar.details.standard")}
                   </div>
-                  <div className="text-[14px] font-light">{data.size}평형</div>
+                  <div className="text-[14px] font-light">{data.size}</div>
                 </div>
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.floor-plan')}
+                    {t("sidebar.details.floor-plan")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.sizeDetail}
@@ -267,7 +271,7 @@ const ModelDetail = () => {
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.exterior-material')}
+                    {t("sidebar.details.exterior-material")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.exteriorMaterial?.map((x: any, index: number) => {
@@ -283,7 +287,7 @@ const ModelDetail = () => {
               </div>
               <div className="flex flex-col border-b border-midGray py-4  gap-2">
                 <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                {t('sidebar.details.exterior-color')}
+                  {t("sidebar.details.exterior-color")}
                 </div>
                 <div className="flex flex-col md:flex-row items-start justify-left gap-2 md:gap-4 md:items-center">
                   {data.modelColors.map((x: any, i: number) => {
@@ -314,7 +318,7 @@ const ModelDetail = () => {
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.insulation')}
+                    {t("sidebar.details.insulation")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.insulation}
@@ -322,7 +326,7 @@ const ModelDetail = () => {
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.framework')}
+                    {t("sidebar.details.framework")}
                   </div>
                   <div className="text-[14px] font-light">{data.structure}</div>
                 </div>
@@ -330,7 +334,7 @@ const ModelDetail = () => {
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.windows')}
+                    {t("sidebar.details.windows")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.windows.map((x: any, i: number) => {
@@ -345,7 +349,7 @@ const ModelDetail = () => {
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.furniture')}
+                    {t("sidebar.details.furniture")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.furniture.map((x: any) => {
@@ -362,7 +366,7 @@ const ModelDetail = () => {
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.purpose')}
+                    {t("sidebar.details.purpose")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.purpose.map((x: any) => {
@@ -377,7 +381,7 @@ const ModelDetail = () => {
                 </div>
                 <div className="flex flex-col border-b border-midGray py-4 pr-4 gap-2">
                   <div className="text-[14px] font-normal group-[.is-dark]:opacity-40">
-                  {t('sidebar.details.purpose-discription')}
+                    {t("sidebar.details.purpose-discription")}
                   </div>
                   <div className="text-[14px] font-light">
                     {data.purposeDetail.map((x: any) => {
@@ -400,7 +404,7 @@ const ModelDetail = () => {
         >
           <div className="flex flex-col items-center gap-16 w-full px-4 py-8 md:p-8">
             <div className="text-[28px] md:text-[32px] group-[.is-dark]:text-white">
-            {t('contact-us.section-2.title')}
+              {t("contact-us.section-2.title")}
             </div>
             <div className="flex flex-col w-full">
               {FAQs.map((item, index) => (
@@ -435,7 +439,7 @@ const ModelDetail = () => {
                     </div>
                     <div className="flex items-center jusitfy-center">
                       <Image
-                        src={`${makeImageUrl(item.representativeImageURL)}`}
+                        src={`${makeFullUrl(item.representativeImageURL)}`}
                         alt="nova"
                         width={475}
                         height={475}

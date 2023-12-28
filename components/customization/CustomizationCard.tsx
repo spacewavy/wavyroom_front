@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useThree } from "../../context/threeContext";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
 
 export interface CustomCardProps {
   id: string;
@@ -41,7 +41,7 @@ const CustomizationCard = ({
           <p className="text-[14px] font-weight color-[#000]">{price}</p>
         </div>
         <div className="relative flex justify-center aspect-[144/51] w-[144px] md:w-[288px]">
-          <Image src={makeImageUrl(image)} alt="img" fill objectFit="cover" />
+          <Image src={makeFullUrl(image)} alt="img" fill objectFit="cover" />
         </div>
       </div>
     </div>

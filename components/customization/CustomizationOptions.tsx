@@ -61,11 +61,11 @@ const CustomizationOptions: FC<{
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col">
         {customizationOptions?.modelSecondOptions.map(
           (opt: ModelSecondOption, index) => {
             return (
-              <section className="px-[24px] sm:px-8 py-4" key={`opt-${index}`}>
+              <section className="px-[24px] md:px-8 py-4" key={`opt-${index}`}>
                 <div className="flex flex-col">
                   <div className="flex justify-between">
                     <div className="flex gap-2 items-center">

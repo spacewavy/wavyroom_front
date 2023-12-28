@@ -3,7 +3,7 @@ import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import { ModelExample } from "../app/redux/types";
-import { makeImageUrl } from "../lib/utils";
+import { makeFullUrl } from "../lib/utils";
 
 interface ModelDetailCarouselProps {
   data: ModelExample[];
@@ -17,7 +17,6 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
     skipSnaps: false,
     inViewThreshold: 0.7,
   });
-
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
@@ -34,7 +33,7 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
                     <Image
                       layout="fill"
                       objectFit="cover"
-                      src={makeImageUrl(data.imageURL)}
+                      src={makeFullUrl(data.imageURL)}
                       alt="Vercel Image"
                     />
                   </div>

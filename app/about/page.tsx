@@ -11,7 +11,7 @@ import { RootState } from "../redux/reducers";
 import { fetchAboutReputationData } from "../redux/actions/aboutReputationActions";
 import { AnyAction } from "redux";
 import { AboutReputationItem } from "../redux/types";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
 import { useTranslation } from "react-i18next";
 
 const About = () => {
@@ -19,7 +19,6 @@ const About = () => {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const { t } = useTranslation();
-
 
   const dispatch = useDispatch();
 
@@ -44,18 +43,18 @@ const About = () => {
   useEffect(() => {
     dispatch(fetchAboutReputationData() as unknown as AnyAction);
   }, [language]);
-  
+
   return (
     <main className="flex flex-col flex-1">
       <section>
         <div className="flex flex-col lg:flex-col-reverse">
           <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-4">
             <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
-              {t('about-us.section-1.text')}
+              {t("about-us.section-1.text")}
             </div>
             <div className="flex flex-1 items-end">
               <div className="text-titleSM md:text-titleMD lg:text-titleLG font-light max-w-[564px]">
-              {t('about-us.section-1.para')}
+                {t("about-us.section-1.para")}
               </div>
             </div>
           </div>
@@ -69,53 +68,69 @@ const About = () => {
                 {isVideoLoaded && (
                   <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
-                    {!isMuted ? 
-                      <div onClick={handleMute}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <g clip-path="url(#clip0_991_26195)">
-                        <path d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z" fill="white"/>
-                        <path d="M22.0007 11.9998C22.0007 9.76984 21.2307 7.70984 19.9307 6.08984L19.2207 6.79984C20.3407 8.22984 21.0007 10.0398 21.0007 11.9998C21.0007 13.9598 20.3407 15.7698 19.2207 17.1998L19.9307 17.9098C21.2307 16.2898 22.0007 14.2298 22.0007 11.9998Z" fill="white"/>
-                        <path d="M17.9997 11.9996C17.9997 13.1396 17.6997 14.2096 17.1697 15.1496L16.4297 14.4096C16.7997 13.6796 16.9997 12.8596 16.9997 11.9996C16.9997 11.1396 16.7997 10.3196 16.4297 9.58961L17.1697 8.84961C17.6997 9.78961 17.9997 10.8596 17.9997 11.9996Z" fill="white"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_991_26195">
-                        <rect width="24" height="24" fill="white"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
-                      </div> :
-                      <div onClick={handleUnMute}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_3392_9494)">
-                            <path
-                              d="M16 9L22 15"
-                              stroke="white"
-                              strokeLinejoin="bevel"
-                            />
-                            <path
-                              d="M16 15L22 9"
-                              stroke="white"
-                              strokeLinejoin="bevel"
-                            />
-                            <path
-                              d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
-                              fill="white"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_3392_9494">
-                              <rect width="24" height="24" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                    }
+                      {!isMuted ? (
+                        <div onClick={handleMute}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g clip-path="url(#clip0_991_26195)">
+                              <path
+                                d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
+                                fill="white"
+                              />
+                              <path
+                                d="M22.0007 11.9998C22.0007 9.76984 21.2307 7.70984 19.9307 6.08984L19.2207 6.79984C20.3407 8.22984 21.0007 10.0398 21.0007 11.9998C21.0007 13.9598 20.3407 15.7698 19.2207 17.1998L19.9307 17.9098C21.2307 16.2898 22.0007 14.2298 22.0007 11.9998Z"
+                                fill="white"
+                              />
+                              <path
+                                d="M17.9997 11.9996C17.9997 13.1396 17.6997 14.2096 17.1697 15.1496L16.4297 14.4096C16.7997 13.6796 16.9997 12.8596 16.9997 11.9996C16.9997 11.1396 16.7997 10.3196 16.4297 9.58961L17.1697 8.84961C17.6997 9.78961 17.9997 10.8596 17.9997 11.9996Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_991_26195">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      ) : (
+                        <div onClick={handleUnMute}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <g clipPath="url(#clip0_3392_9494)">
+                              <path
+                                d="M16 9L22 15"
+                                stroke="white"
+                                strokeLinejoin="bevel"
+                              />
+                              <path
+                                d="M16 15L22 9"
+                                stroke="white"
+                                strokeLinejoin="bevel"
+                              />
+                              <path
+                                d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_3392_9494">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      )}
                     </div>
                     <a
                       href="https://www.youtube.com/channel/UCkAxZb4h4AmcBs1t_x1-ieA"
@@ -167,16 +182,16 @@ const About = () => {
           <div className="flex flex-1 flex-col gap-8">
             <div className="flex flex-col max-w-[564px] gap-8">
               <div className="flex flex-col gap-2">
-                <Label>{t('about-us.section-2.title')}</Label>
+                <Label>{t("about-us.section-2.title")}</Label>
                 <div className="text-displaySM md:text-displayMD lg:text-displayLG">
-                  {t('about-us.section-2.header')}
+                  {t("about-us.section-2.header")}
                 </div>
               </div>
               <div className="text-bodySM md:text-bodyMD lg:text-bodyLG">
-                {t('about-us.section-2.description.desc-1')}
+                {t("about-us.section-2.description.desc-1")}
                 <br />
                 <br />
-                {t('about-us.section-2.description.desc-2')}
+                {t("about-us.section-2.description.desc-2")}
               </div>
               <div className="w-full">
                 <Image
@@ -190,20 +205,20 @@ const About = () => {
         </div>
       </section>
       <section className="bg-lightGray px-4 py-8 md:px-8 md:py-16">
-        <Label>{t('about-us.section-3.title')}</Label>
+        <Label>{t("about-us.section-3.title")}</Label>
         <div className="flex flex-1 flex-col md:flex-row">
           <div className="flex flex-1 flex-col lg:flex-row gap-4">
             <div className="lg:flex lg:flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-            {t('about-us.section-3.header.text-1')}
+              {t("about-us.section-3.header.text-1")}
               <br />
-            {t('about-us.section-3.header.text-2')}
+              {t("about-us.section-3.header.text-2")}
             </div>
             <div className="lg:flex lg:flex-1">
               <div className="max-w-[564px] text-bodySM md:text-bodyMD lg:text-bodyLG">
-                {t('about-us.section-3.description.desc-1')}
+                {t("about-us.section-3.description.desc-1")}
                 <br />
                 <br />
-                {t('about-us.section-3.description.desc-2')}
+                {t("about-us.section-3.description.desc-2")}
               </div>
             </div>
           </div>
@@ -230,43 +245,42 @@ const About = () => {
       </section>
       <section>
         <div className="flex flex-1 flex-col px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-6">
-          <Label>{t('about-us.section-4.title')}</Label>
+          <Label>{t("about-us.section-4.title")}</Label>
           <div className="flex flex-1 flex-col md:flex-row gap-6 md:gap-4">
             <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-            {t('about-us.section-4.header.text-1')}
+              {t("about-us.section-4.header.text-1")}
               <br />
-            {t('about-us.section-4.header.text-2')}
+              {t("about-us.section-4.header.text-2")}
             </div>
             <div className="flex flex-1 flex-col gap-8">
               <div className="text-[12px] md:text-[14px] lg:text-[16px]">
-              {t('about-us.section-4.description')}
-
+                {t("about-us.section-4.description")}
               </div>
               <div className="flex flex-1 flex-col">
                 <div className="flex flex-1 flex-col py-4 md:py-8">
                   <div className="text-[24px] md:text-[28px] lg:text-[32px]">
-                    {t('about-us.section-4.list-1.heading')}
+                    {t("about-us.section-4.list-1.heading")}
                   </div>
                   <div className="text-darkGray text-[12px] md:text-[14px] lg:text-[16px]">
-                   {t('about-us.section-4.list-1.sub-heading')}
+                    {t("about-us.section-4.list-1.sub-heading")}
                   </div>
                 </div>
                 <div className="h-[1px] bg-gray" />
                 <div className="flex flex-1 flex-col py-4 md:py-8">
                   <div className="text-[24px] md:text-[28px] lg:text-[32px]">
-                    {t('about-us.section-4.list-2.heading')}
+                    {t("about-us.section-4.list-2.heading")}
                   </div>
                   <div className="text-darkGray text-[12px] md:text-[14px] lg:text-[16px]">
-                    {t('about-us.section-4.list-2.sub-heading')}
+                    {t("about-us.section-4.list-2.sub-heading")}
                   </div>
                 </div>
                 <div className="h-[1px] bg-gray" />
                 <div className="flex flex-1 flex-col py-4 md:py-8">
                   <div className="text-[24px] md:text-[28px] lg:text-[32px]">
-                  {t('about-us.section-4.list-3.heading')}
+                    {t("about-us.section-4.list-3.heading")}
                   </div>
                   <div className="text-darkGray text-[12px] md:text-[14px] lg:text-[16px]">
-                    {t('about-us.section-4.list-3.sub-heading')}
+                    {t("about-us.section-4.list-3.sub-heading")}
                   </div>
                 </div>
               </div>
@@ -286,7 +300,7 @@ const About = () => {
                   >
                     <div className="logo flex items-center min-h-[124px] md:min-h-[247px]">
                       <Image
-                        src={makeImageUrl(x.imageURL)}
+                        src={makeFullUrl(x.imageURL)}
                         alt="logo"
                         width={247}
                         height={247}
@@ -304,9 +318,11 @@ const About = () => {
       <section className="p-4 md:p-8">
         <div className="flex flex-1 flex-col bg-offBlack items-center justify-center gap-4 px-4 py-24 md:py-42">
           <div className="text-white text-[14px] md:text-[24px]">
-            {t('about-us.card.text')}
+            {t("about-us.card.text")}
           </div>
-          <div className="text-orange text-[14px]">{t('about-us.card.navigation-text')}</div>
+          <div className="text-orange text-[14px]">
+            {t("about-us.card.navigation-text")}
+          </div>
         </div>
       </section>
     </main>

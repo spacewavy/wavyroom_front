@@ -60,6 +60,6 @@ export const hexToRgb = (hexType: string) => {
   return rgb;
 };
 
-export const makeImageUrl = (_url: string) => {
+export const makeFullUrl = (_url: string) => {
   return `${process.env.NEXT_PUBLIC_IMAGE_URL}/${_url}`;
 };

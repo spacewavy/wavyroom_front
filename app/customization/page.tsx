@@ -11,7 +11,7 @@ import Link from "next/link";
 
 import WavyCanvas from "@/components/canvas/WavyCanvas";
 import { useThree } from "../../context/threeContext";
-import { WAVY_MODEL_PATHS, makeImageUrl } from "../../lib/utils";
+import { WAVY_MODEL_PATHS, makeFullUrl } from "../../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
@@ -83,19 +83,20 @@ const Customization = () => {
     );
   }, [transformedData]);
 
+  // when we change the id, change the Model data itself
   useEffect(() => {
     if (!selectedItemId) return;
     const _selectedItem = transformedData.find(
       (x: any) => x.id === selectedItemId
     );
     setSelectedModel(_selectedItem);
-    console.log("selectedItem", _selectedItem);
   }, [selectedItemId]);
 
   // when model is changed, update the 3d modeling
   useEffect(() => {
     if (!selectedModel) return;
-    changeModel(makeImageUrl(selectedModel?.threeDFileURL));
+    console.log("model changed", selectedModel);
+    changeModel(makeFullUrl(selectedModel?.threeDFileURL));
   }, [selectedModel]);
 
   useEffect(() => {
