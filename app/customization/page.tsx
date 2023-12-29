@@ -41,7 +41,7 @@ const Customization = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  const { data, error } = useSelector(
+  const { data: transformedData, error } = useSelector(
     (state: RootState) => state.navigationModel
   );
   const { data: customizationData } = useSelector(
@@ -61,7 +61,7 @@ const Customization = () => {
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
-  const [transformedData, setTransformedData] = useState<any[]>([]);
+  // const [transformedData, setTransformedData] = useState<any[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
   const { language } = useSelector((state: any) => state.locale);
@@ -71,19 +71,15 @@ const Customization = () => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, [language]);
 
-  useEffect(() => {
-    if (!data) return;
-    setTransformedData(data);
-    console.log("data is", data);
-  }, [data]);
+  // useEffect(() => {
+  //   if (!data) return;
+  //   setTransformedData(data);
+  // }, [data]);
 
   // when id is empty, we setup the default id
   useEffect(() => {
     if (!transformedData.length) return;
-    const _id =
-      id ||
-      transformedData.find((x: any) => x.name === "Mini" || x.name === "미니")
-        ?.id;
+    const _id = id || transformedData.find((x: any) => x.order === 1)?.id;
     setSelectedItemId(_id);
   }, [transformedData]);
 

@@ -1,3 +1,4 @@
+import { useThree } from "../../../context/threeContext";
 import {
   FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
   FETCH_CUSTOMIZATION_OPTIONS_FAILURE,

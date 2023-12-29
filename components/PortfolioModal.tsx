@@ -47,7 +47,7 @@ const PortfolioModal = ({
               <div key={image} className="relative w-full aspect-[3/2]">
                 <Image
                   src={makeFullUrl(image)}
-                  alt="test"
+                  alt="portfolio-img"
                   layout="fill"
                   objectFit="cover"
                 />
