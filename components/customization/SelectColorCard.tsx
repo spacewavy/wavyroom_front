@@ -40,30 +40,32 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
         </div>
         <div className="flex justify-between flex-col md:flex-row gap-2">
           <div className="colors flex gap-2">
-            {modelColors.map((x: ModelColors, index) => {
-              return (
-                <div
-                  key={"color" + index}
-                  className="relative w-10 h-10 p-1 cursor-pointer"
-                  onClick={() => {
-                    handleColorClick(x.id);
-                    changeModelColorFromHex(x.colorId);
-                  }}
-                >
+            {modelColors
+              .sort((a: ModelColors, b: ModelColors) => a.order - b.order)
+              .map((x: ModelColors, index) => {
+                return (
                   <div
-                    className="w-full h-full rounded-full"
-                    style={{
-                      backgroundColor: x.colorId,
-                      borderWidth: 1,
-                      borderColor: "rgba(0, 0, 0, 0.1)",
+                    key={"color" + index}
+                    className="relative w-10 h-10 p-1 cursor-pointer"
+                    onClick={() => {
+                      handleColorClick(x.id);
+                      changeModelColorFromHex(x.colorId);
                     }}
-                  />
-                  {(x.isSelected || x.isDefault) && (
-                    <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-black rounded-full" />
-                  )}
-                </div>
-              );
-            })}
+                  >
+                    <div
+                      className="w-full h-full rounded-full"
+                      style={{
+                        backgroundColor: x.colorId,
+                        borderWidth: 1,
+                        borderColor: "rgba(0, 0, 0, 0.1)",
+                      }}
+                    />
+                    {(x.isSelected || x.isDefault) && (
+                      <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-black rounded-full" />
+                    )}
+                  </div>
+                );
+              })}
           </div>
           <span className="text-[12px] font-light">{selectedColorName}</span>
         </div>

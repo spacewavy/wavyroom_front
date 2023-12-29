@@ -7,7 +7,10 @@ import {
   fetchNavigationModelDataReducer,
 } from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
-import {fetchCustomizationOptionsDataReducer,navigateToSettings} from "./customizationReducers";
+import {
+  fetchCustomizationOptionsDataReducer,
+  navigateToSettings,
+} from "./customizationReducers";
 import localeReducer from "./localeReducers";
 
 const rootReducer = combineReducers({
@@ -17,9 +20,9 @@ const rootReducer = combineReducers({
   navigationModel: fetchNavigationModelDataReducer,
   aboutReputataion: fetchAboutReputationDataReducer,
   modelDetail: fetchModelDetailsDataReducer,
-  customization:fetchCustomizationOptionsDataReducer,
-  navigation:navigateToSettings,
-  locale:localeReducer
+  customization: fetchCustomizationOptionsDataReducer,
+  navigation: navigateToSettings,
+  locale: localeReducer,
 });
 
 export default rootReducer;

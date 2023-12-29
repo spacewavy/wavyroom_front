@@ -3,7 +3,6 @@ import CustomizationCard from "./CustomizationCard";
 import { NavigationModelItem } from "@/app/redux/types";
 import { useDispatch } from "react-redux";
 import { AnyAction } from "redux";
-import { WAVY_MODEL_PATHS } from "../../lib/utils";
 import { fetchCustomizationOptionsData } from "@/app/redux/actions/customizationActions";
 import { useTranslation } from "react-i18next";
 interface CustomItemsProps {
@@ -19,7 +18,7 @@ const CustomItems: FC<CustomItemsProps> = ({
   selectedItemId,
   handleSelectedItemId,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const handleSelectedItem = (id: string) => {
@@ -40,31 +39,35 @@ const CustomItems: FC<CustomItemsProps> = ({
       <div className="flex flex-col flex-1 grow basis-0 overflow-y-auto scrollbar-hide">
         <div className="p-8">
           <div className="text-[24px] md:text-[32px] font-light mb-4">
-            <h1>{t('customization.tire-1.heading')}</h1>
+            <h1>{t("customization.tire-1.heading")}</h1>
           </div>
           <div className="text-[12px] md:text-[14px] lg:text-[16px] font-light text-[#4D4D4D]">
-          {t('customization.tire-1.description.text-1')}
+            {t("customization.tire-1.description.text-1")}
             <br />
-            {t('customization.tire-1.description.text-2')}
+            {t("customization.tire-1.description.text-2")}
           </div>
         </div>
         <div className="flex flex-col">
-          {products.map((d: any, index: number) => {
-            return (
-              <CustomizationCard
-                key={`model-${index}`}
-                id={d.id}
-                heading={d.name}
-                subheading={d.description}
-                price={d.minPrice}
-                image={d.representativeImageURL}
-                path={d.path}
-                purpose={d.purpose}
-                selectedItem={selectedItemId}
-                handleSelectedItem={handleSelectedItem}
-              />
-            );
-          })}
+          {products
+            .sort(
+              (a: NavigationModelItem, b: NavigationModelItem) =>
+                a.order - b.order
+            )
+            .map((d: any, index: number) => {
+              return (
+                <CustomizationCard
+                  key={`model-${index}`}
+                  id={d.id}
+                  heading={d.name}
+                  subheading={d.description}
+                  price={d.minPrice}
+                  image={d.representativeImageURL}
+                  path={d.path}
+                  selectedItem={selectedItemId}
+                  handleSelectedItem={handleSelectedItem}
+                />
+              );
+            })}
         </div>
       </div>
       <div className="p-4 border-t-[1px]">
@@ -75,7 +78,7 @@ const CustomItems: FC<CustomItemsProps> = ({
             selectedItemId ? "bg-black" : "bg-gray"
           }`}
         >
-          <span>{t('customization.tire-1.next')}</span>
+          <span>{t("customization.tire-1.next")}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"

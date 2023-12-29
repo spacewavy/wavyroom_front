@@ -74,13 +74,17 @@ const Customization = () => {
   useEffect(() => {
     if (!data) return;
     setTransformedData(data);
+    console.log("data is", data);
   }, [data]);
 
+  // when id is empty, we setup the default id
   useEffect(() => {
     if (!transformedData.length) return;
-    setSelectedItemId(
-      id || transformedData.find((x: any) => x.name === "Mini")?.id
-    );
+    const _id =
+      id ||
+      transformedData.find((x: any) => x.name === "Mini" || x.name === "미니")
+        ?.id;
+    setSelectedItemId(_id);
   }, [transformedData]);
 
   // when we change the id, change the Model data itself
