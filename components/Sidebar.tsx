@@ -98,6 +98,8 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   };
 
   const closeSidebar = () => {
+    setSelectedListId('');
+    setSelectedMenuId(0)
     setOpen(false);
   };
 
@@ -170,12 +172,12 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   };
 
   const renderModels = () => {
-    if (!selectedMenuId) return;
     return (
       <section
         className={cn(
-          "w-full lg:w-[400px] flex lg:flex gap-12 flex-col p-8 md:border-r md:border-r-black",
-          !!selectedListId && "hidden"
+          "flex lg:flex gap-12 flex-col md:border-r md:border-r-black transition-width duration-300",
+          !!selectedListId && "hidden",
+          selectedMenuId ? 'p-8 w-full lg:w-[400px] ' :  'overflow-hidden lg: w-0 '
         )}
       >
         <p className="text-lg pt-16">{selectedProduct?.title}</p>
@@ -186,7 +188,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               <Link
                 href=""
                 className={cn(
-                  "flex justify-between py-4 border-b text-black border-black items-center",
+                  "flex justify-between py-4 border-b text-black border-black items-center whitespace-nowrap",
                   i === 0 && "border-t",
                   selectedListId != "" &&
                     obj.id !== selectedListId &&
@@ -246,13 +248,12 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       );
       setOpen(false);
     };
-    if (!selectedListId) return;
     return (
-      <section className="flex flex-col flex-1 w-[100vw]">
+      <section className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 ${selectedListId ? 'lg:w-[100vw]' : 'lg:w-0 overflow-hidden'}`}>
         {/* <div className="relative sm:block hidden w-full aspect-[800/432]"> */}
         <div className="relative sm:block hidden w-full h-[432px]">
           <Image
-            src={makeFullUrl(selectedProduct.heroImageURL)}
+            src={makeFullUrl(selectedProduct?.heroImageURL)}
             alt="Model Hero Image"
             // fill={true}
             fill
@@ -270,27 +271,27 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   {t("sidebar.details.price")}
                 </span>
                 <span className="truncate">
-                  {selectedProduct.minPrice.toLocaleString()}
+                  {selectedProduct?.minPrice.toLocaleString()}
                 </span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">
                   {t("sidebar.details.standard")}
                 </span>
-                <span className="truncate">{selectedProduct.size}</span>
+                <span className="truncate">{selectedProduct?.size}</span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">
                   {t("sidebar.details.floor-plan")}
                 </span>
-                <span className="truncate">{selectedProduct.sizeDetail}</span>
+                <span className="truncate">{selectedProduct?.sizeDetail}</span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">
                   {t("sidebar.details.exterior-material")}
                 </span>
                 <span className="truncate">
-                  {selectedProduct.exteriorMaterial.map((x: any) => {
+                  {selectedProduct?.exteriorMaterial.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
                         <span className="truncate">{x}</span>
@@ -305,7 +306,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   {t("sidebar.details.exterior-color")}
                 </span>
                 <div className="flex flex-row gap-1 flex-wrap">
-                  {sortedModelColors.map((x: any) => {
+                  {sortedModelColors?.map((x: any) => {
                     return (
                       <div
                         key={x.colorId}
@@ -322,20 +323,20 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 <span className="truncate font-normal">
                   {t("sidebar.details.insulation")}
                 </span>
-                <span className="truncate">{selectedProduct.insulation}</span>
+                <span className="truncate">{selectedProduct?.insulation}</span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">
                   {t("sidebar.details.framework")}
                 </span>
-                <span className="truncate">{selectedProduct.structure}</span>
+                <span className="truncate">{selectedProduct?.structure}</span>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="truncate font-normal">
                   {t("sidebar.details.windows")}
                 </span>
                 <span className="truncate">
-                  {selectedProduct.windows.map((x: any) => {
+                  {selectedProduct?.windows.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
                         <span>{x}</span>
@@ -351,7 +352,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
                 <span className="truncate">
                   {" "}
-                  {selectedProduct.furniture.map((x: any) => {
+                  {selectedProduct?.furniture.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
                         <span>{x}</span>
@@ -366,7 +367,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   {t("sidebar.details.purpose")}
                 </span>
                 <span className="truncate">
-                  {selectedProduct.purpose.map((x: any) => {
+                  {selectedProduct?.purpose.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
                         <span>{x}</span>
@@ -381,7 +382,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   {t("sidebar.details.purpose-discription")}
                 </span>
                 <span className="truncate">
-                  {selectedProduct.purposeDetail.map((x: any) => {
+                  {selectedProduct?.purposeDetail.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
                         <span>{x}</span>
@@ -393,7 +394,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </div>
             </li>
           </ul>
-          <div className="flex flex-row gap-2 fixed bottom-[33px]">
+          <div className={`flex flex-row flex-1 items-end gap-2`}>
             <Link
               href={`/customization?id=${selectedListId}`}
               onClick={handlePlaceOrderClick}
