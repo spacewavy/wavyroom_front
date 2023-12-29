@@ -292,7 +292,7 @@ export const ThreeProvider = ({ children }) => {
             });
 
             // later, apply the deck seperatly
-            if (_obj.name.toLowerCase().includes("deck")) {
+            if (_obj.name.toLowerCase().includes("flooring")) {
               deckObjList = [...deckObjList, _obj];
             }
 
@@ -469,23 +469,25 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const selectOption = (mesh, group, isMultipleSelect = false) => {
+    if (!mesh || !group) return;
     console.log(mesh, group, isMultipleSelect);
     // find the grouping
+
     const _group = scene.getObjectByName(group);
     if (!_group) return;
+    console.log("group selected");
 
     if (!isMultipleSelect) {
       _group.children.map((_mesh) => {
         if (mesh !== "-") {
-          _mesh.name === mesh
-            ? (_mesh.visible = false)
-            : (_mesh.visible = true);
+          _mesh.visible = _mesh.name === mesh;
         } else {
           _mesh.visible = false;
         }
       });
     } else {
       _group.children.map((_mesh) => {
+        console.log(_mesh.name, mesh);
         if (_mesh.name === mesh) {
           _mesh.visible = true;
         }
