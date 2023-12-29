@@ -61,7 +61,7 @@ const HowToOrder = () => {
         <h1>{t('how-to-order.heading.text-2')}</h1>
       </section>
 
-      <section className="grid w-full grid-cols-1 gap-[48px] md:gap-0 py-16 lg:py-[120px] px-0 md:px-8 md:w-[60%] md:min-w-[912px] m-auto">
+      <section className="grid w-full grid-cols-1 gap-[48px] md:gap-0 py-16 lg:py-[120px] px-0 md:px-8 md:w-[60%] lg:min-w-[912px] m-auto">
         {data.map((d, index) => {
           return (
             <OrderCard
