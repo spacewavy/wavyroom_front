@@ -138,7 +138,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   "text-sm cursor-pointer w-fit mb-1",
                   item.id === selectedMenuId
                     ? "text-black border-b border-black"
-                    : "text-midGray",
+                    : "text-midGray transition-all duration-300 hover:text-black",
                   selectedMenuId === 0 && "!text-black"
                 )}
               >
@@ -192,7 +192,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   i === 0 && "border-t",
                   selectedListId != "" &&
                     obj.id !== selectedListId &&
-                    "!text-midGray !border-midGray"
+                    "!text-midGray !border-midGray transition-all duration-300 hover:!text-black hover:!border-black "
                 )}
                 onClick={() => {
                   setSelectedListId(obj.id);
@@ -221,7 +221,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               onClick={closeSidebar}
               className={cn(
                 "flex justify-between py-4 border-b text-black border-black items-center",
-                selectedListId != "" && "!text-midGray !border-midGray"
+                selectedListId != "" && "!text-midGray !border-midGray transition-all duration-300 hover:!text-black hover:!border-black"
               )}
             >
               <span className="flex flex-1 text-sm">전체보기</span>
