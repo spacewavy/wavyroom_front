@@ -27,7 +27,7 @@ const Media = () => {
   }, [language]);
 
   const OPTIONS = [
-    { value: "all", label: t("media.dropdown-opts.opt-1") },
+    // { value: "all", label: t("media.dropdown-opts.opt-1") },
     { value: "news", label: t("media.dropdown-opts.opt-2") },
     { value: "video", label: t("media.dropdown-opts.opt-3") },
   ];
