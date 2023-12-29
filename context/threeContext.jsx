@@ -468,6 +468,31 @@ export const ThreeProvider = ({ children }) => {
     cameraControls.maxPolarAngle = Math.PI / 2;
   };
 
+  const selectOption = (mesh, group, isMultipleSelect = false) => {
+    console.log(mesh, group, isMultipleSelect);
+    // find the grouping
+    const _group = scene.getObjectByName(group);
+    if (!_group) return;
+
+    if (!isMultipleSelect) {
+      _group.children.map((_mesh) => {
+        if (mesh !== "-") {
+          _mesh.name === mesh
+            ? (_mesh.visible = false)
+            : (_mesh.visible = true);
+        } else {
+          _mesh.visible = false;
+        }
+      });
+    } else {
+      _group.children.map((_mesh) => {
+        if (_mesh.name === mesh) {
+          _mesh.visible = true;
+        }
+      });
+    }
+  };
+
   return (
     <ThreeContext.Provider
       value={{
@@ -490,6 +515,7 @@ export const ThreeProvider = ({ children }) => {
         test,
         cameraViewType,
         setCameraViewType,
+        selectOption,
       }}
     >
       {children}

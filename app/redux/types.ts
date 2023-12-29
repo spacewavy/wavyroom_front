@@ -132,6 +132,8 @@ export interface OptionDetail {
   price: number;
   isDefault: boolean;
   isSelected?: boolean;
+  meshName: string;
+  groupName: string;
 }
 
 export interface ModelSecondOption {
