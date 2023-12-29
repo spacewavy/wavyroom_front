@@ -32,6 +32,11 @@ const Media = () => {
     { value: "video", label: t("media.dropdown-opts.opt-3") },
   ];
 
+  const MEDIA_TYPE: any = {
+    news: "News",
+    video: "Youtube",
+  };
+
   const onDropdownChange = (option: any) => {
     dispatch(fetchMediaData(option.value) as unknown as AnyAction);
   };
@@ -102,7 +107,7 @@ const Media = () => {
                     href={item.link}
                     className="text-[12px] bg-lightGray p-1"
                   >
-                    Youtube
+                    {MEDIA_TYPE[item.type]}
                   </Link>
                 </div>
               </div>
