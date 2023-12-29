@@ -49,6 +49,7 @@ const CustomizationOptions: FC<{
         }`}
         onClick={() => {
           handleOptionChange(opt.name, o.order);
+          console.log("==", opt);
           selectOption(o.meshName, o.groupName, opt.isMultipleSelectable);
         }}
       >
