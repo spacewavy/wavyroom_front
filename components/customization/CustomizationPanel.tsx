@@ -80,6 +80,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
 
   const dispatch = useDispatch();
   const { changeModel } = useThree();
+  const { t } = useTranslation();
 
   // get the color data
   useEffect(() => {
@@ -160,7 +161,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
       customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction
     );
   };
-  const { t } = useTranslation();
 
   const renderResults = () => {
     return (
@@ -352,7 +352,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 공간의 제품화에 집중합니다.
               </span>
             </div>
-            <div className="px-[24px] md:px-8 py-4 md:py-8 border-t-[1px] border-[wavyGray]">
+            <div className="px-[24px] md:px-8 pt-4 pb-4 md:pt-8 border-t-[1px] border-[wavyGray]">
               <div className="flex flex-col">
                 <div className="flex justify-between">
                   <span className="optionName text-[14px] font-medium">
@@ -385,7 +385,11 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
               </div>
             </div>
             <div className="selectColor">
-              <SelectColorCard modelColors={data.modelColors.sort((a:any, b:any) => a.order - b.order)} />
+              <SelectColorCard
+                modelColors={data.modelColors.sort(
+                  (a: any, b: any) => a.order - b.order
+                )}
+              />
             </div>
             <div className="customOption">
               <CustomizationOptions
