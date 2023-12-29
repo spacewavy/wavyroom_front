@@ -16,12 +16,14 @@ export interface option {
   isSelected?: boolean;
   onClickHandler?: any;
 }
+
 export interface CustomizationOptionsProps {
   id: number;
   name: string;
   isMutliSelect: boolean;
   options: option[];
 }
+
 const CustomizationOptions: FC<{
   customizationOptions: ModelFloorOptions;
   handleOptionChange: any;
@@ -38,6 +40,7 @@ const CustomizationOptions: FC<{
   ) => {
     return (
       <div
+        key={opt.name + o.name}
         className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
           o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
         }`}
