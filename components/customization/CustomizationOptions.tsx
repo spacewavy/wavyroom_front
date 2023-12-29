@@ -34,8 +34,6 @@ const CustomizationOptions: FC<{
   handleOptionChange,
   handleKitchenTypeSelect,
 }) => {
-  const { selectOption } = useThree();
-
   const renderOption = (
     o: OptionDetail,
     opt: ModelSecondOption,
@@ -49,8 +47,6 @@ const CustomizationOptions: FC<{
         }`}
         onClick={() => {
           handleOptionChange(opt.name, o.order);
-          console.log("==", opt);
-          selectOption(o.meshName, o.groupName, opt.isMultipleSelectable);
         }}
       >
         <div

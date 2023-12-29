@@ -24,6 +24,7 @@ import {
   disposeBoundsTree,
 } from "three-mesh-bvh";
 import { useLoading } from "./loadingContext";
+import { useSelector } from "react-redux";
 // import Logger from "../utils/logger";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -50,6 +51,8 @@ export const ThreeProvider = ({ children }) => {
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(null);
+
+  const { data: optionData } = useSelector((state) => state.customization);
 
   // initialize
   useEffect(() => {
@@ -148,6 +151,10 @@ export const ThreeProvider = ({ children }) => {
         break;
     }
   }, [isEditorLoaded, cameraViewType]);
+
+  useEffect(() => {
+    handleOptionVisibility();
+  }, [optionData]);
 
   const deleteCurrentModel = () => {
     const _models = scene.getObjectsByProperty("name", WAVY_MODEL);
@@ -390,9 +397,12 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const changeMeshVisibilityByName = (_name, _visible) => {
+    if (!_name) return;
     const _model = scene.getObjectByName(_name);
     if (!_model) return;
-    _model.visible = _visible;
+    const visibility = !!_visible;
+    if (_model.visible === visibility) return;
+    _model.visible = visibility;
   };
 
   const changeModelColorFromHex = (_color) => {
@@ -416,12 +426,6 @@ export const ThreeProvider = ({ children }) => {
     } catch (e) {
       console.error("e", e);
     }
-  };
-
-  const test = () => {
-    cameraViewType === CAMERA_VIEW_TYPE.INNER_1
-      ? setCameraViewType(CAMERA_VIEW_TYPE.OUTER)
-      : setCameraViewType(CAMERA_VIEW_TYPE.INNER_1);
   };
 
   const setCameraInnerView = () => {
@@ -468,31 +472,26 @@ export const ThreeProvider = ({ children }) => {
     cameraControls.maxPolarAngle = Math.PI / 2;
   };
 
-  const selectOption = (mesh, group, isMultipleSelect = false) => {
-    if (!mesh || !group) return;
-    console.log(mesh, group, isMultipleSelect);
-    // find the grouping
-
-    const _group = scene.getObjectByName(group);
-    if (!_group) return;
-    console.log("group selected");
-
-    if (!isMultipleSelect) {
-      _group.children.map((_mesh) => {
-        if (mesh !== "-") {
-          _mesh.visible = _mesh.name === mesh;
-        } else {
-          _mesh.visible = false;
-        }
+  const handleOptionVisibility = () => {
+    console.log("optionData", optionData);
+    // read option changes
+    if (!optionData.modelFloorOptions.length) return;
+    const selectedFloor = optionData.modelFloorOptions.find(
+      (_floorOption) => _floorOption.isSelected
+    );
+    if (!selectedFloor) return;
+    const _modelSecondOptions = selectedFloor.modelSecondOptions;
+    _modelSecondOptions.map((_option) => {
+      console.log(_option);
+      const { optionDetails } = _option;
+      if (!optionDetails.length) return;
+      optionDetails.map((_optionDetail) => {
+        changeMeshVisibilityByName(
+          _optionDetail.meshName,
+          _optionDetail.isSelected
+        );
       });
-    } else {
-      _group.children.map((_mesh) => {
-        console.log(_mesh.name, mesh);
-        if (_mesh.name === mesh) {
-          _mesh.visible = true;
-        }
-      });
-    }
+    });
   };
 
   return (
@@ -514,10 +513,8 @@ export const ThreeProvider = ({ children }) => {
         isModelLoading,
         setLoadPercent,
         changeModelColorFromHex,
-        test,
         cameraViewType,
         setCameraViewType,
-        selectOption,
       }}
     >
       {children}
