@@ -222,9 +222,8 @@ const ModelDetail = () => {
                               borderColor: "rgba(0, 0, 0, 0.1)",
                             }}
                           />
-                          {isSelected && (
-                            <div className="absolute top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-orange group-[.is-dark]:border-orange rounded-full" />
-                          )}
+                          
+                          <div className={`absolute top-0 bottom-0 left-0 right-0 bg-transparent transition-all duration-500 ease ${isSelected ? 'border-[1px] border-orange group-[.is-dark]:border-orange' : 'border-[0]' } rounded-full`} />
                         </div>
                       );
                     }
