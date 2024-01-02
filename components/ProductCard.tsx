@@ -18,9 +18,10 @@ export interface ProductCardProps {
   value: number | string;
   image: any;
   purpose?: string;
+  hovered?:boolean
 }
 
-const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
+const ProductCard = ({ id, name, value, image, purpose ,hovered=true }: ProductCardProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handlePlaceOrderClick = () => {
@@ -30,7 +31,7 @@ const ProductCard = ({ id, name, value, image, purpose }: ProductCardProps) => {
   return (
     <Link href={`/model-detail?id=${id}`}>
       <div className="aspect-[3/3] md:aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12 overflow-hidden">
-        <div className="relative flex flex-1 transform hover:scale-125 transition-transform duration-500 ease-in">
+        <div className={`relative flex flex-1 transform ${hovered ? 'hover:scale-110' : ''} transition-transform duration-500 ease-in`}>
           <Image
             src={makeFullUrl(image)}
             alt="product_image"

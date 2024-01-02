@@ -115,10 +115,10 @@ const Navbar = ({
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row gap-4">
+              <div className={`flex flex-row gap-4`}>
                 <div onClick={handleButtonClick}>
                   <Link href="/customization">
-                    <Button name={t('navbar.order-button')} arrow varient="default" />
+                    <Button name={t('navbar.order-button')} arrow varient= {isDark ? 'dark' : 'default'}/>
                   </Link>
                 </div>
                 <div className="flex lg:hidden" onClick={() => openSidebar()}>
