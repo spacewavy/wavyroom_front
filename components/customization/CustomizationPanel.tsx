@@ -94,7 +94,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
 
   useEffect(() => {
     calculateTotal();
-    checkButtonEnableAndDisable();
+    validateNextButton();
   }, [data]);
 
   useEffect(() => {
@@ -106,7 +106,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     );
   }, [modelsList]);
 
-  const checkButtonEnableAndDisable = () => {
+  const validateNextButton = () => {
     const selectedFloor =
       data.modelFloorOptions[
         data.modelFloorOptions.findIndex((x: ModelFloorOptions) => x.isSelected)
