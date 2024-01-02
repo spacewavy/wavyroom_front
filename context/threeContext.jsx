@@ -493,6 +493,11 @@ export const ThreeProvider = ({ children }) => {
         );
       });
     });
+
+    const _modelKitchenTypes = selectedFloor.ModelKitchenTypes;
+    _modelKitchenTypes.map((_kitchen) => {
+      changeMeshVisibilityByName(_kitchen.meshName, _kitchen.isSelected);
+    });
   };
 
   return (
