@@ -99,7 +99,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
 
   const closeSidebar = () => {
     setSelectedListId('');
-    setSelectedMenuId(0)
+    setSelectedMenuId(0);
     setOpen(false);
   };
 
@@ -114,8 +114,8 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "w-full lg:w-[240px] flex lg:flex gap-8 flex-col py-8 md:border-r md:border-r-black",
-          !!selectedMenuId && "hidden"
+          "w-full lg:w-[240px] flex lg:flex gap-8 flex-col transition-all duration-300 py-8 lg:border-r lg:border-r-black lg:min-w-0 min-w-[100vw] lg:translate-x-0",
+          selectedListId && selectedMenuId ? 'translate-x-[-200%]' : !selectedListId && selectedMenuId ? '-translate-x-full' : 'translate-x-0'   
         )}
       >
         <SheetHeader className="px-8">
@@ -175,12 +175,12 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={cn(
-          "flex lg:flex gap-12 flex-col md:border-r md:border-r-black transition-width duration-300",
-          !!selectedListId && "hidden",
-          selectedMenuId ? 'p-8 w-full lg:w-[400px] ' :  'overflow-hidden lg: w-0 '
+          "flex lg:flex gap-12 flex-col transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0",
+          selectedMenuId ? 'p-8 w-full lg:w-[400px] lg:border-r lg:border-r-black' :  'overflow-hidden w-0 p-0',
+          selectedListId && selectedMenuId ? 'translate-x-[-200%]' : !selectedListId && selectedMenuId ? '-translate-x-full' : 'translate-x-0'   
         )}
       >
-        <div className="flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={closeSidebar}>
+        <div className="flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={() => setSelectedMenuId(0)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
           <g clip-path="url(#clip0_4597_600)">
           <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
@@ -261,7 +261,11 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       setOpen(false);
     };
     return (
-      <section className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 ${selectedListId ? 'lg:w-[100vw]' : 'lg:w-0 overflow-hidden'}`}>
+      <section className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0 ${ 
+        selectedListId ? 'lg:w-[100vw]' : 'lg:w-0 overflow-hidden'
+      }, ${
+        selectedListId && selectedMenuId ? 'translate-x-[-200%]' : 'translate-x-0'
+      }`}>
         {/* <div className="relative sm:block hidden w-full aspect-[800/432]"> */}
         <div className="relative sm:hidden md:block w-full h-[432px]">
           <Image
@@ -271,7 +275,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             fill
             objectFit="cover"
           />
-          <div className="absolute md:hidden top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={closeSidebar}>
+          <div className="absolute top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={() => setSelectedListId('')}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <g clip-path="url(#clip0_4597_600)">
             <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
@@ -286,7 +290,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </div>
         </div>
         <div className="flex flex-1 flex-col p-8 gap-4">
-          <div className="flex lg:hidden items-center gap-[4px] pt-[4px]"  onClick={closeSidebar}>
+          <div className="flex lg:hidden items-center gap-[4px] pt-[4px]"   onClick={() => setSelectedListId('')}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
             <g clip-path="url(#clip0_4597_600)">
             <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
@@ -487,7 +491,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <SheetContent
           side="left"
           className={cn(
-            "max-w-full w-full sm:max-w-full lg:w-fit flex gap-0 !p-0 bg-gray",
+            "max-w-full w-full sm:max-w-full lg:w-fit flex gap-0 !p-0 bg-gray overflow-hidden",
             !!selectedListId && "md:w-full"
           )}
           onInteractOutside={closeSidebar}
