@@ -54,10 +54,16 @@ const Customization = () => {
   const { changeModel, changeMeshVisibilityByName } = useThree();
   const [showOverlay, setShowOverlay] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+  const [inputsAnimation, setInputsAnimation] = useState({
+    name:false,
+    email:false,
+    phone:false,
+    address:false
+  });
   const [formElements, setFormElements] = useState({
     name: "",
     email: "",
-    phone: "null",
+    phone: "",
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
@@ -193,7 +199,7 @@ const Customization = () => {
       >
         <div
           id="text"
-          className="flex bg-white rounded-t-2xl md:rounded-2xl w-full md:w-[496px]"
+          className=" bg-white rounded-t-2xl md:rounded-2xl w-full md:w-[496px]"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -206,42 +212,106 @@ const Customization = () => {
               <p>{t("customization.popup.sub-title")}</p>
             </div>
             <div className="gap-4 mb-16">
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="text"
-                placeholder={t("customization.popup.name-placeholder")}
-                value={formElements.name}
-                onChange={(e) => {
-                  handleFormElement(e, "name");
-                }}
-              />
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="email"
-                value={formElements.email}
-                placeholder={t("customization.popup.email-placeholder")}
-                onChange={(e) => {
-                  handleFormElement(e, "email");
-                }}
-              />
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="number"
-                value={formElements.phone}
-                placeholder={t("customization.popup.phone-placeholder")}
-                onChange={(e) => {
-                  handleFormElement(e, "phone");
-                }}
-              />
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="address"
-                value={formElements.address}
-                placeholder={t("customization.popup.address-placeholder")}
-                onChange={(e) => {
-                  handleFormElement(e, "address");
-                }}
-              />
+              <div className="w-full">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color-[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="text"
+                  placeholder={t("customization.popup.name-placeholder")}
+                  value={formElements.name}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, name: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      name: formElements.name == "" ? false : true,
+                    }));
+                  }}
+                  onChange={(e) => {
+                    handleFormElement(e, "name");
+                  }}
+                />
+                <div
+                  className={`h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.name ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
+              <div className="w-full">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="email"
+                  value={formElements.email}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, email: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      email: formElements.email == "" ? false : true,
+                    }));
+                  }}
+                  placeholder={t("customization.popup.email-placeholder")}
+                  onChange={(e) => {
+                    handleFormElement(e, "email");
+                  }}
+                />
+                <div
+                  className={`h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.email ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
+              <div className="w-full">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="number"
+                  value={formElements.phone}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, phone: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      phone: formElements.phone == '' ? false : true,
+                    }));
+                  }}
+                  placeholder={t("customization.popup.phone-placeholder")}
+                  onChange={(e) => {
+                    handleFormElement(e, "phone");
+                  }}
+                />
+                <div
+                  className={`h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.phone ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
+              <div className="w-full">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="address"
+                  value={formElements.address}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, address: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      address: formElements.address == "" ? false : true,
+                    }));
+                  }}
+                  placeholder={t("customization.popup.address-placeholder")}
+                  onChange={(e) => {
+                    handleFormElement(e, "address");
+                  }}
+                />
+                <div
+                  className={`h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.address ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
             </div>
 
             <div className="flex justify-center items-center gap-2">

@@ -23,7 +23,7 @@ const Completion = () => {
   useEffect(() => {
     if (!id) return;
     fetchReservation(id);
-  }, [id]);
+  }, [id, language]);
 
   const fetchReservation = async (id: string) => {
     try {
@@ -96,7 +96,7 @@ const Completion = () => {
       ) : (
         <></>
       )}
-      <div className=" py-16 md:py-32 w-full">
+      <div className=" py-16 md:py-32 w-full px-12">
         <div className="flex flex-col justify-center items-center text-center w-full md:w-[600px] m-auto">
           <div className="text-[28px] md:text-[40px] font-light mb-4">
             <span>
@@ -108,8 +108,8 @@ const Completion = () => {
           </div>
           <div className="mb-16">
             <span className="text-[12px] md:text-[16px] font-light">
-              {t("customization.customization-completion.mail")}{" "}
-              {result?.user?.email}.
+              {result?.user?.email}{" "}
+              {t("customization.customization-completion.mail")}
             </span>
           </div>
           <div className="relative flex flex-1 aspect-[600/273] w-full">

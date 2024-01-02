@@ -54,10 +54,10 @@ const FaqItem = ({
           />
         </button>
       </div>
-      <div className="text-bodySM md:text-bodyMD lg:text-bodyLG transition-height duration-1000 text-darkGray group-[.is-dark]:text-lightGray max-h-0 overflow-hidden group-[.is-active]:max-h-[100vh]">
+      <div className="text-bodySM md:text-bodyMD lg:text-bodyLG transition-all duration-300 text-darkGray group-[.is-dark]:text-lightGray max-h-0 overflow-hidden group-[.is-active]:max-h-[100vh]">
         {answer}
       </div>
-      <div className="w-0 h-[1px] mt-8 transition-width duration-1000 ease-in group-[.is-active]:w-full group-[.is-active]:bg-orange"></div>
+      <div className="w-0 h-[1px] mt-8 transition-width duration-500 ease-in group-[.is-active]:w-full group-[.is-active]:bg-orange"></div>
     </div>
   );
 };

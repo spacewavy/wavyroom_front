@@ -40,6 +40,7 @@ const Models = () => {
                   name={item.name}
                   value={item.minPrice}
                   purpose={item.purpose[0]}
+                  hovered={false}
                 />
               );
             })}

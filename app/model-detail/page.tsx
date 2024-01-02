@@ -439,7 +439,7 @@ const ModelDetail = () => {
                         {item.name}
                       </div>
                     </div>
-                    <div className="flex items-center jusitfy-center transform hover:scale-125 transition-transform duration-500 ease-in">
+                    <div className="flex items-center jusitfy-center transform hover:scale-110 transition-transform duration-500 ease-in">
                       <Image
                         src={`${makeFullUrl(item.representativeImageURL)}`}
                         alt="nova"
