@@ -322,5 +322,8 @@
       "opt-5": "30평"
     },
     "currency": "평"
+  },
+  "model-details": {
+    "color": "색상"
   }
 }

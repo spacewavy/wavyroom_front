@@ -180,7 +180,19 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           selectedMenuId ? 'p-8 w-full lg:w-[400px] ' :  'overflow-hidden lg: w-0 '
         )}
       >
-        <p className="text-lg pt-16">{selectedProduct?.title}</p>
+        <div className="flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={closeSidebar}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <g clip-path="url(#clip0_4597_600)">
+          <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_4597_600">
+          <rect width="24" height="24" fill="white"/>
+          </clipPath>
+          </defs>
+          </svg>
+          <span className="text-[20px] font-normal">메뉴</span>
+        </div>
         <div className="flex text-[20px]">{t("sidebar.items.model")}</div>
         <ul className="flex flex-col flex-1 text-xs font-light">
           {data.map((obj: NavigationModelItem, i: number) => (
@@ -251,7 +263,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 ${selectedListId ? 'lg:w-[100vw]' : 'lg:w-0 overflow-hidden'}`}>
         {/* <div className="relative sm:block hidden w-full aspect-[800/432]"> */}
-        <div className="relative sm:block hidden w-full h-[432px]">
+        <div className="relative sm:hidden md:block w-full h-[432px]">
           <Image
             src={makeFullUrl(selectedProduct?.heroImageURL)}
             alt="Model Hero Image"
@@ -259,8 +271,34 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             fill
             objectFit="cover"
           />
+          <div className="absolute md:hidden top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={closeSidebar}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g clip-path="url(#clip0_4597_600)">
+            <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_4597_600">
+            <rect width="24" height="24" fill="white"/>
+            </clipPath>
+            </defs>
+            </svg>
+            <span className="text-[20px] font-normal">메뉴</span>
+          </div>
         </div>
         <div className="flex flex-1 flex-col p-8 gap-4">
+          <div className="flex lg:hidden items-center gap-[4px] pt-[4px]"  onClick={closeSidebar}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g clip-path="url(#clip0_4597_600)">
+            <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_4597_600">
+            <rect width="24" height="24" fill="white"/>
+            </clipPath>
+            </defs>
+            </svg>
+            <span className="text-[20px] font-normal">메뉴</span>
+          </div>
           <h2 className="text-[20px]">
             {selectedProduct?.name} {t("sidebar.details.specification")}
           </h2>

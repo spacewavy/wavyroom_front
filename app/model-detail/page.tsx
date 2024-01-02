@@ -196,7 +196,7 @@ const ModelDetail = () => {
         <section className="group-[.is-dark]:bg-jetBlack">
           <div className="relative flex flex-col items-center sm:px-24 lg:px-0 sm:py-8 lg:py-24 group-[.is-dark]:bg-jetBlack aspect-[912/513]">
             <div className="sm:text-[24px] md:text-[28px] lg:text-[32px] ">
-              <span>{data.name} 색상</span>
+              <span>{data.name} {t('model-details.color')}</span>
             </div>
             <div className="flex flex-col">
               <Image
