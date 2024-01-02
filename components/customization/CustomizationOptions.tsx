@@ -29,10 +29,12 @@ const CustomizationOptions: FC<{
   customizationOptions: ModelFloorOptions;
   handleOptionChange: any;
   handleKitchenTypeSelect: any;
+  handleKitchenOptionSelect: any;
 }> = ({
   customizationOptions,
   handleOptionChange,
   handleKitchenTypeSelect,
+  handleKitchenOptionSelect,
 }) => {
   const renderOption = (
     o: OptionDetail,
@@ -119,12 +121,12 @@ const CustomizationOptions: FC<{
           >
             <div
               className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
-                o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
+                o?.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
               }`}
             >
               <div
                 className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                  o.isSelected ? "text-jetBlack" : "text-gray"
+                  o?.isSelected ? "text-jetBlack" : "text-gray"
                 }`}
               >
                 <span className="text-[14px]">{o.name}</span>
@@ -169,12 +171,12 @@ const CustomizationOptions: FC<{
                               : "border-[#B3B3B3]"
                           }`}
                           onClick={() => {
-                            console.log("hello");
+                            handleKitchenOptionSelect(index, ind);
                           }}
                         >
                           <div
                             className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                              o.isSelected
+                              o?.isSelected
                                 ? "text-jetBlack bg-red-400"
                                 : "text-gray"
                             }`}

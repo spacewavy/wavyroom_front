@@ -17,8 +17,9 @@ import {
 } from "@/app/redux/types";
 import {
   customizationFloorSelectionChange,
-  customizationKitchenOptionsSelectionChange,
   customizationOptionsSelectionChange,
+  customizationKitchenTypeChange,
+  customizationKitchenOptionChange,
 } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
 import { RootState } from "../../app/redux/reducers";
@@ -150,7 +151,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const handleOptionChange = (nodeIdx: number, order: number) => {
-    if (!nodeIdx || !order) return;
     dispatch(
       customizationOptionsSelectionChange(
         nodeIdx,
@@ -160,8 +160,13 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const handleKitchenTypeSelect = (name: string) => {
+    dispatch(customizationKitchenTypeChange(name) as unknown as AnyAction);
+  };
+
+  const handleKitchenOptionSelect = (nodeIdx: number, order: number) => {
+    console.log("option change sele", nodeIdx, order);
     dispatch(
-      customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction
+      customizationKitchenOptionChange(nodeIdx, order) as unknown as AnyAction
     );
   };
 
@@ -401,6 +406,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                 )}
                 handleOptionChange={handleOptionChange}
                 handleKitchenTypeSelect={handleKitchenTypeSelect}
+                handleKitchenOptionSelect={handleKitchenOptionSelect}
               />
             </div>
           </div>

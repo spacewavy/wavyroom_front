@@ -9,6 +9,8 @@ export const SET_CUSTOMIZATION_SELECTED_COLOR =
 export const SET_CUSTOMIZATION_FLOOR_CHANGE = "SET_CUSTOMIZATION_FLOOR_CHANGE";
 export const SET_CUSTOMIZATION_OPTION_CHANGE =
   "SET_CUSTOMIZATION_OPTION_CHANGE";
+export const SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE =
+  "SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE";
 export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE =
   "SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE";
 export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
@@ -69,11 +71,24 @@ export const customizationOptionsSelectionChange = (
   };
 };
 
-export const customizationKitchenOptionsSelectionChange = (name: string) => {
+export const customizationKitchenTypeChange = (name: string) => {
   return async (dispatch: any) => {
     dispatch({
-      type: SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
+      type: SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE,
       payload: name,
+    });
+  };
+};
+
+export const customizationKitchenOptionChange = (
+  nodeIdx: number,
+  order: number
+) => {
+  return async (dispatch: any) => {
+    console.group("hi");
+    dispatch({
+      type: SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
+      payload: { nodeIdx, order },
     });
   };
 };

@@ -481,9 +481,9 @@ export const ThreeProvider = ({ children }) => {
       (_floorOption) => _floorOption.isSelected
     );
     if (!selectedFloor) return;
+
     const _modelSecondOptions = selectedFloor.modelSecondOptions;
     _modelSecondOptions.map((_option) => {
-      // console.log("--", _option);
       const { optionDetails } = _option;
       if (!optionDetails.length) return;
       optionDetails.map((_optionDetail) => {
@@ -497,6 +497,14 @@ export const ThreeProvider = ({ children }) => {
     const _modelKitchenTypes = selectedFloor.ModelKitchenTypes;
     _modelKitchenTypes.map((_kitchen) => {
       changeMeshVisibilityByName(_kitchen.meshName, _kitchen.isSelected);
+      // const { optionDetails } = _kitchen;
+      // if (!optionDetails.length) return;
+      // optionDetails.map((_kitchenOptionDetail) => {
+      //   changeMeshVisibilityByName(
+      //     _kitchenOptionDetail.meshName,
+      //     _kitchenOptionDetail.isSelected
+      //   );
+      // });
     });
   };
 

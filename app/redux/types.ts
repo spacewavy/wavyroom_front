@@ -167,6 +167,7 @@ export interface ModelKitchenType {
 }
 export interface ModelKitchenOption {
   name: string;
+  isMultipleSelectable: boolean;
   optionDetails: ModelKitchenOptionDetail[];
 }
 export interface ModelKitchenOptionDetail {
