@@ -324,6 +324,9 @@
       "opt-5": "30 pyeong"
     },
     "currency": "pyeong"
+  },
+  "model-details": {
+    "color": "color"
   }
 
 }

@@ -60,9 +60,7 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
                         borderColor: "rgba(0, 0, 0, 0.1)",
                       }}
                     />
-                    {(x.isSelected || x.isDefault) && (
-                      <div className="absolute bg-black top-0 bottom-0 left-0 right-0 bg-transparent border-[1px] border-black rounded-full" />
-                    )}
+                      <div className={`absolute bg-black top-0 bottom-0 left-0 right-0  bg-transparent transition-all duration-500 ease ${x.isSelected ? 'border-[1px] border-orange' : 'border-[0]' } rounded-full`} />
                   </div>
                 );
               })}

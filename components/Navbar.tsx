@@ -54,7 +54,7 @@ const Navbar = ({
       }`}
     >
       <div className="bg-white group-[.is-dark]:bg-jetBlack group-[.is-floating]:bg-transparent">
-        <Sidebar open={open} setOpen={setOpen} menuType={menuType} />
+        <Sidebar open={open} setOpen={setOpen} menuType={menuType} setMenuType={setMenuType}/>
         <div className="px-4 md:px-8">
           <div className="flex items-center justify-between h-24">
             <Link href="/">
