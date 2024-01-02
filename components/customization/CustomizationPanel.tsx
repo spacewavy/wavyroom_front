@@ -149,10 +149,13 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     changeModel(makeFullUrl(_option.threeDFileURL));
   };
 
-  const handleOptionChange = (nodeId: string, order: number) => {
-    if (!nodeId || !order) return;
+  const handleOptionChange = (nodeIdx: number, order: number) => {
+    if (!nodeIdx || !order) return;
     dispatch(
-      customizationOptionsSelectionChange(nodeId, order) as unknown as AnyAction
+      customizationOptionsSelectionChange(
+        nodeIdx,
+        order
+      ) as unknown as AnyAction
     );
   };
 

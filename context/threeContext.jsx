@@ -152,6 +152,7 @@ export const ThreeProvider = ({ children }) => {
     }
   }, [isEditorLoaded, cameraViewType]);
 
+  // change the mesh visibility from optionData
   useEffect(() => {
     handleOptionVisibility();
   }, [optionData]);
@@ -397,7 +398,7 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const changeMeshVisibilityByName = (_name, _visible) => {
-    if (!_name) return;
+    if (!isEditorLoaded || !_name) return;
     const _model = scene.getObjectByName(_name);
     if (!_model) return;
     const visibility = !!_visible;
@@ -482,7 +483,7 @@ export const ThreeProvider = ({ children }) => {
     if (!selectedFloor) return;
     const _modelSecondOptions = selectedFloor.modelSecondOptions;
     _modelSecondOptions.map((_option) => {
-      console.log(_option);
+      // console.log("--", _option);
       const { optionDetails } = _option;
       if (!optionDetails.length) return;
       optionDetails.map((_optionDetail) => {
