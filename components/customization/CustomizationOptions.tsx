@@ -159,14 +159,21 @@ const CustomizationOptions: FC<{
                     </span>
                   </div>
                 </div>
-                <div className="pt-4">
-                  {opt.optionDetails.map(
-                    (o: ModelKitchenOptionDetail, ind: number) => {
+                <div className="flex flex-row gap-2 pt-4">
+                  {opt.optionDetails
+                    .sort(
+                      (
+                        a: ModelKitchenOptionDetail,
+                        b: ModelKitchenOptionDetail
+                      ) => a.order - b.order
+                    )
+                    .map((o: ModelKitchenOptionDetail, ind: number) => {
+                      console.log("o", o);
                       return (
                         <div
                           key={ind}
                           className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
-                            o.isDefault
+                            o.isSelected
                               ? "border-[darkGray]"
                               : "border-[#B3B3B3]"
                           }`}
@@ -176,17 +183,14 @@ const CustomizationOptions: FC<{
                         >
                           <div
                             className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                              o?.isSelected
-                                ? "text-jetBlack bg-red-400"
-                                : "text-gray"
+                              o?.isSelected ? "text-jetBlack" : "text-gray"
                             }`}
                           >
                             <span className="text-[14px]">{o.name}</span>
                           </div>
                         </div>
                       );
-                    }
-                  )}
+                    })}
                 </div>
               </div>
             </section>
