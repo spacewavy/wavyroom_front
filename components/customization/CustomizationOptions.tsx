@@ -36,6 +36,7 @@ const CustomizationOptions: FC<{
 }) => {
   const renderOption = (
     o: OptionDetail,
+    oIdx: number,
     opt: ModelSecondOption,
     showPrice?: boolean
   ) => {
@@ -46,7 +47,7 @@ const CustomizationOptions: FC<{
           o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
         }`}
         onClick={() => {
-          handleOptionChange(opt.name, o.order);
+          handleOptionChange(oIdx, o.order);
         }}
       >
         <div
@@ -94,8 +95,8 @@ const CustomizationOptions: FC<{
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2 pt-4">
-                {opt.optionDetails.map((o: OptionDetail, index: number) => {
-                  return renderOption(o, opt, true);
+                {opt.optionDetails.map((o: OptionDetail, idx: number) => {
+                  return renderOption(o, index, opt, true);
                 })}
               </div>
             </div>

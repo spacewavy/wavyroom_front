@@ -47,6 +47,7 @@ export const setCustomizationSelectedColor = (id: string) => {
     });
   };
 };
+
 export const customizationFloorSelectionChange = (id: string) => {
   return async (dispatch: any) => {
     dispatch({
@@ -55,17 +56,19 @@ export const customizationFloorSelectionChange = (id: string) => {
     });
   };
 };
+
 export const customizationOptionsSelectionChange = (
-  nodeId: string,
+  nodeIdx: number,
   order: number
 ) => {
   return async (dispatch: any) => {
     dispatch({
       type: SET_CUSTOMIZATION_OPTION_CHANGE,
-      payload: { nodeId, order },
+      payload: { nodeIdx, order },
     });
   };
 };
+
 export const customizationKitchenOptionsSelectionChange = (name: string) => {
   return async (dispatch: any) => {
     dispatch({
@@ -74,6 +77,7 @@ export const customizationKitchenOptionsSelectionChange = (name: string) => {
     });
   };
 };
+
 export const navigateToSettings = (value: boolean) => {
   return async (dispatch: any) => {
     dispatch({

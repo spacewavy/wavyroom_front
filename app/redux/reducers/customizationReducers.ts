@@ -63,14 +63,14 @@ export const fetchCustomizationOptionsDataReducer = (
       const seletedFloor = state.data.modelFloorOptions.find(
         (x) => x.isSelected
       );
-      const updatedData = seletedFloor?.modelSecondOptions.map((node) =>
-        node.name === action.payload.nodeId
+      const updatedData = seletedFloor?.modelSecondOptions.map((node, idx) =>
+        idx === action.payload.nodeIdx
           ? {
               ...node,
               optionDetails: node.isMultipleSelectable
                 ? node.optionDetails.map((opt: OptionDetail) =>
                     opt.order === action.payload.order
-                      ? { ...opt, isSelected: true }
+                      ? { ...opt, isSelected: !opt.isSelected }
                       : opt
                   )
                 : node.optionDetails.map((opt: OptionDetail) =>
