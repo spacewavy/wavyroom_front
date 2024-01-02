@@ -300,7 +300,10 @@ export const ThreeProvider = ({ children }) => {
             });
 
             // later, apply the deck seperatly
-            if (_obj.name.toLowerCase().includes("flooring")) {
+            if (
+              _obj.name.toLowerCase().includes("flooring") ||
+              _obj.name.toLowerCase().includes("shade")
+            ) {
               deckObjList = [...deckObjList, _obj];
             }
 
