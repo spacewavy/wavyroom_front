@@ -168,10 +168,15 @@ const CustomizationOptions: FC<{
                               ? "border-[darkGray]"
                               : "border-[#B3B3B3]"
                           }`}
+                          onClick={() => {
+                            console.log("hello");
+                          }}
                         >
                           <div
                             className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                              o.isSelected ? "text-jetBlack" : "text-gray"
+                              o.isSelected
+                                ? "text-jetBlack bg-red-400"
+                                : "text-gray"
                             }`}
                           >
                             <span className="text-[14px]">{o.name}</span>
