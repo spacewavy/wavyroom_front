@@ -41,27 +41,27 @@ const ModelDetail = () => {
     {
       titleEng: "Mini",
       titleKO: "미니",
-      value: t("models.description.mini-desc")
+      value: t("models.description.mini-desc"),
     },
     {
       titleEng: "Studio",
       titleKO: "스튜디오",
-      value: t("models.description.studio-desc")
+      value: t("models.description.studio-desc"),
     },
     {
       titleEng: "Max",
       titleKO: "맥스",
-      value: t("models.description.max-desc")
+      value: t("models.description.max-desc"),
     },
     {
       titleEng: "Evo",
       titleKO: "이보",
-      value: t("models.description.evo-desc")
+      value: t("models.description.evo-desc"),
     },
     {
       titleEng: "Nova",
       titleKO: "노바",
-      value: t("models.description.nova-desc")
+      value: t("models.description.nova-desc"),
     },
   ];
 
@@ -160,7 +160,14 @@ const ModelDetail = () => {
               <div className="flex flex-col items-center gap-4">
                 <div className="text-[16px] text-darkGray text-center group-[.is-dark]:text-gray">
                   <span className="text-[24px] md:text-[28px] lg:text-[32px]">
-                    <span>{modelDescription.find((x) => x.titleEng == data.name || x.titleKO == data.name)?.value}</span>
+                    <span>
+                      {
+                        modelDescription.find(
+                          (x) =>
+                            x.titleEng == data.name || x.titleKO == data.name
+                        )?.value
+                      }
+                    </span>
                   </span>
                 </div>
               </div>
@@ -169,14 +176,14 @@ const ModelDetail = () => {
                   className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
                   onClick={handleSrcollToFAQ}
                 >
-                    {t('models.button.specification')}
+                  {t("models.button.specification")}
                 </div>
                 <Link href={`/customization?id=${id}`}>
                   <div
                     className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
                     onClick={onCustomizeClick}
                   >
-                    {t('models.button.customize')}
+                    {t("models.button.customize")}
                   </div>
                 </Link>
               </div>
@@ -222,8 +229,13 @@ const ModelDetail = () => {
                               borderColor: "rgba(0, 0, 0, 0.1)",
                             }}
                           />
-                          
-                          <div className={`absolute top-0 bottom-0 left-0 right-0 bg-transparent transition-all duration-500 ease ${isSelected ? 'border-[1px] border-orange group-[.is-dark]:border-orange' : 'border-[0]' } rounded-full`} />
+                          <div
+                            className={`absolute top-0 bottom-0 left-0 right-0 bg-transparent transition-all duration-500 ease ${
+                              isSelected
+                                ? "border-[1px] border-orange group-[.is-dark]:border-orange"
+                                : "border-[0]"
+                            } rounded-full`}
+                          />
                         </div>
                       );
                     }
@@ -294,29 +306,31 @@ const ModelDetail = () => {
                   {t("sidebar.details.exterior-color")}
                 </div>
                 <div className="flex flex-col md:flex-row items-start justify-left gap-2 md:gap-4 md:items-center">
-                  {data.modelColors.sort((a:any, b:any) => a.order - b.order).map((x: any, i: number) => {
-                    return (
-                      <div
-                        key={"color" + i}
-                        className="flex gap-2 items-center text-[14px] font-normal"
-                      >
+                  {data.modelColors
+                    .sort((a: any, b: any) => a.order - b.order)
+                    .map((x: any, i: number) => {
+                      return (
                         <div
                           key={"color" + i}
-                          className="relative w-8 h-8 p-1 cursor-pointer"
+                          className="flex gap-2 items-center text-[14px] font-normal"
                         >
                           <div
-                            className="w-full h-full rounded-full"
-                            style={{
-                              backgroundColor: x.colorId,
-                              borderWidth: 1,
-                              borderColor: "rgba(0, 0, 0, 0.1)",
-                            }}
-                          />
+                            key={"color" + i}
+                            className="relative w-8 h-8 p-1 cursor-pointer"
+                          >
+                            <div
+                              className="w-full h-full rounded-full"
+                              style={{
+                                backgroundColor: x.colorId,
+                                borderWidth: 1,
+                                borderColor: "rgba(0, 0, 0, 0.1)",
+                              }}
+                            />
+                          </div>
+                          <div className="text-[14px] font-light">{x.name}</div>
                         </div>
-                        <div className="text-[14px] font-light">{x.name}</div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
               </div>
               <div className="grid grid-cols-2">
@@ -402,9 +416,7 @@ const ModelDetail = () => {
             </div>
           </div>
         </section>
-        <section
-          className="px-6 md:px-8 lg:px-[280px] py-16 lg:py-25 group-[.is-dark]:bg-jetBlack"
-        >
+        <section className="px-6 md:px-8 lg:px-[280px] py-16 lg:py-25 group-[.is-dark]:bg-jetBlack">
           <div className="flex flex-col items-center gap-16 w-full px-4 py-8 md:p-8">
             <div className="text-[28px] md:text-[32px] group-[.is-dark]:text-white">
               {t("contact-us.section-2.title")}

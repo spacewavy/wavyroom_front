@@ -5,6 +5,7 @@ import {
   SET_CUSTOMIZATION_SELECTED_COLOR,
   SET_CUSTOMIZATION_FLOOR_CHANGE,
   SET_CUSTOMIZATION_OPTION_CHANGE,
+  SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE,
   SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
   SET_NAVIGATE_TO_SETTINGS,
 } from "../actions/customizationActions";
@@ -59,7 +60,7 @@ export const fetchCustomizationOptionsDataReducer = (
         data: { ...state.data, modelFloorOptions: changedFloor },
         error: action.payload,
       };
-    case SET_CUSTOMIZATION_OPTION_CHANGE:
+    case SET_CUSTOMIZATION_OPTION_CHANGE: {
       const seletedFloor = state.data.modelFloorOptions.find(
         (x) => x.isSelected
       );
@@ -70,13 +71,19 @@ export const fetchCustomizationOptionsDataReducer = (
               optionDetails: node.isMultipleSelectable
                 ? node.optionDetails.map((opt: OptionDetail) =>
                     opt.order === action.payload.order
-                      ? { ...opt, isSelected: !opt.isSelected }
+                      ? {
+                          ...opt,
+                          isSelected: opt.isDefault ? true : !opt.isSelected,
+                        }
                       : opt
                   )
                 : node.optionDetails.map((opt: OptionDetail) =>
                     opt.order === action.payload.order
-                      ? { ...opt, isSelected: !opt.isSelected }
-                      : { ...opt, isSelected: false }
+                      ? {
+                          ...opt,
+                          isSelected: opt.isDefault ? true : !opt.isSelected,
+                        }
+                      : { ...opt, isSelected: opt.isDefault ? true : false }
                   ),
             }
           : node
@@ -98,8 +105,9 @@ export const fetchCustomizationOptionsDataReducer = (
         data: { ...state.data, modelFloorOptions: updatedModelFloorOptions },
         error: action.payload,
       };
+    }
 
-    case SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE:
+    case SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE: {
       const floorSelected = state.data.modelFloorOptions.find(
         (x) => x.isSelected
       );
@@ -130,7 +138,58 @@ export const fetchCustomizationOptionsDataReducer = (
         data: { ...state.data, modelFloorOptions: updateFloorOptions },
         error: action.payload,
       };
+    }
+    case SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE: {
+      const _floorSelected = state.data.modelFloorOptions.find(
+        (x) => x.isSelected
+      );
+      const _updatedModelKitchenTypes = _floorSelected?.ModelKitchenTypes.map(
+        (_kitchenType, _kitchenTypeIdx) => {
+          if (!_kitchenType.isSelected) {
+            return _kitchenType;
+          }
 
+          const _options = _kitchenType.options.map(
+            (_kitchenOption, _kitchenOptionIdx) => {
+              if (_kitchenOptionIdx !== action.payload.nodeIdx)
+                return _kitchenOption;
+              const _optionDetail = _kitchenOption.optionDetails.map(
+                (_kitchenOptionDetail, _kitchenOptionDetailIdx) => {
+                  if (_kitchenOptionDetail.order !== action.payload.order)
+                    return _kitchenOption.isMultipleSelectable
+                      ? _kitchenOptionDetail
+                      : { ..._kitchenOptionDetail, isSelected: false };
+                  return {
+                    ..._kitchenOptionDetail,
+                    isSelected: _kitchenOptionDetail.isDefault
+                      ? true
+                      : !_kitchenOptionDetail.isSelected,
+                  };
+                }
+              );
+              return { ..._kitchenOption, optionDetails: _optionDetail };
+            }
+          );
+          return { ..._kitchenType, options: _options };
+        }
+      );
+
+      const _updateFloorOptions = state.data.modelFloorOptions.map((floor) => {
+        if (floor.isSelected) {
+          return {
+            ...floor,
+            ModelKitchenTypes: _updatedModelKitchenTypes,
+          };
+        }
+        return floor;
+      });
+
+      return {
+        ...state,
+        data: { ...state.data, modelFloorOptions: _updateFloorOptions },
+        error: action.payload,
+      };
+    }
     default:
       return state;
   }
