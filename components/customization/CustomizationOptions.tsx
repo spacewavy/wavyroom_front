@@ -168,7 +168,6 @@ const CustomizationOptions: FC<{
                       ) => a.order - b.order
                     )
                     .map((o: ModelKitchenOptionDetail, ind: number) => {
-                      console.log("o", o);
                       return (
                         <div
                           key={ind}
