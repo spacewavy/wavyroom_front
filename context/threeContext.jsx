@@ -406,7 +406,6 @@ export const ThreeProvider = ({ children }) => {
     if (!_model) return;
     const visibility = !!_visible;
     if (_model.visible === visibility) return;
-    console.log("change visibility", _name, _visible);
     _model.visible = visibility;
   };
 
@@ -489,7 +488,6 @@ export const ThreeProvider = ({ children }) => {
   };
 
   const handleOptionVisibility = () => {
-    console.log("optionData", optionData);
     // read option changes
     if (!optionData.modelFloorOptions.length) return;
     const selectedFloor = optionData.modelFloorOptions.find(

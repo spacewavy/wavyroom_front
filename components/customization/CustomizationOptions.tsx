@@ -44,7 +44,7 @@ const CustomizationOptions: FC<{
   ) => {
     return (
       <div
-        key={opt.name + o.name}
+        key={opt.name + o.name + o.order}
         className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
           o.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
         }`}
@@ -148,53 +148,55 @@ const CustomizationOptions: FC<{
       <div className="grid grid-cols-1 gap-8 pt-8 px-8 mb-8">
         {customizationOptions?.ModelKitchenTypes[
           customizationOptions?.ModelKitchenTypes.findIndex((x) => x.isSelected)
-        ].options.map((opt: ModelKitchenOption, index: number) => {
-          return (
-            <section key={`opt-${index}`}>
-              <div className="flex flex-col">
-                <div className="flex justify-between">
-                  <div className="flex gap-2 items-center">
-                    <span className="optionName text-[14px] font-normal text-jetBlack">
-                      {opt.name}
-                    </span>
+        ].options
+          .sort((a, b) => a.order - b.order)
+          .map((opt: ModelKitchenOption, index: number) => {
+            return (
+              <section key={`opt-${index}`}>
+                <div className="flex flex-col">
+                  <div className="flex justify-between">
+                    <div className="flex gap-2 items-center">
+                      <span className="optionName text-[14px] font-normal text-jetBlack">
+                        {opt.name}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-row gap-2 pt-4">
+                    {opt.optionDetails
+                      .sort(
+                        (
+                          a: ModelKitchenOptionDetail,
+                          b: ModelKitchenOptionDetail
+                        ) => a.order - b.order
+                      )
+                      .map((o: ModelKitchenOptionDetail, ind: number) => {
+                        return (
+                          <div
+                            key={ind}
+                            className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+                              o.isSelected
+                                ? "border-[darkGray]"
+                                : "border-[#B3B3B3]"
+                            }`}
+                            onClick={() => {
+                              handleKitchenOptionSelect(index, ind);
+                            }}
+                          >
+                            <div
+                              className={`flex flex-col gap-2 font-medium text-jetBlack ${
+                                o?.isSelected ? "text-jetBlack" : "text-gray"
+                              }`}
+                            >
+                              <span className="text-[14px]">{o.name}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
-                <div className="flex flex-row gap-2 pt-4">
-                  {opt.optionDetails
-                    .sort(
-                      (
-                        a: ModelKitchenOptionDetail,
-                        b: ModelKitchenOptionDetail
-                      ) => a.order - b.order
-                    )
-                    .map((o: ModelKitchenOptionDetail, ind: number) => {
-                      return (
-                        <div
-                          key={ind}
-                          className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
-                            o.isSelected
-                              ? "border-[darkGray]"
-                              : "border-[#B3B3B3]"
-                          }`}
-                          onClick={() => {
-                            handleKitchenOptionSelect(index, ind);
-                          }}
-                        >
-                          <div
-                            className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                              o?.isSelected ? "text-jetBlack" : "text-gray"
-                            }`}
-                          >
-                            <span className="text-[14px]">{o.name}</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </section>
-          );
-        })}
+              </section>
+            );
+          })}
       </div>
     );
   };
