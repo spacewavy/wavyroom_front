@@ -120,7 +120,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       >
         <SheetHeader className="px-8">
           <SheetTitle>
-            <Image className="w-auto h-8" src={Logo} alt="Spacewavy" />
+            <Link href='/'>
+              <Image className="w-auto h-8" src={Logo} alt="Spacewavy" />
+            </Link>
           </SheetTitle>
         </SheetHeader>
         <div className="flex flex-col flex-1 gap-8 py-12 px-8">

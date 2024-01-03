@@ -171,16 +171,16 @@ const ModelDetail = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex flex-row gap-8">
+              <div className="flex flex-row gap-8 w-full md:w-[320px]">
                 <div
-                  className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
+                  className="text-[14px] font-normal text-orange cursor-pointer flex-1 text-center py-4"
                   onClick={handleSrcollToFAQ}
                 >
                   {t("models.button.specification")}
                 </div>
-                <Link href={`/customization?id=${id}`}>
+                <Link href={`/customization?id=${id}`} className="flex-1 text-center">
                   <div
-                    className="text-[14px] font-normal text-orange cursor-pointer px-8 py-4"
+                    className="text-[14px] font-normal text-orange cursor-pointer py-4"
                     onClick={onCustomizeClick}
                   >
                     {t("models.button.customize")}
