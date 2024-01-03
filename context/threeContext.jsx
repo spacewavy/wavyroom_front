@@ -301,7 +301,7 @@ export const ThreeProvider = ({ children }) => {
 
             // later, apply the deck seperatly
             if (
-              _obj.name.toLowerCase().includes("flooring") ||
+              _obj.name.toLowerCase().includes("floor") ||
               _obj.name.toLowerCase().includes("shade")
             ) {
               deckObjList = [...deckObjList, _obj];
@@ -409,6 +409,19 @@ export const ThreeProvider = ({ children }) => {
     _model.visible = visibility;
   };
 
+  const changeRoofVisibility = (_visible) => {
+    if (!isEditorLoaded) return;
+    const _wavyModel = scene.getObjectByName(WAVY_MODEL);
+    if (!_wavyModel) return;
+    _wavyModel.traverse((_model) => {
+      if (_model.name.toLowerCase().includes("roof")) {
+        if (_model.visible !== _visible) {
+          _model.visible = _visible;
+        }
+      }
+    });
+  };
+
   const changeModelColorFromHex = (_color) => {
     try {
       const model = scene.getObjectByName(WAVY_MODEL);
@@ -434,8 +447,7 @@ export const ThreeProvider = ({ children }) => {
 
   const setCameraInnerView = () => {
     // set roof as invisible
-    changeMeshVisibilityByName("Roof", false);
-    changeMeshVisibilityByName("Roof_color", false);
+    changeRoofVisibility(false);
 
     // calcaulate the camera's position
     const _cameraPosition = new THREE.Vector3(0, 1, 0)
@@ -456,8 +468,7 @@ export const ThreeProvider = ({ children }) => {
 
   const setCameraOuterView = () => {
     // set roof as visible
-    changeMeshVisibilityByName("Roof", true);
-    changeMeshVisibilityByName("Roof_color", true);
+    changeRoofVisibility(true);
 
     // calcaulate the camera's initial position
     const _cameraPosition = new THREE.Vector3(0, 3, 15)
