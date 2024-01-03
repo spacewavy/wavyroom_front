@@ -155,6 +155,7 @@ export const ThreeProvider = ({ children }) => {
   // change the mesh visibility from optionData
   useEffect(() => {
     handleOptionVisibility();
+    console.log("option data", optionData);
   }, [optionData]);
 
   const deleteCurrentModel = () => {
