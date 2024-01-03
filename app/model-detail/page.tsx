@@ -438,7 +438,7 @@ const ModelDetail = () => {
             .filter((x: ModelDetailItem) => x.name !== data?.name)
             .map((item: ModelDetailItem, index: number) => {
               return (
-                <Link key={"item" + index} href={`model-detail?id=${item.id}`}>
+                <Link key={"item" + index} href={`model-detail?id=${item.id}`} className="group/item">
                   <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12 overflow-hidden">
                     <div className="flex flex-col items-start md:flex-1">
                       <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
@@ -451,7 +451,7 @@ const ModelDetail = () => {
                         {item.name}
                       </div>
                     </div>
-                    <div className="flex items-center jusitfy-center transform hover:scale-110 transition-transform duration-500 ease-in">
+                    <div className="flex items-center jusitfy-center transform group-hover/item:scale-110 transition-transform duration-500 ease-in">
                       <Image
                         src={`${makeFullUrl(item.representativeImageURL)}`}
                         alt="nova"
