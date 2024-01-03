@@ -212,7 +212,7 @@ const Customization = () => {
               <p>{t("customization.popup.sub-title")}</p>
             </div>
             <div className="gap-4 mb-16">
-              <div className="w-full">
+              <div className="w-full relative">
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color-[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none"
                   type="text"
@@ -232,12 +232,12 @@ const Customization = () => {
                   }}
                 />
                 <div
-                  className={`h-[1px] w-0 transition-width duration-500 ${
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
                     inputsAnimation.name ? "bg-orange w-full" : ""
                   }`}
                 ></div>
               </div>
-              <div className="w-full">
+              <div className="w-full relative">
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
                   type="email"
@@ -257,12 +257,12 @@ const Customization = () => {
                   }}
                 />
                 <div
-                  className={`h-[1px] w-0 transition-width duration-500 ${
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
                     inputsAnimation.email ? "bg-orange w-full" : ""
                   }`}
                 ></div>
               </div>
-              <div className="w-full">
+              <div className="w-full relative">
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
                   type="number"
@@ -282,12 +282,12 @@ const Customization = () => {
                   }}
                 />
                 <div
-                  className={`h-[1px] w-0 transition-width duration-500 ${
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
                     inputsAnimation.phone ? "bg-orange w-full" : ""
                   }`}
                 ></div>
               </div>
-              <div className="w-full">
+              <div className="w-full relative">
                 <input
                   className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
                   type="address"
@@ -307,7 +307,7 @@ const Customization = () => {
                   }}
                 />
                 <div
-                  className={`h-[1px] w-0 transition-width duration-500 ${
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
                     inputsAnimation.address ? "bg-orange w-full" : ""
                   }`}
                 ></div>
