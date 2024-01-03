@@ -143,11 +143,23 @@ export const fetchCustomizationOptionsDataReducer = (
       const _floorSelected = state.data.modelFloorOptions.find(
         (x) => x.isSelected
       );
-      console.log("Payload is", action.payload);
       const _updatedModelKitchenTypes = _floorSelected?.ModelKitchenTypes.map(
         (_kitchenType, _kitchenTypeIdx) => {
           if (!_kitchenType.isSelected) {
-            return _kitchenType;
+            return {
+              ..._kitchenType,
+              options: _kitchenType.options.map((_option) => {
+                return {
+                  ..._option,
+                  optionDetails: _option.optionDetails.map((_detail) => {
+                    return {
+                      ..._detail,
+                      isSelected: _detail.isDefault ? true : false,
+                    };
+                  }),
+                };
+              }),
+            };
           }
 
           const _options = _kitchenType.options.map(
@@ -155,9 +167,12 @@ export const fetchCustomizationOptionsDataReducer = (
               if (_kitchenOptionIdx !== action.payload.nodeIdx)
                 return {
                   ..._kitchenOption,
-                  // optionDetails: _kitchenOption.optionDetails.map((_item) => {
-                  //   return { ..._item, isSelected: false };
-                  // }),
+                  optionDetails: _kitchenOption.optionDetails.map((_item) => {
+                    return {
+                      ..._item,
+                      // isSelected: _item.isDefault ? true : false,
+                    };
+                  }),
                 };
               const _optionDetail = _kitchenOption.optionDetails.map(
                 (_kitchenOptionDetail, _kitchenOptionDetailIdx) => {
@@ -179,8 +194,6 @@ export const fetchCustomizationOptionsDataReducer = (
           return { ..._kitchenType, options: _options };
         }
       );
-
-      console.log("updatedTypes data", _updatedModelKitchenTypes);
 
       const _updateFloorOptions = state.data.modelFloorOptions.map((floor) => {
         if (floor.isSelected) {

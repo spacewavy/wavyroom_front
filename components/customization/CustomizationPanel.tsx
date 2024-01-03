@@ -164,7 +164,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const handleKitchenOptionSelect = (nodeIdx: number, order: number) => {
-    console.log("option change sele", nodeIdx, order);
     dispatch(
       customizationKitchenOptionChange(nodeIdx, order) as unknown as AnyAction
     );
@@ -324,6 +323,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                       flexWrap: "wrap",
                       overflow: "hidden",
                       position: "relative",
+                      cursor: "pointer",
                     }),
                     indicatorsContainer: (baseStyles: any) => ({
                       display: "flex",
