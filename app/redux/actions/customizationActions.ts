@@ -85,7 +85,6 @@ export const customizationKitchenOptionChange = (
   order: number
 ) => {
   return async (dispatch: any) => {
-    console.group("hi");
     dispatch({
       type: SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
       payload: { nodeIdx, order },

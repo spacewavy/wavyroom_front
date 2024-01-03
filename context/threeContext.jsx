@@ -406,6 +406,7 @@ export const ThreeProvider = ({ children }) => {
     if (!_model) return;
     const visibility = !!_visible;
     if (_model.visible === visibility) return;
+    console.log("change visibility", _name, _visible);
     _model.visible = visibility;
   };
 
@@ -511,14 +512,18 @@ export const ThreeProvider = ({ children }) => {
     const _modelKitchenTypes = selectedFloor.ModelKitchenTypes;
     _modelKitchenTypes.map((_kitchen) => {
       changeMeshVisibilityByName(_kitchen.meshName, _kitchen.isSelected);
-      // const { optionDetails } = _kitchen;
-      // if (!optionDetails.length) return;
-      // optionDetails.map((_kitchenOptionDetail) => {
-      //   changeMeshVisibilityByName(
-      //     _kitchenOptionDetail.meshName,
-      //     _kitchenOptionDetail.isSelected
-      //   );
-      // });
+      const { options } = _kitchen;
+      if (!options.length) return;
+      options.map((_option) => {
+        const { optionDetails } = _option;
+        if (!optionDetails || !optionDetails.length) return;
+        optionDetails.map((_kitchenOptionDetail) => {
+          changeMeshVisibilityByName(
+            _kitchenOptionDetail.meshName,
+            _kitchenOptionDetail.isSelected
+          );
+        });
+      });
     });
   };
 

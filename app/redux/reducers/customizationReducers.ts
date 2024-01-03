@@ -143,6 +143,7 @@ export const fetchCustomizationOptionsDataReducer = (
       const _floorSelected = state.data.modelFloorOptions.find(
         (x) => x.isSelected
       );
+      console.log("Payload is", action.payload);
       const _updatedModelKitchenTypes = _floorSelected?.ModelKitchenTypes.map(
         (_kitchenType, _kitchenTypeIdx) => {
           if (!_kitchenType.isSelected) {
@@ -152,10 +153,15 @@ export const fetchCustomizationOptionsDataReducer = (
           const _options = _kitchenType.options.map(
             (_kitchenOption, _kitchenOptionIdx) => {
               if (_kitchenOptionIdx !== action.payload.nodeIdx)
-                return _kitchenOption;
+                return {
+                  ..._kitchenOption,
+                  // optionDetails: _kitchenOption.optionDetails.map((_item) => {
+                  //   return { ..._item, isSelected: false };
+                  // }),
+                };
               const _optionDetail = _kitchenOption.optionDetails.map(
                 (_kitchenOptionDetail, _kitchenOptionDetailIdx) => {
-                  if (_kitchenOptionDetail.order !== action.payload.order)
+                  if (_kitchenOptionDetailIdx !== action.payload.order)
                     return _kitchenOption.isMultipleSelectable
                       ? _kitchenOptionDetail
                       : { ..._kitchenOptionDetail, isSelected: false };
@@ -173,6 +179,8 @@ export const fetchCustomizationOptionsDataReducer = (
           return { ..._kitchenType, options: _options };
         }
       );
+
+      console.log("updatedTypes data", _updatedModelKitchenTypes);
 
       const _updateFloorOptions = state.data.modelFloorOptions.map((floor) => {
         if (floor.isSelected) {
