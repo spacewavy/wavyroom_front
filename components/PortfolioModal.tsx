@@ -19,7 +19,7 @@ const PortfolioModal = ({
 }) => {
   const { t } = useTranslation();
   return ReactDOM.createPortal(
-    <div className="fixed w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8">
+    <div className="fixed top-0 w-full h-full bg-black/25 flex items-start justify-center overflow-y-scroll p-8">
       <div
         className="bg-white flex flex-1 shrink flex-col p-4 md:p-8 gap-4"
         onClick={(e) => {
