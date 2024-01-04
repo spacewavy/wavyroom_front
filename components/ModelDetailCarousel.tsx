@@ -17,6 +17,7 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
     loop: false,
     skipSnaps: false,
     inViewThreshold: 0.7,
+    containScroll: false,
   });
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
