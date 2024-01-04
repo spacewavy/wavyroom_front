@@ -10,6 +10,7 @@ import {
 } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
+import gsap from "gsap";
 
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
@@ -457,11 +458,17 @@ export const ThreeProvider = ({ children }) => {
       .add(localCenter);
 
     // place the camera
-    camera.position.set(
-      _cameraPosition.x,
-      _cameraPosition.y,
-      _cameraPosition.z
-    );
+    // camera.position.set(
+    //   _cameraPosition.x,
+    //   _cameraPosition.y,
+    //   _cameraPosition.z
+    // );
+    gsap.to(camera.position, {
+      x: _cameraPosition.x,
+      y: _cameraPosition.y,
+      z: _cameraPosition.z,
+      duration: 0.5,
+    });
 
     // set max angle for cameracontrol
     cameraControls.maxPolarAngle = Math.PI / 6;
@@ -478,11 +485,17 @@ export const ThreeProvider = ({ children }) => {
       .add(localCenter);
 
     // place the camera
-    camera.position.set(
-      _cameraPosition.x,
-      _cameraPosition.y,
-      _cameraPosition.z
-    );
+    // camera.position.set(
+    //   _cameraPosition.x,
+    //   _cameraPosition.y,
+    //   _cameraPosition.z
+    // );
+    gsap.to(camera.position, {
+      x: _cameraPosition.x,
+      y: _cameraPosition.y,
+      z: _cameraPosition.z,
+      duration: 0.5,
+    });
 
     // set max angle for cameracontrol
     cameraControls.maxPolarAngle = Math.PI / 2;
