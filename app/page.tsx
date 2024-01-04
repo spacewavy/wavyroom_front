@@ -34,6 +34,7 @@ const Home = () => {
       videoRef.current.muted = true;
     }
   };
+
   const handleUnMute = () => {
     if (videoRef.current) {
       setIsMuted(false);
