@@ -82,3 +82,9 @@
     transform-origin: 50% 50%;
   }
 }
+
+@font-face {
+  font-family: 'pretendard';
+  src: url("../public/fonts/Pretendard-Light.woff2") format('woff2');
+  font-weight: 300;
+}

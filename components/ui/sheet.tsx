@@ -33,7 +33,7 @@ const SheetOverlay = React.forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const sheetVariants = cva(
-  "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out focus-visible:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out focus-visible:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500 font-pretendard",
   {
     variants: {
       side: {
@@ -57,7 +57,7 @@ interface SheetContentProps
   overlayClassName?: string;
   onCloseClick?: any;
   menuType?: string;
-  selectedMenuId?:number;
+  selectedMenuId?: number;
 }
 
 const SheetContent = React.forwardRef<
@@ -85,7 +85,9 @@ const SheetContent = React.forwardRef<
         {...props}
       >
         {children}
-        {((menuType == "menu" && selectedMenuId==2) || menuType =='model' || !menuType)   && (
+        {((menuType == "menu" && selectedMenuId == 2) ||
+          menuType == "model" ||
+          !menuType) && (
           <span
             className="absolute right-8 top-8 cursor-pointer"
             onClick={onCloseClick}
