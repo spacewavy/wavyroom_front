@@ -33,12 +33,9 @@ const PortfolioModal = ({
           </div>
         </div>
         <div className="flex flex-col py-4 gap-4">
-          <div className="text-bodyMD lg:text-bodyLG">{location}</div>
+          <div className="text-[14px]">{location}</div>
           <div className="flex flex-row gap-2">
-            <div className="text-bodyMD lg:text-bodyLG font-normal">
-              {size}
-              {t("portfolio.currency")}
-            </div>
+            <div className="text-[14px] font-normal">{size}</div>
           </div>
         </div>
         <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-2">

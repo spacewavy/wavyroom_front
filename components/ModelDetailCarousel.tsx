@@ -1,4 +1,5 @@
 "use client";
+
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
@@ -43,14 +44,7 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
           </div>
         )}
       </div>
-
-      <div className="flex flex-col items-center justify-between pt-8">
-        <span className="text-[16px]">
-          {data[selectedIndex]?.address} /{" "}
-          <span className="text-midGray">{name}</span>
-        </span>
-      </div>
-      <div className="embla__dots flex flex-row gap-2">
+      <div className="embla__dots flex flex-row gap-2 pt-8">
         {data.map((_, index) => (
           <div
             className={`h-2 w-2 rounded cursor-pointer ${

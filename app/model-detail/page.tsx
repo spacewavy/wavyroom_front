@@ -171,14 +171,17 @@ const ModelDetail = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex flex-row gap-8 w-full md:w-[320px]">
+              <div className="flex flex-row gap-8 w-full md:w-[320px] items-center">
                 <div
                   className="text-[14px] font-normal text-orange cursor-pointer flex-1 text-center py-4"
                   onClick={handleSrcollToFAQ}
                 >
                   {t("models.button.specification")}
                 </div>
-                <Link href={`/customization?id=${id}`} className="flex-1 text-center">
+                <Link
+                  href={`/customization?id=${id}`}
+                  className="flex-1 text-center"
+                >
                   <div
                     className="text-[14px] font-normal text-orange cursor-pointer py-4"
                     onClick={onCustomizeClick}
@@ -189,16 +192,18 @@ const ModelDetail = () => {
               </div>
             </div>
           </div>
-          <div className=" sm:pb-16 lg:pb-24 sm:pt-16 lg:pt-24">
+          <div className=" pb-16 lg:pb-24 pt-16 lg:pt-24">
             <ModelDetailCarousel data={data.modelExamples} name={data.name} />
           </div>
         </section>
         <section className="group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center sm:px-24 lg:px-0 sm:py-8 lg:py-24 group-[.is-dark]:bg-jetBlack aspect-[912/513]">
-            <div className="sm:text-[24px] md:text-[28px] lg:text-[32px] ">
-              <span>{data.name} {t('model-details.color')}</span>
+          <div className="relative flex flex-col items-center px-0 lg:px-24 py-8 lg:py-24 group-[.is-dark]:bg-jetBlack aspect-[912/513]">
+            <div className="text-[24px] md:text-[28px] lg:text-[32px] ">
+              <span>
+                {data.name} {t("model-details.color")}
+              </span>
             </div>
-            <div className="flex flex-col">
+            <div className="relative flex flex-col">
               <Image
                 src={makeFullUrl(selectedColor?.imageURL)}
                 alt="model image"
@@ -250,7 +255,7 @@ const ModelDetail = () => {
         </section>
         <section className="group-[.is-dark]:bg-spaceBlack" ref={specRef}>
           <div className="flex flex-col lg:flex-row">
-            <div className="flex flex-col items-center justify-center  bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
+            <div className="flex flex-col items-center justify-center bg-gray lg:bg-lightGray flex-1 group-[.is-dark]:bg-offBlack">
               <Image
                 src={makeFullUrl(data.representativeImageURL)}
                 alt="nova"
@@ -258,9 +263,9 @@ const ModelDetail = () => {
                 height={1000}
               />
             </div>
-            <div className="flex flex-col bg-white lg:bg-lightGray flex-1 sm:px-4 md:px-8 py-12 group-[.is-dark]:bg-offBlack group-[.is-dark]:text-white">
+            <div className="flex flex-col bg-white lg:bg-lightGray flex-1 px-4 md:px-8 py-12 group-[.is-dark]:bg-offBlack group-[.is-dark]:text-white">
               <div className="text-[24px] md:text-[28px] lg:text-[32px] pb-6 border-b border-midGray">
-                {data.name} {t("sidebar.details.specification")}
+                {data.name}
               </div>
               <div className="grid grid-cols-2">
                 <div className="flex flex-col border-b border-midGray py-4 gap-2 pr-4">
@@ -437,12 +442,17 @@ const ModelDetail = () => {
           {modelsList
             .filter((x: ModelDetailItem) => x.name !== data?.name)
             .map((item: ModelDetailItem, index: number) => {
+              console.log("item", item);
               return (
-                <Link key={"item" + index} href={`model-detail?id=${item.id}`} className="group/item">
+                <Link
+                  key={"item" + index}
+                  href={`model-detail?id=${item.id}`}
+                  className="group/item"
+                >
                   <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12 overflow-hidden">
                     <div className="flex flex-col items-start md:flex-1">
                       <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
-                        노바 /{" "}
+                        {item.name} /{" "}
                         <span className="text-[#B2B2B2]">
                           {item.purpose[0]}
                         </span>

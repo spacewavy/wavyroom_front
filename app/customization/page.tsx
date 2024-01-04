@@ -55,10 +55,10 @@ const Customization = () => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
   const [inputsAnimation, setInputsAnimation] = useState({
-    name:false,
-    email:false,
-    phone:false,
-    address:false
+    name: false,
+    email: false,
+    phone: false,
+    address: false,
   });
   const [formElements, setFormElements] = useState({
     name: "",
@@ -76,11 +76,6 @@ const Customization = () => {
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
   }, [language]);
-
-  // useEffect(() => {
-  //   if (!data) return;
-  //   setTransformedData(data);
-  // }, [data]);
 
   // when id is empty, we setup the default id
   useEffect(() => {
@@ -273,7 +268,7 @@ const Customization = () => {
                   onBlur={() => {
                     setInputsAnimation((prev) => ({
                       ...prev,
-                      phone: formElements.phone == '' ? false : true,
+                      phone: formElements.phone == "" ? false : true,
                     }));
                   }}
                   placeholder={t("customization.popup.phone-placeholder")}

@@ -11,7 +11,6 @@ import i18n from "@/i18n/i18n";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
 
-
 const pretendard = localFont({
   src: [
     {
@@ -52,15 +51,21 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <I18nextProvider i18n={i18n}>
-        <LoadingProvider>
-          {renderClientSideComponent && (
-            <div id="main" className={cn(language === 'ko' ? pretendard.className : diaType.className, "flex flex-col font-light")}>
-              {showLayout && <Navbar />}
-              {children}
-              {showFooter && <Footer />}
-            </div>
-          )}
-        </LoadingProvider>
+      <LoadingProvider>
+        {renderClientSideComponent && (
+          <div
+            id="main"
+            className={cn(
+              language === "ko" ? pretendard.className : diaType.className,
+              "flex flex-col font-light whitespace-pre-line"
+            )}
+          >
+            {showLayout && <Navbar />}
+            {children}
+            {showFooter && <Footer />}
+          </div>
+        )}
+      </LoadingProvider>
     </I18nextProvider>
   );
 };
