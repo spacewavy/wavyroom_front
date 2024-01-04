@@ -545,7 +545,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <SheetContent
           side="left"
           className={cn(
-            "max-w-full w-full lg:w-fit flex gap-0 !p-0 bg-gray overflow-hidden",
+            "max-w-full w-full sm:max-w-full lg:w-fit flex gap-0 !p-0 bg-gray overflow-hidden",
             !!selectedListId && "md:w-full"
           )}
           onInteractOutside={closeSidebar}
