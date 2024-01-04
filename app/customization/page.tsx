@@ -411,21 +411,21 @@ const Customization = () => {
                 selectedItemId={selectedItemId}
                 handleSelectedItemId={handleSelectedItemId}
               />
-              <div className="absolute top-0 bottom-0 left-[100%] w-full flex flex-1">
-                <CustomizationPanel
-                  handleMenuToggle={handleMenuToggle}
-                  openMenu={openMenu}
-                  handlePopupOpen={handlePopupOpen}
-                  selectedItemId={selectedItemId}
-                  handleSelectedItemId={(_id: string) => {
-                    if (!_id) return;
-                    handleSelectedItemId(_id);
-                    dispatch(
-                      fetchCustomizationOptionsData(_id) as unknown as AnyAction
-                    );
-                  }}
-                />
-              </div>
+              {/* <div className="absolute top-0 bottom-0 left-[100%] w-full flex flex-1"> */}
+              <CustomizationPanel
+                handleMenuToggle={handleMenuToggle}
+                openMenu={openMenu}
+                handlePopupOpen={handlePopupOpen}
+                selectedItemId={selectedItemId}
+                handleSelectedItemId={(_id: string) => {
+                  if (!_id) return;
+                  handleSelectedItemId(_id);
+                  dispatch(
+                    fetchCustomizationOptionsData(_id) as unknown as AnyAction
+                  );
+                }}
+              />
+              {/* </div> */}
             </div>
           </div>
         </div>
