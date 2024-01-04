@@ -320,9 +320,13 @@ const About = () => {
           <div className="text-white text-[14px] md:text-[24px]">
             {t("about-us.card.text")}
           </div>
-          <div className="text-orange text-[14px]">
+          <a
+            className="text-orange text-[14px]"
+            href="https://teamwavy.oopy.io"
+            target="_blank"
+          >
             {t("about-us.card.navigation-text")}
-          </div>
+          </a>
         </div>
       </section>
     </main>
