@@ -1,6 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
-import PortfolioImage from "@/public/images/portfolio/portfolio_1.png";
+import React from "react";
 import Close from "@/assets/icons/ModalClose.svg";
 import Image from "next/image";
 import { makeFullUrl } from "@/lib/utils";
@@ -58,10 +56,6 @@ const PortfolioModal = ({
       </div>
     </Portal>
   );
-  // return ReactDOM.createPortal(
-  //   ,
-  //   document.body
-  // );
 };
 
 export default PortfolioModal;
