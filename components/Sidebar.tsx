@@ -81,16 +81,18 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  const selectedMenu: SidebarItem | undefined = useMemo(
-    () => sidebarItems.find((obj) => obj.id === selectedMenuId),
-    [selectedMenuId]
-  );
+  // const selectedMenu: SidebarItem | undefined = useMemo(
+  //   () => sidebarItems.find((obj) => obj.id === selectedMenuId),
+  //   [selectedMenuId]
+  // );
 
   const selectedProduct = useMemo(
     () => data.find((obj: any) => obj.id === selectedListId),
     [selectedListId]
   );
-  const sortedModelColors = selectedProduct?.modelColors.sort((a:any, b:any) => a.order - b.order);
+  const sortedModelColors = selectedProduct?.modelColors.sort(
+    (a: any, b: any) => a.order - b.order
+  );
 
   const initData = () => {
     setSelectedMenuId(menuType === "model" ? 2 : 0);
@@ -98,7 +100,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
   };
 
   const closeSidebar = () => {
-    setSelectedListId('');
+    setSelectedListId("");
     setSelectedMenuId(0);
     setOpen(false);
   };
@@ -115,12 +117,16 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       <section
         className={cn(
           "w-full lg:w-[240px] flex lg:flex gap-8 flex-col transition-all duration-300 py-8 lg:border-r lg:border-r-black lg:min-w-0 min-w-[100vw] lg:translate-x-0",
-          selectedListId && selectedMenuId ? 'translate-x-[-200%]' : !selectedListId && selectedMenuId ? '-translate-x-full' : 'translate-x-0'   
+          selectedListId && selectedMenuId
+            ? "translate-x-[-200%]"
+            : !selectedListId && selectedMenuId
+            ? "-translate-x-full"
+            : "translate-x-0"
         )}
       >
         <SheetHeader className="px-8">
           <SheetTitle>
-            <Link href='/'>
+            <Link href="/">
               <Image className="w-auto h-8" src={Logo} alt="Spacewavy" />
             </Link>
           </SheetTitle>
@@ -178,22 +184,40 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       <section
         className={cn(
           "flex lg:flex gap-12 flex-col transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0",
-          selectedMenuId ? 'p-8 w-full lg:w-[400px] lg:border-r lg:border-r-black' :  'overflow-hidden w-0 p-0',
-          selectedListId && selectedMenuId ? 'translate-x-[-200%]' : !selectedListId && selectedMenuId ? '-translate-x-full' : 'translate-x-0'   
+          selectedMenuId
+            ? "p-8 w-full lg:w-[400px] lg:border-r lg:border-r-black"
+            : "overflow-hidden w-0 p-0",
+          selectedListId && selectedMenuId
+            ? "translate-x-[-200%]"
+            : !selectedListId && selectedMenuId
+            ? "-translate-x-full"
+            : "translate-x-0"
         )}
       >
-        <div className="flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={() => setSelectedMenuId(0)}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <g clip-path="url(#clip0_4597_600)">
-          <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
-          </g>
-          <defs>
-          <clipPath id="clip0_4597_600">
-          <rect width="24" height="24" fill="white"/>
-          </clipPath>
-          </defs>
+        <div
+          className="flex lg:hidden items-center gap-[4px] pt-[4px]"
+          onClick={() => setSelectedMenuId(0)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <g clip-path="url(#clip0_4597_600)">
+              <path
+                d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z"
+                fill="black"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_4597_600">
+                <rect width="24" height="24" fill="white" />
+              </clipPath>
+            </defs>
           </svg>
-          <span className="text-[20px] font-normal">메뉴</span>
+          <span className="text-[20px] font-normal">{t("sidebar.menu")}</span>
         </div>
         <div className="flex text-[20px]">{t("sidebar.items.model")}</div>
         <ul className="flex flex-col flex-1 text-xs font-light">
@@ -235,10 +259,13 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               onClick={closeSidebar}
               className={cn(
                 "flex justify-between py-4 border-b text-black border-black items-center",
-                selectedListId != "" && "!text-midGray !border-midGray transition-all duration-300 hover:!text-black hover:!border-black"
+                selectedListId != "" &&
+                  "!text-midGray !border-midGray transition-all duration-300 hover:!text-black hover:!border-black"
               )}
             >
-              <span className="flex flex-1 text-sm">전체보기</span>
+              <span className="flex flex-1 text-sm">
+                {t("sidebar.items.show-all")}
+              </span>
               <span className="flex flex-1 text-sm"></span>
               <span className="flex flex-1 text-sm"></span>
               <Image
@@ -262,83 +289,108 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
       );
       setOpen(false);
     };
+
     return (
-      <section className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0 ${ 
-        selectedListId ? 'lg:w-[100vw]' : 'lg:w-0 overflow-hidden'
-      }, ${
-        selectedListId && selectedMenuId ? 'translate-x-[-200%]' : 'translate-x-0'
-      }`}>
-        {/* <div className="relative sm:block hidden w-full aspect-[800/432]"> */}
-        <div className="relative sm:hidden md:block w-full h-[432px]">
+      <section
+        className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0 ${
+          selectedListId ? "lg:w-[100vw]" : "lg:w-0 overflow-hidden"
+        }, ${
+          selectedListId && selectedMenuId
+            ? "translate-x-[-200%]"
+            : "translate-x-0"
+        }`}
+      >
+        <div className="relative hidden md:block w-full h-[360px]">
           <Image
             src={makeFullUrl(selectedProduct?.heroImageURL)}
             alt="Model Hero Image"
-            // fill={true}
             fill
             objectFit="cover"
           />
-          <div className="absolute top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]" onClick={() => setSelectedListId('')}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <g clip-path="url(#clip0_4597_600)">
-            <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_4597_600">
-            <rect width="24" height="24" fill="white"/>
-            </clipPath>
-            </defs>
+          <div
+            className="absolute top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]"
+            onClick={() => setSelectedListId("")}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_4597_600)">
+                <path
+                  d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z"
+                  fill="black"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_4597_600">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
             </svg>
-            <span className="text-[20px] font-normal">메뉴</span>
+            <span className="text-[20px] font-normal">{t("sidebar.menu")}</span>
           </div>
         </div>
         <div className="flex flex-1 flex-col p-8 gap-4">
-          <div className="flex lg:hidden items-center gap-[4px] pt-[4px]"   onClick={() => setSelectedListId('')}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <g clip-path="url(#clip0_4597_600)">
-            <path d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z" fill="black"/>
-            </g>
-            <defs>
-            <clipPath id="clip0_4597_600">
-            <rect width="24" height="24" fill="white"/>
-            </clipPath>
-            </defs>
+          <div
+            className="flex lg:hidden items-center gap-[4px] pt-[4px]"
+            onClick={() => setSelectedListId("")}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_4597_600)">
+                <path
+                  d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z"
+                  fill="black"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_4597_600">
+                  <rect width="24" height="24" fill="white" />
+                </clipPath>
+              </defs>
             </svg>
-            <span className="text-[20px] font-normal">메뉴</span>
+            <span className="text-[20px] font-normal">{t("sidebar.menu")}</span>
           </div>
-          <h2 className="text-[20px]">
-            {selectedProduct?.name} {t("sidebar.details.specification")}
-          </h2>
-          <ul className="flex flex-col flex-1 text-xs font-light pb-10">
-            <li className="grid grid-cols-4 py-4 gap-6 text-sm">
+          <h2 className="text-[20px]">{selectedProduct?.name}</h2>
+          <ul className="flex flex-col flex-1 text-xs font-light pb-2">
+            <li className="grid grid-cols-4 gap-6 text-sm">
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.price")}
                 </span>
-                <span className="truncate">
+                <span className="">
                   {selectedProduct?.minPrice.toLocaleString()}
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.standard")}
                 </span>
-                <span className="truncate">{selectedProduct?.size}</span>
+                <span className="">{selectedProduct?.size}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.floor-plan")}
                 </span>
-                <span className="truncate">{selectedProduct?.sizeDetail}</span>
+                <span className="">{selectedProduct?.sizeDetail}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.exterior-material")}
                 </span>
-                <span className="truncate">
+                <span className="">
                   {selectedProduct?.exteriorMaterial.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
-                        <span className="truncate">{x}</span>
+                        <span className="">{x}</span>
                         <br />
                       </React.Fragment>
                     );
@@ -346,7 +398,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.exterior-color")}
                 </span>
                 <div className="flex flex-row gap-1 flex-wrap">
@@ -364,22 +416,22 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.insulation")}
                 </span>
-                <span className="truncate">{selectedProduct?.insulation}</span>
+                <span className="">{selectedProduct?.insulation}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.framework")}
                 </span>
-                <span className="truncate">{selectedProduct?.structure}</span>
+                <span className="">{selectedProduct?.structure}</span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.windows")}
                 </span>
-                <span className="truncate">
+                <span className="">
                   {selectedProduct?.windows.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
@@ -391,10 +443,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.furniture")}
                 </span>
-                <span className="truncate">
+                <span className="">
                   {" "}
                   {selectedProduct?.furniture.map((x: any) => {
                     return (
@@ -407,10 +459,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.purpose")}
                 </span>
-                <span className="truncate">
+                <span className="">
                   {selectedProduct?.purpose.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
@@ -422,10 +474,10 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="truncate font-normal">
+                <span className=" font-normal">
                   {t("sidebar.details.purpose-discription")}
                 </span>
-                <span className="truncate">
+                <span className="">
                   {selectedProduct?.purposeDetail.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
@@ -438,7 +490,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               </div>
             </li>
           </ul>
-          <div className={`flex flex-row flex-1 items-end gap-2`}>
+          <div className="flex flex-row items-end gap-2">
             <Link
               href={`/customization?id=${selectedListId}`}
               onClick={handlePlaceOrderClick}
@@ -493,7 +545,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <SheetContent
           side="left"
           className={cn(
-            "max-w-full w-full sm:max-w-full lg:w-fit flex gap-0 !p-0 bg-gray overflow-hidden",
+            "max-w-full w-full lg:w-fit flex gap-0 !p-0 bg-gray overflow-hidden",
             !!selectedListId && "md:w-full"
           )}
           onInteractOutside={closeSidebar}

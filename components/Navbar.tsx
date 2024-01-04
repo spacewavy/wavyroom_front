@@ -16,7 +16,6 @@ import { useTranslation } from "react-i18next";
 import i18n from "@/i18n/i18n";
 import { changeLanguage } from "@/app/redux/actions/localeActions";
 
-
 const Navbar = ({
   isDark,
   isFloating,
@@ -27,10 +26,9 @@ const Navbar = ({
   const [open, setOpen] = useState(false);
   const [menuType, setMenuType] = useState("");
   const dispatch = useDispatch();
-  const { language} = useSelector((state: any) => state.locale);
+  const { language } = useSelector((state: any) => state.locale);
   const { t } = useTranslation();
 
-  
   const setLanguage = useCallback(
     (lang: "ko" | "en") => {
       i18n.changeLanguage(lang);
@@ -54,7 +52,12 @@ const Navbar = ({
       }`}
     >
       <div className="bg-white group-[.is-dark]:bg-jetBlack group-[.is-floating]:bg-transparent">
-        <Sidebar open={open} setOpen={setOpen} menuType={menuType} setMenuType={setMenuType}/>
+        <Sidebar
+          open={open}
+          setOpen={setOpen}
+          menuType={menuType}
+          setMenuType={setMenuType}
+        />
         <div className="px-4 md:px-8">
           <div className="flex items-center justify-between h-24">
             <Link href="/">
@@ -64,7 +67,7 @@ const Navbar = ({
                 alt="Spacewavy"
               />
             </Link>
-            <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto md:gap-4 lg:gap-6">
+            <div className="inset-y-0 right-0 flex items-center justify-between static inset-auto md:gap-4 lg:gap-6">
               <div className="hidden lg:flex">
                 <div className="flex items-center gap-5 lg:gap-16">
                   <div className="w-[100px]">
@@ -72,7 +75,7 @@ const Navbar = ({
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
                       onClick={() => openSidebar("model")}
                     >
-                     {t('navbar.model')}
+                      {t("navbar.model")}
                     </div>
                   </div>
                   <div className="w-[100px]">
@@ -80,7 +83,7 @@ const Navbar = ({
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
                       onClick={() => openSidebar("menu")}
                     >
-                     {t('navbar.menu')}
+                      {t("navbar.menu")}
                     </div>
                   </div>
                   <div className="lg:w-[100px] flex flex-row gap-2 items-center">
@@ -118,10 +121,19 @@ const Navbar = ({
               <div className={`flex flex-row gap-4`}>
                 <div onClick={handleButtonClick}>
                   <Link href="/customization">
-                    <Button name={t('navbar.order-button')} arrow varient= {isDark ? 'dark' : 'default'}/>
+                    <Button
+                      name={t("navbar.order-button")}
+                      arrow
+                      varient={isDark ? "dark" : "default"}
+                    />
                   </Link>
                 </div>
-                <div className="flex lg:hidden" onClick={() => openSidebar()}>
+                <div
+                  className="flex items-center lg:hidden"
+                  onClick={() => {
+                    openSidebar();
+                  }}
+                >
                   <Image
                     className="cursor-pointer"
                     src={isDark ? HamburgerWhiteIcon : HamburgerIcon}

@@ -18,10 +18,17 @@ export interface ProductCardProps {
   value: number | string;
   image: any;
   purpose?: string;
-  hovered?:boolean
+  hovered?: boolean;
 }
 
-const ProductCard = ({ id, name, value, image, purpose ,hovered=true }: ProductCardProps) => {
+const ProductCard = ({
+  id,
+  name,
+  value,
+  image,
+  purpose,
+  hovered = true,
+}: ProductCardProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const handlePlaceOrderClick = () => {
@@ -31,7 +38,11 @@ const ProductCard = ({ id, name, value, image, purpose ,hovered=true }: ProductC
   return (
     <Link href={`/model-detail?id=${id}`}>
       <div className="aspect-[3/3] md:aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12 overflow-hidden">
-        <div className={`relative flex flex-1 transform ${hovered ? 'hover:scale-110' : ''} transition-transform duration-500 ease-in`}>
+        <div
+          className={`relative flex flex-1 transform ${
+            hovered ? "hover:scale-110" : ""
+          } transition-transform duration-500 ease-in`}
+        >
           <Image
             src={makeFullUrl(image)}
             alt="product_image"
@@ -66,12 +77,12 @@ const ProductCard = ({ id, name, value, image, purpose ,hovered=true }: ProductC
 
 export default ProductCard;
 
-export function ProductAllCard() {
+export const ProductAllCard = () => {
   const { t } = useTranslation();
   return (
     <div className="p-8 border-t">
       <div className="flex h-full flex-col items-center justify-center w-full gap-4 p-8 text-white border-r border-gray bg-offBlack">
-        <p className="text-center">
+        <p className="text-center text-[18px] md:text-[28px]">
           {t("home.card.title.text-1")}
           <br />
           {t("home.card.title.text-2")}
@@ -90,4 +101,4 @@ export function ProductAllCard() {
       </div>
     </div>
   );
-}
+};

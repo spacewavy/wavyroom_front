@@ -22,7 +22,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.model);
   const { t } = useTranslation();
-  const { language} = useSelector((state: any) => state.locale);
+  const { language } = useSelector((state: any) => state.locale);
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
@@ -50,7 +50,7 @@ const Home = () => {
               className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
             >
               <div className="relative">
-              {isVideoLoaded && (
+                {isVideoLoaded && (
                   <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
                       {!isMuted ? (
@@ -166,27 +166,32 @@ const Home = () => {
     <main className="flex flex-col flex-1">
       {renderVideoSection()}
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
-        <Label>{t('home.section-2.title')}</Label>
+        <Label>{t("home.section-2.title")}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">
-        {t('home.section-2.heading.text-1')} <br /> {t('home.section-2.heading.text-2')}
-          
+          {t("home.section-2.heading.text-1")} <br />{" "}
+          {t("home.section-2.heading.text-2")}
         </h1>
         <p className="font-light text-bodySM md:text-[14px] lg:text-bodyLG">
-        {t('home.section-2.description')}
+          {t("home.section-2.description")}
         </p>
         <div className="flex flex-row gap-4 pt-[32px] font-size: 12px;">
-        <Link href="/customization">
-          <Button name= {t('home.section-2.button-text')} arrow varient="default"  />
-        </Link>
+          <Link href="/customization">
+            <Button
+              name={t("home.section-2.button-text")}
+              arrow
+              varient="default"
+            />
+          </Link>
         </div>
       </section>
       <section className="pb-4 pt-8 md:pt-16 md:pb-8 lg:pt-24 lg:pb-16">
         <ProductCarousel />
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
-        <Label>{t('home.section-4.title')}</Label>
+        <Label>{t("home.section-4.title")}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG">
-        {t('home.section-4.heading.text-1')} <br /> {t('home.section-4.heading.text-2')}
+          {t("home.section-4.heading.text-1")} <br />{" "}
+          {t("home.section-4.heading.text-2")}
         </h1>
       </section>
       <section className="grid w-full grid-cols-1 lg:grid-cols-2">
