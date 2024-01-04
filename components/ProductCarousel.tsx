@@ -18,11 +18,12 @@ const ProductCarousel = () => {
     loop: false,
     skipSnaps: false,
     inViewThreshold: 0.7,
+    containScroll: false,
   });
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
-    const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const CAROUSEL_ITEMS = [
     {
@@ -92,7 +93,9 @@ const ProductCarousel = () => {
               href="/portfolio"
               className="p-0 flex flex-row gap-[4px] text-labelMD text-orange"
             >
-              <span className="text-[14px] font-normal">{t('home.see-more')}</span>
+              <span className="text-[14px] font-normal">
+                {t("home.see-more")}
+              </span>
               <Image alt="right-arrow" src={RightArrowOrange} />
             </Link>
           </div>
