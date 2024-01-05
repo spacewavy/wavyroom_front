@@ -58,9 +58,11 @@ const Portfolio = () => {
         </div>
         {!error && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 md:gap-y-8 lg:gap-y-12 py-4 md:py-8">
-            {data.map((item: PortfolioItem, index: number) => (
-              <PortfolioCard key={index} portfolio={item} />
-            ))}
+            {data
+              .sort((a: PortfolioItem, b: PortfolioItem) => a.order - b.order)
+              .map((item: PortfolioItem, index: number) => (
+                <PortfolioCard key={index} portfolio={item} />
+              ))}
           </div>
         )}
       </section>
