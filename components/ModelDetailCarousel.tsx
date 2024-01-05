@@ -1,9 +1,10 @@
 "use client";
+
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import { ModelExample } from "../app/redux/types";
-import { makeImageUrl } from "../lib/utils";
+import { makeFullUrl } from "../lib/utils";
 
 interface ModelDetailCarouselProps {
   data: ModelExample[];
@@ -13,34 +14,30 @@ interface ModelDetailCarouselProps {
 const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
-    loop: true,
+    loop: false,
+    skipSnaps: false,
+    inViewThreshold: 0.7,
+    containScroll: false,
   });
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
 
   return (
-    <div className="embla p-0">
-      <div className="embla__viewport" ref={emblaRef}>
+    <div className="embla p-0 gap-8">
+      <div className="embla__viewport relative" ref={emblaRef}>
         {data && (
           <div className="embla__container">
             {data.map((data: ModelExample, index: number) => {
               return (
                 <div className="embla__slide" key={`product-carosel-${index}`}>
-                <div className="relative w-full aspect-[16/9]">
-                  <Image
-                    layout="fill"
-                    objectFit="cover"
-                    src={makeImageUrl(data.imageURL)}
-                    alt="Vercel Image"
-                  />
-                </div>
-                  <div className="flex flex-col items-center justify-between pt-8">
-                    <span className="text-[16px]">
-                      {data.address} /{" "}
-                      <span className="text-midGray">{name}</span>
-                    </span>
-                    <span className="text-[16px]">35,000,000</span>
+                  <div className="relative w-full aspect-[16/9]">
+                    <Image
+                      layout="fill"
+                      objectFit="cover"
+                      src={makeFullUrl(data.imageURL)}
+                      alt="Vercel Image"
+                    />
                   </div>
                 </div>
               );
@@ -48,14 +45,14 @@ const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
           </div>
         )}
       </div>
-      <div className="embla__dots">
-        {[1, 2, 3].map((_, index) => (
-          <DotButton
+      <div className="embla__dots flex flex-row gap-2 pt-8">
+        {data.map((_, index) => (
+          <div
+            className={`h-2 w-2 rounded cursor-pointer ${
+              index === selectedIndex ? "bg-orange" : "bg-gray"
+            }`}
             key={index}
             onClick={() => onDotButtonClick(index)}
-            className={"embla__dot".concat(
-              index === selectedIndex ? " embla__dot--selected" : ""
-            )}
           />
         ))}
       </div>

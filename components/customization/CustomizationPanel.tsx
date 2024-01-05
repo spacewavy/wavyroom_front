@@ -17,11 +17,15 @@ import {
 } from "@/app/redux/types";
 import {
   customizationFloorSelectionChange,
-  customizationKitchenOptionsSelectionChange,
   customizationOptionsSelectionChange,
+  customizationKitchenTypeChange,
+  customizationKitchenOptionChange,
 } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
 import { RootState } from "../../app/redux/reducers";
+import { useTranslation } from "react-i18next";
+import { useThree } from "../../context/threeContext";
+import { makeFullUrl } from "../../lib/utils";
 
 interface CustomizationPanelProps {
   handleMenuToggle: any;
@@ -68,7 +72,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
 }) => {
   const [estimatedQutation, setEstimatedQutation] = useState(0);
   const [selectedColor, setSelectedColor] = useState({ colorId: "", name: "" });
-  const [options, setOptions] = useState([{ value: "Evo1", label: "Evo" }]);
+  const [options, setOptions] = useState([{ value: "", label: "" }]);
   const { data } = useSelector((state: any) => state.customization);
   const { data: modelsList } = useSelector(
     (state: RootState) => state.navigationModel
@@ -76,6 +80,8 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   const [nextBtnDisable, setNextBtnDisable] = useState<boolean>(true);
 
   const dispatch = useDispatch();
+  const { changeModel } = useThree();
+  const { t } = useTranslation();
 
   // get the color data
   useEffect(() => {
@@ -88,8 +94,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
 
   useEffect(() => {
     calculateTotal();
-    checkButtonEnableAndDisable();
-    console.log(data);
+    validateNextButton();
   }, [data]);
 
   useEffect(() => {
@@ -101,15 +106,16 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     );
   }, [modelsList]);
 
-  const checkButtonEnableAndDisable = () => {
+  const validateNextButton = () => {
     const selectedFloor =
       data.modelFloorOptions[
         data.modelFloorOptions.findIndex((x: ModelFloorOptions) => x.isSelected)
       ];
     const secondOpt = selectedFloor?.modelSecondOptions;
-    const _valid = secondOpt?.every((item: ModelSecondOption) =>
-      item.optionDetails.some((o) => o.isSelected)
-    );
+    const _valid =
+      secondOpt?.filter((item: ModelSecondOption) =>
+        item.optionDetails.some((o) => o.isSelected)
+      ).length >= 1;
     if (_valid) {
       setNextBtnDisable(false);
     } else {
@@ -136,42 +142,45 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     setEstimatedQutation(total);
   };
 
-  const handleFloorChange = (floorId: string) => {
-    if (floorId) {
-      dispatch(
-        customizationFloorSelectionChange(floorId) as unknown as AnyAction
-      );
-    }
+  const handleFloorChange = (_option: ModelFloorOptions) => {
+    if (!_option.id) return;
+    dispatch(
+      customizationFloorSelectionChange(_option.id) as unknown as AnyAction
+    );
+    changeModel(makeFullUrl(_option.threeDFileURL));
   };
 
-  const handleOptionChange = (nodeId: string, order: number) => {
-    if (nodeId && order) {
-      dispatch(
-        customizationOptionsSelectionChange(
-          nodeId,
-          order
-        ) as unknown as AnyAction
-      );
-    }
+  const handleOptionChange = (nodeIdx: number, order: number) => {
+    dispatch(
+      customizationOptionsSelectionChange(
+        nodeIdx,
+        order
+      ) as unknown as AnyAction
+    );
   };
 
   const handleKitchenTypeSelect = (name: string) => {
+    dispatch(customizationKitchenTypeChange(name) as unknown as AnyAction);
+  };
+
+  const handleKitchenOptionSelect = (nodeIdx: number, order: number) => {
     dispatch(
-      customizationKitchenOptionsSelectionChange(name) as unknown as AnyAction
+      customizationKitchenOptionChange(nodeIdx, order) as unknown as AnyAction
     );
   };
 
   const renderResults = () => {
     return (
-      <div className="footer w-full">
-        <section className="flex flex-col p-4 md:px-8 md:pt-8 md:pb-4 gap-2 items-center border-t-4">
+      <div className="w-full">
+        <section className="flex flex-col p-4 md:px-8 md:py-4 gap-2 items-center border-t-4">
           <div className="flex justify-between w-full items-end">
             <div className="flex-col flex">
               <span className="text-[12px] font-normal text-darkGray">
-                예상 견적
+                {t("customization.summery.estimated")}
               </span>
               <span className="text-[24px] font-light">
-                {estimatedQutation.toLocaleString()}원
+                {estimatedQutation.toLocaleString()}
+                {t("customization.summery.currency")}
               </span>
             </div>
             <div>
@@ -233,16 +242,16 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             </div>
           </div>
           <div
+            className={`flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
+              nextBtnDisable ? "bg-[#D2D2D2]" : "bg-offBlack cursor-pointer"
+            }`}
             onClick={() => {
               if (nextBtnDisable) return;
               handlePopupOpen();
             }}
-            className={`flex gap-[4px] px-4 py-2 text-white rounded-full justify-center w-full items-center ${
-              nextBtnDisable ? "bg-[#D2D2D2]" : "bg-offBlack cursor-pointer"
-            }`}
           >
             <span className={`text-[12px] font-medium hidden md:block`}>
-              다음
+              {t("customization.summery.button-text")}
             </span>
             <span className={`text-[12px] font-medium block md:hidden`}>
               커스텀하기
@@ -273,212 +282,239 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   return (
-    <div className="flex flex-col flex-1 items-between">
-      <div className="flex flex-col flex-1 grow overflow-y-auto scrollbar-hide">
-        {!openMenu ? (
-          <div className="flex flex-col flex-1 grow mb-8">
-            <div className="flex flex-col gap-4 lg:gap-0 mx-[24px] md:mx-8 my-8">
-              <span className="text-[24px] lg:text-[32px] font-light items-center">
-                <Select
-                  theme={(theme) => ({
-                    ...theme,
-                    borderRadius: 0,
-                    borderWidth: 0,
-                    colors: {
-                      ...theme.colors,
-                      primary25: "none",
-                      primary: "#ff5b00",
-                    },
-                  })}
-                  isSearchable={false}
-                  styles={{
-                    container: (baseStyles: any, state: any) => ({
-                      ...baseStyles,
-                      ":focus": {},
-                    }),
-                    control: (baseStyles: any) => ({
-                      display: "flex",
-                      height: "45px",
-                    }),
-                    indicatorSeparator: () => ({ display: "hidden" }),
-                    menuList: (baseStyles) => ({
-                      ...baseStyles,
-                      marginTop: "-4px",
-                      marginBottom: "-4px",
-                    }),
-                    valueContainer: (baseStyles: any) => ({}),
-                    indicatorsContainer: (baseStyles: any) => ({
-                      display: "flex",
-                      alignItems: "center",
-                      cursor: "pointer",
-                    }),
-                    option: (baseStyles: any) => ({
-                      background: "#F7F7F7",
-                      padding: "16px",
-                      color: "black",
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      marginTop: "0px",
-                      ":hover": {
-                        backgroundColor: "#E5E5E5",
-                        color: "black",
+    <div className="absolute top-0 bottom-0 left-[100%] w-full flex">
+      <div className="flex flex-col flex-1 h-full items-between">
+        <div className="flex flex-col flex-1 grow basis-0 overflow-y-auto scrollbar-hide">
+          {!openMenu ? (
+            <div className="flex flex-col flex-1 grow">
+              <div className="flex flex-col gap-4 lg:gap-0 mx-[24px] md:mx-8 my-8">
+                <span className="text-[24px] lg:text-[32px] font-light items-center">
+                  <Select
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 0,
+                      borderWidth: 0,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "none",
+                        primary: "#ff5b00",
                       },
-                      cursor: "pointer",
-                    }),
-                  }}
-                  options={options}
-                  value={options.find(
-                    (option) => option.value === selectedItemId
-                  )}
-                  onChange={(_item) => {
-                    handleSelectedItemId(_item?.value || "");
-                  }}
-                />
-              </span>
-
-              <span className="block lg:hidden">
-                모듈러건축시스템 기반으로 웨이비룸이라는 주거공간을 만들고
-                있으며,
-                <br />
-                공간의 제품화에 집중합니다.
-              </span>
-            </div>
-            <div className="px-[24px] md:px-8 py-4 md:py-8 mb-4 border-t-[1px] border-[wavyGray]">
-              <div className="flex flex-col">
-                <div className="flex justify-between">
-                  <span className="optionName text-[14px] font-medium">
-                    층수 형태
-                  </span>
-                  <span className="text-[12px] font-light text-orange">
-                    층수 형태를 선택해주세요
-                  </span>
-                </div>
-                <div
-                  className={`options overflow-hidden transition-max-height duration-500 ease-in-out`}
-                >
-                  <div className="grid grid-cols-2 gap-2 pt-4">
-                    {data.modelFloorOptions.map((o: ModelFloorOptions) => {
-                      return (
-                        <FloorCard
-                          id={o.id}
-                          key={`card-${o.id}`}
-                          title={o.name}
-                          price={o.price.toLocaleString()}
-                          isSelected={o.isSelected || o.isDefault}
-                          onClickHandler={handleFloorChange}
-                        />
-                      );
                     })}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="selectColor mb-4">
-              <SelectColorCard modelColors={data.modelColors} />
-            </div>
-            <div className="customOption">
-              <CustomizationOptions
-                customizationOptions={data.modelFloorOptions.find(
-                  (x: ModelFloorOptions) => x.isSelected
-                )}
-                handleOptionChange={handleOptionChange}
-                handleKitchenTypeSelect={handleKitchenTypeSelect}
-              />
-            </div>
-          </div>
-        ) : (
-          <section className="cursol-pointer">
-            <div className="p-8">
-              <span className="text-[28px] font-light">주문 요약</span>
-            </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">모델</span>
-              <span className="text-[12px] font-light">Wavyroom Evo</span>
-            </div>
-            <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">층수 형태</span>
-              <span className="text-[12px] font-light">
-                {
-                  data.modelFloorOptions.find(
-                    (x: ModelFloorOptions) => x.isSelected
-                  )?.name
-                }
-              </span>
-            </div>
-            {selectedColor.name && (
-              <div className="px-8 py-4 flex justify-between">
-                <span className="text-[14px] font-normal">외장재 색상</span>
-                <div className="flex gap-4 items-center">
-                  <div
-                    className={`w-8 h-8 bg-[${selectedColor.colorId}] rounded-full`}
+                    isSearchable={false}
+                    styles={{
+                      container: (baseStyles: any, state: any) => ({
+                        ...baseStyles,
+                        ":focus": {},
+                      }),
+                      control: (baseStyles: any) => ({
+                        display: "flex",
+                        height: "45px",
+                      }),
+                      indicatorSeparator: () => ({ display: "hidden" }),
+                      menuList: (baseStyles) => ({
+                        ...baseStyles,
+                        marginTop: "-4px",
+                        marginBottom: "-4px",
+                      }),
+                      valueContainer: (baseStyles: any) => ({
+                        display: "flex",
+                        WebkitOverflowScrolling: "touch",
+                        alignItems: "center",
+                        boxSizing: "border-box",
+                        flexWrap: "wrap",
+                        overflow: "hidden",
+                        position: "relative",
+                        cursor: "pointer",
+                      }),
+                      indicatorsContainer: (baseStyles: any) => ({
+                        display: "flex",
+                        alignItems: "center",
+                        cursor: "pointer",
+                      }),
+                      option: (baseStyles: any) => ({
+                        background: "#F7F7F7",
+                        padding: "16px",
+                        color: "black",
+                        fontSize: "14px",
+                        fontWeight: "500",
+                        marginTop: "0px",
+                        ":hover": {
+                          backgroundColor: "#E5E5E5",
+                          color: "black",
+                        },
+                        cursor: "pointer",
+                      }),
+                    }}
+                    options={options}
+                    value={options.find(
+                      (option) => option.value === selectedItemId
+                    )}
+                    onChange={(_item) => {
+                      handleSelectedItemId(_item?.value || "");
+                    }}
                   />
-                  <div className="relative w-8 h-8 p-1 cursor-pointer">
-                    <div
-                      className="w-full h-full rounded-full"
-                      style={{
-                        backgroundColor: selectedColor.colorId,
-                        borderWidth: 1,
-                        borderColor: "rgba(0, 0, 0, 0.1)",
-                      }}
-                    />
-                  </div>
-                  <span className="text-[12px] font-light">
-                    {selectedColor.name}
-                  </span>
-                </div>
+                </span>
+                <span className="block lg:hidden">
+                  모듈러건축시스템 기반으로 웨이비룸이라는 주거공간을 만들고
+                  있으며,
+                  <br />
+                  공간의 제품화에 집중합니다.
+                </span>
               </div>
-            )}
-            {data.modelFloorOptions[
-              data.modelFloorOptions.findIndex(
-                (x: ModelFloorOptions) => x.isSelected
-              )
-            ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
-              return (
-                !sec.isMultipleSelectable &&
-                sec.optionDetails.map((opt: OptionDetail) => {
-                  return (
-                    opt.isSelected && (
-                      <div className="px-8 py-4 flex justify-between">
-                        <span className="text-[14px] font-normal">옵션</span>
-                        <span className="text-[12px] font-light">
-                          {opt.name}
-                        </span>
-                      </div>
-                    )
-                  );
-                })
-              );
-            })}
-            {data.modelFloorOptions[
-              data.modelFloorOptions.findIndex(
-                (x: ModelFloorOptions) => x.isSelected
-              )
-            ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
-              return (
-                sec.isMultipleSelectable && (
-                  <div className="px-8 py-4 flex justify-between">
-                    <span className="text-[14px] font-normal">
-                      {sec.optionDetails.some((x) => x.isSelected)
-                        ? "Multiple"
-                        : ""}
+              <div className="px-[24px] md:px-8 pt-4 pb-4 md:pt-8 border-t-[1px] border-[wavyGray]">
+                <div className="flex flex-col">
+                  <div className="flex justify-between">
+                    <span className="optionName text-[14px] font-medium">
+                      {t("customization.summery.floor-type")}
                     </span>
-                    <div className="flex flex-col items-end">
-                      {sec.optionDetails.map((opt: OptionDetail) => {
+                    <span className="text-[12px] font-light text-orange">
+                      {t("customization.select-floor-type")}
+                    </span>
+                  </div>
+                  <div
+                    className={`options overflow-hidden transition-max-height duration-500 ease-in-out`}
+                  >
+                    <div className="grid grid-cols-2 gap-2 pt-4">
+                      {data.modelFloorOptions.map((o: ModelFloorOptions) => {
                         return (
-                          opt.isSelected && (
-                            <span className="text-[12px] font-light">
-                              {opt.name}
-                            </span>
-                          )
+                          <FloorCard
+                            id={o.id}
+                            key={`card-${o.id}`}
+                            title={o.name}
+                            price={o.price.toLocaleString()}
+                            isSelected={o.isSelected || o.isDefault}
+                            onClickHandler={() => {
+                              handleFloorChange(o);
+                            }}
+                          />
                         );
                       })}
                     </div>
                   </div>
+                </div>
+              </div>
+              <div className="selectColor">
+                <SelectColorCard
+                  modelColors={data.modelColors.sort(
+                    (a: any, b: any) => a.order - b.order
+                  )}
+                />
+              </div>
+              <div className="customOption">
+                <CustomizationOptions
+                  customizationOptions={data.modelFloorOptions.find(
+                    (x: ModelFloorOptions) => x.isSelected
+                  )}
+                  handleOptionChange={handleOptionChange}
+                  handleKitchenTypeSelect={handleKitchenTypeSelect}
+                  handleKitchenOptionSelect={handleKitchenOptionSelect}
+                />
+              </div>
+            </div>
+          ) : (
+            <section className="cursor-pointer">
+              <div className="p-8">
+                <span className="text-[28px] font-light">
+                  {t("customization.summery.header")}
+                </span>
+              </div>
+              <div className="px-8 py-4 flex justify-between">
+                <span className="text-[14px] font-normal">
+                  {t("customization.summery.model-type")}
+                </span>
+                <span className="text-[12px] font-light">Wavyroom Evo</span>
+              </div>
+              <div className="px-8 py-4 flex justify-between">
+                <span className="text-[14px] font-normal">
+                  {t("customization.summery.floor-type")}
+                </span>
+                <span className="text-[12px] font-light">
+                  {
+                    data.modelFloorOptions.find(
+                      (x: ModelFloorOptions) => x.isSelected
+                    )?.name
+                  }
+                </span>
+              </div>
+              {selectedColor.name && (
+                <div className="px-8 py-4 flex justify-between">
+                  <span className="text-[14px] font-normal">
+                    {t("customization.summery.exterior-color")}
+                  </span>
+                  <div className="flex gap-4 items-center">
+                    <div
+                      className={`w-8 h-8 bg-[${selectedColor.colorId}] rounded-full`}
+                    />
+                    <div className="relative w-8 h-8 p-1 cursor-pointer">
+                      <div
+                        className="w-full h-full rounded-full"
+                        style={{
+                          backgroundColor: selectedColor.colorId,
+                          borderWidth: 1,
+                          borderColor: "rgba(0, 0, 0, 0.1)",
+                        }}
+                      />
+                    </div>
+                    <span className="text-[12px] font-light">
+                      {selectedColor.name}
+                    </span>
+                  </div>
+                </div>
+              )}
+              {data.modelFloorOptions[
+                data.modelFloorOptions.findIndex(
+                  (x: ModelFloorOptions) => x.isSelected
                 )
-              );
-            })}
-          </section>
-        )}
+              ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
+                return (
+                  !sec.isMultipleSelectable &&
+                  sec.optionDetails.map((opt: OptionDetail) => {
+                    return (
+                      opt.isSelected && (
+                        <div className="px-8 py-4 flex justify-between">
+                          <span className="text-[14px] font-normal">
+                            {sec.name}
+                          </span>
+                          <span className="text-[12px] font-light">
+                            {opt.name}
+                          </span>
+                        </div>
+                      )
+                    );
+                  })
+                );
+              })}
+              {data.modelFloorOptions[
+                data.modelFloorOptions.findIndex(
+                  (x: ModelFloorOptions) => x.isSelected
+                )
+              ]?.modelSecondOptions.map((sec: ModelSecondOption) => {
+                return (
+                  sec.isMultipleSelectable && (
+                    <div className="px-8 py-4 flex justify-between">
+                      <span className="text-[14px] font-normal">
+                        {sec.optionDetails.some((x) => x.isSelected)
+                          ? sec.name
+                          : ""}
+                      </span>
+                      <div className="flex flex-col items-end">
+                        {sec.optionDetails.map((opt: OptionDetail) => {
+                          return (
+                            opt.isSelected && (
+                              <span className="text-[12px] font-light">
+                                {opt.name}
+                              </span>
+                            )
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )
+                );
+              })}
+            </section>
+          )}
+        </div>
         {renderResults()}
       </div>
     </div>

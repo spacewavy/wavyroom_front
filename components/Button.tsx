@@ -15,7 +15,7 @@ const Button = ({ name, varient = "default", arrow, icon }: ButtonProps) => {
   return (
     <CommonButton
       variant={varient}
-      className={` ${varient == "orange" ? "" : "rounded-3xl"}
+      className={` ${varient == "orange" ? "" : "rounded-3xl"} ${varient == 'dark' ? 'bg-white text-black' : ''}
         min-w-[96px] max-w-[170px] h-[34px] text-xs font-normal flex justify-center items-center ${
           arrow && "gap-1"
         }`}

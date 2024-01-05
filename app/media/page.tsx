@@ -12,21 +12,30 @@ import { fetchMediaData } from "../redux/actions/mediaActions";
 import { AnyAction } from "redux";
 import { RootState } from "../redux/reducers";
 import { NewsMediaItem } from "../redux/types";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
+import { useTranslation } from "react-i18next";
 
 const Media = () => {
   const dispatch = useDispatch();
   const { data, error } = useSelector((state: RootState) => state.media);
+  const { language } = useSelector((state: any) => state.locale);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchMediaData("news") as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   const OPTIONS = [
-    { value: "all", label: "전체" },
-    { value: "news", label: "뉴스" },
-    { value: "video", label: "영상" },
+    // { value: "all", label: t("media.dropdown-opts.opt-1") },
+    { value: "news", label: t("media.dropdown-opts.opt-2") },
+    { value: "video", label: t("media.dropdown-opts.opt-3") },
   ];
+
+  const MEDIA_TYPE: any = {
+    news: "News",
+    video: "Youtube",
+  };
 
   const onDropdownChange = (option: any) => {
     dispatch(fetchMediaData(option.value) as unknown as AnyAction);
@@ -37,10 +46,12 @@ const Media = () => {
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col md:flex-row gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
-            미디어
+            {t("media.title")}
           </div>
           <div className="flex flex-1 flex-col gap-2">
-            <div className="text-[12px] text-midGray">미디어 종류</div>
+            <div className="text-[12px] text-midGray">
+              {t("media.dropdown-title")}
+            </div>
             <WavyDropdown
               options={OPTIONS}
               defaultValue={OPTIONS[0]}
@@ -61,7 +72,7 @@ const Media = () => {
                 <div className="w-full md:max-w-[455px]">
                   <Image
                     className="object-cover"
-                    src={makeImageUrl(item.imageURL)}
+                    src={makeFullUrl(item.imageURL)}
                     alt="portfolio img"
                     width={1000}
                     height={1000}
@@ -96,7 +107,7 @@ const Media = () => {
                     href={item.link}
                     className="text-[12px] bg-lightGray p-1"
                   >
-                    Youtube
+                    {MEDIA_TYPE[item.type]}
                   </Link>
                 </div>
               </div>

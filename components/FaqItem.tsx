@@ -24,9 +24,9 @@ const FaqItem = ({
 
   return (
     <div
-      className={`flex flex-col py-8 pr-8 border-b gap-4 group duration-500 ${
+      className={`flex flex-col relative pt-8 pb-4 gap-4 border-b group ${
         isOpen
-          ? "border-orange is-active"
+          ? "is-active"
           : isDark
           ? "border-gray"
           : "border-gray border-opacity-50"
@@ -54,9 +54,10 @@ const FaqItem = ({
           />
         </button>
       </div>
-      <div className="text-bodySM md:text-bodyMD lg:text-bodyLG text-darkGray group-[.is-dark]:text-lightGray hidden group-[.is-active]:flex">
+      <div className="text-bodySM md:text-bodyMD lg:text-bodyLG transition-all duration-300 text-darkGray group-[.is-dark]:text-lightGray max-h-0 overflow-hidden group-[.is-active]:max-h-[1000px]">
         {answer}
       </div>
+      <div className="absolute mt-4 bottom-[-1px] w-0 h-[1px] transition-width duration-300 ease-in group-[.is-active]:w-full group-[.is-active]:bg-orange"></div>
     </div>
   );
 };

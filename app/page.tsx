@@ -12,6 +12,8 @@ import { RootState } from "../app/redux/reducers";
 import { ModelItem } from "../app/redux/types";
 import homePageVideoLoadingImage from "../public/images/homePageVideoLoadingImage.jpeg";
 import Image from "next/image";
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -19,10 +21,12 @@ const Home = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.model);
+  const { t } = useTranslation();
+  const { language } = useSelector((state: any) => state.locale);
 
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
   const handleMute = () => {
     if (videoRef.current) {
@@ -30,6 +34,7 @@ const Home = () => {
       videoRef.current.muted = true;
     }
   };
+
   const handleUnMute = () => {
     if (videoRef.current) {
       setIsMuted(false);
@@ -46,7 +51,7 @@ const Home = () => {
               className={`absolute inset-0 ${isVideoLoaded ? "z-10" : "z-0"}`}
             >
               <div className="relative">
-              {isVideoLoaded && (
+                {isVideoLoaded && (
                   <div className="absolute z-10 w-full flex gap-4 justify-end items-center h-[70px] lg:h-[100px] bottom-0 px-4 lg:px-8 bg-gradient-to-t from-black to-transparent">
                     <div className="cursor-pointer">
                       {!isMuted ? (
@@ -92,12 +97,12 @@ const Home = () => {
                               <path
                                 d="M16 9L22 15"
                                 stroke="white"
-                                stroke-linejoin="bevel"
+                                strokeLinejoin="bevel"
                               />
                               <path
                                 d="M16 15L22 9"
                                 stroke="white"
-                                stroke-linejoin="bevel"
+                                strokeLinejoin="bevel"
                               />
                               <path
                                 d="M13 2L7.3 8H2V16H7.3L13 22H14V2H13ZM13 20.57L7.71 15H3V9H7.71L13 3.43V20.57Z"
@@ -140,11 +145,12 @@ const Home = () => {
                   autoPlay
                   loop
                   muted
+                  playsInline
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/homePageVideo.mp4"
                   onPlaying={() => setIsVideoLoaded(true)}
-                ></video>
+                />
               </div>
             </div>
             <div
@@ -162,24 +168,32 @@ const Home = () => {
     <main className="flex flex-col flex-1">
       {renderVideoSection()}
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
-        <Label>웨이비룸</Label>
+        <Label>{t("home.section-2.title")}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">
-          간편하게 주문하고 <br /> 품질 높은 공간을 받아보세요
+          {t("home.section-2.heading.text-1")} <br />{" "}
+          {t("home.section-2.heading.text-2")}
         </h1>
         <p className="font-light text-bodySM md:text-[14px] lg:text-bodyLG">
-          나에게 맞는 모델을 선택하여 나만의 공간을 만들어 보세요
+          {t("home.section-2.description")}
         </p>
         <div className="flex flex-row gap-4 pt-[32px] font-size: 12px;">
-          <Button name="주문하기" arrow varient="default" />
+          <Link href="/customization">
+            <Button
+              name={t("home.section-2.button-text")}
+              arrow
+              varient="default"
+            />
+          </Link>
         </div>
       </section>
       <section className="pb-4 pt-8 md:pt-16 md:pb-8 lg:pt-24 lg:pb-16">
         <ProductCarousel />
       </section>
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
-        <Label>우리의 비전</Label>
+        <Label>{t("home.section-4.title")}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG">
-          혁신적인 제품으로 <br /> 재탄생하다
+          {t("home.section-4.heading.text-1")} <br />{" "}
+          {t("home.section-4.heading.text-2")}
         </h1>
       </section>
       <section className="grid w-full grid-cols-1 lg:grid-cols-2">

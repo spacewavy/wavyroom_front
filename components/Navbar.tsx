@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Button from "./Button";
 import Sidebar from "./Sidebar";
 import Logo from "@/public/images/Logo.svg";
@@ -11,7 +11,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { navigateToSettings } from "@/app/redux/actions/customizationActions";
 import { AnyAction } from "redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n/i18n";
+import { changeLanguage } from "@/app/redux/actions/localeActions";
 
 const Navbar = ({
   isDark,
@@ -20,10 +23,19 @@ const Navbar = ({
   isDark?: boolean;
   isFloating?: boolean;
 }) => {
-  const [lang, setLang] = useState("KOR");
   const [open, setOpen] = useState(false);
   const [menuType, setMenuType] = useState("");
   const dispatch = useDispatch();
+  const { language } = useSelector((state: any) => state.locale);
+  const { t } = useTranslation();
+
+  const setLanguage = useCallback(
+    (lang: "ko" | "en") => {
+      i18n.changeLanguage(lang);
+      dispatch(changeLanguage(lang) as unknown as AnyAction);
+    },
+    [i18n]
+  );
 
   const openSidebar = (menuName?: string) => {
     setOpen(true);
@@ -40,7 +52,12 @@ const Navbar = ({
       }`}
     >
       <div className="bg-white group-[.is-dark]:bg-jetBlack group-[.is-floating]:bg-transparent">
-        <Sidebar open={open} setOpen={setOpen} menuType={menuType} />
+        <Sidebar
+          open={open}
+          setOpen={setOpen}
+          menuType={menuType}
+          setMenuType={setMenuType}
+        />
         <div className="px-4 md:px-8">
           <div className="flex items-center justify-between h-24">
             <Link href="/">
@@ -50,7 +67,7 @@ const Navbar = ({
                 alt="Spacewavy"
               />
             </Link>
-            <div className="inset-y-0 right-0 flex items-center justify-between sm:static sm:inset-auto md:gap-4 lg:gap-6">
+            <div className="inset-y-0 right-0 flex items-center justify-between static inset-auto md:gap-4 lg:gap-6">
               <div className="hidden lg:flex">
                 <div className="flex items-center gap-5 lg:gap-16">
                   <div className="w-[100px]">
@@ -58,7 +75,7 @@ const Navbar = ({
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
                       onClick={() => openSidebar("model")}
                     >
-                      모델
+                      {t("navbar.model")}
                     </div>
                   </div>
                   <div className="w-[100px]">
@@ -66,34 +83,34 @@ const Navbar = ({
                       className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
                       onClick={() => openSidebar("menu")}
                     >
-                      메뉴
+                      {t("navbar.menu")}
                     </div>
                   </div>
-                  <div className="lg:w-[100px] hidden flex-row gap-2 items-center">
+                  <div className="lg:w-[100px] flex flex-row gap-2 items-center">
                     <div
                       className={`text-xs font-normal ${
-                        lang === "KOR"
+                        language == "ko"
                           ? isDark
                             ? "text-white"
                             : "text-black"
                           : "text-midGray"
                       } cursor-pointer`}
                       onClick={() => {
-                        setLang("KOR");
+                        setLanguage("ko");
                       }}
                     >
                       KOR
                     </div>
                     <div
                       className={`text-xs font-normal ${
-                        lang === "ENG"
+                        language == "en"
                           ? isDark
                             ? "text-white"
                             : "text-black"
                           : "text-midGray"
                       } cursor-pointer`}
                       onClick={() => {
-                        setLang("ENG");
+                        setLanguage("en");
                       }}
                     >
                       ENG
@@ -101,13 +118,22 @@ const Navbar = ({
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row gap-4">
+              <div className={`flex flex-row gap-4`}>
                 <div onClick={handleButtonClick}>
                   <Link href="/customization">
-                    <Button name="주문하기" arrow varient="default" />
+                    <Button
+                      name={t("navbar.order-button")}
+                      arrow
+                      varient={isDark ? "dark" : "default"}
+                    />
                   </Link>
                 </div>
-                <div className="flex lg:hidden" onClick={() => openSidebar()}>
+                <div
+                  className="flex items-center lg:hidden"
+                  onClick={() => {
+                    openSidebar();
+                  }}
+                >
                   <Image
                     className="cursor-pointer"
                     src={isDark ? HamburgerWhiteIcon : HamburgerIcon}
