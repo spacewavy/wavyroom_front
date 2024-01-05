@@ -17,6 +17,7 @@ export interface ProductCardProps {
   name: string;
   value: number | string;
   image: any;
+  location?: string;
   purpose?: string;
   hovered?: boolean;
 }
@@ -27,6 +28,7 @@ const ProductCard = ({
   value,
   image,
   purpose,
+  location = "main",
   hovered = true,
 }: ProductCardProps) => {
   const { t } = useTranslation();
@@ -37,7 +39,13 @@ const ProductCard = ({
   };
   return (
     <Link href={`/model-detail?id=${id}`}>
-      <div className="aspect-[3/3] md:aspect-[3/2] flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12 overflow-hidden">
+      <div
+        className={`${
+          location === "models"
+            ? "aspect-[8/7] md:aspect-[11/6] lg:aspect-[11/4]"
+            : "aspect-[8/7] md:aspect-[11/6]"
+        } flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12 overflow-hidden`}
+      >
         <div
           className={`relative flex flex-1 transform ${
             hovered ? "hover:scale-110" : ""
