@@ -5,9 +5,15 @@ import {
   fetchModelDataReducer,
   fetchModelDetailsDataReducer,
   fetchNavigationModelDataReducer,
+  fetchOtherModelDetailsReducer,
 } from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
-import {fetchCustomizationOptionsDataReducer,navigateToSettings} from "./customizationReducers";
+import {
+  fetchCustomizationOptionsDataReducer,
+  navigateToSettings,
+} from "./customizationReducers";
+import localeReducer from "./localeReducers";
+import fetchCarouselReducer from "./carouselReducers";
 
 const rootReducer = combineReducers({
   media: fetchDataReducer,
@@ -16,8 +22,11 @@ const rootReducer = combineReducers({
   navigationModel: fetchNavigationModelDataReducer,
   aboutReputataion: fetchAboutReputationDataReducer,
   modelDetail: fetchModelDetailsDataReducer,
-  customization:fetchCustomizationOptionsDataReducer,
-  navigation:navigateToSettings
+  customization: fetchCustomizationOptionsDataReducer,
+  navigation: navigateToSettings,
+  locale: localeReducer,
+  otherModels: fetchOtherModelDetailsReducer,
+  mainCarousel: fetchCarouselReducer,
 });
 
 export default rootReducer;

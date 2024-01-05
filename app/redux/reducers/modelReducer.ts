@@ -5,8 +5,10 @@ import {
   FETCH_NAVIGATION_MODEL_DATA_FAILURE,
   FETCH_MODEL_DETAIL_DATA_FAILURE,
   FETCH_MODEL_DETAIL_DATA_SUCCESS,
+  FETCH_OTHER_MODELS_DETAIL_SUCCESS,
+  FETCH_OTHER_MODELS_DETAIL_FAILURE
 } from "../actions/modelActions";
-import { ModelDetailData, NavigationModelData } from "../types";
+import { ModelDetailData, NavigationModelData, OtherModelsDetailData } from "../types";
 
 const initialState: NavigationModelData = {
   data: [],
@@ -37,6 +39,10 @@ const modelDetailInitialState: ModelDetailData = {
   error: null,
 };
 
+const otherModelDetailsState : OtherModelsDetailData = {
+  data: [],
+  error: null
+}
 export const fetchModelDataReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case FETCH_MODEL_DATA_SUCCESS:
@@ -89,6 +95,27 @@ export const fetchModelDetailsDataReducer = (
         error: null,
       };
     case FETCH_MODEL_DETAIL_DATA_FAILURE:
+      return {
+        ...state,
+        data: [],
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+export const fetchOtherModelDetailsReducer = (
+  state = otherModelDetailsState,
+  action: any
+) => {
+  switch (action.type) {
+    case FETCH_OTHER_MODELS_DETAIL_SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+        error: null,
+      };
+    case FETCH_OTHER_MODELS_DETAIL_FAILURE:
       return {
         ...state,
         data: [],

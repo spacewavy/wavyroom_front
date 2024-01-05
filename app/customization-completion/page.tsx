@@ -1,30 +1,29 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Img from "@/assets/customization/customization-banner-img.png";
-import { useSelector } from "react-redux";
-import {
-  ModelColors,
-  ModelFloorOptions,
-  ModelSecondOption,
-  OptionDetail,
-} from "../redux/types";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import axiosInstance from "../../api/axioInstance";
 import { useSearchParams } from "next/navigation";
 import CallInquery from "../../components/CallInquery";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Completion = () => {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
+  const pdfRefElement = useRef<HTMLDivElement>(null);
 
   const [result, setResult] = useState<any>(null);
+  const { language } = useSelector((state: any) => state.locale);
 
   useEffect(() => {
     if (!id) return;
     fetchReservation(id);
-  }, [id]);
+  }, [id, language]);
 
   const fetchReservation = async (id: string) => {
     try {
@@ -33,69 +32,133 @@ const Completion = () => {
       } = await axiosInstance.get(`/reservation/${id}`, {
         headers: {
           Accept: "application/json",
-          language: "KO",
+          language: language,
         },
       });
       setResult(data);
-      console.log("data", data);
     } catch (e) {
       console.error("e", e);
     }
   };
 
-  return (
+  const handlePdfExport = () => {
+    if (pdfRefElement.current) {
+      const pdfRef = pdfRefElement.current;
+
+      html2canvas(pdfRef, { scale: 2 }).then((canvas) => {
+        const pdfWidth = 160; // Custom width in mm
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        const pdf = new jsPDF({
+          orientation: "p",
+          unit: "mm",
+          format: [pdfWidth, pdfHeight],
+        });
+
+        const imgWidth = pdfWidth;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const imgData = canvas.toDataURL("image/png");
+
+        let position = 0;
+        pdf.addImage(
+          imgData,
+          "PNG",
+          (pdfWidth - imgWidth) / 2,
+          position,
+          imgWidth,
+          imgHeight
+        );
+
+        pdf.save(`product-receipt.pdf`);
+      });
+    }
+  };
+
+  const CompletionComponent = ({ isPDfElement = false }) => (
     <>
-      <div className=" py-16 md:py-32 w-full">
+      {isPDfElement ? (
+        <div className="bg-black py-8 flex items-center justify-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M16.5146 3.41637V4.48003e-07H13.2117H9.90879L6.60586 0V3.41637V13.6655V17.0819H9.90879H13.2117V20.5836H3.30294V4.48003e-07H0V20.5836V24H3.30294H13.2117H16.5146V20.5836V17.0819H19.8176H23.1205V13.6655V4.48003e-07H19.8176V13.6655H16.5146V3.41637ZM9.90879 3.41637V13.6655H13.2117V3.41637H9.90879Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      ) : (
+        <></>
+      )}
+      <div className=" py-16 md:py-32 w-full px-12">
         <div className="flex flex-col justify-center items-center text-center w-full md:w-[600px] m-auto">
           <div className="text-[28px] md:text-[40px] font-light mb-4">
             <span>
-              축하합니다!
+              {t("customization.customization-completion.title")}
               <br />
-              {result?.user?.name}님의 {result?.model?.name} 모델이
-              완성되었습니다.
+              {result?.user?.name}님의 {result?.model?.name}{" "}
+              {t("customization.customization-completion.sub-title")}
             </span>
           </div>
           <div className="mb-16">
             <span className="text-[12px] md:text-[16px] font-light">
-              {result?.user?.email}로 견적서를 보냈습니다.
+              {result?.user?.email}{" "}
+              {t("customization.customization-completion.mail")}
             </span>
           </div>
           <div className="relative flex flex-1 aspect-[600/273] w-full">
             <Image
-              src={makeImageUrl(result?.model?.imageURL)}
+              src={makeFullUrl(result?.model?.imageURL)}
               alt="img"
               fill
               objectFit="cover"
             />
           </div>
-          <div className="mb-8 mt-16 md:my-16 py-8  border-y-[1px]  flex justify-center w-full">
-            <div className="flex gap-8">
-              <div className="py-2 flex flex-col gap-2 items-center cursor-pointer">
-                <div className=" rounded-full border-[1px] p-[11px] flex justify-center items-center w-[42px] h-[42px]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="13"
-                    viewBox="0 0 12 13"
-                    fill="none"
+          {!isPDfElement ? (
+            <div className="mb-8 mt-16 md:my-16 py-8  border-y-[1px]  flex justify-center w-full">
+              <div className="flex gap-8">
+                <div className="py-2 flex flex-col gap-2 items-center cursor-pointer">
+                  <div
+                    className=" rounded-full border-[1px] p-[11px] flex justify-center items-center w-[42px] h-[42px]"
+                    onClick={handlePdfExport}
                   >
-                    <path
-                      d="M11.25 8.58301V11.583H0.75V8.58301H0V12.333H12V8.58301H11.25Z"
-                      fill="black"
-                    />
-                    <path
-                      d="M9.63828 5.47051L9.11328 4.94551L6.37578 7.67551V0.333008H5.62578V7.67551L2.88828 4.94551L2.36328 5.47051L6.00078 9.11551L9.63828 5.47051Z"
-                      fill="black"
-                    />
-                  </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="13"
+                      viewBox="0 0 12 13"
+                      fill="none"
+                    >
+                      <path
+                        d="M11.25 8.58301V11.583H0.75V8.58301H0V12.333H12V8.58301H11.25Z"
+                        fill="black"
+                      />
+                      <path
+                        d="M9.63828 5.47051L9.11328 4.94551L6.37578 7.67551V0.333008H5.62578V7.67551L2.88828 4.94551L2.36328 5.47051L6.00078 9.11551L9.63828 5.47051Z"
+                        fill="black"
+                      />
+                    </svg>
+                  </div>
+                  <span className="text-[12px] font-normal">
+                    PDF {t("customization.section-2.download")}
+                  </span>
                 </div>
-                <span className="text-[12px] font-normal">PDF 다운받기</span>
               </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
           <section className="cursol-pointer w-full ">
             <div className="px-8 py-4 flex justify-between">
-              <span className="text-[14px] font-normal">모델</span>
+              <span className="text-[14px] font-normal">
+                {t("customization.section-2.listItem-1")}
+              </span>
               <span className="text-[12px] font-light">
                 {result?.model?.name}
               </span>
@@ -115,15 +178,20 @@ const Completion = () => {
               })}
           </section>
           <div className="w-full flex justify-between items-center border-y-[1px] mt-0 lg:mt-8 mb-16 p-8">
-            <span className="text-[14px] font-normal">예상 견적</span>
+            <span className="text-[14px] font-normal">
+              {t("customization.section-2.bottom-price")}
+            </span>
             <span className="text-[24px] font-light">
-              {result?.totalPrice.toLocaleString()}원
+              {result?.totalPrice.toLocaleString()}
+              {t("customization.section-2.price-symbol")}
             </span>
           </div>
-          <div>
-            <div className="px-4 py-2 flex gap-[4px] bg-jetBlack rounded-full">
-              <span className="text-white text-[12px]">홈으로 이동</span>
-              <span>
+          {!isPDfElement ? (
+            <div className="flex justify-center">
+              <div className="px-4 py-2 flex items-center gap-[8px] bg-jetBlack rounded-full w-fit">
+                <span className="text-white text-[12px]">
+                  {t("customization.section-2.button-text")}
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="19"
@@ -148,26 +216,47 @@ const Completion = () => {
                     </clipPath>
                   </defs>
                 </svg>
-              </span>
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
-      <div className="bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
-        <div className="text-[28px] md:text-[40px] font-light">
-          <span>
-            웨이비룸에서의 <br />
-            연락을 기다려주세요.
-          </span>
+      {!isPDfElement ? (
+        <div className="bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
+          <div className="text-[28px] md:text-[40px] font-light">
+            <span>
+              {t("customization.section-3.heading")}
+              <br />
+              {t("customization.section-3.sub-heading")}
+            </span>
+          </div>
+          <div className="w-full md:w-[80%] lg:w-[33%] mt-4 mb-8">
+            <span className="text-[12px] md:text-[16px] font-light">
+              Every Wavyroom reservation goes through a careful review process.
+              We’ll send an email when it’s time for next steps. We may also
+              reach out to you to collect additional information about your
+              property.
+            </span>
+          </div>
+          <CallInquery />
         </div>
-        <div className="w-full md:w-[80%] lg:w-[33%] mt-4 mb-8">
-          <span className="text-[12px] md:text-[16px] font-light">
-            Every Wavyroom reservation goes through a careful review process.
-            We’ll send an email when it’s time for next steps. We may also reach
-            out to you to collect additional information about your property.
-          </span>
+      ) : (
+        <></>
+      )}
+    </>
+  );
+
+  return (
+    <>
+      <div className="relative">
+        <div className="relative top-0 z-10 bg-white">
+          <CompletionComponent isPDfElement={false} />
         </div>
-        <CallInquery />
+        <div ref={pdfRefElement} className="absolute top-0 z-0">
+          <CompletionComponent isPDfElement={true} />
+        </div>
       </div>
     </>
   );

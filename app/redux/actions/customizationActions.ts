@@ -1,23 +1,33 @@
 import axiosInstance from "@/api/axioInstance";
 
-export const FETCH_CUSTOMIZATION_OPTIONS_SUCCESS = "FETCH_CUSTOMIZATION_OPTIONS_SUCCESS";
-export const FETCH_CUSTOMIZATION_OPTIONS_FAILURE = "FETCH_CUSTOMIZATION_OPTIONS_FAILURE";
-export const SET_CUSTOMIZATION_SELECTED_COLOR = "SET_CUSTOMIZATION_SELECTED_COLOR";
+export const FETCH_CUSTOMIZATION_OPTIONS_SUCCESS =
+  "FETCH_CUSTOMIZATION_OPTIONS_SUCCESS";
+export const FETCH_CUSTOMIZATION_OPTIONS_FAILURE =
+  "FETCH_CUSTOMIZATION_OPTIONS_FAILURE";
+export const SET_CUSTOMIZATION_SELECTED_COLOR =
+  "SET_CUSTOMIZATION_SELECTED_COLOR";
 export const SET_CUSTOMIZATION_FLOOR_CHANGE = "SET_CUSTOMIZATION_FLOOR_CHANGE";
-export const SET_CUSTOMIZATION_OPTION_CHANGE = "SET_CUSTOMIZATION_OPTION_CHANGE";
-export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE = "SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE";
+export const SET_CUSTOMIZATION_OPTION_CHANGE =
+  "SET_CUSTOMIZATION_OPTION_CHANGE";
+export const SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE =
+  "SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE";
+export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE =
+  "SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE";
 export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
 
 export const fetchCustomizationOptionsData = (itemId: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: any, getState: any) => {
     try {
+      const language = getState().locale.language;
       const response = await axiosInstance.get(
-        `/model/${itemId}/custom-selections`,{
+        `/model/${itemId}/custom-selections`,
+        {
           headers: {
-            'language': "KO",
+            language: language,
           },
         }
       );
+      console.log("<<<<<<< get data", response.data.data);
       dispatch({
         type: FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
         payload: response.data.data,
@@ -31,43 +41,62 @@ export const fetchCustomizationOptionsData = (itemId: string) => {
   };
 };
 
-export const setCustomizationSelectedColor = (id:string) => {
+export const setCustomizationSelectedColor = (id: string) => {
   return async (dispatch: any) => {
     dispatch({
-      type:SET_CUSTOMIZATION_SELECTED_COLOR,
-      payload:id
+      type: SET_CUSTOMIZATION_SELECTED_COLOR,
+      payload: id,
     });
-}
-}
-export const customizationFloorSelectionChange = (id:string) => {
+  };
+};
+
+export const customizationFloorSelectionChange = (id: string) => {
   return async (dispatch: any) => {
     dispatch({
-      type:SET_CUSTOMIZATION_FLOOR_CHANGE,
-      payload:id
+      type: SET_CUSTOMIZATION_FLOOR_CHANGE,
+      payload: id,
     });
-}
-}
-export const customizationOptionsSelectionChange = (nodeId:string,order:number) => {
+  };
+};
+
+export const customizationOptionsSelectionChange = (
+  nodeIdx: number,
+  order: number
+) => {
   return async (dispatch: any) => {
     dispatch({
-      type:SET_CUSTOMIZATION_OPTION_CHANGE,
-      payload:{nodeId,order}
+      type: SET_CUSTOMIZATION_OPTION_CHANGE,
+      payload: { nodeIdx, order },
     });
-}
-}
-export const customizationKitchenOptionsSelectionChange = (name:string) => {
+  };
+};
+
+export const customizationKitchenTypeChange = (name: string) => {
   return async (dispatch: any) => {
     dispatch({
-      type:SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
-      payload:name
+      type: SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE,
+      payload: name,
     });
-}
-}
-export const navigateToSettings = (value:boolean) => {
+  };
+};
+
+export const customizationKitchenOptionChange = (
+  nodeIdx: number,
+  order: number
+) => {
   return async (dispatch: any) => {
     dispatch({
-      type:SET_NAVIGATE_TO_SETTINGS,
-      payload:value
+      type: SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
+      payload: { nodeIdx, order },
     });
-}
-}
+  };
+};
+
+export const navigateToSettings = (value: boolean) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: SET_NAVIGATE_TO_SETTINGS,
+      payload: value,
+    });
+  };
+};

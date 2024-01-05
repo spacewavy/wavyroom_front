@@ -6,9 +6,11 @@ import {
   OPERATING_SYSTEM,
   WAVY_MODEL_PATHS,
   hexToRgb,
+  makeFullUrl,
 } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
+import gsap from "gsap";
 
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
@@ -23,6 +25,7 @@ import {
   disposeBoundsTree,
 } from "three-mesh-bvh";
 import { useLoading } from "./loadingContext";
+import { useSelector } from "react-redux";
 // import Logger from "../utils/logger";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -49,6 +52,8 @@ export const ThreeProvider = ({ children }) => {
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(null);
+
+  const { data: optionData } = useSelector((state) => state.customization);
 
   // initialize
   useEffect(() => {
@@ -127,8 +132,7 @@ export const ThreeProvider = ({ children }) => {
   useEffect(() => {
     if (!isEditorLoaded) return;
     if (!currentModelPath) return;
-    deleteCurrentModel();
-    loadFile(FILE_EXTENSION.FBX, `../models/${currentModelPath}`);
+    loadFile(currentModelPath);
   }, [isEditorLoaded, currentModelPath]);
 
   // change camera view type
@@ -148,6 +152,12 @@ export const ThreeProvider = ({ children }) => {
         break;
     }
   }, [isEditorLoaded, cameraViewType]);
+
+  // change the mesh visibility from optionData
+  useEffect(() => {
+    handleOptionVisibility();
+    console.log("option data", optionData);
+  }, [optionData]);
 
   const deleteCurrentModel = () => {
     const _models = scene.getObjectsByProperty("name", WAVY_MODEL);
@@ -197,9 +207,15 @@ export const ThreeProvider = ({ children }) => {
     _mesh.frustumCulled = false;
   };
 
-  const loadFile = (extension, url) => {
+  const loadFile = (url) => {
     let loader;
+    if (!url) return;
     if (isModelLoading) return;
+    const extension = url.split(".")[url.split(".").length - 1];
+    if (!extension) {
+      return;
+    }
+
     setIsModelLoading(true);
     setLoadPercent(0);
 
@@ -238,6 +254,7 @@ export const ThreeProvider = ({ children }) => {
       url,
       function (model) {
         let object;
+
         if (
           extension === FILE_EXTENSION.GLTF ||
           extension === FILE_EXTENSION.GLB
@@ -253,44 +270,65 @@ export const ThreeProvider = ({ children }) => {
         let removeObjectList = [];
         if (object?.children.length) {
           object.children.reverse().map((_obj, _idx) => {
-            const receiveShadow =
+            const _receiveShadow =
               _obj.name.toLowerCase().includes("roof") ||
               _obj.name.toLowerCase().includes("deck") ||
               _obj.name.toLowerCase().includes("roof");
 
             _obj.traverse((child) => {
-              child.receiveShadow = receiveShadow;
               child.castShadow = true;
-              // child.visible = true;
+
+              // setup receiveShadow by parent
+              child.receiveShadow = _receiveShadow;
+
+              // setting roof visiblity by cameraViewType
+              if (
+                (cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
+                  cameraViewType === CAMERA_VIEW_TYPE.INNER_2) &&
+                _obj.name.toLowerCase().includes("roof")
+              ) {
+                _obj.visible = false;
+              }
+
+              // optimization
               if (child.geometry) {
                 let _geometry = child.geometry.clone();
                 _geometry = BufferGeometryUtils.mergeVertices(_geometry);
                 child.geometry = _geometry;
               }
+
               child.frustumCulled = false;
               child.updateMatrixWorld();
             });
-            if (_obj.name.toLowerCase().includes("deck")) {
+
+            // later, apply the deck seperatly
+            if (
+              _obj.name.toLowerCase().includes("floor") ||
+              _obj.name.toLowerCase().includes("shade")
+            ) {
               deckObjList = [...deckObjList, _obj];
             }
+
+            // later, will remove lighting and camera in the data
             if (_obj.isLighting || _obj.isCamera) {
               removeObjectList = [...removeObjectList, _obj];
             }
           });
         }
-        deckObjList.map((_obj) => {
+
+        // remove the deck & lighting, camera
+        [...deckObjList, ...removeObjectList].map((_obj) => {
           object.remove(_obj);
         });
-        removeObjectList.map((_obj) => {
-          object.remove(_obj);
-        });
+
+        // do the scale
         object.scale.x = SCALE;
         object.scale.y = SCALE;
         object.scale.z = SCALE;
         object.receiveShadow = true;
         object.castShadow = true;
 
-        // calculate center
+        // calculate center which doesn't include the deck
         const _localCenter = new THREE.Vector3();
         const _localSphere = new THREE.Sphere();
         const box3 = new THREE.Box3().setFromObject(object);
@@ -299,6 +337,7 @@ export const ThreeProvider = ({ children }) => {
         const _localRadius = 1.2 * Math.ceil(_localSphere.radius);
         setLocalCenter(_localCenter);
 
+        // setup the possible range of the camera movement (1x ~ 3x)
         cameraControls.minDistance = _localRadius;
         cameraControls.maxDistance = _localRadius * 3;
 
@@ -313,18 +352,22 @@ export const ThreeProvider = ({ children }) => {
           .multiplyScalar(_localRadius)
           .add(_localCenter);
 
+        // place the camera farthest place as possible, since we don't want to zoom out from the start position.
         camera.position.set(
           4 * _cameraPosition.x,
           4 * _cameraPosition.y,
           4 * _cameraPosition.z
         );
-        // console.log(camera.position);
         camera.lookAt(_localCenter);
 
         setLoadPercent(80);
+
+        // include the deck
         deckObjList.map((_obj) => {
           object.add(_obj);
         });
+
+        // add the object to the scene
         scene.add(object);
 
         setTimeout(() => {
@@ -339,18 +382,46 @@ export const ThreeProvider = ({ children }) => {
       },
       function (e) {
         console.log("error", e);
+        setLoadPercent(100);
+        setIsModelLoading(false);
       }
     );
   };
 
-  const changeModel = (model) => {
-    setCurrentModelPath(model);
+  const changeModel = (modelPath) => {
+    let _isSameFile = false;
+    try {
+      const newFileName = modelPath.split("/")[modelPath.split("/").length - 1];
+      const currentFileName =
+        currentModelPath.split("/")[currentModelPath.split("/").length - 1];
+      _isSameFile = newFileName === currentFileName;
+    } catch (e) {
+      _isSameFile = false;
+    }
+    if (_isSameFile) return;
+    setCurrentModelPath(modelPath);
   };
 
   const changeMeshVisibilityByName = (_name, _visible) => {
+    if (!isEditorLoaded || !_name) return;
     const _model = scene.getObjectByName(_name);
     if (!_model) return;
-    _model.visible = _visible;
+    const visibility = !!_visible;
+    if (_model.visible === visibility) return;
+    _model.visible = visibility;
+  };
+
+  const changeRoofVisibility = (_visible) => {
+    if (!isEditorLoaded) return;
+    const _wavyModel = scene.getObjectByName(WAVY_MODEL);
+    if (!_wavyModel) return;
+    _wavyModel.traverse((_model) => {
+      if (_model.name.toLowerCase().includes("roof")) {
+        if (_model.visible !== _visible) {
+          _model.visible = _visible;
+        }
+      }
+    });
   };
 
   const changeModelColorFromHex = (_color) => {
@@ -376,16 +447,9 @@ export const ThreeProvider = ({ children }) => {
     }
   };
 
-  const test = () => {
-    cameraViewType === CAMERA_VIEW_TYPE.INNER_1
-      ? setCameraViewType(CAMERA_VIEW_TYPE.OUTER)
-      : setCameraViewType(CAMERA_VIEW_TYPE.INNER_1);
-  };
-
   const setCameraInnerView = () => {
     // set roof as invisible
-    changeMeshVisibilityByName("Roof", false);
-    changeMeshVisibilityByName("Roof_color", false);
+    changeRoofVisibility(false);
 
     // calcaulate the camera's position
     const _cameraPosition = new THREE.Vector3(0, 1, 0)
@@ -394,20 +458,25 @@ export const ThreeProvider = ({ children }) => {
       .add(localCenter);
 
     // place the camera
-    camera.position.set(
-      _cameraPosition.x,
-      _cameraPosition.y,
-      _cameraPosition.z
-    );
+    // camera.position.set(
+    //   _cameraPosition.x,
+    //   _cameraPosition.y,
+    //   _cameraPosition.z
+    // );
+    gsap.to(camera.position, {
+      x: _cameraPosition.x,
+      y: _cameraPosition.y,
+      z: _cameraPosition.z,
+      duration: 0.5,
+    });
 
     // set max angle for cameracontrol
     cameraControls.maxPolarAngle = Math.PI / 6;
   };
 
   const setCameraOuterView = () => {
-    // set roof as invisible
-    changeMeshVisibilityByName("Roof", true);
-    changeMeshVisibilityByName("Roof_color", true);
+    // set roof as visible
+    changeRoofVisibility(true);
 
     // calcaulate the camera's initial position
     const _cameraPosition = new THREE.Vector3(0, 3, 15)
@@ -416,14 +485,58 @@ export const ThreeProvider = ({ children }) => {
       .add(localCenter);
 
     // place the camera
-    camera.position.set(
-      _cameraPosition.x,
-      _cameraPosition.y,
-      _cameraPosition.z
-    );
+    // camera.position.set(
+    //   _cameraPosition.x,
+    //   _cameraPosition.y,
+    //   _cameraPosition.z
+    // );
+    gsap.to(camera.position, {
+      x: _cameraPosition.x,
+      y: _cameraPosition.y,
+      z: _cameraPosition.z,
+      duration: 0.5,
+    });
 
     // set max angle for cameracontrol
     cameraControls.maxPolarAngle = Math.PI / 2;
+  };
+
+  const handleOptionVisibility = () => {
+    // read option changes
+    if (!optionData.modelFloorOptions.length) return;
+    const selectedFloor = optionData.modelFloorOptions.find(
+      (_floorOption) => _floorOption.isSelected
+    );
+    if (!selectedFloor) return;
+
+    const _modelSecondOptions = selectedFloor.modelSecondOptions;
+    _modelSecondOptions.map((_option) => {
+      const { optionDetails } = _option;
+      if (!optionDetails.length) return;
+      optionDetails.map((_optionDetail) => {
+        changeMeshVisibilityByName(
+          _optionDetail.meshName,
+          _optionDetail.isSelected
+        );
+      });
+    });
+
+    const _modelKitchenTypes = selectedFloor.ModelKitchenTypes;
+    _modelKitchenTypes.map((_kitchen) => {
+      changeMeshVisibilityByName(_kitchen.meshName, _kitchen.isSelected);
+      const { options } = _kitchen;
+      if (!options.length) return;
+      options.map((_option) => {
+        const { optionDetails } = _option;
+        if (!optionDetails || !optionDetails.length) return;
+        optionDetails.map((_kitchenOptionDetail) => {
+          changeMeshVisibilityByName(
+            _kitchenOptionDetail.meshName,
+            _kitchenOptionDetail.isSelected
+          );
+        });
+      });
+    });
   };
 
   return (
@@ -445,7 +558,8 @@ export const ThreeProvider = ({ children }) => {
         isModelLoading,
         setLoadPercent,
         changeModelColorFromHex,
-        test,
+        cameraViewType,
+        setCameraViewType,
       }}
     >
       {children}

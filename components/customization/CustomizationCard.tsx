@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useThree } from "../../context/threeContext";
-import { makeImageUrl } from "../../lib/utils";
+import { makeFullUrl } from "../../lib/utils";
 
 export interface CustomCardProps {
   id: string;
@@ -12,6 +12,7 @@ export interface CustomCardProps {
   path: string;
   selectedItem?: string;
   handleSelectedItem: any;
+  purpose: string | string[];
 }
 
 const CustomizationCard = ({
@@ -22,10 +23,8 @@ const CustomizationCard = ({
   path,
   selectedItem,
   handleSelectedItem,
+  purpose,
 }: CustomCardProps) => {
-  // const { changeModel, changeMeshVisibilityByName } = useThree();
-  // console.log(heading, selectedItem === id, selectedItem, id);
-
   return (
     <div
       className={`cursor-pointer hover:bg-[#F9F9FA] border-b border-[#F9F9FA] px-[16px] md:px-[32px] py-[24px] ${
@@ -37,11 +36,19 @@ const CustomizationCard = ({
     >
       <div className="flex justify-between w-full">
         <div className="flex flex-col flex-1 items-start justify-center">
-          <h1 className="text-[14px] font-light color-[#000]">{heading}</h1>
+          <div className="text-[14px] font-light color-[#000]">
+            {heading} / <span className="text-[#B2B2B2]">{purpose[0]}</span>
+          </div>
           <p className="text-[14px] font-weight color-[#000]">{price}</p>
         </div>
         <div className="relative flex justify-center aspect-[144/51] w-[144px] md:w-[288px]">
-          <Image src={makeImageUrl(image)} alt="img" fill objectFit="cover" />
+          <Image
+            src={makeFullUrl(image)}
+            alt="img"
+            fill
+            objectFit="cover"
+            quality={100}
+          />
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ import Link from "next/link";
 
 import WavyCanvas from "@/components/canvas/WavyCanvas";
 import { useThree } from "../../context/threeContext";
-import { WAVY_MODEL_PATHS } from "../../lib/utils";
+import { WAVY_MODEL_PATHS, makeFullUrl } from "../../lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import { fetchNavigationModelData } from "../redux/actions/modelActions";
@@ -23,6 +23,7 @@ import {
   navigateToSettings,
 } from "../redux/actions/customizationActions";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export interface Product {
   id: number;
@@ -40,7 +41,7 @@ const Customization = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  const { data, error } = useSelector(
+  const { data: transformedData, error } = useSelector(
     (state: RootState) => state.navigationModel
   );
   const { data: customizationData } = useSelector(
@@ -53,51 +54,49 @@ const Customization = () => {
   const { changeModel, changeMeshVisibilityByName } = useThree();
   const [showOverlay, setShowOverlay] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+  const [inputsAnimation, setInputsAnimation] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    address: false,
+  });
   const [formElements, setFormElements] = useState({
     name: "",
     email: "",
-    phone: "null",
+    phone: "",
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
-  const [transformedData, setTransformedData] = useState<any[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
+  const { language } = useSelector((state: any) => state.locale);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
-  }, []);
+  }, [language]);
 
-  useEffect(() => {
-    if (!data) return;
-    const _transformedData = data.map((item: ModelDetailItem) => {
-      return {
-        ...item,
-        path: WAVY_MODEL_PATHS[item.name.toUpperCase()],
-      };
-    });
-    setTransformedData(_transformedData);
-  }, [data]);
-
+  // when id is empty, we setup the default id
   useEffect(() => {
     if (!transformedData.length) return;
-    setSelectedItemId(
-      id || transformedData.find((x: any) => x.name === "Mini")?.id
-    );
+    const _id = id || transformedData.find((x: any) => x.order === 1)?.id;
+    setSelectedItemId(_id);
   }, [transformedData]);
 
+  // when we change the id, change the Model data itself
   useEffect(() => {
     if (!selectedItemId) return;
     const _selectedItem = transformedData.find(
       (x: any) => x.id === selectedItemId
     );
     setSelectedModel(_selectedItem);
-    console.log("selectedItem", _selectedItem);
   }, [selectedItemId]);
 
+  // when model is changed, update the 3d modeling
   useEffect(() => {
     if (!selectedModel) return;
-    changeModel(selectedModel?.path);
+    console.log("model changed", selectedModel);
+    changeModel(makeFullUrl(selectedModel?.threeDFileURL));
   }, [selectedModel]);
 
   useEffect(() => {
@@ -171,7 +170,7 @@ const Customization = () => {
       } = await axiosInstance.post("/reservation", postData, {
         headers: {
           Accept: "application/json",
-          language: "KO",
+          language: language,
         },
       });
       router.push(`/customization-completion?id=${data.id}`);
@@ -179,6 +178,7 @@ const Customization = () => {
       console.error("e", e);
     }
   };
+
   const handleBackTireClick = () => {
     dispatch(navigateToSettings(false) as unknown as AnyAction);
   };
@@ -193,59 +193,126 @@ const Customization = () => {
       >
         <div
           id="text"
-          className="flex bg-white rounded-t-2xl md:rounded-2xl w-full md:w-[496px]"
+          className=" bg-white rounded-t-2xl md:rounded-2xl w-full md:w-[496px]"
           onClick={(e) => {
             e.stopPropagation();
           }}
         >
           <div className="px-[24px] pt-8 pb-4 lg:px-8 lg:py-8">
             <div className="lg:text-[32px] text-[24px] font-light pb-[8px] color=[#000]">
-              <h1>내가 만든 모델을 예약해보세요</h1>
+              <h1>{t("customization.popup.title")}</h1>
             </div>
             <div className="lg:text-[14px] text-[12px] font-light pb-4 color=[#4D4D4D]">
-              <p>고객님의 정보를 입력하시면 이메일로 보내드리겠습니다.</p>
+              <p>{t("customization.popup.sub-title")}</p>
             </div>
             <div className="gap-4 mb-16">
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="text"
-                placeholder="이름을 입력하세요"
-                value={formElements.name}
-                onChange={(e) => {
-                  handleFormElement(e, "name");
-                }}
-              />
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="email"
-                value={formElements.email}
-                placeholder="이메일 주소를 입력하세요"
-                onChange={(e) => {
-                  handleFormElement(e, "email");
-                }}
-              />
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="number"
-                value={formElements.phone}
-                placeholder="휴대전화번호를 입력하세요"
-                onChange={(e) => {
-                  handleFormElement(e, "phone");
-                }}
-              />
-              <input
-                className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none focus:border-orange"
-                type="address"
-                value={formElements.address}
-                placeholder="주소를 입력하세요"
-                onChange={(e) => {
-                  handleFormElement(e, "address");
-                }}
-              />
+              <div className="w-full relative">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color-[#B2B2B2] w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="text"
+                  placeholder={t("customization.popup.name-placeholder")}
+                  value={formElements.name}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, name: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      name: formElements.name == "" ? false : true,
+                    }));
+                  }}
+                  onChange={(e) => {
+                    handleFormElement(e, "name");
+                  }}
+                />
+                <div
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.name ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
+              <div className="w-full relative">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="email"
+                  value={formElements.email}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, email: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      email: formElements.email == "" ? false : true,
+                    }));
+                  }}
+                  placeholder={t("customization.popup.email-placeholder")}
+                  onChange={(e) => {
+                    handleFormElement(e, "email");
+                  }}
+                />
+                <div
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.email ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
+              <div className="w-full relative">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="number"
+                  value={formElements.phone}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, phone: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      phone: formElements.phone == "" ? false : true,
+                    }));
+                  }}
+                  placeholder={t("customization.popup.phone-placeholder")}
+                  onChange={(e) => {
+                    handleFormElement(e, "phone");
+                  }}
+                />
+                <div
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.phone ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
+              <div className="w-full relative">
+                <input
+                  className="lg:py-[24px] lg:text-[14px] py-4 text-[12] color=[#B2B2B2]  w-full border-b-[1px] border-gray-500 focus:outline-none"
+                  type="address"
+                  value={formElements.address}
+                  onClick={() => {
+                    setInputsAnimation((prev) => ({ ...prev, address: true }));
+                  }}
+                  onBlur={() => {
+                    setInputsAnimation((prev) => ({
+                      ...prev,
+                      address: formElements.address == "" ? false : true,
+                    }));
+                  }}
+                  placeholder={t("customization.popup.address-placeholder")}
+                  onChange={(e) => {
+                    handleFormElement(e, "address");
+                  }}
+                />
+                <div
+                  className={`absolute bottom-0 h-[1px] w-0 transition-width duration-500 ${
+                    inputsAnimation.address ? "bg-orange w-full" : ""
+                  }`}
+                ></div>
+              </div>
             </div>
 
             <div className="flex justify-center items-center gap-2">
-              <div className="w-[42px] h-[42px] p-[11px] border-[1px] rounded-full flex justify-center items-center">
+              <div
+                className="w-[42px] h-[42px] p-[11px] border-[1px] rounded-full flex justify-center items-center cursor-pointer"
+                onClick={handlePopupClose}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -269,10 +336,12 @@ const Customization = () => {
               <button
                 onClick={handleFormSubmit}
                 className={`flex justify-center items-center gap-1 w-full text-white py-[10px] px-4 text-[12px] font-medium rounded-full ${
-                  isButtonDisabled ? "bg-gray" : "bg-jetBlack"
+                  isButtonDisabled
+                    ? "bg-gray pointer-events-none"
+                    : "bg-jetBlack"
                 }`}
               >
-                <span>완료</span>
+                <span>{t("customization.popup.button-text")}</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -302,6 +371,7 @@ const Customization = () => {
 
   if (error) return;
   if (!transformedData) return;
+
   return (
     <div>
       <div className="relative flex flex-col lg:flex-row max-w-[100vw] overflow-hidden h-[100vh]">
@@ -323,13 +393,7 @@ const Customization = () => {
               <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
             </Link>
           </div>
-          <div className="relative flex flex-1 flex-col group">
-            <WavyCanvas openMenu={openMenu} />
-            <div className="absolute z-10 bottom-[16px] left-0 right-0 flex lg:flex-col items-center justify-center pb-8 gap-[12px] lg:gap-[20px] lg:text-[14px] md:text-sm transition-opacity ease-in duration-500 opacity-100 group-hover:opacity-0 px-4">
-              <Image src={IntentRequest} alt="icon" />
-              <p>모델을 마우스로 드래그하여 구성을 회전하세요 </p>
-            </div>
-          </div>
+          <WavyCanvas openMenu={openMenu} />
         </div>
         <div className="relative flex flex-1 flex-col w-full lg:max-w-[496px]">
           <div
@@ -346,21 +410,19 @@ const Customization = () => {
                 selectedItemId={selectedItemId}
                 handleSelectedItemId={handleSelectedItemId}
               />
-              <div className="absolute top-0 bottom-0 left-[100%] w-full flex flex-1">
-                <CustomizationPanel
-                  handleMenuToggle={handleMenuToggle}
-                  openMenu={openMenu}
-                  handlePopupOpen={handlePopupOpen}
-                  selectedItemId={selectedItemId}
-                  handleSelectedItemId={(_id: string) => {
-                    if (!_id) return;
-                    handleSelectedItemId(_id);
-                    dispatch(
-                      fetchCustomizationOptionsData(_id) as unknown as AnyAction
-                    );
-                  }}
-                />
-              </div>
+              <CustomizationPanel
+                handleMenuToggle={handleMenuToggle}
+                openMenu={openMenu}
+                handlePopupOpen={handlePopupOpen}
+                selectedItemId={selectedItemId}
+                handleSelectedItemId={(_id: string) => {
+                  if (!_id) return;
+                  handleSelectedItemId(_id);
+                  dispatch(
+                    fetchCustomizationOptionsData(_id) as unknown as AnyAction
+                  );
+                }}
+              />
             </div>
           </div>
         </div>

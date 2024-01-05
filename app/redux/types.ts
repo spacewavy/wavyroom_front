@@ -15,6 +15,17 @@ export interface FetchMediaData {
   error: string | null;
 }
 
+export interface MainCarouselItem {
+  modelName: string;
+  imageURL: string;
+  purpose: string;
+}
+
+export interface FetchMainCarouselData {
+  data: MainCarouselItem[];
+  error: string | null;
+}
+
 export interface PortfolioItem {
   id: string;
   order: number;
@@ -105,6 +116,22 @@ export interface ModelDetailData {
   data: ModelDetailItem;
   error: string | null;
 }
+export interface OtherModelsDetailData {
+  data: OtherModelsDetailItem[];
+  error: string | null;
+}
+export interface OtherModelsDetailItem {
+    id:string;
+    minPrice:string;
+    name:string;
+    nameKO :string;
+    purpose :string[];
+    purposeKO:string[];
+    representativeImageURL :string;
+    smallName :string;
+}
+
+
 
 export interface ModelColors {
   id: string;
@@ -114,8 +141,8 @@ export interface ModelColors {
   name: string;
   modelIdSubstitude: string;
   modelId: string;
-  isSelected?:boolean;
-  isDefault:boolean
+  isSelected?: boolean;
+  isDefault: boolean;
 }
 
 export interface ModelExample {
@@ -132,6 +159,8 @@ export interface OptionDetail {
   price: number;
   isDefault: boolean;
   isSelected?: boolean;
+  meshName: string;
+  groupName: string;
 }
 
 export interface ModelSecondOption {
@@ -146,7 +175,8 @@ export interface ModelFloorOptions {
   order: number;
   price: number;
   isDefault: boolean;
-  isSelected?:boolean;
+  isSelected?: boolean;
+  threeDFileURL: string;
   modelSecondOptions: ModelSecondOption[];
   ModelKitchenTypes: ModelKitchenType[];
 }
@@ -160,10 +190,12 @@ export interface ModelKitchenType {
   name: string;
   order: number;
   options: ModelKitchenOption[];
-  isSelected?:boolean;
+  isSelected?: boolean;
 }
 export interface ModelKitchenOption {
   name: string;
+  isMultipleSelectable: boolean;
+  order: number;
   optionDetails: ModelKitchenOptionDetail[];
 }
 export interface ModelKitchenOptionDetail {
@@ -173,6 +205,6 @@ export interface ModelKitchenOptionDetail {
   isSelected?: boolean;
 }
 export interface CustomizationData {
-  data : Customization;
-  error:string | null
+  data: Customization;
+  error: string | null;
 }
