@@ -28,23 +28,23 @@ const ProductCarousel = () => {
   const CAROUSEL_ITEMS = [
     {
       image: carosolImg1,
-      imageText: ["Evo /", "숙박용"],
+      imageText: ["Evo", "숙박용"],
     },
     {
       image: carosolImg2,
-      imageText: ["Max /", "주거용"],
+      imageText: ["Max", "주거용"],
     },
     {
       image: carosolImg3,
-      imageText: ["Studio /", "주거용"],
+      imageText: ["Studio", "주거용"],
     },
     {
       image: carosolImg4,
-      imageText: ["Mini /", "다용도용"],
+      imageText: ["Mini", "다용도용"],
     },
     {
       image: carosolImg5,
-      imageText: ["Nova /", "주거, 숙박용"],
+      imageText: ["Nova", "주거, 숙박용"],
     },
   ];
 
@@ -67,20 +67,6 @@ const ProductCarousel = () => {
             );
           })}
         </div>
-        {/* <div className="embla__dots">
-          {CAROUSEL_ITEMS.map((_, index) => {
-            // return <div key={index}>hi</div>;
-            return (
-              <DotButton
-                key={index}
-                onClick={() => onDotButtonClick(index)}
-                className={"embla__dot".concat(
-                  index === selectedIndex ? " embla__dot--selected" : ""
-                )}
-              />
-            );
-          })}
-        </div> */}
         <div className="flex flex-col items-center justify-between gap-8 pt-8">
           <div className="flex gap-[4px] text-[12px] md:text-[14px] lg:text-[16px] font-light">
             <span>{CAROUSEL_ITEMS[selectedIndex].imageText[0]}</span>
@@ -88,7 +74,7 @@ const ProductCarousel = () => {
               {CAROUSEL_ITEMS[selectedIndex].imageText[1]}
             </span>
           </div>
-          <div className="px-4 py-2">
+          {/* <div className="px-4 py-2">
             <Link
               href="/portfolio"
               className="p-0 flex flex-row gap-[4px] text-labelMD text-orange"
@@ -98,7 +84,7 @@ const ProductCarousel = () => {
               </span>
               <Image alt="right-arrow" src={RightArrowOrange} />
             </Link>
-          </div>
+          </div> */}
         </div>
         <div className="embla__dots flex flex-row gap-2">
           {CAROUSEL_ITEMS.map((_, index) => (

@@ -145,11 +145,12 @@ const Home = () => {
                   autoPlay
                   loop
                   muted
+                  playsInline
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/homePageVideo.mp4"
                   onPlaying={() => setIsVideoLoaded(true)}
-                ></video>
+                />
               </div>
             </div>
             <div
