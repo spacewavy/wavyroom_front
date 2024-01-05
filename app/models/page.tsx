@@ -14,7 +14,6 @@ const Models = () => {
   const { data, error } = useSelector((state: RootState) => state.model);
   const { language } = useSelector((state: any) => state.locale);
 
-
   useEffect(() => {
     dispatch(fetchModelData() as unknown as AnyAction);
   }, [language]);
@@ -24,7 +23,7 @@ const Models = () => {
       <section className="px-4 pt-16 pb-4 md:px-8 md:pt-32 md:pb-8">
         <div className="flex flex-1 flex-col gap-4">
           <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-          {t('models.section-1.title')}
+            {t("models.section-1.title")}
           </div>
         </div>
       </section>
@@ -40,6 +39,7 @@ const Models = () => {
                   name={item.name}
                   value={item.minPrice}
                   purpose={item.purpose[0]}
+                  location="models"
                   hovered={false}
                 />
               );
