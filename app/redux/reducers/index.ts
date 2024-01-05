@@ -5,6 +5,7 @@ import {
   fetchModelDataReducer,
   fetchModelDetailsDataReducer,
   fetchNavigationModelDataReducer,
+  fetchOtherModelDetailsReducer,
 } from "./modelReducer";
 import fetchAboutReputationDataReducer from "./aboutReputationReducers";
 import {
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   customization: fetchCustomizationOptionsDataReducer,
   navigation: navigateToSettings,
   locale: localeReducer,
+  otherModels:fetchOtherModelDetailsReducer
 });
 
 export default rootReducer;
