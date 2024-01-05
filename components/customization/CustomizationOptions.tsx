@@ -8,6 +8,7 @@ import {
 } from "@/app/redux/types";
 import React, { FC } from "react";
 import { useThree } from "../../context/threeContext";
+import { useTranslation } from "react-i18next";
 
 export interface option {
   id?: string;
@@ -36,6 +37,8 @@ const CustomizationOptions: FC<{
   handleKitchenTypeSelect,
   handleKitchenOptionSelect,
 }) => {
+  const { t } = useTranslation();
+
   const renderOption = (
     o: OptionDetail,
     oIdx: number,
@@ -91,7 +94,7 @@ const CustomizationOptions: FC<{
                 <div className="flex gap-4">
                   {opt.isMultipleSelectable && (
                     <span className="text-[12px] font-medium text-orange">
-                      다중 선택 가능
+                      {t("customization.multiple-selection")}
                     </span>
                   )}
                 </div>

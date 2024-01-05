@@ -67,7 +67,6 @@ const Customization = () => {
     address: "",
   });
   const [openMenu, setOpenMenu] = useState(false);
-  // const [transformedData, setTransformedData] = useState<any[]>([]);
   const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
   const { language } = useSelector((state: any) => state.locale);
@@ -411,7 +410,6 @@ const Customization = () => {
                 selectedItemId={selectedItemId}
                 handleSelectedItemId={handleSelectedItemId}
               />
-              {/* <div className="absolute top-0 bottom-0 left-[100%] w-full flex flex-1"> */}
               <CustomizationPanel
                 handleMenuToggle={handleMenuToggle}
                 openMenu={openMenu}
@@ -425,7 +423,6 @@ const Customization = () => {
                   );
                 }}
               />
-              {/* </div> */}
             </div>
           </div>
         </div>

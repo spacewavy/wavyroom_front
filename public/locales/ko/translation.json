@@ -161,6 +161,7 @@
     "canvas-text": "모델을 마우스로 드래그하여 구성을 회전하세요 ",
     "select-floor-type": "층수 형태를 선택해주세요",
     "exterior-color": "외장재 색상",
+    "multiple-selection": "다중 선택 가능",
     "tire-1": {
       "heading": "웨이비룸",
       "description": {

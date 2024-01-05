@@ -13,6 +13,7 @@ import {
   navigateToSettings,
 } from "./customizationReducers";
 import localeReducer from "./localeReducers";
+import fetchCarouselReducer from "./carouselReducers";
 
 const rootReducer = combineReducers({
   media: fetchDataReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   customization: fetchCustomizationOptionsDataReducer,
   navigation: navigateToSettings,
   locale: localeReducer,
-  otherModels:fetchOtherModelDetailsReducer
+  otherModels: fetchOtherModelDetailsReducer,
+  mainCarousel: fetchCarouselReducer,
 });
 
 export default rootReducer;

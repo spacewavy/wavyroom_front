@@ -7,7 +7,10 @@ import ModelDetailCarousel from "../../components/ModelDetailCarousel";
 import FaqItem from "../../components/FaqItem";
 import Navbar from "../../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchModelDetailData, fetchOtherModelDetail } from "../redux/actions/modelActions";
+import {
+  fetchModelDetailData,
+  fetchOtherModelDetail,
+} from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
 import { ModelColors, OtherModelsDetailItem } from "../redux/types";
 import { makeFullUrl } from "../../lib/utils";
@@ -445,39 +448,35 @@ const ModelDetail = () => {
           </div>
         </section>
         <section className="group-[.is-dark]:bg-jetBlack">
-          {otherModelsList
-            .map((item: OtherModelsDetailItem, index: number) => {
-              console.log("item", item);
-              return (
-                <Link
-                  key={"item" + index}
-                  href={`model-detail?id=${item.id}`}
-                  className="group/item"
-                >
-                  <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12 overflow-hidden">
-                    <div className="flex flex-col items-start md:flex-1">
-                      <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
-                        {item.smallName} /{" "}
-                        <span className="text-[#B2B2B2]">
-                          {item.purpose[0]}
-                        </span>
-                      </div>
-                      <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
-                        {item.name}
-                      </div>
+          {otherModelsList.map((item: OtherModelsDetailItem, index: number) => {
+            return (
+              <Link
+                key={"item" + index}
+                href={`model-detail?id=${item.id}`}
+                className="group/item"
+              >
+                <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12 overflow-hidden">
+                  <div className="flex flex-col items-start md:flex-1">
+                    <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
+                      {item.smallName} /{" "}
+                      <span className="text-[#B2B2B2]">{item.purpose[0]}</span>
                     </div>
-                    <div className="flex items-center jusitfy-center transform group-hover/item:scale-110 transition-transform duration-500 ease-in">
-                      <Image
-                        src={`${makeFullUrl(item.representativeImageURL)}`}
-                        alt="nova"
-                        width={475}
-                        height={475}
-                      />
+                    <div className="group-[.is-dark]:text-white font-light text-[32px] md:text-[40px] lg:text-[58px]">
+                      {item.name}
                     </div>
                   </div>
-                </Link>
-              );
-            })}
+                  <div className="flex items-center jusitfy-center transform group-hover/item:scale-110 transition-transform duration-500 ease-in">
+                    <Image
+                      src={`${makeFullUrl(item.representativeImageURL)}`}
+                      alt="nova"
+                      width={475}
+                      height={475}
+                    />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </section>
       </main>
     </div>
