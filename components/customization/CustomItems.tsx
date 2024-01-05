@@ -54,6 +54,7 @@ const CustomItems: FC<CustomItemsProps> = ({
                 a.order - b.order
             )
             .map((d: any, index: number) => {
+              console.log("item", d);
               return (
                 <CustomizationCard
                   key={`model-${index}`}

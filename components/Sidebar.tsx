@@ -421,27 +421,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
                 <span className="">{selectedProduct?.insulation}</span>
               </div>
-              <div className="flex flex-col gap-2">
-                <span className=" font-normal">
-                  {t("sidebar.details.framework")}
-                </span>
-                <span className="">{selectedProduct?.structure}</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className=" font-normal">
-                  {t("sidebar.details.windows")}
-                </span>
-                <span className="">
-                  {selectedProduct?.windows.map((x: any) => {
-                    return (
-                      <React.Fragment key={x}>
-                        <span>{x}</span>
-                        <br />
-                      </React.Fragment>
-                    );
-                  })}
-                </span>
-              </div>
+
               <div className="flex flex-col gap-2">
                 <span className=" font-normal">
                   {t("sidebar.details.furniture")}
@@ -464,6 +444,27 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                 </span>
                 <span className="">
                   {selectedProduct?.purpose.map((x: any) => {
+                    return (
+                      <React.Fragment key={x}>
+                        <span>{x}</span>
+                        <br />
+                      </React.Fragment>
+                    );
+                  })}
+                </span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className=" font-normal">
+                  {t("sidebar.details.framework")}
+                </span>
+                <span className="">{selectedProduct?.structure}</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className=" font-normal">
+                  {t("sidebar.details.windows")}
+                </span>
+                <span className="">
+                  {selectedProduct?.windows.map((x: any) => {
                     return (
                       <React.Fragment key={x}>
                         <span>{x}</span>

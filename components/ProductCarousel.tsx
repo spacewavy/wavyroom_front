@@ -5,12 +5,13 @@ import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren, useCallback, useEffect, useState } from "react";
-import carosolImg1 from "@/assets/carosol-images/carosolImage-1.png";
-import carosolImg2 from "@/assets/carosol-images/carosolImage-2.png";
-import carosolImg3 from "@/assets/carosol-images/carosolImage-3.png";
-import carosolImg4 from "@/assets/carosol-images/carosolImage-4.png";
-import carosolImg5 from "@/assets/carosol-images/carosolImage-5.png";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../app/redux/reducers";
+import { fetchMainCarouselData } from "../app/redux/actions/carouselActions";
+import { AnyAction } from "redux";
+import { MainCarouselItem } from "../app/redux/types";
+import { makeFullUrl } from "../lib/utils";
 
 const ProductCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -23,44 +24,33 @@ const ProductCarousel = () => {
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi);
-  const { t } = useTranslation();
+  const { data: carouselData, error } = useSelector(
+    (state: RootState) => state.mainCarousel
+  );
+  const { language } = useSelector((state: any) => state.locale);
+  const dispatch = useDispatch();
 
-  const CAROUSEL_ITEMS = [
-    {
-      image: carosolImg1,
-      imageText: ["Evo", "숙박용"],
-    },
-    {
-      image: carosolImg2,
-      imageText: ["Max", "주거용"],
-    },
-    {
-      image: carosolImg3,
-      imageText: ["Studio", "주거용"],
-    },
-    {
-      image: carosolImg4,
-      imageText: ["Mini", "다용도용"],
-    },
-    {
-      image: carosolImg5,
-      imageText: ["Nova", "주거, 숙박용"],
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchMainCarouselData() as unknown as AnyAction);
+  }, [language]);
 
+  if (error || !carouselData.length) return;
   return (
     <div className="embla p-0">
       <div className="embla__viewport relative" ref={emblaRef}>
         <div className="embla__container">
-          {CAROUSEL_ITEMS.map((c, index) => {
+          {carouselData.map((c: MainCarouselItem) => {
             return (
-              <div className="embla__slide" key={`product-carosel-${index}`}>
+              <div
+                className="embla__slide"
+                key={`product-carosel-${c.imageURL}`}
+              >
                 <div className="relative w-full aspect-[16/9]">
                   <Image
                     layout="fill"
                     objectFit="cover"
-                    src={c.image}
-                    alt="Vercel Image"
+                    src={makeFullUrl(c.imageURL)}
+                    alt="carousel-image"
                   />
                 </div>
               </div>
@@ -69,9 +59,9 @@ const ProductCarousel = () => {
         </div>
         <div className="flex flex-col items-center justify-between gap-8 pt-8">
           <div className="flex gap-[4px] text-[12px] md:text-[14px] lg:text-[16px] font-light">
-            <span>{CAROUSEL_ITEMS[selectedIndex].imageText[0]}</span>
+            <span>{carouselData[selectedIndex].modelName}</span>
             <span className="opacity-40">
-              {CAROUSEL_ITEMS[selectedIndex].imageText[1]}
+              {carouselData[selectedIndex].purpose}
             </span>
           </div>
           {/* <div className="px-4 py-2">
@@ -87,7 +77,7 @@ const ProductCarousel = () => {
           </div> */}
         </div>
         <div className="embla__dots flex flex-row gap-2">
-          {CAROUSEL_ITEMS.map((_, index) => (
+          {carouselData.map((_: any, index: number) => (
             <div
               className={`h-2 w-2 rounded cursor-pointer ${
                 index === selectedIndex ? "bg-orange" : "bg-gray"

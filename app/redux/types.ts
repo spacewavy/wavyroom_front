@@ -15,6 +15,17 @@ export interface FetchMediaData {
   error: string | null;
 }
 
+export interface MainCarouselItem {
+  modelName: string;
+  imageURL: string;
+  purpose: string;
+}
+
+export interface FetchMainCarouselData {
+  data: MainCarouselItem[];
+  error: string | null;
+}
+
 export interface PortfolioItem {
   id: string;
   order: number;

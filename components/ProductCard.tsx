@@ -64,7 +64,7 @@ const ProductCard = ({
         <div className="flex justify-between">
           <div className="text-black text-bodyMD md:text-bodyLG">
             <p>
-              {name} /<span className="text-midGray ml-[4px]"> {purpose} </span>
+              {name} /<span className="text-midGray"> {purpose}</span>
             </p>
             <span>{value.toLocaleString()}</span>
           </div>
