@@ -317,13 +317,13 @@
     "title": "Portfolio",
     "dropdown-title": "Project size",
     "dropdown-opts": {
-      "opt-1": "All size(All suare footage)",
-      "opt-2": "10",
-      "opt-3": "11~20",
-      "opt-4": "20~30",
-      "opt-5": "30"
+      "opt-1": "All size(All square meter)",
+      "opt-2": "~33",
+      "opt-3": "34~66",
+      "opt-4": "67~99",
+      "opt-5": "100"
     },
-    "currency": "pyeong"
+    "currency": "㎡"
   },
   "model-details": {
     "color": "color"
