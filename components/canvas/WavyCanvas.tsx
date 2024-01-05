@@ -96,7 +96,7 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
               setCameraViewType(CAMERA_VIEW_TYPE.OUTER);
             }}
           >
-            외부
+            {t("modeling.outer")}
           </div>
           <div
             className={`text-[10px] md:text-[12px] py-[4px] md:py-[8px] px-[10px] md:px-[28px] cursor-pointer rounded-full ${
@@ -106,7 +106,7 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
               setCameraViewType(CAMERA_VIEW_TYPE.INNER_1);
             }}
           >
-            내부
+            {t("modeling.inner")}
           </div>
         </div>
       </div>

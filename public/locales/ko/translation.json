@@ -328,5 +328,9 @@
   },
   "model-details": {
     "color": "색상"
+  },
+  "modeling": {
+    "outer": "외부",
+    "inner": "내부"
   }
 }

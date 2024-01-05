@@ -328,5 +328,9 @@
   },
   "model-details": {
     "color": "color"
+  },
+  "modeling": {
+    "outer": "Outer",
+    "inner": "Inner"
   }
 }
