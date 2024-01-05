@@ -105,6 +105,22 @@ export interface ModelDetailData {
   data: ModelDetailItem;
   error: string | null;
 }
+export interface OtherModelsDetailData {
+  data: OtherModelsDetailItem[];
+  error: string | null;
+}
+export interface OtherModelsDetailItem {
+    id:string;
+    minPrice:string;
+    name:string;
+    nameKO :string;
+    purpose :string[];
+    purposeKO:string[];
+    representativeImageURL :string;
+    smallName :string;
+}
+
+
 
 export interface ModelColors {
   id: string;

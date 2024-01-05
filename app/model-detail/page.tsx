@@ -7,9 +7,9 @@ import ModelDetailCarousel from "../../components/ModelDetailCarousel";
 import FaqItem from "../../components/FaqItem";
 import Navbar from "../../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchModelDetailData } from "../redux/actions/modelActions";
+import { fetchModelDetailData, fetchOtherModelDetail } from "../redux/actions/modelActions";
 import { AnyAction } from "redux";
-import { ModelColors, ModelDetailItem } from "../redux/types";
+import { ModelColors, OtherModelsDetailItem } from "../redux/types";
 import { makeFullUrl } from "../../lib/utils";
 import { useSearchParams } from "next/navigation";
 import {
@@ -28,6 +28,9 @@ const ModelDetail = () => {
   const { data: modelsList } = useSelector(
     (state: RootState) => state.navigationModel
   );
+  const { data: otherModelsList } = useSelector(
+    (state: RootState) => state.otherModels
+  );
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const { language } = useSelector((state: any) => state.locale);
@@ -35,6 +38,9 @@ const ModelDetail = () => {
 
   useEffect(() => {
     dispatch(fetchModelDetailData(id || "") as unknown as AnyAction);
+  }, [id, language]);
+  useEffect(() => {
+    dispatch(fetchOtherModelDetail(id || "") as unknown as AnyAction);
   }, [id, language]);
 
   const modelDescription = [
@@ -439,9 +445,8 @@ const ModelDetail = () => {
           </div>
         </section>
         <section className="group-[.is-dark]:bg-jetBlack">
-          {modelsList
-            .filter((x: ModelDetailItem) => x.name !== data?.name)
-            .map((item: ModelDetailItem, index: number) => {
+          {otherModelsList
+            .map((item: OtherModelsDetailItem, index: number) => {
               console.log("item", item);
               return (
                 <Link
@@ -452,7 +457,7 @@ const ModelDetail = () => {
                   <div className="flex flex-1 flex-col md:flex-row md:items-center gap-6 md:gap-0 border-y border-gray group-[.is-dark]:border-offBlack px-4 py-6 md:px-8 lg:px-12 overflow-hidden">
                     <div className="flex flex-col items-start md:flex-1">
                       <div className="group-[.is-dark]:text-white font-light text-[14px] lg:text-[16px]">
-                        {item.name} /{" "}
+                        {item.smallName} /{" "}
                         <span className="text-[#B2B2B2]">
                           {item.purpose[0]}
                         </span>
