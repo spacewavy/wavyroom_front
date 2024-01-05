@@ -88,7 +88,7 @@ export default ProductCard;
 export const ProductAllCard = () => {
   const { t } = useTranslation();
   return (
-    <div className="p-8 border-t">
+    <div className="p-4 md:p-8 border-t aspect-[8/7] md:aspect-[11/6]">
       <div className="flex h-full flex-col items-center justify-center w-full gap-4 p-8 text-white border-r border-gray bg-offBlack">
         <p className="text-center text-[18px] md:text-[28px]">
           {t("home.card.title.text-1")}

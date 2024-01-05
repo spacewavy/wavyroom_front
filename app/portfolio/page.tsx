@@ -19,10 +19,22 @@ const Portfolio = () => {
   const [dropdownKey, setDropdownKey] = useState(1);
   const OPTIONS = [
     { value: "all", label: t("portfolio.dropdown-opts.opt-1") },
-    { value: "toTen", label: t("portfolio.dropdown-opts.opt-2") },
-    { value: "elevenToTwenty", label: t("portfolio.dropdown-opts.opt-3") },
-    { value: "twentyToThirty", label: t("portfolio.dropdown-opts.opt-4") },
-    { value: "moreThanThirty", label: t("portfolio.dropdown-opts.opt-5") },
+    {
+      value: "toTen",
+      label: `${t("portfolio.dropdown-opts.opt-2")}${t("portfolio.currency")}`,
+    },
+    {
+      value: "elevenToTwenty",
+      label: `${t("portfolio.dropdown-opts.opt-3")}${t("portfolio.currency")}`,
+    },
+    {
+      value: "twentyToThirty",
+      label: `${t("portfolio.dropdown-opts.opt-4")}${t("portfolio.currency")}`,
+    },
+    {
+      value: "moreThanThirty",
+      label: `${t("portfolio.dropdown-opts.opt-5")}${t("portfolio.currency")}`,
+    },
   ];
 
   useEffect(() => {
