@@ -44,14 +44,18 @@ const ProductCard = ({
           location === "models"
             ? "aspect-[8/7] md:aspect-[11/6] lg:aspect-[11/4]"
             : "aspect-[8/7] md:aspect-[11/6]"
-        } flex flex-col justify-between w-full h-full px-4 py-8 md:px-8 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray overflow-hidden`}
+        } flex flex-col justify-between w-full h-full px-4 py-8 md:px-8 pb-8 gap-4 border-t odd:lg:border-r border-gray hover:bg-lightGray overflow-hidden`}
       >
         <div
           className={`flex flex-1 items-center justify-cetner transform ${
             hovered ? "hover:scale-110" : ""
           } transition-transform duration-500 ease-in`}
         >
-          <div className="relative aspect-[9/4] w-full">
+          <div
+            className={`relative aspect-[3/1] flex flex-1 ${
+              location === "models" ? "lg:aspect-[9/2]" : ""
+            }`}
+          >
             <Image
               src={makeFullUrl(image)}
               alt="product_image"
