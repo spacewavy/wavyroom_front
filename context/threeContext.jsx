@@ -275,20 +275,21 @@ export const ThreeProvider = ({ children }) => {
               _obj.name.toLowerCase().includes("deck") ||
               _obj.name.toLowerCase().includes("roof");
 
+            // setting roof visiblity by cameraViewType
+            if (
+              (cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
+                cameraViewType === CAMERA_VIEW_TYPE.INNER_2) &&
+              (_obj.name.toLowerCase().includes("roof") ||
+                _obj.name.toLowerCase().includes("nova-rf"))
+            ) {
+              _obj.visible = false;
+            }
+
             _obj.traverse((child) => {
               child.castShadow = true;
 
               // setup receiveShadow by parent
               child.receiveShadow = _receiveShadow;
-
-              // setting roof visiblity by cameraViewType
-              if (
-                (cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
-                  cameraViewType === CAMERA_VIEW_TYPE.INNER_2) &&
-                _obj.name.toLowerCase().includes("roof")
-              ) {
-                _obj.visible = false;
-              }
 
               // optimization
               if (child.geometry) {
@@ -365,6 +366,25 @@ export const ThreeProvider = ({ children }) => {
         // include the deck
         deckObjList.map((_obj) => {
           object.add(_obj);
+        });
+
+        // setup visibility for initial stage
+        object.traverse((child) => {
+          if (
+            child.name.toLowerCase().includes("canopy") ||
+            child.name.toLowerCase().includes("awning") ||
+            child.name.toLowerCase().includes("deck") ||
+            child.name.toLowerCase().includes("light") ||
+            child.name.toLowerCase().includes("closet") ||
+            child.name.toLowerCase().includes("dinning") ||
+            child.name.toLowerCase().includes("bed") ||
+            child.name.toLowerCase().includes("dry") ||
+            child.name.toLowerCase().includes("wet") ||
+            child.name.toLowerCase().includes("max") ||
+            child.name.toLowerCase().includes("standard")
+          ) {
+            child.visible = false;
+          }
         });
 
         // add the object to the scene
