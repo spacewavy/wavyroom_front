@@ -42,9 +42,7 @@ const CustomItems: FC<CustomItemsProps> = ({
             <h1>{t("customization.tire-1.heading")}</h1>
           </div>
           <div className="text-[12px] md:text-[14px] lg:text-[16px] font-light text-[#4D4D4D]">
-            {t("customization.tire-1.description.text-1")}
-            <br />
-            {t("customization.tire-1.description.text-2")}
+            {t("customization.tire-1.description")}
           </div>
         </div>
         <div className="flex flex-col">
@@ -54,7 +52,7 @@ const CustomItems: FC<CustomItemsProps> = ({
                 a.order - b.order
             )
             .map((d: any, index: number) => {
-              console.log("item", d);
+              // console.log("item", d);
               return (
                 <CustomizationCard
                   key={`model-${index}`}
