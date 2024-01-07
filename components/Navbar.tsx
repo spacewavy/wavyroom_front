@@ -72,7 +72,7 @@ const Navbar = ({
                 <div className="flex items-center gap-5 lg:gap-16">
                   <div className="w-[100px]">
                     <div
-                      className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
+                      className="text-labelSM font-pretendardNormal cursor-pointer group-[.is-dark]:text-white"
                       onClick={() => openSidebar("model")}
                     >
                       {t("navbar.model")}
@@ -80,7 +80,7 @@ const Navbar = ({
                   </div>
                   <div className="w-[100px]">
                     <div
-                      className="text-labelSM font-normal cursor-pointer group-[.is-dark]:text-white"
+                      className="text-labelSM font-pretendardNormal cursor-pointer group-[.is-dark]:text-white"
                       onClick={() => openSidebar("menu")}
                     >
                       {t("navbar.menu")}
@@ -88,7 +88,7 @@ const Navbar = ({
                   </div>
                   <div className="lg:w-[100px] flex flex-row gap-2 items-center">
                     <div
-                      className={`text-xs font-normal ${
+                      className={`text-xs font-pretendardNormal ${
                         language == "ko"
                           ? isDark
                             ? "text-white"
@@ -102,7 +102,7 @@ const Navbar = ({
                       KOR
                     </div>
                     <div
-                      className={`text-xs font-normal ${
+                      className={`text-xs font-pretendardNormal ${
                         language == "en"
                           ? isDark
                             ? "text-white"

@@ -88,3 +88,21 @@
   src: url("../public/fonts/Pretendard-Light.woff2") format('woff2');
   font-weight: 300;
 }
+
+@font-face {
+  font-family: 'pretendardNormal';
+  src: url("../public/fonts/Pretendard-Medium.woff2") format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'diatype';
+  src: url("../public/fonts/ABC-Diatype-Light.woff") format('woff2');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'diatypeNormal';
+  src: url("../public/fonts/ABC-Diatype.woff") format('woff2');
+  font-weight: 400;
+}
