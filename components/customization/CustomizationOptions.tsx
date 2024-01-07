@@ -62,7 +62,10 @@ const CustomizationOptions: FC<{
           <span className="text-[14px]">{o.name}</span>
           {showPrice &&
             (o.price ? (
-              <span className="text-[10px]">+{o.price.toLocaleString()}원</span>
+              <span className="text-[10px]">
+                +{o.price.toLocaleString()}
+                {t("customization.currency")}
+              </span>
             ) : null)}
         </div>
       </div>

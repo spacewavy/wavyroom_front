@@ -43,6 +43,8 @@ export const FloorCard: FC<option> = ({
   isSelected,
   onClickHandler,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div
       className={`min-h-[70px] flex flex-col justify-center p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
@@ -59,7 +61,10 @@ export const FloorCard: FC<option> = ({
       >
         <span className="text-[14px]">{title}</span>
         {price && Number(price) ? (
-          <span className="text-[10px]">+{price}원</span>
+          <span className="text-[10px]">
+            +{price.toLocaleString()}
+            {t("customization.currency")}
+          </span>
         ) : null}
       </div>
     </div>
