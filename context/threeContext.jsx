@@ -416,7 +416,10 @@ export const ThreeProvider = ({ children }) => {
     const _wavyModel = scene.getObjectByName(WAVY_MODEL);
     if (!_wavyModel) return;
     _wavyModel.traverse((_model) => {
-      if (_model.name.toLowerCase().includes("roof")) {
+      if (
+        _model.name.toLowerCase().includes("roof") ||
+        _model.name.toLowerCase().includes("nova-rf")
+      ) {
         if (_model.visible !== _visible) {
           _model.visible = _visible;
         }

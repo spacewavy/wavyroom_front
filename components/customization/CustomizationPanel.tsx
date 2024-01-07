@@ -375,8 +375,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             />
           </span>
           <span className="block lg:hidden">
-            모듈러건축시스템 기반으로 웨이비룸이라는 주거공간을 만들고 있으며,
-            {"\n"}공간의 제품화에 집중합니다.
+            {t("customization.description")}
           </span>
         </div>
         <div className="px-[24px] md:px-8 pt-4 pb-4 md:pt-8 border-t-[1px] border-[wavyGray]">
