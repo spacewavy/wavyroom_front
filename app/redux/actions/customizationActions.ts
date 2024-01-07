@@ -27,7 +27,7 @@ export const fetchCustomizationOptionsData = (itemId: string) => {
           },
         }
       );
-      console.log("<<<<<<< get data", response.data.data);
+      console.log("<<<<<<< get data", itemId, response.data.data);
       dispatch({
         type: FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
         payload: response.data.data,

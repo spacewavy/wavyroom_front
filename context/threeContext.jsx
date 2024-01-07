@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  CAMERA_VIEW_TYPE,
-  FILE_EXTENSION,
-  OPERATING_SYSTEM,
-  WAVY_MODEL_PATHS,
-  hexToRgb,
-  makeFullUrl,
-} from "@/lib/utils";
+import { CAMERA_VIEW_TYPE, FILE_EXTENSION, hexToRgb } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -24,8 +17,9 @@ import {
   computeBoundsTree,
   disposeBoundsTree,
 } from "three-mesh-bvh";
-import { useLoading } from "./loadingContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchModelData } from "../app/redux/actions/modelActions";
+import axiosInstance from "../api/axioInstance";
 // import Logger from "../utils/logger";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -53,10 +47,15 @@ export const ThreeProvider = ({ children }) => {
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(null);
 
+  const dispatch = useDispatch();
+
   const { data: optionData } = useSelector((state) => state.customization);
+  const { data: modelsData } = useSelector((state) => state.model);
 
   // initialize
   useEffect(() => {
+    dispatch(fetchModelData());
+
     // scene and backgorund
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(0xe5e5e5);
@@ -132,8 +131,9 @@ export const ThreeProvider = ({ children }) => {
   useEffect(() => {
     if (!isEditorLoaded) return;
     if (!currentModelPath) return;
+    if (!modelsData.length) return;
     loadFile(currentModelPath);
-  }, [isEditorLoaded, currentModelPath]);
+  }, [isEditorLoaded, currentModelPath, modelsData]);
 
   // change camera view type
   useEffect(() => {
@@ -158,6 +158,30 @@ export const ThreeProvider = ({ children }) => {
     handleOptionVisibility();
     console.log("option data", optionData);
   }, [optionData]);
+
+  const getCurrentModelId = () => {
+    if (!isEditorLoaded || !currentModelPath) return;
+
+    const currentFileName =
+      currentModelPath.split("/")[currentModelPath.split("/").length - 1];
+
+    if (currentFileName.toLowerCase().includes("mini")) {
+      console.log("mini");
+      return modelsData.find((_model) => _model.name === "Mini").id;
+    } else if (currentFileName.toLowerCase().includes("studio")) {
+      console.log("studio");
+      return modelsData.find((_model) => _model.name === "Studio").id;
+    } else if (currentFileName.toLowerCase().includes("max")) {
+      console.log("max");
+      return modelsData.find((_model) => _model.name === "Max").id;
+    } else if (currentFileName.toLowerCase().includes("evo")) {
+      console.log("evo");
+      return modelsData.find((_model) => _model.name === "Evo").id;
+    } else if (currentFileName.toLowerCase().includes("nova")) {
+      console.log("nova");
+      return modelsData.find((_model) => _model.name === "Nova").id;
+    }
+  };
 
   const deleteCurrentModel = () => {
     const _models = scene.getObjectsByProperty("name", WAVY_MODEL);
@@ -207,14 +231,57 @@ export const ThreeProvider = ({ children }) => {
     _mesh.frustumCulled = false;
   };
 
-  const loadFile = (url) => {
+  const loadFile = async (url) => {
     let loader;
-    if (!url) return;
-    if (isModelLoading) return;
+    if (!url || isModelLoading) return;
+
     const extension = url.split(".")[url.split(".").length - 1];
     if (!extension) {
       return;
     }
+
+    const modelId = getCurrentModelId();
+    console.log("loadfile", modelId);
+
+    let _modelOptionData;
+    let _hideMeshNames = [];
+    try {
+      const response = await axiosInstance.get(
+        `/model/${modelId}/custom-selections`,
+        {
+          headers: {
+            language: "ko",
+          },
+        }
+      );
+      _modelOptionData = response.data.data;
+      _modelOptionData.modelFloorOptions.map((_floor) => {
+        // check normal options
+        _floor.modelSecondOptions.map((_option) => {
+          _option.optionDetails.map((_optionDetail) => {
+            if (!_optionDetail.meshName || _optionDetail.meshName === "-")
+              return;
+            _hideMeshNames.push(_optionDetail.meshName);
+          });
+        });
+
+        // check kitchen options and detail options
+        _floor.ModelKitchenTypes.map((_kitchenType) => {
+          if (!_kitchenType.meshName || _kitchenType.meshName === "-") return;
+          _hideMeshNames.push(_kitchenType.meshName);
+          _kitchenType.options.map((_kitchenTypeOption) => {
+            _kitchenTypeOption.optionDetails.map((_optionDetail) => {
+              if (!_optionDetail.meshName || _optionDetail.meshName === "-")
+                return;
+              _hideMeshNames.push(_optionDetail.meshName);
+            });
+          });
+        });
+      });
+    } catch (e) {
+      console.log("e", e);
+    }
+    console.log(_hideMeshNames);
 
     setIsModelLoading(true);
     setLoadPercent(0);
@@ -370,21 +437,11 @@ export const ThreeProvider = ({ children }) => {
 
         // setup visibility for initial stage
         object.traverse((child) => {
-          if (
-            child.name.toLowerCase().includes("canopy") ||
-            child.name.toLowerCase().includes("awning") ||
-            child.name.toLowerCase().includes("deck") ||
-            child.name.toLowerCase().includes("light") ||
-            child.name.toLowerCase().includes("closet") ||
-            child.name.toLowerCase().includes("dinning") ||
-            child.name.toLowerCase().includes("bed") ||
-            child.name.toLowerCase().includes("dry") ||
-            child.name.toLowerCase().includes("wet") ||
-            child.name.toLowerCase().includes("max") ||
-            child.name.toLowerCase().includes("standard")
-          ) {
-            child.visible = false;
-          }
+          _hideMeshNames.map((_meshName) => {
+            if (child.name === _meshName) {
+              child.visible = false;
+            }
+          });
         });
 
         // add the object to the scene
@@ -420,6 +477,7 @@ export const ThreeProvider = ({ children }) => {
     }
     if (_isSameFile) return;
     setCurrentModelPath(modelPath);
+    console.log("modelPath is", modelPath);
   };
 
   const changeMeshVisibilityByName = (_name, _visible) => {
