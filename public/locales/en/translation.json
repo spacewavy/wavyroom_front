@@ -164,7 +164,8 @@
     },
     "customization-completion": {
       "title": "Congratulations!",
-      "sub-title": "model has been completed.",
+      "customer": "'s",
+      "sub-title": "model\nhas been completed.",
       "mail": "A quotation was sent to"
     },
     "section-2": {
