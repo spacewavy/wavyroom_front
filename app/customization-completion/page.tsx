@@ -226,11 +226,7 @@ const Completion = () => {
       {!isPDfElement ? (
         <div className="bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
           <div className="text-[28px] md:text-[40px] font-light">
-            <span>
-              {t("customization.section-3.heading")}
-              <br />
-              {t("customization.section-3.sub-heading")}
-            </span>
+            <span>{t("customization.section-3")}</span>
           </div>
           <div className="w-full md:w-[80%] lg:w-[33%] mt-4 mb-8">
             <span className="text-[12px] md:text-[16px] font-light">

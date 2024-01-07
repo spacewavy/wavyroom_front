@@ -8,18 +8,22 @@ import { useTranslation } from "react-i18next";
 
 interface SelectColorCardPorps {
   modelColors: ModelColors[];
+  handleColorClick: any;
 }
 
-const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
+const SelectColorCard: FC<SelectColorCardPorps> = ({
+  modelColors,
+  handleColorClick,
+}) => {
   const [selectedColorName, setSelectedColorName] = useState("");
   const { t } = useTranslation();
 
   const { changeModelColorFromHex } = useThree();
   const dispatch = useDispatch();
 
-  const handleColorClick = (id: string) => {
-    dispatch(setCustomizationSelectedColor(id) as unknown as AnyAction);
-  };
+  // const handleColorClick = (id: string) => {
+  //   dispatch(setCustomizationSelectedColor(id) as unknown as AnyAction);
+  // };
 
   useEffect(() => {
     if (modelColors) {
@@ -60,7 +64,13 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
                         borderColor: "rgba(0, 0, 0, 0.1)",
                       }}
                     />
-                      <div className={`absolute bg-black top-0 bottom-0 left-0 right-0  bg-transparent transition-all duration-500 ease ${x.isSelected ? 'border-[1px] border-orange' : 'border-[0]' } rounded-full`} />
+                    <div
+                      className={`absolute bg-black top-0 bottom-0 left-0 right-0  bg-transparent transition-all duration-500 ease ${
+                        x.isSelected
+                          ? "border-[1px] border-orange"
+                          : "border-[0]"
+                      } rounded-full`}
+                    />
                   </div>
                 );
               })}

@@ -334,31 +334,6 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
           </div>
         </div>
         <div className="flex flex-1 flex-col p-8 gap-4">
-          <div
-            className="flex lg:hidden items-center gap-[4px] pt-[4px]"
-            onClick={() => setSelectedListId("")}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <g clip-path="url(#clip0_4597_600)">
-                <path
-                  d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z"
-                  fill="black"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_4597_600">
-                  <rect width="24" height="24" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-            <span className="text-[20px] font-normal">{t("sidebar.menu")}</span>
-          </div>
           <h2 className="text-[20px]">{selectedProduct?.name}</h2>
           <ul className="flex flex-col flex-1 text-xs font-light pb-2">
             <li className="grid grid-cols-4 gap-6 text-sm">

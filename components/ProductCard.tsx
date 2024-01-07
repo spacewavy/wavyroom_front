@@ -54,7 +54,7 @@ const ProductCard = ({
           <Image
             src={makeFullUrl(image)}
             alt="product_image"
-            objectFit="cover"
+            objectFit={location === "models" ? "contain" : "cover"}
             priority
             fill
             unoptimized
@@ -91,11 +91,7 @@ export const ProductAllCard = () => {
     <div className="p-4 md:p-8 border-t aspect-[8/7] md:aspect-[11/6]">
       <div className="flex h-full flex-col items-center justify-center w-full gap-4 p-8 text-white border-r border-gray bg-offBlack">
         <p className="text-center text-[18px] md:text-[28px]">
-          {t("home.card.title.text-1")}
-          <br />
-          {t("home.card.title.text-2")}
-          <br />
-          {t("home.card.title.text-3")}
+          {t("home.card.title")}
         </p>
         <Link href={"/models"}>
           <CommonButton

@@ -11,7 +11,6 @@ export interface PortfolioCardProps {
 
 const PortfolioCard = ({ portfolio }: PortfolioCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("portfolio", portfolio);
   const main = document.getElementById("main");
 
   const handleModalClose = () => {

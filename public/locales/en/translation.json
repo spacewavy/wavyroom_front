@@ -2,26 +2,16 @@
   "home": {
     "section-2": {
       "title": "Wavyroom",
-      "heading": {
-        "text-1": "“Simply order,",
-        "text-2": "and get a quality space”"
-      },
+      "heading": "“Simply order,\nand get a quality space”",
       "description": "Choose the right model for you and create yout own space.",
       "button-text": "Order"
     },
     "section-4": {
       "title": "Our Vision",
-      "heading": {
-        "text-1": "Transformed into",
-        "text-2": "an innovative product"
-      }
+      "heading": "Transformed into\nan innovative product"
     },
     "card": {
-      "title": {
-        "text-1": "It is possible to create various",
-        "text-2": "types of spaces by combining",
-        "text-3": "Wavyroom modules."
-      },
+      "title": "It is possible to create various\ntypes of spaces by combining\nWavyroom modules.",
       "navigation-text": "Product Full View"
     },
     "see-more": "More"
@@ -69,28 +59,16 @@
     "section-2": {
       "title": "Our vision and mission",
       "header": "Movement of culture through commercialization of space",
-      "description": {
-        "desc-1": "We have developed a better approach in construction methods, prioritizing certainty in design and ensuring uncompromised quality.",
-        "desc-2": "From our self-owned production facilities to project management services and installation sites, our team possesses the knowledge and experience to design and execute modular spaces. Since 2019, we have started supplying doemstically and are currently exporting to international markets, placing customers at the center of this entire process. We aim to redefine the meaning of ‘home’ and create permanent spaces through productization."
-      }
+      "description": "We have developed a better approach in construction methods, prioritizing certainty in design and ensuring uncompromised quality.\n\nFrom our self-owned production facilities to project management services and installation sites, our team possesses the knowledge and experience to design and execute modular spaces. Since 2019, we have started supplying doemstically and are currently exporting to international markets, placing customers at the center of this entire process. We aim to redefine the meaning of ‘home’ and create permanent spaces through productization."
     },
     "section-3": {
       "title": "Our products",
-      "header": {
-        "text-1": "Carefully designed,",
-        "text-2": "perfectly constructed space"
-      },
-      "description": {
-        "desc-1": "We envision a future where everyone has a better home. Everyone living in a meticulously designed and well-built dwelling that inspires, functions seamlessly, and considers the environment, we aspire to a world where our living splaces enhance our lives.",
-        "desc-2": "Wavyroom inspires you to reimagine the potential of every site, offering beautiful and flexible spaces tailored to your lifestyle. Whether it’s a second home for relaxation, a guest home for inviting friends and family to share happy moments, or a space for additional income through commercialization, such as offices or F&B ventures, Wavyroom is committed to providing spaces that align with you, both now and in the future."
-      }
+      "header": "Carefully designed,\nperfectly constructed space",
+      "description": "We envision a future where everyone has a better home. Everyone living in a meticulously designed and well-built dwelling that inspires, functions seamlessly, and considers the environment, we aspire to a world where our living splaces enhance our lives.\n\nWavyroom inspires you to reimagine the potential of every site, offering beautiful and flexible spaces tailored to your lifestyle. Whether it’s a second home for relaxation, a guest home for inviting friends and family to share happy moments, or a space for additional income through commercialization, such as offices or F&B ventures, Wavyroom is committed to providing spaces that align with you, both now and in the future."
     },
     "section-4": {
       "title": "Our value",
-      "header": {
-        "text-1": "Easy Construction Process",
-        "text-2": "A valuable residential space"
-      },
+      "header": "Easy Construction Process\nA valuable residential space",
       "description": "Technology has transformed industries, and the construction sector is no exception. We have now created better methods for building homes. We prioritize transparency in pricing and certainty in design, refusing to compromise on quality. We produce a meticulously crafted product - a high-quality “home” with impeccable completion.",
       "list-1": {
         "heading": "Constant and high quality production",
@@ -111,10 +89,7 @@
     }
   },
   "how-to-order": {
-    "heading": {
-      "text-1": "Create your own space with ease.",
-      "text-2": "Explore the manufacturing process of Wavyroom."
-    },
+    "heading": "Create your own space with ease.\nExplore the manufacturing process of Wavyroom.",
     "card-1": {
       "period": "1 day",
       "heading": "Advancing the contract",
@@ -162,12 +137,10 @@
     "select-floor-type": "Please select a floor type",
     "exterior-color": "Exterior material color",
     "multiple-selection": "Select multiple items",
+    "kitchen": "Kitchen",
     "tire-1": {
       "heading": "Wavyroom",
-      "description": {
-        "text-1": "Wavyroom is teeming with vitality.",
-        "text-2": "Choose the model that suits you and customize it."
-      },
+      "description": "Wavyroom is teeming with vitality.\nChoose the model that suits you and customize it.",
       "next": "Next"
     },
     "popup": {
@@ -200,10 +173,7 @@
       "price-symbol": "₩",
       "button-text": "Home"
     },
-    "section-3": {
-      "heading": "Please await contact from",
-      "sub-heading": "Wavyroom."
-    }
+    "section-3": "Please await contact from\nWavyroom."
   },
   "contact-us": {
     "section-1": {
@@ -217,16 +187,9 @@
       "heading-2": "Operating Hours ",
       "para-2": "Mon~Fri: 09:00 ~ 18:00",
       "heading-3": "Office Address",
-      "para-3": {
-        "text-1": "HQ: 17-10 Cheongdam-dong, Gangnam-gu, Seoul",
-        "text-2": "Factory: 1088-6, Jeongok-ri, Seosin-myeon, Hwaseong-si, Gyeonggi-do"
-      },
+      "para-3": "HQ: 17-10 Cheongdam-dong, Gangnam-gu, Seoul\nFactory: 1088-6, Jeongok-ri, Seosin-myeon, Hwaseong-si, Gyeonggi-do",
       "heading-4": "Product & Partnership Inquiries",
-      "para-4": {
-        "text-1": "Product inquiry",
-        "text-2": "Business | Partnership Inquiry",
-        "text-3": "Recruitment Inquiry"
-      }
+      "para-4": "Product inquiry\nhello@spacewavy.com\n\nBusiness | Partnership Inquiry\ninfo@spacewavy.com\n\nRecruitment Inquiry\n\ncareer@spacewavy.com"
     },
     "section-2": {
       "title": "Frequently Asked Question"

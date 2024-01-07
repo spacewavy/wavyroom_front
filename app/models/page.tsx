@@ -35,7 +35,7 @@ const Models = () => {
                 <ProductCard
                   key={index}
                   id={item.id}
-                  image={item.representativeImageURL}
+                  image={item.representativeNoBGImageURL}
                   name={item.name}
                   value={item.minPrice}
                   purpose={item.purpose[0]}

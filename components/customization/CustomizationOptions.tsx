@@ -7,7 +7,6 @@ import {
   OptionDetail,
 } from "@/app/redux/types";
 import React, { FC } from "react";
-import { useThree } from "../../context/threeContext";
 import { useTranslation } from "react-i18next";
 
 export interface option {
@@ -112,32 +111,46 @@ const CustomizationOptions: FC<{
   };
 
   const renderKitchenTypes = () => {
-    return customizationOptions?.ModelKitchenTypes.map(
-      (o: ModelKitchenType, index) => {
-        return (
-          <section
-            className=""
-            key={`opt-${index}`}
-            onClick={() => {
-              handleKitchenTypeSelect(o.name);
-            }}
-          >
-            <div
-              className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
-                o?.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
-              }`}
-            >
-              <div
-                className={`flex flex-col gap-2 font-medium text-jetBlack ${
-                  o?.isSelected ? "text-jetBlack" : "text-gray"
-                }`}
-              >
-                <span className="text-[14px]">{o.name}</span>
-              </div>
-            </div>
-          </section>
-        );
-      }
+    if (
+      !customizationOptions?.ModelKitchenTypes ||
+      !customizationOptions?.ModelKitchenTypes.length
+    )
+      return;
+    return (
+      <div className="flex flex-col pt-4 px-8 gap-2 mb-8">
+        <span className="optionName text-[14px] font-normal text-jetBlack">
+          {t("customization.kitchen")}
+        </span>
+        <div className="grid grid-cols-2 gap-2 ">
+          {customizationOptions?.ModelKitchenTypes.map(
+            (o: ModelKitchenType, index) => {
+              return (
+                <section
+                  className=""
+                  key={`opt-${index}`}
+                  onClick={() => {
+                    handleKitchenTypeSelect(o.name);
+                  }}
+                >
+                  <div
+                    className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+                      o?.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
+                    }`}
+                  >
+                    <div
+                      className={`flex flex-col gap-2 font-medium text-jetBlack ${
+                        o?.isSelected ? "text-jetBlack" : "text-gray"
+                      }`}
+                    >
+                      <span className="text-[14px]">{o.name}</span>
+                    </div>
+                  </div>
+                </section>
+              );
+            }
+          )}
+        </div>
+      </div>
     );
   };
 
@@ -207,9 +220,7 @@ const CustomizationOptions: FC<{
   return (
     <section>
       <div className="flex flex-col">{renderModelSecondOption()}</div>
-      <div className="grid grid-cols-2 gap-2 pt-4 px-8">
-        {renderKitchenTypes()}
-      </div>
+      {renderKitchenTypes()}
       {renderKitchenDetailOptions()}
     </section>
   );

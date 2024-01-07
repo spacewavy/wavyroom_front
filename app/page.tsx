@@ -170,8 +170,7 @@ const Home = () => {
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
         <Label>{t("home.section-2.title")}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG my-2 ml-[-1px]">
-          {t("home.section-2.heading.text-1")} <br />{" "}
-          {t("home.section-2.heading.text-2")}
+          {t("home.section-2.heading")}
         </h1>
         <p className="font-light text-bodySM md:text-[14px] lg:text-bodyLG">
           {t("home.section-2.description")}
@@ -192,8 +191,7 @@ const Home = () => {
       <section className="px-4 py-8 md:px-8 md:py-8 lg:px-8 lg:py-16">
         <Label>{t("home.section-4.title")}</Label>
         <h1 className="font-light text-displaySM md:text-displayMD lg:text-displayLG">
-          {t("home.section-4.heading.text-1")} <br />{" "}
-          {t("home.section-4.heading.text-2")}
+          {t("home.section-4.heading")}
         </h1>
       </section>
       <section className="grid w-full grid-cols-1 lg:grid-cols-2">

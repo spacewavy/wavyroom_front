@@ -188,10 +188,7 @@ const About = () => {
                 </div>
               </div>
               <div className="text-bodySM md:text-bodyMD lg:text-bodyLG">
-                {t("about-us.section-2.description.desc-1")}
-                <br />
-                <br />
-                {t("about-us.section-2.description.desc-2")}
+                {t("about-us.section-2.description")}
               </div>
               <div className="w-full">
                 <Image
@@ -209,16 +206,11 @@ const About = () => {
         <div className="flex flex-1 flex-col md:flex-row">
           <div className="flex flex-1 flex-col lg:flex-row gap-4">
             <div className="lg:flex lg:flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-              {t("about-us.section-3.header.text-1")}
-              <br />
-              {t("about-us.section-3.header.text-2")}
+              {t("about-us.section-3.header")}
             </div>
             <div className="lg:flex lg:flex-1">
               <div className="max-w-[564px] text-bodySM md:text-bodyMD lg:text-bodyLG">
-                {t("about-us.section-3.description.desc-1")}
-                <br />
-                <br />
-                {t("about-us.section-3.description.desc-2")}
+                {t("about-us.section-3.description")}
               </div>
             </div>
           </div>
@@ -248,9 +240,7 @@ const About = () => {
           <Label>{t("about-us.section-4.title")}</Label>
           <div className="flex flex-1 flex-col md:flex-row gap-6 md:gap-4">
             <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
-              {t("about-us.section-4.header.text-1")}
-              <br />
-              {t("about-us.section-4.header.text-2")}
+              {t("about-us.section-4.header")}
             </div>
             <div className="flex flex-1 flex-col gap-8">
               <div className="text-[12px] md:text-[14px] lg:text-[16px]">

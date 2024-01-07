@@ -19,24 +19,24 @@ const Footer = () => {
   return (
     <footer className="w-full flex flex-col gap-16 items-start justify-evenly lg:justify-between bg-offBlack bottom-0 sm:py-[2.06rem] sm:px-8 px-4 py-8">
       <nav className="flex w-full gap-6 text-white text-labelSM sm:text-labelMD">
-        <Link href="/models">{t('footer.section-1-links.link-1')}</Link>
-        <Link href="/about">{t('footer.section-1-links.link-2')}</Link>
-        <Link href="/contact-us">{t('footer.section-1-links.link-3')}</Link>
-        <Link href="#">{t('footer.section-1-links.link-4')}</Link>
+        <Link href="/models">{t("footer.section-1-links.link-1")}</Link>
+        <Link href="/about">{t("footer.section-1-links.link-2")}</Link>
+        <Link href="/contact-us">{t("footer.section-1-links.link-3")}</Link>
+        <Link href="#">{t("footer.section-1-links.link-4")}</Link>
       </nav>
       <section className="flex flex-col w-full gap-8">
         <p className="w-48 font-light sm:w-56 text-bodySM sm:text-bodyMD text-darkGray">
-          {t('footer.section-2.company-name.name')}
+          {t("footer.section-2.company-name.name")}
           <br />
-          {t('footer.section-2.ceo-name.name')}
+          {t("footer.section-2.ceo-name.name")}
           <br />
-          {t('footer.section-2.address.add')}
+          {t("footer.section-2.address.add")}
           <br />
-          {t('footer.section-2.registration-no.text')}
+          {t("footer.section-2.registration-no.text")}
           <br />
-          {t('footer.section-2.phone-no.ph')}
+          {t("footer.section-2.phone-no.ph")}
           <br />
-          {t('footer.section-2.email.mail')}
+          {t("footer.section-2.email.mail")}
         </p>
         <div className="flex flex-row items-end justify-between gap-3 lg:gap-20">
           <div className="flex flex-1 flex-col lg:flex-row justify-between gap-8">
@@ -67,11 +67,12 @@ const Footer = () => {
               </Link>
             </nav>
             <p className="hidden md:flex flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
-              Copyright @ 2024 Spacewavy Co., Ltd. {t('footer.section-3.copy-right')}.
+              Copyright @ 2024 Spacewavy Co., Ltd.{" "}
+              {t("footer.section-3.copy-right")}.
             </p>
             <p className="flex md:hidden flex-1 order-2 text-white text-labelSM sm:text-labelMD lg:order-1">
-              Copyright @<br />
-              2024 Spacewavy Co., Ltd. {t('footer.section-3.copy-right')}.
+              Copyright @{"\n"}
+              2024 Spacewavy Co., Ltd. {t("footer.section-3.copy-right")}.
             </p>
           </div>
           <CommonButton
