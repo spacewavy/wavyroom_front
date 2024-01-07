@@ -254,6 +254,7 @@ export const ThreeProvider = ({ children }) => {
           },
         }
       );
+      console.log("<<<", response.data.data);
       _modelOptionData = response.data.data;
       _modelOptionData.modelFloorOptions.map((_floor) => {
         // check normal options
