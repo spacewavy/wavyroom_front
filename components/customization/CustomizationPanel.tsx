@@ -45,7 +45,7 @@ export const FloorCard: FC<option> = ({
 }) => {
   return (
     <div
-      className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+      className={`min-h-[70px] flex flex-col justify-center p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
         isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
       }`}
       onClick={() => {
@@ -58,7 +58,9 @@ export const FloorCard: FC<option> = ({
         }`}
       >
         <span className="text-[14px]">{title}</span>
-        <span className="text-[10px]">+{price}원</span>
+        {price && Number(price) ? (
+          <span className="text-[10px]">+{price}원</span>
+        ) : null}
       </div>
     </div>
   );
