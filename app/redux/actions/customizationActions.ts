@@ -28,9 +28,57 @@ export const fetchCustomizationOptionsData = (itemId: string) => {
         }
       );
       console.log("<<<<<<< get data", itemId, response.data.data);
+      // setup initial data
+      const payload = response.data.data;
+
       dispatch({
         type: FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
-        payload: response.data.data,
+        payload: {
+          ...payload,
+          modelColors: payload.modelColors.map((_color: any) => {
+            return { ..._color, isSelected: _color.isDefault };
+          }),
+          modelFloorOptions: payload.modelFloorOptions.map((_floor: any) => {
+            return {
+              ..._floor,
+              ModelKitchenTypes: _floor.ModelKitchenTypes.map(
+                (_kitchenType: any) => {
+                  return {
+                    ..._kitchenType,
+                    options: _kitchenType.options.map((_option: any) => {
+                      return {
+                        ..._option,
+                        optionDetails: _option.optionDetails.map(
+                          (_optionDetail: any) => {
+                            return {
+                              ..._optionDetail,
+                              isSelected: _optionDetail.isDefault,
+                            };
+                          }
+                        ),
+                      };
+                    }),
+                  };
+                }
+              ),
+              modelSecondOptions: _floor.modelSecondOptions.map(
+                (_secondOption: any) => {
+                  return {
+                    ..._secondOption,
+                    optionDetails: _secondOption.optionDetails.map(
+                      (_optionDetail: any) => {
+                        return {
+                          ..._optionDetail,
+                          isSelected: _optionDetail.isDefault,
+                        };
+                      }
+                    ),
+                  };
+                }
+              ),
+            };
+          }),
+        },
       });
     } catch (error: any) {
       dispatch({
