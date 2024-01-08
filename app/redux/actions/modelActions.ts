@@ -26,7 +26,6 @@ export const fetchModelData = () => {
           language: language,
         },
       });
-      console.log("<>><<<<", response.data.data);
       dispatch({
         type: FETCH_MODEL_DATA_SUCCESS,
         payload: response.data.data,

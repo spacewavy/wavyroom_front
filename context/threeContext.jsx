@@ -162,7 +162,6 @@ export const ThreeProvider = ({ children }) => {
   useEffect(() => {
     handleOptionVisibility();
     handleModelColor();
-    console.log("option data", optionData);
   }, [optionData]);
 
   const getCurrentModelId = () => {
@@ -172,19 +171,14 @@ export const ThreeProvider = ({ children }) => {
       currentModelPath.split("/")[currentModelPath.split("/").length - 1];
 
     if (currentFileName.toLowerCase().includes("mini")) {
-      console.log("mini");
       return modelsData.find((_model) => _model.name === "Mini").id;
     } else if (currentFileName.toLowerCase().includes("studio")) {
-      console.log("studio");
       return modelsData.find((_model) => _model.name === "Studio").id;
     } else if (currentFileName.toLowerCase().includes("max")) {
-      console.log("max");
       return modelsData.find((_model) => _model.name === "Max").id;
     } else if (currentFileName.toLowerCase().includes("evo")) {
-      console.log("evo");
       return modelsData.find((_model) => _model.name === "Evo").id;
     } else if (currentFileName.toLowerCase().includes("nova")) {
-      console.log("nova");
       return modelsData.find((_model) => _model.name === "Nova").id;
     }
   };
@@ -228,7 +222,6 @@ export const ThreeProvider = ({ children }) => {
     setRoofMeshs([]);
 
     const modelId = getCurrentModelId();
-    console.log("loadfile", modelId);
 
     let _modelOptionData;
     let _hideMeshNames = [];
@@ -242,7 +235,6 @@ export const ThreeProvider = ({ children }) => {
           },
         }
       );
-      console.log("<<<", response.data.data);
       _modelOptionData = response.data.data;
       // model color part visibility
       _modelOptionData.modelColors.map((_modelColor) => {
@@ -269,7 +261,6 @@ export const ThreeProvider = ({ children }) => {
         // check kitchen options and detail options
         _floor.ModelKitchenTypes.map((_kitchenType) => {
           if (!_kitchenType.meshName || _kitchenType.meshName === "-") return;
-          console.log(_kitchenType);
           _kitchenType.isDefault
             ? null
             : _hideMeshNames.push(_kitchenType.meshName);
@@ -286,7 +277,6 @@ export const ThreeProvider = ({ children }) => {
     } catch (e) {
       console.log("e", e);
     }
-    console.log(_hideMeshNames);
 
     deleteCurrentModel();
     switch (extension) {
@@ -476,7 +466,6 @@ export const ThreeProvider = ({ children }) => {
     }
     if (_isSameFile) return;
     setCurrentModelPath(modelPath);
-    console.log("modelPath is", modelPath);
   };
 
   const changeMeshVisibilityByName = (_name, _visible) => {
@@ -485,7 +474,6 @@ export const ThreeProvider = ({ children }) => {
     if (!_model) return;
     const visibility = !!_visible;
     if (_model.visible === visibility) return;
-    console.log("changed visibility", _model.name, visibility);
     _model.visible = visibility;
   };
 

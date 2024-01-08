@@ -34,10 +34,6 @@ const ProductCarousel = () => {
     dispatch(fetchMainCarouselData() as unknown as AnyAction);
   }, [language]);
 
-  useEffect(() => {
-    console.log("carouselData", carouselData);
-  }, [carouselData]);
-
   if (error || !carouselData.length) return;
   return (
     <div className="embla-mobile md:embla p-0">
