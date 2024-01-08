@@ -22,6 +22,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchModelData } from "../app/redux/actions/modelActions";
 import axiosInstance from "../api/axioInstance";
+import { customizationOptionChangeByMeshName } from "../app/redux/actions/customizationActions";
 // import Logger from "../utils/logger";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -243,12 +244,14 @@ export const ThreeProvider = ({ children }) => {
       );
       console.log("<<<", response.data.data);
       _modelOptionData = response.data.data;
+      // model color part visibility
       _modelOptionData.modelColors.map((_modelColor) => {
         if (_modelColor.isDefault) return;
         _modelColor?.meshNames.map((_meshName) => {
           _hideMeshNames.push(_meshName);
         });
       });
+
       _modelOptionData.modelFloorOptions.map((_floor) => {
         // check normal options
         _floor.modelSecondOptions.map((_option) => {
@@ -272,12 +275,9 @@ export const ThreeProvider = ({ children }) => {
             : _hideMeshNames.push(_kitchenType.meshName);
           _kitchenType.options.map((_kitchenTypeOption) => {
             _kitchenTypeOption.optionDetails.map((_optionDetail) => {
-              if (
-                !_optionDetail.meshName ||
-                _optionDetail.meshName === "-" ||
-                _optionDetail.isDefault
-              )
+              if (!_optionDetail.meshName || _optionDetail.meshName === "-")
                 return;
+              if (_kitchenType.isDefault && _optionDetail.isDefault) return;
               _hideMeshNames.push(_optionDetail.meshName);
             });
           });
@@ -642,6 +642,13 @@ export const ThreeProvider = ({ children }) => {
         _kitchen.meshName,
         _isKitchenSelected ? _kitchen.isSelected : _kitchen.isDefault
       );
+      // data를 바꿔야 하는데
+      if (_kitchen.isSelected) {
+        _kitchen.blockMeshNames.map((_blockMeshName) => {
+          // changeMeshVisibilityByName(_blockMeshName, false);
+          dispatch(customizationOptionChangeByMeshName(_blockMeshName, false));
+        });
+      }
       const { options } = _kitchen;
       if (!options.length) return;
       options.map((_option) => {
@@ -653,9 +660,11 @@ export const ThreeProvider = ({ children }) => {
         optionDetails.map((_kitchenOptionDetail) => {
           changeMeshVisibilityByName(
             _kitchenOptionDetail.meshName,
-            _isKitchenOptionDetailSelected
-              ? _kitchenOptionDetail.isSelected
-              : _kitchenOptionDetail.isDefault
+            _kitchen.isSelected
+              ? _isKitchenOptionDetailSelected
+                ? _kitchenOptionDetail.isSelected
+                : _kitchenOptionDetail.isDefault
+              : false
           );
         });
       });

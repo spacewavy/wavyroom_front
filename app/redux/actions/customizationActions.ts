@@ -14,6 +14,8 @@ export const SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE =
 export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE =
   "SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE";
 export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
+export const UPDATE_CUSTOMIZATION_OPTION_BY_NAME =
+  "UPDATE_CUSTOMIZATION_OPTION_BY_NAME";
 
 export const fetchCustomizationOptionsData = (itemId: string) => {
   return async (dispatch: any, getState: any) => {
@@ -145,6 +147,18 @@ export const navigateToSettings = (value: boolean) => {
     dispatch({
       type: SET_NAVIGATE_TO_SETTINGS,
       payload: value,
+    });
+  };
+};
+
+export const customizationOptionChangeByMeshName = (
+  meshName: string,
+  visible: boolean
+) => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: UPDATE_CUSTOMIZATION_OPTION_BY_NAME,
+      payload: { meshName, visible },
     });
   };
 };
