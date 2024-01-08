@@ -34,28 +34,36 @@ const ProductCarousel = () => {
     dispatch(fetchMainCarouselData() as unknown as AnyAction);
   }, [language]);
 
+  useEffect(() => {
+    console.log("carouselData", carouselData);
+  }, [carouselData]);
+
   if (error || !carouselData.length) return;
   return (
     <div className="embla p-0">
       <div className="embla__viewport relative" ref={emblaRef}>
         <div className="embla__container">
-          {carouselData.map((c: MainCarouselItem) => {
-            return (
-              <div
-                className="embla__slide"
-                key={`product-carosel-${c.imageURL}`}
-              >
-                <div className="relative w-full aspect-[16/9]">
-                  <Image
-                    layout="fill"
-                    objectFit="cover"
-                    src={makeFullUrl(c.imageURL)}
-                    alt="carousel-image"
-                  />
+          {carouselData
+            .sort(
+              (a: MainCarouselItem, b: MainCarouselItem) => a.order - b.order
+            )
+            .map((c: MainCarouselItem) => {
+              return (
+                <div
+                  className="embla__slide"
+                  key={`product-carosel-${c.imageURL}`}
+                >
+                  <div className="relative w-full aspect-[16/9]">
+                    <Image
+                      layout="fill"
+                      objectFit="cover"
+                      src={makeFullUrl(c.imageURL)}
+                      alt="carousel-image"
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
         <div className="flex flex-col items-center justify-between gap-8 pt-8">
           <div className="flex gap-[4px] text-[12px] md:text-[14px] lg:text-[16px] font-light">
