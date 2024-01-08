@@ -433,6 +433,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const renderPreview = () => {
+    console.log(data);
     return (
       <section className="cursor-pointer">
         <div className="p-8">
@@ -444,7 +445,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
           <span className="text-[14px] font-normal">
             {t("customization.summery.model-type")}
           </span>
-          <span className="text-[12px] font-light">Wavyroom Evo</span>
+          <span className="text-[12px] font-light">{data.name}</span>
         </div>
         <div className="px-8 py-4 flex justify-between">
           <span className="text-[14px] font-normal">
