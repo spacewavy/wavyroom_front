@@ -48,6 +48,7 @@ export const ThreeProvider = ({ children }) => {
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(null);
+  const [roofMeshs, setRoofMeshs] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -223,6 +224,7 @@ export const ThreeProvider = ({ children }) => {
     }
     setIsModelLoading(true);
     setLoadPercent(0);
+    setRoofMeshs([]);
 
     const modelId = getCurrentModelId();
     console.log("loadfile", modelId);
@@ -344,16 +346,6 @@ export const ThreeProvider = ({ children }) => {
               _obj.name.toLowerCase().includes("deck") ||
               _obj.name.toLowerCase().includes("roof");
 
-            // setting roof visiblity by cameraViewType
-            if (
-              (cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
-                cameraViewType === CAMERA_VIEW_TYPE.INNER_2) &&
-              (_obj.name.toLowerCase().includes("roof") ||
-                _obj.name.toLowerCase().includes("nova-rf"))
-            ) {
-              _obj.visible = false;
-            }
-
             _obj.traverse((child) => {
               child.castShadow = true;
 
@@ -449,6 +441,9 @@ export const ThreeProvider = ({ children }) => {
         // add the object to the scene
         scene.add(object);
 
+        // setting roof visiblity by cameraViewType
+        changeRoofVisibility(cameraViewType === CAMERA_VIEW_TYPE.OUTER);
+
         setTimeout(() => {
           setLoadPercent(100);
           setTimeout(() => {
@@ -492,21 +487,32 @@ export const ThreeProvider = ({ children }) => {
     _model.visible = visibility;
   };
 
-  const changeRoofVisibility = (_visible) => {
+  const changeRoofVisibility = async (_visible) => {
     if (!isEditorLoaded) return;
     const _wavyModel = scene.getObjectByName(WAVY_MODEL);
     if (!_wavyModel) return;
-    _wavyModel.traverse((_model) => {
-      if (
-        _model.name.toLowerCase().includes("roof") ||
-        _model.name.toLowerCase().includes("nova-rf") ||
-        _model.name.toLowerCase().includes("mid")
-      ) {
-        if (_model.visible !== _visible) {
-          _model.visible = _visible;
+    if (_visible) {
+      if (!roofMeshs.length) return;
+      roofMeshs.map((_roof) => {
+        changeMeshVisibilityByName(_roof.name, true);
+      });
+    } else {
+      // turn off
+      let _arr = [];
+      _wavyModel.traverse((_model) => {
+        if (
+          _model.name.toLowerCase().includes("roof") ||
+          _model.name.toLowerCase().includes("nova-rf") ||
+          _model.name.toLowerCase().includes("mid")
+        ) {
+          if (_model.visible !== _visible) {
+            _model.visible = _visible;
+            _arr.push(_model);
+          }
         }
-      }
-    });
+      });
+      setRoofMeshs([..._arr]);
+    }
   };
 
   const changeModelColorFromHex = (_color) => {
