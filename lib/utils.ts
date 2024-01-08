@@ -25,6 +25,7 @@ export const FILE_EXTENSION = {
   USDZ: "usdz",
   JSON: "json",
   PLY: "ply",
+  RHINO: "3dm",
 };
 
 export const OPERATING_SYSTEM = {

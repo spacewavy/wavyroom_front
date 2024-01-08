@@ -10,6 +10,8 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { USDZLoader } from "three/examples/jsm/loaders/USDZLoader";
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader.js";
+import { Rhino3dmLoader } from "three/addons/loaders/3DMLoader.js";
+
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import {
@@ -86,7 +88,8 @@ export const ThreeProvider = ({ children }) => {
     _directionalLight.shadow.bias = -0.0001;
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
-    _scene.add(_ambientLight, _hemisphereLight);
+    _scene.add(_ambientLight);
+    _scene.add(_hemisphereLight);
 
     // camera
     const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
@@ -156,6 +159,7 @@ export const ThreeProvider = ({ children }) => {
   // change the mesh visibility from optionData
   useEffect(() => {
     handleOptionVisibility();
+    handleModelColor();
     console.log("option data", optionData);
   }, [optionData]);
 
@@ -209,28 +213,6 @@ export const ThreeProvider = ({ children }) => {
     }
   };
 
-  const changeMeshColor = async (_mesh, _color) => {
-    if (!_mesh) return;
-    const newColor =
-      typeof _color === "string"
-        ? new THREE.Color(_color)
-        : new THREE.Color(
-            _color.rgba.r / 255,
-            _color.rgba.g / 255,
-            _color.rgba.b / 255
-          );
-    const material = _mesh.material;
-    if (material.length) {
-      material.map((item) => {
-        item.color = newColor;
-      });
-    } else {
-      material.color = newColor;
-    }
-    _mesh.material = material;
-    _mesh.frustumCulled = false;
-  };
-
   const loadFile = async (url) => {
     let loader;
     if (!url || isModelLoading) return;
@@ -239,6 +221,8 @@ export const ThreeProvider = ({ children }) => {
     if (!extension) {
       return;
     }
+    setIsModelLoading(true);
+    setLoadPercent(0);
 
     const modelId = getCurrentModelId();
     console.log("loadfile", modelId);
@@ -246,6 +230,7 @@ export const ThreeProvider = ({ children }) => {
     let _modelOptionData;
     let _hideMeshNames = [];
     try {
+      // todo: default option은 끄면 안됨
       const response = await axiosInstance.get(
         `/model/${modelId}/custom-selections`,
         {
@@ -282,10 +267,6 @@ export const ThreeProvider = ({ children }) => {
     } catch (e) {
       console.log("e", e);
     }
-    console.log(_hideMeshNames);
-
-    setIsModelLoading(true);
-    setLoadPercent(0);
 
     deleteCurrentModel();
     switch (extension) {
@@ -308,6 +289,10 @@ export const ThreeProvider = ({ children }) => {
         break;
       case FILE_EXTENSION.PLY:
         loader = new PLYLoader();
+        break;
+      case FILE_EXTENSION.RHINO:
+        loader = new Rhino3dmLoader();
+        loader.setLibraryPath("https://unpkg.com/rhino3dm@8.0.1/");
         break;
       default:
         loader = new FBXLoader();
@@ -487,6 +472,7 @@ export const ThreeProvider = ({ children }) => {
     if (!_model) return;
     const visibility = !!_visible;
     if (_model.visible === visibility) return;
+    console.log("changed visibility", _model.name, visibility);
     _model.visible = visibility;
   };
 
@@ -583,6 +569,27 @@ export const ThreeProvider = ({ children }) => {
     cameraControls.maxPolarAngle = Math.PI / 2;
   };
 
+  const handleModelColor = () => {
+    if (!optionData.modelColors.length) return;
+    const isSelected = optionData.modelColors.find(
+      (_modelColor) => _modelColor.isSelected
+    );
+    optionData.modelColors.map((_modelColor) => {
+      if (!_modelColor?.meshNames) return;
+      _modelColor?.meshNames.map((_meshName) => {
+        changeMeshVisibilityByName(_meshName, _modelColor.isSelected);
+      });
+    });
+    if (!isSelected) {
+      const initColor = optionData.modelColors.find(
+        (_modelColor) => _modelColor.isDefault
+      );
+      initColor.meshNames.map((_meshName) => {
+        changeMeshVisibilityByName(_meshName, true);
+      });
+    }
+  };
+
   const handleOptionVisibility = () => {
     // read option changes
     if (!optionData.modelFloorOptions.length) return;
@@ -630,7 +637,6 @@ export const ThreeProvider = ({ children }) => {
         cameraControls,
         renderer,
         clock,
-        changeMeshColor,
         deleteMeshByMesh,
         loadFile,
         changeModel,
