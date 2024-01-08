@@ -58,7 +58,13 @@ export const fetchCustomizationOptionsDataReducer = (
       });
       return {
         ...state,
-        data: { ...state.data, modelFloorOptions: changedFloor },
+        data: {
+          ...state.data,
+          modelFloorOptions: changedFloor,
+          modelColors: state.data.modelColors.map((_modelColor) => {
+            return { ..._modelColor, isSelected: false };
+          }),
+        },
         error: action.payload,
       };
     case SET_CUSTOMIZATION_OPTION_CHANGE: {
@@ -162,7 +168,10 @@ export const fetchCustomizationOptionsDataReducer = (
 
       return {
         ...state,
-        data: { ...state.data, modelFloorOptions: updateFloorOptions },
+        data: {
+          ...state.data,
+          modelFloorOptions: updateFloorOptions,
+        },
         error: action.payload,
       };
     }
