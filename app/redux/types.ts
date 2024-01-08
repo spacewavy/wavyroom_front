@@ -19,6 +19,7 @@ export interface MainCarouselItem {
   modelName: string;
   imageURL: string;
   purpose: string;
+  order: number;
 }
 
 export interface FetchMainCarouselData {
