@@ -295,7 +295,9 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0 ${
-          selectedListId ? "lg:w-[100vw] overflow-y-auto overflow-x-hidden" : "lg:w-0 overflow-hidden"
+          selectedListId
+            ? "lg:w-[100vw] overflow-y-auto overflow-x-hidden"
+            : "lg:w-0 overflow-hidden"
         } , ${
           selectedListId && selectedMenuId
             ? "translate-x-[-200%]"
@@ -341,7 +343,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <div className="flex flex-1 flex-col p-8 gap-4">
           <h2 className="text-[20px]">{selectedProduct?.name}</h2>
           <ul className="flex flex-col flex-1 text-xs font-light pb-2">
-            <li className="grid grid-cols-4 gap-6 text-sm">
+            <li className="grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
               <div className="flex flex-col gap-2">
                 <span className="font-pretendardNormal">
                   {t("sidebar.details.price")}

@@ -48,7 +48,6 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
     setRenderClientSideComponent(true);
   }, []);
   const { language } = useSelector((state: any) => state.locale);
-  console.log("--", pretendard.className);
 
   return (
     <I18nextProvider i18n={i18n}>

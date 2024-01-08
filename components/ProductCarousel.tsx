@@ -40,7 +40,7 @@ const ProductCarousel = () => {
 
   if (error || !carouselData.length) return;
   return (
-    <div className="embla p-0">
+    <div className="embla-mobile md:embla p-0">
       <div className="embla__viewport relative" ref={emblaRef}>
         <div className="embla__container">
           {carouselData
