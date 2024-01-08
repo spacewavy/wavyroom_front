@@ -39,9 +39,9 @@ export const fetchCustomizationOptionsDataReducer = (
     case SET_CUSTOMIZATION_SELECTED_COLOR:
       const updatedModelColors = state.data.modelColors.map((color) => {
         if (color.id === action.payload) {
-          return { ...color, isSelected: true, isDefault: false };
+          return { ...color, isSelected: true };
         }
-        return { ...color, isSelected: false, isDefault: false };
+        return { ...color, isSelected: false };
       });
       return {
         ...state,
@@ -73,7 +73,7 @@ export const fetchCustomizationOptionsDataReducer = (
                     opt.order === action.payload.order
                       ? {
                           ...opt,
-                          isSelected: opt.isDefault ? true : !opt.isSelected,
+                          isSelected: !opt.isSelected,
                         }
                       : opt
                   )
@@ -81,9 +81,9 @@ export const fetchCustomizationOptionsDataReducer = (
                     opt.order === action.payload.order
                       ? {
                           ...opt,
-                          isSelected: opt.isDefault ? true : !opt.isSelected,
+                          isSelected: !opt.isSelected,
                         }
-                      : { ...opt, isSelected: opt.isDefault ? true : false }
+                      : { ...opt, isSelected: false }
                   ),
             }
           : node
