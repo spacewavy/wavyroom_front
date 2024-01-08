@@ -44,7 +44,7 @@ const ProductCard = ({
           location === "models"
             ? "aspect-[8/7] md:aspect-[11/6] lg:aspect-[11/4]"
             : "aspect-[8/7] md:aspect-[11/6]"
-        } flex flex-col justify-between w-full h-full px-4 py-8 md:px-8 pb-8 gap-4 border-t odd:lg:border-r border-gray hover:bg-lightGray overflow-hidden`}
+        } flex flex-col justify-between w-full h-full px-4 py-8 md:px-8 pb-8 gap-4 border-t border-gray hover:bg-lightGray overflow-hidden`}
       >
         <div
           className={`flex flex-1 items-center justify-cetner transform ${

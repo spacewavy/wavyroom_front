@@ -194,7 +194,7 @@ const Home = () => {
           {t("home.section-4.heading")}
         </h1>
       </section>
-      <section className="grid w-full grid-cols-1 lg:grid-cols-2">
+      <section className="grid w-full grid-cols-1 lg:grid-cols-2 divide-x">
         {data.map((item: ModelItem, index: number) => {
           return (
             <ProductCard
