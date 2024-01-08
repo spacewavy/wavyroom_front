@@ -64,7 +64,7 @@
     "section-3": {
       "title": "Our products",
       "header": "Carefully designed,\nperfectly constructed space",
-      "description": "We envision a future where everyone has a better home. Everyone living in a meticulously designed and well-built dwelling that inspires, functions seamlessly, and considers the environment, we aspire to a world where our living splaces enhance our lives.\n\nWavyroom inspires you to reimagine the potential of every site, offering beautiful and flexible spaces tailored to your lifestyle. Whether it’s a second home for relaxation, a guest home for inviting friends and family to share happy moments, or a space for additional income through commercialization, such as offices or F&B ventures, Wavyroom is committed to providing spaces that align with you, both now and in the future."
+      "description": "We envision a future where everyone has a better home. Everyone living in a meticulously designed and well-built dwelling that inspires, functions seamlessly, and considers the environment, we aspire to a world where our living places enhance our lives.\n\nWavyroom inspires you to reimagine the potential of every site, offering beautiful and flexible spaces tailored to your lifestyle. Whether it’s a second home for relaxation, a guest home for inviting friends and family to share happy moments, or a space for additional income through commercialization, such as offices or F&B ventures, Wavyroom is committed to providing spaces that align with you, both now and in the future."
     },
     "section-4": {
       "title": "Our value",
@@ -72,7 +72,7 @@
       "description": "Technology has transformed industries, and the construction sector is no exception. We have now created better methods for building homes. We prioritize transparency in pricing and certainty in design, refusing to compromise on quality. We produce a meticulously crafted product - a high-quality “home” with impeccable completion.",
       "list-1": {
         "heading": "Constant and high quality production",
-        "sub-heading": "We produce consistently high-quality homes through Spacewavy's expertise embedded in our self-operated manufacturing facility. Our production line reflects the know-how of SpaceWavy, ensuring a consistently high level of quality."
+        "sub-heading": "We produce consistently high-quality homes through Spacewavy's expertise embedded in our self-operated manufacturing facility. Our production line reflects the know-how of Spacewavy, ensuring a consistently high level of quality."
       },
       "list-2": {
         "heading": "An outstanding design",
@@ -84,7 +84,7 @@
       }
     },
     "card": {
-      "text": "Do you want to join Spacewavy?",
+      "text": "Interested in joining us?",
       "navigation-text": "Recruitment"
     }
   },
@@ -234,14 +234,14 @@
   },
   "footer": {
     "section-1-links": {
-      "link-1": "Model introduction",
+      "link-1": "Model Introduction",
       "link-2": "About Us",
-      "link-3": "customer service center",
+      "link-3": "Customer Service Center",
       "link-4": "Customize"
     },
     "section-2": {
       "company-name": {
-        "name": "Space Wave Co., Ltd."
+        "name": "Spacewavy"
       },
       "ceo-name": {
         "name": " CEO: Hong Yoon-taek"
@@ -293,7 +293,7 @@
     "currency": "㎡"
   },
   "model-details": {
-    "color": "color"
+    "color": "Color"
   },
   "modeling": {
     "outer": "Outer",
