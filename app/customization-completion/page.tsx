@@ -60,7 +60,6 @@ const Completion = () => {
 
       const imgWidth = pdfWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      console.log("canvas", canvas);
       const imgData = canvas.toDataURL("image/png");
 
       let position = 0;

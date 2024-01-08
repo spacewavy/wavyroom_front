@@ -117,7 +117,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   // if the floorOption is only 1, select it. same with the color part
   useEffect(() => {
     if (!data || !data?.name) return;
-    console.log("check option");
     if (data?.modelColors.length === 1) {
       handleColorClick(data.modelColors[0].id);
     }
@@ -433,7 +432,6 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
   };
 
   const renderPreview = () => {
-    console.log(data);
     return (
       <section className="cursor-pointer">
         <div className="p-8">

@@ -29,7 +29,7 @@ export const fetchCustomizationOptionsData = (itemId: string) => {
           },
         }
       );
-      console.log("<<<<<<< get data", itemId, response.data.data);
+      // console.log("<<<<<<< get data", itemId, response.data.data);
       // setup initial data
       const payload = response.data.data;
 
