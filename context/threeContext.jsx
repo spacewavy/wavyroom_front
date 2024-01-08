@@ -251,7 +251,11 @@ export const ThreeProvider = ({ children }) => {
         // check normal options
         _floor.modelSecondOptions.map((_option) => {
           _option.optionDetails.map((_optionDetail) => {
-            if (!_optionDetail.meshName || _optionDetail.meshName === "-")
+            if (
+              !_optionDetail.meshName ||
+              _optionDetail.meshName === "-" ||
+              _optionDetail.isDefault
+            )
               return;
             _hideMeshNames.push(_optionDetail.meshName);
           });
@@ -260,10 +264,16 @@ export const ThreeProvider = ({ children }) => {
         // check kitchen options and detail options
         _floor.ModelKitchenTypes.map((_kitchenType) => {
           if (!_kitchenType.meshName || _kitchenType.meshName === "-") return;
-          _hideMeshNames.push(_kitchenType.meshName);
+          _kitchenType.isDefault
+            ? null
+            : _hideMeshNames.push(_kitchenType.meshName);
           _kitchenType.options.map((_kitchenTypeOption) => {
             _kitchenTypeOption.optionDetails.map((_optionDetail) => {
-              if (!_optionDetail.meshName || _optionDetail.meshName === "-")
+              if (
+                !_optionDetail.meshName ||
+                _optionDetail.meshName === "-" ||
+                _optionDetail.isDefault
+              )
                 return;
               _hideMeshNames.push(_optionDetail.meshName);
             });
@@ -584,17 +594,12 @@ export const ThreeProvider = ({ children }) => {
     optionData.modelColors.map((_modelColor) => {
       if (!_modelColor?.meshNames) return;
       _modelColor?.meshNames.map((_meshName) => {
-        changeMeshVisibilityByName(_meshName, _modelColor.isSelected);
+        changeMeshVisibilityByName(
+          _meshName,
+          isSelected ? _modelColor.isSelected : _modelColor.isDefault
+        );
       });
     });
-    if (!isSelected) {
-      const initColor = optionData.modelColors.find(
-        (_modelColor) => _modelColor.isDefault
-      );
-      initColor.meshNames.map((_meshName) => {
-        changeMeshVisibilityByName(_meshName, true);
-      });
-    }
   };
 
   const handleOptionVisibility = () => {
@@ -609,26 +614,40 @@ export const ThreeProvider = ({ children }) => {
     _modelSecondOptions.map((_option) => {
       const { optionDetails } = _option;
       if (!optionDetails.length) return;
+      const _isItemSelected = optionDetails.find(
+        (_optionDetail) => _optionDetail.isSelected
+      );
       optionDetails.map((_optionDetail) => {
         changeMeshVisibilityByName(
           _optionDetail.meshName,
-          _optionDetail.isSelected
+          _isItemSelected ? _optionDetail.isSelected : _optionDetail.isDefault
         );
       });
     });
 
     const _modelKitchenTypes = selectedFloor.ModelKitchenTypes;
+    const _isKitchenSelected = _modelKitchenTypes.find(
+      (_option) => _option.isSelected
+    );
     _modelKitchenTypes.map((_kitchen) => {
-      changeMeshVisibilityByName(_kitchen.meshName, _kitchen.isSelected);
+      changeMeshVisibilityByName(
+        _kitchen.meshName,
+        _isKitchenSelected ? _kitchen.isSelected : _kitchen.isDefault
+      );
       const { options } = _kitchen;
       if (!options.length) return;
       options.map((_option) => {
         const { optionDetails } = _option;
+        const _isKitchenOptionDetailSelected = optionDetails.find(
+          (_optionDetail) => _optionDetail.isSelected
+        );
         if (!optionDetails || !optionDetails.length) return;
         optionDetails.map((_kitchenOptionDetail) => {
           changeMeshVisibilityByName(
             _kitchenOptionDetail.meshName,
-            _kitchenOptionDetail.isSelected
+            _isKitchenOptionDetailSelected
+              ? _kitchenOptionDetail.isSelected
+              : _kitchenOptionDetail.isDefault
           );
         });
       });
