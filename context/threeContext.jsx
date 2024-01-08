@@ -266,6 +266,7 @@ export const ThreeProvider = ({ children }) => {
         // check kitchen options and detail options
         _floor.ModelKitchenTypes.map((_kitchenType) => {
           if (!_kitchenType.meshName || _kitchenType.meshName === "-") return;
+          console.log(_kitchenType);
           _kitchenType.isDefault
             ? null
             : _hideMeshNames.push(_kitchenType.meshName);
@@ -285,6 +286,7 @@ export const ThreeProvider = ({ children }) => {
     } catch (e) {
       console.log("e", e);
     }
+    console.log(_hideMeshNames);
 
     deleteCurrentModel();
     switch (extension) {
