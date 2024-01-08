@@ -241,6 +241,12 @@ export const ThreeProvider = ({ children }) => {
       );
       console.log("<<<", response.data.data);
       _modelOptionData = response.data.data;
+      _modelOptionData.modelColors.map((_modelColor) => {
+        if (_modelColor.isDefault) return;
+        _modelColor?.meshNames.map((_meshName) => {
+          _hideMeshNames.push(_meshName);
+        });
+      });
       _modelOptionData.modelFloorOptions.map((_floor) => {
         // check normal options
         _floor.modelSecondOptions.map((_option) => {
