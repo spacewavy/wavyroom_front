@@ -53,7 +53,6 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({
                     className="relative w-10 h-10 p-1 cursor-pointer"
                     onClick={() => {
                       handleColorClick(x.id);
-                      changeModelColorFromHex(x.colorId);
                     }}
                   >
                     <div
