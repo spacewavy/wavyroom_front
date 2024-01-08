@@ -10,6 +10,7 @@ import CallInquery from "../../components/CallInquery";
 import { makeFullUrl } from "../../lib/utils";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import * as htmlToImage from "html-to-image";
 
 const Completion = () => {
   const { t } = useTranslation();
@@ -45,15 +46,9 @@ const Completion = () => {
     const pdfComponent = document.getElementById("pdf");
     if (!pdfComponent) return;
 
-    html2canvas(pdfComponent, {
-      scale: 2,
-      onclone: function (doc) {
-        const _pdf = doc.getElementById("pdf");
-        if (!_pdf) return;
-        _pdf.style.display = "flex";
-      },
-    }).then((canvas) => {
-      console.log("canvas", canvas);
+    pdfComponent.style.display = "flex";
+    htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
+      document.body.appendChild(canvas);
       const pdfWidth = 160; // Custom width in mm
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
@@ -65,6 +60,7 @@ const Completion = () => {
 
       const imgWidth = pdfWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      console.log("canvas", canvas);
       const imgData = canvas.toDataURL("image/png");
 
       let position = 0;
@@ -78,6 +74,8 @@ const Completion = () => {
       );
 
       pdf.save(`product-receipt.pdf`);
+      pdfComponent.style.display = "none";
+      canvas.remove();
     });
   };
 
@@ -120,13 +118,13 @@ const Completion = () => {
                 {t("customization.customization-completion.mail")}
               </span>
             </div>
-            <div className="flex flex-1 w-full md:px-8">
-              <div className="relative flex flex-1 aspect-[600/273]">
+            <div className="flex flex-1 w-full md:px-8 items-center justify-center">
+              <div className="relative aspect-[600/273] max-w-[600px] flex flex-1">
                 <Image
                   src={makeFullUrl(result?.model?.imageURL)}
                   alt="img"
                   fill
-                  objectFit="cover"
+                  objectFit="contain"
                 />
               </div>
             </div>
