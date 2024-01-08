@@ -114,8 +114,15 @@ const Completion = () => {
             </div>
             <div className="mb-16">
               <span className="text-[12px] md:text-[16px] font-light">
-                {result?.user?.email}{" "}
-                {t("customization.customization-completion.mail")}
+                {language === 'ko' ? (
+                    <>
+                      {result?.user?.email} {t("customization.customization-completion.mail")}
+                    </>
+                  ) : (
+                    <>
+                      {t("customization.customization-completion.mail")} {result?.user?.email}
+                    </>
+                  )}
               </span>
             </div>
             <div className="flex flex-1 w-full md:px-8 items-center justify-center">
