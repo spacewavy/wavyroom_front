@@ -114,18 +114,20 @@ const Completion = () => {
             </div>
             <div className="mb-16">
               <span className="text-[12px] md:text-[16px] font-light">
-                {language === 'ko' ? (
-                    <>
-                      {result?.user?.email} {t("customization.customization-completion.mail")}
-                    </>
-                  ) : (
-                    <>
-                      {t("customization.customization-completion.mail")} {result?.user?.email}
-                    </>
-                  )}
+                {language === "ko" ? (
+                  <>
+                    {result?.user?.email}{" "}
+                    {t("customization.customization-completion.mail")}
+                  </>
+                ) : (
+                  <>
+                    {t("customization.customization-completion.mail")}{" "}
+                    {result?.user?.email}
+                  </>
+                )}
               </span>
             </div>
-            <div className="flex flex-1 w-full md:px-8 items-center justify-center">
+            <div className="flex flex-1 w-full md:px-8 items-center justify-center mb-16">
               <div className="relative aspect-[600/273] max-w-[600px] flex flex-1">
                 <Image
                   src={makeFullUrl(result?.model?.imageURL)}
@@ -136,7 +138,7 @@ const Completion = () => {
               </div>
             </div>
             {!isPDfElement ? (
-              <div className="mb-8 mt-16 md:my-16 py-8  border-y-[1px]  flex justify-center w-full">
+              <div className="mb-8 mt-16 md:my-16 py-8 border-y-[1px] flex justify-center w-full">
                 <div className="flex gap-8">
                   <div className="py-2 flex flex-col gap-2 items-center cursor-pointer">
                     <div
