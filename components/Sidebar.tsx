@@ -295,22 +295,23 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
     return (
       <section
         className={`flex flex-col flex-1 w-[100vw] transition-width duration-300 lg:min-w-0 min-w-[100vw] lg:translate-x-0 ${
-          selectedListId ? "lg:w-[100vw]" : "lg:w-0 overflow-hidden"
-        }, ${
+          selectedListId ? "lg:w-[100vw] overflow-y-auto overflow-x-hidden" : "lg:w-0 overflow-hidden"
+        } , ${
           selectedListId && selectedMenuId
             ? "translate-x-[-200%]"
             : "translate-x-0"
         }`}
       >
-        <div className="relative hidden md:block w-full h-[360px]">
+        <div className="relative w-full md:h-[360px]">
           <Image
             src={makeFullUrl(selectedProduct?.heroImageURL)}
             alt="Model Hero Image"
             fill
             objectFit="cover"
+            className="hidden md:block"
           />
           <div
-            className="absolute top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]"
+            className="relative md:absolute mb-5 md:mb-0 top-[24px] left-[24px] flex lg:hidden items-center gap-[4px] pt-[4px]"
             onClick={() => setSelectedListId("")}
           >
             <svg
