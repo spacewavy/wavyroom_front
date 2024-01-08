@@ -119,7 +119,20 @@ export const fetchCustomizationOptionsDataReducer = (
               isSelected: true,
             };
           }
-          return { ...kitchenType, isSelected: false };
+          return {
+            ...kitchenType,
+            isSelected: false,
+            options: kitchenType.options.map((_option: any) => {
+              return {
+                ..._option,
+                optionDetails: _option.optionDetails.map(
+                  (_optionDetail: any) => {
+                    return { ..._optionDetail, isSelected: false };
+                  }
+                ),
+              };
+            }),
+          };
         }
       );
 
