@@ -202,6 +202,7 @@ export interface ModelKitchenOptionDetail {
   name: string;
   order: number;
   isDefault: boolean;
+  isFixed: boolean;
   isSelected?: boolean;
 }
 export interface CustomizationData {

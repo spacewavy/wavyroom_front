@@ -117,6 +117,19 @@ export const fetchCustomizationOptionsDataReducer = (
             return {
               ...kitchenType,
               isSelected: true,
+              options: kitchenType.options.map((_option: any) => {
+                return {
+                  ..._option,
+                  optionDetails: _option.optionDetails.map(
+                    (_optionDetail: any) => {
+                      return {
+                        ..._optionDetail,
+                        isSelected: _optionDetail.isDefault,
+                      };
+                    }
+                  ),
+                };
+              }),
             };
           }
           return {
@@ -159,36 +172,16 @@ export const fetchCustomizationOptionsDataReducer = (
       const _updatedModelKitchenTypes = _floorSelected?.ModelKitchenTypes.map(
         (_kitchenType, _kitchenTypeIdx) => {
           if (!_kitchenType.isSelected) {
-            return {
-              ..._kitchenType,
-              options: _kitchenType.options.map((_option) => {
-                return {
-                  ..._option,
-                  optionDetails: _option.optionDetails.map((_detail) => {
-                    return {
-                      ..._detail,
-                      isSelected: _detail.isDefault ? true : false,
-                    };
-                  }),
-                };
-              }),
-            };
+            return _kitchenType;
           }
 
           const _options = _kitchenType.options.map(
             (_kitchenOption, _kitchenOptionIdx) => {
               if (_kitchenOptionIdx !== action.payload.nodeIdx)
-                return {
-                  ..._kitchenOption,
-                  optionDetails: _kitchenOption.optionDetails.map((_item) => {
-                    return {
-                      ..._item,
-                      // isSelected: _item.isDefault ? true : false,
-                    };
-                  }),
-                };
+                return _kitchenOption;
               const _optionDetail = _kitchenOption.optionDetails.map(
                 (_kitchenOptionDetail, _kitchenOptionDetailIdx) => {
+                  if (_kitchenOptionDetail.isFixed) return;
                   if (_kitchenOptionDetailIdx !== action.payload.order)
                     return _kitchenOption.isMultipleSelectable
                       ? _kitchenOptionDetail
