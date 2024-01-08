@@ -161,6 +161,7 @@ export interface OptionDetail {
   isSelected?: boolean;
   meshName: string;
   groupName: string;
+  blockMeshNames: string[];
 }
 
 export interface ModelSecondOption {
@@ -190,6 +191,8 @@ export interface ModelKitchenType {
   name: string;
   order: number;
   options: ModelKitchenOption[];
+  meshName: string;
+  blockMeshNames: string[];
   isSelected?: boolean;
 }
 export interface ModelKitchenOption {
@@ -203,6 +206,7 @@ export interface ModelKitchenOptionDetail {
   order: number;
   isDefault: boolean;
   isFixed: boolean;
+  blockMeshNames: string[];
   isSelected?: boolean;
 }
 export interface CustomizationData {

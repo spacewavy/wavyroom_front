@@ -181,7 +181,7 @@ const CustomizationOptions: FC<{
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-row gap-2 pt-4">
+                  <div className="grid grid-cols-2 gap-2 pt-4">
                     {opt.optionDetails
                       .sort(
                         (
@@ -193,7 +193,7 @@ const CustomizationOptions: FC<{
                         return (
                           <div
                             key={ind}
-                            className={`p-4 border-[1px] w-fit rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+                            className={`min-h-[70px] flex flex-col flex-1 justify-center p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
                               o.isSelected
                                 ? "border-[darkGray]"
                                 : "border-[#B3B3B3]"

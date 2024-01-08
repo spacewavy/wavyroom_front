@@ -8,6 +8,7 @@ import {
   SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE,
   SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
   SET_NAVIGATE_TO_SETTINGS,
+  UPDATE_CUSTOMIZATION_OPTION_BY_NAME,
 } from "../actions/customizationActions";
 import { CustomizationData, OptionDetail } from "../types";
 const initialState: CustomizationData = {
@@ -215,6 +216,56 @@ export const fetchCustomizationOptionsDataReducer = (
         ...state,
         data: { ...state.data, modelFloorOptions: _updateFloorOptions },
         error: action.payload,
+      };
+    }
+    case UPDATE_CUSTOMIZATION_OPTION_BY_NAME: {
+      const { meshName, visible } = action.payload;
+      let end = false;
+
+      // 1. check inside the floor options
+      const updatedFloorOptions = state.data.modelFloorOptions.map(
+        (_floorOption) => {
+          if (_floorOption.isSelected) {
+            return {
+              ..._floorOption,
+              modelSecondOptions: _floorOption.modelSecondOptions.map(
+                (_secondOption) => {
+                  return {
+                    ..._secondOption,
+                    optionDetails: _secondOption.optionDetails.map(
+                      (_optionDetail) => {
+                        // cancel endless loop
+                        if (
+                          _optionDetail.meshName === meshName &&
+                          _optionDetail.isSelected === visible
+                        ) {
+                          end = true;
+                        }
+                        return {
+                          ..._optionDetail,
+                          isSelected:
+                            _optionDetail.meshName === meshName
+                              ? visible
+                              : _optionDetail.isSelected,
+                        };
+                      }
+                    ),
+                  };
+                }
+              ),
+            };
+          }
+          return _floorOption;
+        }
+      );
+
+      if (end) return state;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          modelFloorOptions: updatedFloorOptions,
+        },
       };
     }
     default:
