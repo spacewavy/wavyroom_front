@@ -489,7 +489,8 @@ export const ThreeProvider = ({ children }) => {
     _wavyModel.traverse((_model) => {
       if (
         _model.name.toLowerCase().includes("roof") ||
-        _model.name.toLowerCase().includes("nova-rf")
+        _model.name.toLowerCase().includes("nova-rf") ||
+        _model.name.toLowerCase().includes("mid")
       ) {
         if (_model.visible !== _visible) {
           _model.visible = _visible;
