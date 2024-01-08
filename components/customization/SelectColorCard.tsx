@@ -1,9 +1,5 @@
-import { setCustomizationSelectedColor } from "@/app/redux/actions/customizationActions";
 import { ModelColors } from "@/app/redux/types";
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AnyAction } from "redux";
-import { useThree } from "../../context/threeContext";
 import { useTranslation } from "react-i18next";
 
 interface SelectColorCardPorps {
@@ -17,13 +13,6 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({
 }) => {
   const [selectedColorName, setSelectedColorName] = useState("");
   const { t } = useTranslation();
-
-  const { changeModelColorFromHex } = useThree();
-  const dispatch = useDispatch();
-
-  // const handleColorClick = (id: string) => {
-  //   dispatch(setCustomizationSelectedColor(id) as unknown as AnyAction);
-  // };
 
   useEffect(() => {
     if (modelColors) {
