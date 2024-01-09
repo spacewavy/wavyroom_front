@@ -297,6 +297,7 @@
   },
   "modeling": {
     "outer": "외부",
-    "inner": "내부"
+    "inner": "내부",
+    "inner2": "내부2"
   }
 }

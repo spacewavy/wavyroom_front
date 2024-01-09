@@ -297,6 +297,7 @@
   },
   "modeling": {
     "outer": "Outer",
-    "inner": "Inner"
+    "inner": "Inner",
+    "inner2": "Inner2"
   }
 }
