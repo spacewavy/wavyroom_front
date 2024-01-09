@@ -49,7 +49,7 @@ const About = () => {
       <section>
         <div className="flex flex-col lg:flex-col-reverse">
           <div className="flex flex-col md:flex-row px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-4">
-            <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light">
+            <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG font-light group-[.is-en]:tracking-tighter">
               {t("about-us.section-1.text")}
             </div>
             <div className="flex flex-1 items-end">
@@ -183,7 +183,7 @@ const About = () => {
             <div className="flex flex-col max-w-[564px] gap-8">
               <div className="flex flex-col gap-2">
                 <Label>{t("about-us.section-2.title")}</Label>
-                <div className="text-displaySM md:text-displayMD lg:text-displayLG">
+                <div className="text-displaySM md:text-displayMD lg:text-displayLG group-[.is-en]:tracking-tighter">
                   {t("about-us.section-2.header")}
                 </div>
               </div>
@@ -205,7 +205,7 @@ const About = () => {
         <Label>{t("about-us.section-3.title")}</Label>
         <div className="flex flex-1 flex-col md:flex-row">
           <div className="flex flex-1 flex-col lg:flex-row gap-4">
-            <div className="lg:flex lg:flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
+            <div className="lg:flex lg:flex-1 text-displaySM md:text-displayMD lg:text-displayLG group-[.is-en]:tracking-tighter">
               {t("about-us.section-3.header")}
             </div>
             <div className="lg:flex lg:flex-1">
@@ -239,7 +239,7 @@ const About = () => {
         <div className="flex flex-1 flex-col px-4 py-8 md:px-8 md:py-16 gap-2 md:gap-6">
           <Label>{t("about-us.section-4.title")}</Label>
           <div className="flex flex-1 flex-col md:flex-row gap-6 md:gap-4">
-            <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG">
+            <div className="flex flex-1 text-displaySM md:text-displayMD lg:text-displayLG group-[.is-en]:tracking-tighter">
               {t("about-us.section-4.header")}
             </div>
             <div className="flex flex-1 flex-col gap-8">
