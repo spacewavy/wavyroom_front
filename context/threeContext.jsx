@@ -441,8 +441,8 @@ export const ThreeProvider = ({ children }) => {
         // add the object to the scene
         scene.add(object);
 
-        // // setting roof visiblity by cameraViewType
-        // changeRoofVisibility(cameraViewType === CAMERA_VIEW_TYPE.OUTER);
+        // setting roof visiblity by cameraViewType
+        onChangeCameraViewType();
 
         setLoadPercent(100);
         setTimeout(() => {

@@ -209,11 +209,17 @@ const CustomizationOptions: FC<{
                             }}
                           >
                             <div
-                              className={`flex flex-col gap-2 font-medium text-jetBlack ${
+                              className={`flex flex-col font-medium text-jetBlack ${
                                 o?.isSelected ? "text-jetBlack" : "text-gray"
                               }`}
                             >
                               <span className="text-[14px]">{o.name}</span>
+                              {o.price && Number(o.price) ? (
+                                <span className="text-[10px]">
+                                  +{o.price.toLocaleString()}
+                                  {t("customization.currency")}
+                                </span>
+                              ) : null}
                             </div>
                           </div>
                         );

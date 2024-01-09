@@ -167,6 +167,7 @@ export interface OptionDetail {
 export interface ModelSecondOption {
   name: string;
   isMultipleSelectable: boolean;
+  price: number;
   optionDetails: OptionDetail[];
 }
 
@@ -207,6 +208,7 @@ export interface ModelKitchenOption {
 export interface ModelKitchenOptionDetail {
   name: string;
   order: number;
+  price: number;
   isDefault: boolean;
   isFixed: boolean;
   blockMeshNames: string[];
