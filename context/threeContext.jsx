@@ -474,6 +474,7 @@ export const ThreeProvider = ({ children }) => {
     if (!_model) return;
     const visibility = !!_visible;
     if (_model.visible === visibility) return;
+    console.log("visibility changed", _model.name, visibility);
     _model.visible = visibility;
   };
 
@@ -618,6 +619,13 @@ export const ThreeProvider = ({ children }) => {
           _optionDetail.meshName,
           _isItemSelected ? _optionDetail.isSelected : _optionDetail.isDefault
         );
+        if (_optionDetail.isSelected) {
+          _optionDetail.blockMeshNames.map((_blockMeshName) => {
+            dispatch(
+              customizationOptionChangeByMeshName(_blockMeshName, false)
+            );
+          });
+        }
       });
     });
 
@@ -630,10 +638,8 @@ export const ThreeProvider = ({ children }) => {
         _kitchen.meshName,
         _isKitchenSelected ? _kitchen.isSelected : _kitchen.isDefault
       );
-      // data를 바꿔야 하는데
       if (_kitchen.isSelected) {
         _kitchen.blockMeshNames.map((_blockMeshName) => {
-          // changeMeshVisibilityByName(_blockMeshName, false);
           dispatch(customizationOptionChangeByMeshName(_blockMeshName, false));
         });
       }
