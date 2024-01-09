@@ -21,13 +21,11 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
     cameraControls,
     renderer,
     clock,
-    changeModel,
-    deleteCurrentModel,
     loadPercent,
     isModelLoading,
-    setLoadPercent,
     cameraViewType,
     setCameraViewType,
+    hasSecondFloor,
   } = useThree();
   const ref = useRef<HTMLDivElement>(null);
   const { setIsLoading } = useLoading();
@@ -108,6 +106,18 @@ const WavyCanvas: FC<WavyCanvasProps> = ({ openMenu = false }) => {
           >
             {t("modeling.inner")}
           </div>
+          {hasSecondFloor ? (
+            <div
+              className={`text-[10px] md:text-[12px] py-[4px] md:py-[8px] px-[10px] md:px-[28px] cursor-pointer rounded-full ${
+                cameraViewType === CAMERA_VIEW_TYPE.INNER_2 ? "bg-gray" : ""
+              }`}
+              onClick={() => {
+                setCameraViewType(CAMERA_VIEW_TYPE.INNER_2);
+              }}
+            >
+              {t("modeling.inner2")}
+            </div>
+          ) : null}
         </div>
       </div>
       <div className="absolute z-20 top-0 w-full h-full items-center justify-center bg-gray transition-all ease-in duration-500 hidden group-[.show-loading]:flex">

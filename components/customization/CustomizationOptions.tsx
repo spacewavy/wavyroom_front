@@ -137,16 +137,22 @@ const CustomizationOptions: FC<{
                   }}
                 >
                   <div
-                    className={`p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
+                    className={`flex flex-1 flex-col min-h-[70px] justify-center p-4 border-[1px] rounded-xl border-[#E5E5E5] hover:bg-[#F9F9FA] cursor-pointer ${
                       o?.isSelected ? "border-[darkGray]" : "border-[#B3B3B3]"
                     }`}
                   >
                     <div
-                      className={`flex flex-col gap-2 font-medium text-jetBlack ${
+                      className={`flex flex-1 flex-col justify-center font-medium text-jetBlack ${
                         o?.isSelected ? "text-jetBlack" : "text-gray"
                       }`}
                     >
                       <span className="text-[14px]">{o.name}</span>
+                      {o.price && Number(o.price) ? (
+                        <span className="text-[10px]">
+                          +{o.price.toLocaleString()}
+                          {t("customization.currency")}
+                        </span>
+                      ) : null}
                     </div>
                   </div>
                 </section>

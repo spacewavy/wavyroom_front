@@ -193,14 +193,17 @@ export interface ModelKitchenType {
   options: ModelKitchenOption[];
   meshName: string;
   blockMeshNames: string[];
+  price: number;
   isSelected?: boolean;
 }
+
 export interface ModelKitchenOption {
   name: string;
   isMultipleSelectable: boolean;
   order: number;
   optionDetails: ModelKitchenOptionDetail[];
 }
+
 export interface ModelKitchenOptionDetail {
   name: string;
   order: number;
@@ -209,6 +212,7 @@ export interface ModelKitchenOptionDetail {
   blockMeshNames: string[];
   isSelected?: boolean;
 }
+
 export interface CustomizationData {
   data: Customization;
   error: string | null;
