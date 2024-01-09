@@ -168,7 +168,7 @@ const ModelDetail = () => {
             <div className="flex flex-col items-center gap-6 max-w-[448px]">
               <div className="flex flex-col items-center gap-4">
                 <div className="text-[16px] text-darkGray text-center group-[.is-dark]:text-gray">
-                  <span className="text-[24px] md:text-[28px] lg:text-[32px]">
+                  <span className="text-[24px] md:text-[28px] lg:text-[32px] group-[.is-en]:tracking-tighter">
                     <span>
                       {
                         modelDescription.find(

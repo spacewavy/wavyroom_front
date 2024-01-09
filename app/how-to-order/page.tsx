@@ -54,7 +54,9 @@ const HowToOrder = () => {
   return (
     <main className="flex flex-col flex-1">
       <section className="pt-16 md:pt-32 lg:pt-[120px] px-8 lg:px-0 pb-8 lg:pb-[120px] text-[28px] md:text-[40px] lg:text-[58px] font-light text-center text-jetBlack">
-        <h1>{t("how-to-order.heading")}</h1>
+        <h1 className="group-[.is-en]:tracking-tighter">
+          {t("how-to-order.heading")}
+        </h1>
       </section>
 
       <section className="grid w-full grid-cols-1 gap-[48px] md:gap-0 py-16 lg:py-[120px] px-0 md:px-8 md:w-[60%] lg:min-w-[912px] m-auto">
@@ -72,8 +74,8 @@ const HowToOrder = () => {
         })}
       </section>
       <hr className="my-0 h-0.5 border-t-0 bg-neutral-100 opacity-100 dark:opacity-50" />
-      <section className="flex justify-center align-center flex-col gap-4 p-8 bg-black m-4 md:m-8">
-        <p className="text-white text-center text-[18px] md:text-[28px] font-light">
+      <section className="flex justify-center align-center flex-col gap-4 p-8 lg:p-16 bg-black m-4 md:m-8">
+        <p className="text-white text-center text-[18px] md:text-[28px] font-light group-[.is-en]:tracking-tighter">
           Welcome!<br></br>
           {t("how-to-order.info-card.title.text-1")}
           <br></br>
