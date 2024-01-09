@@ -12,6 +12,9 @@ import {
   ModelData,
   ModelDetailItem,
   ModelFloorOptions,
+  ModelKitchenOption,
+  ModelKitchenOptionDetail,
+  ModelKitchenType,
   ModelSecondOption,
   OptionDetail,
 } from "@/app/redux/types";
@@ -147,18 +150,31 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     if (!data) return;
     let total = data?.minPrice || 0;
 
-    data.modelFloorOptions.map((_option: ModelFloorOptions) => {
-      if (_option.isSelected) {
-        total += _option.price;
-      }
-      _option.modelSecondOptions.map((_secondOption: ModelSecondOption) => {
-        _secondOption.optionDetails.map((_secondOptionDetail: any) => {
-          if (_secondOptionDetail.isSelected) {
+    data.modelFloorOptions.map((_floorOption: ModelFloorOptions) => {
+      if (!_floorOption.isSelected) return;
+      total += _floorOption.price;
+      _floorOption.modelSecondOptions.map(
+        (_secondOption: ModelSecondOption) => {
+          _secondOption.optionDetails.map((_secondOptionDetail: any) => {
+            if (!_secondOptionDetail.isSelected) return;
             total += _secondOptionDetail.price;
-          }
+          });
+        }
+      );
+      _floorOption.ModelKitchenTypes.map((_kitchenType: ModelKitchenType) => {
+        if (!_kitchenType.isSelected) return;
+        total += _kitchenType.price;
+        _kitchenType.options.map((_kitchenOption: ModelKitchenOption) => {
+          _kitchenOption.optionDetails.map(
+            (_kitchenOptionDetail: ModelKitchenOptionDetail) => {
+              if (!_kitchenOptionDetail.isSelected) return;
+              total += _kitchenOptionDetail.price;
+            }
+          );
         });
       });
     });
+
     setEstimatedQutation(total);
   };
 
