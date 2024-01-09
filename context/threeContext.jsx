@@ -278,6 +278,8 @@ export const ThreeProvider = ({ children }) => {
       console.log("e", e);
     }
 
+    console.log(_hideMeshNames, _showMeshNames);
+
     deleteCurrentModel();
     switch (extension) {
       case FILE_EXTENSION.OBJ:

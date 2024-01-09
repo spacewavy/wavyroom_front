@@ -47,6 +47,7 @@ export const fetchCustomizationOptionsData = (itemId: string) => {
                 (_kitchenType: any) => {
                   return {
                     ..._kitchenType,
+                    isSelected: _kitchenType.isDefault,
                     options: _kitchenType.options.map((_option: any) => {
                       return {
                         ..._option,
