@@ -11,7 +11,7 @@ const Title = ({
   return (
     <div
       className={cn(
-        "text-displaySM md:text-displayMD lg:text-displayLG",
+        "text-displaySM md:text-displayMD lg:text-displayLG group-[.is-en]:tracking-tighter",
         className
       )}
     >
