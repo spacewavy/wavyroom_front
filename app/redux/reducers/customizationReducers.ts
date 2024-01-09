@@ -1,4 +1,3 @@
-import { useThree } from "../../../context/threeContext";
 import {
   FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
   FETCH_CUSTOMIZATION_OPTIONS_FAILURE,
@@ -8,6 +7,7 @@ import {
   SET_CUSTOMIZATION_KITCHEN_TYPE_CHANGE,
   SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE,
   SET_NAVIGATE_TO_SETTINGS,
+  UPDATE_CUSTOMIZATION_OPTION_BY_NAME,
 } from "../actions/customizationActions";
 import { CustomizationData, OptionDetail } from "../types";
 const initialState: CustomizationData = {
@@ -39,9 +39,9 @@ export const fetchCustomizationOptionsDataReducer = (
     case SET_CUSTOMIZATION_SELECTED_COLOR:
       const updatedModelColors = state.data.modelColors.map((color) => {
         if (color.id === action.payload) {
-          return { ...color, isSelected: true, isDefault: false };
+          return { ...color, isSelected: true };
         }
-        return { ...color, isSelected: false, isDefault: false };
+        return { ...color, isSelected: false };
       });
       return {
         ...state,
@@ -57,7 +57,13 @@ export const fetchCustomizationOptionsDataReducer = (
       });
       return {
         ...state,
-        data: { ...state.data, modelFloorOptions: changedFloor },
+        data: {
+          ...state.data,
+          modelFloorOptions: changedFloor,
+          modelColors: state.data.modelColors.map((_modelColor) => {
+            return { ..._modelColor, isSelected: false };
+          }),
+        },
         error: action.payload,
       };
     case SET_CUSTOMIZATION_OPTION_CHANGE: {
@@ -73,7 +79,7 @@ export const fetchCustomizationOptionsDataReducer = (
                     opt.order === action.payload.order
                       ? {
                           ...opt,
-                          isSelected: opt.isDefault ? true : !opt.isSelected,
+                          isSelected: !opt.isSelected,
                         }
                       : opt
                   )
@@ -81,9 +87,9 @@ export const fetchCustomizationOptionsDataReducer = (
                     opt.order === action.payload.order
                       ? {
                           ...opt,
-                          isSelected: opt.isDefault ? true : !opt.isSelected,
+                          isSelected: !opt.isSelected,
                         }
-                      : { ...opt, isSelected: opt.isDefault ? true : false }
+                      : { ...opt, isSelected: false }
                   ),
             }
           : node
@@ -117,9 +123,35 @@ export const fetchCustomizationOptionsDataReducer = (
             return {
               ...kitchenType,
               isSelected: true,
+              options: kitchenType.options.map((_option: any) => {
+                return {
+                  ..._option,
+                  optionDetails: _option.optionDetails.map(
+                    (_optionDetail: any) => {
+                      return {
+                        ..._optionDetail,
+                        isSelected: _optionDetail.isDefault,
+                      };
+                    }
+                  ),
+                };
+              }),
             };
           }
-          return { ...kitchenType, isSelected: false };
+          return {
+            ...kitchenType,
+            isSelected: false,
+            options: kitchenType.options.map((_option: any) => {
+              return {
+                ..._option,
+                optionDetails: _option.optionDetails.map(
+                  (_optionDetail: any) => {
+                    return { ..._optionDetail, isSelected: false };
+                  }
+                ),
+              };
+            }),
+          };
         }
       );
 
@@ -135,7 +167,10 @@ export const fetchCustomizationOptionsDataReducer = (
 
       return {
         ...state,
-        data: { ...state.data, modelFloorOptions: updateFloorOptions },
+        data: {
+          ...state.data,
+          modelFloorOptions: updateFloorOptions,
+        },
         error: action.payload,
       };
     }
@@ -146,36 +181,16 @@ export const fetchCustomizationOptionsDataReducer = (
       const _updatedModelKitchenTypes = _floorSelected?.ModelKitchenTypes.map(
         (_kitchenType, _kitchenTypeIdx) => {
           if (!_kitchenType.isSelected) {
-            return {
-              ..._kitchenType,
-              options: _kitchenType.options.map((_option) => {
-                return {
-                  ..._option,
-                  optionDetails: _option.optionDetails.map((_detail) => {
-                    return {
-                      ..._detail,
-                      isSelected: _detail.isDefault ? true : false,
-                    };
-                  }),
-                };
-              }),
-            };
+            return _kitchenType;
           }
 
           const _options = _kitchenType.options.map(
             (_kitchenOption, _kitchenOptionIdx) => {
               if (_kitchenOptionIdx !== action.payload.nodeIdx)
-                return {
-                  ..._kitchenOption,
-                  optionDetails: _kitchenOption.optionDetails.map((_item) => {
-                    return {
-                      ..._item,
-                      // isSelected: _item.isDefault ? true : false,
-                    };
-                  }),
-                };
+                return _kitchenOption;
               const _optionDetail = _kitchenOption.optionDetails.map(
                 (_kitchenOptionDetail, _kitchenOptionDetailIdx) => {
+                  if (_kitchenOptionDetail.isFixed) return;
                   if (_kitchenOptionDetailIdx !== action.payload.order)
                     return _kitchenOption.isMultipleSelectable
                       ? _kitchenOptionDetail
@@ -209,6 +224,56 @@ export const fetchCustomizationOptionsDataReducer = (
         ...state,
         data: { ...state.data, modelFloorOptions: _updateFloorOptions },
         error: action.payload,
+      };
+    }
+    case UPDATE_CUSTOMIZATION_OPTION_BY_NAME: {
+      const { meshName, visible } = action.payload;
+      let end = false;
+
+      // 1. check inside the floor options
+      const updatedFloorOptions = state.data.modelFloorOptions.map(
+        (_floorOption) => {
+          if (_floorOption.isSelected) {
+            return {
+              ..._floorOption,
+              modelSecondOptions: _floorOption.modelSecondOptions.map(
+                (_secondOption) => {
+                  return {
+                    ..._secondOption,
+                    optionDetails: _secondOption.optionDetails.map(
+                      (_optionDetail) => {
+                        // cancel endless loop
+                        if (
+                          _optionDetail.meshName === meshName &&
+                          _optionDetail.isSelected === visible
+                        ) {
+                          end = true;
+                        }
+                        return {
+                          ..._optionDetail,
+                          isSelected:
+                            _optionDetail.meshName === meshName
+                              ? visible
+                              : _optionDetail.isSelected,
+                        };
+                      }
+                    ),
+                  };
+                }
+              ),
+            };
+          }
+          return _floorOption;
+        }
+      );
+
+      if (end) return state;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          modelFloorOptions: updatedFloorOptions,
+        },
       };
     }
     default:

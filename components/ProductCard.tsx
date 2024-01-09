@@ -44,24 +44,30 @@ const ProductCard = ({
           location === "models"
             ? "aspect-[8/7] md:aspect-[11/6] lg:aspect-[11/4]"
             : "aspect-[8/7] md:aspect-[11/6]"
-        } flex flex-col justify-between w-full h-full px-4 pt-16 md:px-8 lg:pt-16 pb-8 border-t odd:lg:border-r border-gray hover:bg-lightGray gap-12 overflow-hidden`}
+        } flex flex-col justify-between w-full h-full px-4 py-8 md:px-8 pb-8 gap-4 border-t border-gray hover:bg-lightGray overflow-hidden`}
       >
         <div
-          className={`relative flex flex-1 transform ${
+          className={`flex flex-1 items-center justify-cetner transform ${
             hovered ? "hover:scale-110" : ""
           } transition-transform duration-500 ease-in`}
         >
-          <Image
-            src={makeFullUrl(image)}
-            alt="product_image"
-            objectFit="cover"
-            priority
-            fill
-            unoptimized
-            quality={100}
-          />
+          <div
+            className={`relative aspect-[3/1] flex flex-1 ${
+              location === "models" ? "lg:aspect-[9/2]" : ""
+            }`}
+          >
+            <Image
+              src={makeFullUrl(image)}
+              alt="product_image"
+              objectFit={location === "models" ? "contain" : "cover"}
+              priority
+              fill
+              unoptimized
+              quality={100}
+            />
+          </div>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between items-end">
           <div className="text-black text-bodyMD md:text-bodyLG">
             <p>
               {name} /<span className="text-midGray"> {purpose}</span>
@@ -91,11 +97,7 @@ export const ProductAllCard = () => {
     <div className="p-4 md:p-8 border-t aspect-[8/7] md:aspect-[11/6]">
       <div className="flex h-full flex-col items-center justify-center w-full gap-4 p-8 text-white border-r border-gray bg-offBlack">
         <p className="text-center text-[18px] md:text-[28px]">
-          {t("home.card.title.text-1")}
-          <br />
-          {t("home.card.title.text-2")}
-          <br />
-          {t("home.card.title.text-3")}
+          {t("home.card.title")}
         </p>
         <Link href={"/models"}>
           <CommonButton

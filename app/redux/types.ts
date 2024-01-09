@@ -19,6 +19,7 @@ export interface MainCarouselItem {
   modelName: string;
   imageURL: string;
   purpose: string;
+  order: number;
 }
 
 export interface FetchMainCarouselData {
@@ -68,6 +69,7 @@ export interface NavigationModelData {
 export interface ModelItem {
   id: string;
   representativeImageURL: string;
+  representativeNoBGImageURL: string;
   name: string;
   purpose: string[];
   minPrice: number;
@@ -121,17 +123,15 @@ export interface OtherModelsDetailData {
   error: string | null;
 }
 export interface OtherModelsDetailItem {
-    id:string;
-    minPrice:string;
-    name:string;
-    nameKO :string;
-    purpose :string[];
-    purposeKO:string[];
-    representativeImageURL :string;
-    smallName :string;
+  id: string;
+  minPrice: string;
+  name: string;
+  nameKO: string;
+  purpose: string[];
+  purposeKO: string[];
+  representativeImageURL: string;
+  smallName: string;
 }
-
-
 
 export interface ModelColors {
   id: string;
@@ -161,6 +161,7 @@ export interface OptionDetail {
   isSelected?: boolean;
   meshName: string;
   groupName: string;
+  blockMeshNames: string[];
 }
 
 export interface ModelSecondOption {
@@ -190,6 +191,8 @@ export interface ModelKitchenType {
   name: string;
   order: number;
   options: ModelKitchenOption[];
+  meshName: string;
+  blockMeshNames: string[];
   isSelected?: boolean;
 }
 export interface ModelKitchenOption {
@@ -202,6 +205,8 @@ export interface ModelKitchenOptionDetail {
   name: string;
   order: number;
   isDefault: boolean;
+  isFixed: boolean;
+  blockMeshNames: string[];
   isSelected?: boolean;
 }
 export interface CustomizationData {

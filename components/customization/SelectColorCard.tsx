@@ -1,25 +1,18 @@
-import { setCustomizationSelectedColor } from "@/app/redux/actions/customizationActions";
 import { ModelColors } from "@/app/redux/types";
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AnyAction } from "redux";
-import { useThree } from "../../context/threeContext";
 import { useTranslation } from "react-i18next";
 
 interface SelectColorCardPorps {
   modelColors: ModelColors[];
+  handleColorClick: any;
 }
 
-const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
+const SelectColorCard: FC<SelectColorCardPorps> = ({
+  modelColors,
+  handleColorClick,
+}) => {
   const [selectedColorName, setSelectedColorName] = useState("");
   const { t } = useTranslation();
-
-  const { changeModelColorFromHex } = useThree();
-  const dispatch = useDispatch();
-
-  const handleColorClick = (id: string) => {
-    dispatch(setCustomizationSelectedColor(id) as unknown as AnyAction);
-  };
 
   useEffect(() => {
     if (modelColors) {
@@ -49,7 +42,6 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
                     className="relative w-10 h-10 p-1 cursor-pointer"
                     onClick={() => {
                       handleColorClick(x.id);
-                      changeModelColorFromHex(x.colorId);
                     }}
                   >
                     <div
@@ -60,7 +52,13 @@ const SelectColorCard: FC<SelectColorCardPorps> = ({ modelColors }) => {
                         borderColor: "rgba(0, 0, 0, 0.1)",
                       }}
                     />
-                      <div className={`absolute bg-black top-0 bottom-0 left-0 right-0  bg-transparent transition-all duration-500 ease ${x.isSelected ? 'border-[1px] border-orange' : 'border-[0]' } rounded-full`} />
+                    <div
+                      className={`absolute bg-black top-0 bottom-0 left-0 right-0  bg-transparent transition-all duration-500 ease ${
+                        x.isSelected
+                          ? "border-[1px] border-orange"
+                          : "border-[0]"
+                      } rounded-full`}
+                    />
                   </div>
                 );
               })}
