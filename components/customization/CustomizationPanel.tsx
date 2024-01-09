@@ -123,7 +123,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
     if (data?.modelFloorOptions.length === 1) {
       handleFloorChange(data?.modelFloorOptions[0]);
     }
-  }, [data.name, data.modelColors.length, data.modelFloorOptions.length]);
+  }, [data.name, data.modelColors?.length, data.modelFloorOptions?.length]);
 
   const validateNextButton = () => {
     let _valid = false;
