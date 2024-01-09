@@ -206,7 +206,7 @@ const ModelDetail = () => {
           </div>
         </section>
         <section className="group-[.is-dark]:bg-jetBlack">
-          <div className="relative flex flex-col items-center px-0 lg:px-24 py-8 lg:py-24 group-[.is-dark]:bg-jetBlack aspect-[912/513]">
+          <div className="relative flex flex-col items-center px-0 lg:px-24 py-8 lg:py-24 group-[.is-dark]:bg-jetBlack aspect-[912/513] group-[.is-dark]:text-white">
             <div className="text-[24px] md:text-[28px] lg:text-[32px] ">
               <span>
                 {data.name} {t("model-details.color")}

@@ -20,15 +20,12 @@ export const fetchModelData = () => {
   return async (dispatch: any, getState: any) => {
     try {
       const language = getState().locale.language;
-      const response = await axiosInstance.get(
-        `/model/default`,
-        {
-          headers: {
-            Accept: "*/*",
-            'language':language
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/model/default`, {
+        headers: {
+          Accept: "*/*",
+          language: language,
+        },
+      });
       dispatch({
         type: FETCH_MODEL_DATA_SUCCESS,
         payload: response.data.data,
@@ -43,18 +40,15 @@ export const fetchModelData = () => {
 };
 
 export const fetchNavigationModelData = () => {
-  return async (dispatch: any, getState:any) => {
+  return async (dispatch: any, getState: any) => {
     try {
       const language = getState().locale.language;
-      const response = await axiosInstance.get(
-        `/model/navigation`,
-        {
-          headers: {
-            Accept: "*/*",
-            'language':language
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/model/navigation`, {
+        headers: {
+          Accept: "*/*",
+          language: language,
+        },
+      });
       dispatch({
         type: FETCH_NAVIGATION_MODEL_DATA_SUCCESS,
         payload: response.data.data,
@@ -72,15 +66,12 @@ export const fetchModelDetailData = (id: string) => {
   return async (dispatch: any, getState: any) => {
     try {
       const language = getState().locale.language;
-      const response = await axiosInstance.get(
-        `/model/${id}`,
-        {
-          headers: {
-            Accept: "*/*",
-            'language': language
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/model/${id}`, {
+        headers: {
+          Accept: "*/*",
+          language: language,
+        },
+      });
       dispatch({
         type: FETCH_MODEL_DETAIL_DATA_SUCCESS,
         payload: response.data.data,
@@ -94,20 +85,16 @@ export const fetchModelDetailData = (id: string) => {
   };
 };
 
-
 export const fetchOtherModelDetail = (id: string) => {
   return async (dispatch: any, getState: any) => {
     try {
       const language = getState().locale.language;
-      const response = await axiosInstance.get(
-        `/model/${id}/others`,
-        {
-          headers: {
-            Accept: "*/*",
-            'language': language
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/model/${id}/others`, {
+        headers: {
+          Accept: "*/*",
+          language: language,
+        },
+      });
       dispatch({
         type: FETCH_OTHER_MODELS_DETAIL_SUCCESS,
         payload: response.data.data,

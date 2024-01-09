@@ -95,7 +95,7 @@ const Customization = () => {
   // when model is changed, update the 3d modeling
   useEffect(() => {
     if (!selectedModel) return;
-    console.log("model changed", selectedModel);
+    // console.log("model changed", selectedModel);
     changeModel(makeFullUrl(selectedModel?.threeDFileURL));
   }, [selectedModel]);
 

@@ -28,6 +28,7 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-pretendard)"],
         pretendard: "pretendard",
+        pretendardNormal: "pretendardNormal",
       },
       fontSize: {
         // Display

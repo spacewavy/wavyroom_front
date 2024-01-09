@@ -56,8 +56,9 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
           <div
             id="main"
             className={cn(
-              language === "ko" ? pretendard.className : diaType.className,
-              "flex flex-col font-light whitespace-pre-line"
+              "flex flex-col font-light whitespace-pre-line group",
+              language === "ko" ? "" : "is-en",
+              language === "ko" ? pretendard.className : diaType.className
             )}
           >
             {showLayout && <Navbar />}

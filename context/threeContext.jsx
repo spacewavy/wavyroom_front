@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  CAMERA_VIEW_TYPE,
-  FILE_EXTENSION,
-  OPERATING_SYSTEM,
-  WAVY_MODEL_PATHS,
-  hexToRgb,
-  makeFullUrl,
-} from "@/lib/utils";
+import { CAMERA_VIEW_TYPE, FILE_EXTENSION, hexToRgb } from "@/lib/utils";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -17,6 +10,8 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { USDZLoader } from "three/examples/jsm/loaders/USDZLoader";
 import { PLYLoader } from "three/examples/jsm/loaders/PLYLoader.js";
+import { Rhino3dmLoader } from "three/addons/loaders/3DMLoader.js";
+
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import * as BufferGeometryUtils from "three/addons/utils/BufferGeometryUtils.js";
 import {
@@ -24,8 +19,10 @@ import {
   computeBoundsTree,
   disposeBoundsTree,
 } from "three-mesh-bvh";
-import { useLoading } from "./loadingContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchModelData } from "../app/redux/actions/modelActions";
+import axiosInstance from "../api/axioInstance";
+import { customizationOptionChangeByMeshName } from "../app/redux/actions/customizationActions";
 // import Logger from "../utils/logger";
 
 THREE.Mesh.prototype.raycast = acceleratedRaycast;
@@ -52,11 +49,17 @@ export const ThreeProvider = ({ children }) => {
   const [localCenter, setLocalCenter] = useState(new THREE.Vector3());
   const [cameraViewType, setCameraViewType] = useState(CAMERA_VIEW_TYPE.OUTER);
   const [currentModelPath, setCurrentModelPath] = useState(null);
+  const [roofMeshs, setRoofMeshs] = useState([]);
+
+  const dispatch = useDispatch();
 
   const { data: optionData } = useSelector((state) => state.customization);
+  const { data: modelsData } = useSelector((state) => state.model);
 
   // initialize
   useEffect(() => {
+    dispatch(fetchModelData());
+
     // scene and backgorund
     const _scene = new THREE.Scene();
     _scene.background = new THREE.Color(0xe5e5e5);
@@ -87,7 +90,8 @@ export const ThreeProvider = ({ children }) => {
     _directionalLight.shadow.bias = -0.0001;
 
     const _hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 1);
-    _scene.add(_ambientLight, _hemisphereLight);
+    _scene.add(_ambientLight);
+    _scene.add(_hemisphereLight);
 
     // camera
     const _camera = new THREE.PerspectiveCamera(75, 25 / 16, 0.1, 1000);
@@ -132,8 +136,9 @@ export const ThreeProvider = ({ children }) => {
   useEffect(() => {
     if (!isEditorLoaded) return;
     if (!currentModelPath) return;
+    if (!modelsData.length) return;
     loadFile(currentModelPath);
-  }, [isEditorLoaded, currentModelPath]);
+  }, [isEditorLoaded, currentModelPath, modelsData]);
 
   // change camera view type
   useEffect(() => {
@@ -156,8 +161,27 @@ export const ThreeProvider = ({ children }) => {
   // change the mesh visibility from optionData
   useEffect(() => {
     handleOptionVisibility();
-    console.log("option data", optionData);
+    handleModelColor();
   }, [optionData]);
+
+  const getCurrentModelId = () => {
+    if (!isEditorLoaded || !currentModelPath) return;
+
+    const currentFileName =
+      currentModelPath.split("/")[currentModelPath.split("/").length - 1];
+
+    if (currentFileName.toLowerCase().includes("mini")) {
+      return modelsData.find((_model) => _model.name === "Mini").id;
+    } else if (currentFileName.toLowerCase().includes("studio")) {
+      return modelsData.find((_model) => _model.name === "Studio").id;
+    } else if (currentFileName.toLowerCase().includes("max")) {
+      return modelsData.find((_model) => _model.name === "Max").id;
+    } else if (currentFileName.toLowerCase().includes("evo")) {
+      return modelsData.find((_model) => _model.name === "Evo").id;
+    } else if (currentFileName.toLowerCase().includes("nova")) {
+      return modelsData.find((_model) => _model.name === "Nova").id;
+    }
+  };
 
   const deleteCurrentModel = () => {
     const _models = scene.getObjectsByProperty("name", WAVY_MODEL);
@@ -185,39 +209,74 @@ export const ThreeProvider = ({ children }) => {
     }
   };
 
-  const changeMeshColor = async (_mesh, _color) => {
-    if (!_mesh) return;
-    const newColor =
-      typeof _color === "string"
-        ? new THREE.Color(_color)
-        : new THREE.Color(
-            _color.rgba.r / 255,
-            _color.rgba.g / 255,
-            _color.rgba.b / 255
-          );
-    const material = _mesh.material;
-    if (material.length) {
-      material.map((item) => {
-        item.color = newColor;
-      });
-    } else {
-      material.color = newColor;
-    }
-    _mesh.material = material;
-    _mesh.frustumCulled = false;
-  };
-
-  const loadFile = (url) => {
+  const loadFile = async (url) => {
     let loader;
-    if (!url) return;
-    if (isModelLoading) return;
+    if (!url || isModelLoading) return;
+
     const extension = url.split(".")[url.split(".").length - 1];
     if (!extension) {
       return;
     }
-
     setIsModelLoading(true);
     setLoadPercent(0);
+    setRoofMeshs([]);
+
+    const modelId = getCurrentModelId();
+
+    let _modelOptionData;
+    let _hideMeshNames = [];
+    try {
+      // todo: default option은 끄면 안됨
+      const response = await axiosInstance.get(
+        `/model/${modelId}/custom-selections`,
+        {
+          headers: {
+            language: "ko",
+          },
+        }
+      );
+      _modelOptionData = response.data.data;
+      // model color part visibility
+      _modelOptionData.modelColors.map((_modelColor) => {
+        if (_modelColor.isDefault) return;
+        _modelColor?.meshNames.map((_meshName) => {
+          _hideMeshNames.push(_meshName);
+        });
+      });
+
+      _modelOptionData.modelFloorOptions.map((_floor) => {
+        // check normal options
+        _floor.modelSecondOptions.map((_option) => {
+          _option.optionDetails.map((_optionDetail) => {
+            if (
+              !_optionDetail.meshName ||
+              _optionDetail.meshName === "-" ||
+              _optionDetail.isDefault
+            )
+              return;
+            _hideMeshNames.push(_optionDetail.meshName);
+          });
+        });
+
+        // check kitchen options and detail options
+        _floor.ModelKitchenTypes.map((_kitchenType) => {
+          if (!_kitchenType.meshName || _kitchenType.meshName === "-") return;
+          _kitchenType.isDefault
+            ? null
+            : _hideMeshNames.push(_kitchenType.meshName);
+          _kitchenType.options.map((_kitchenTypeOption) => {
+            _kitchenTypeOption.optionDetails.map((_optionDetail) => {
+              if (!_optionDetail.meshName || _optionDetail.meshName === "-")
+                return;
+              if (_kitchenType.isDefault && _optionDetail.isDefault) return;
+              _hideMeshNames.push(_optionDetail.meshName);
+            });
+          });
+        });
+      });
+    } catch (e) {
+      console.log("e", e);
+    }
 
     deleteCurrentModel();
     switch (extension) {
@@ -240,6 +299,10 @@ export const ThreeProvider = ({ children }) => {
         break;
       case FILE_EXTENSION.PLY:
         loader = new PLYLoader();
+        break;
+      case FILE_EXTENSION.RHINO:
+        loader = new Rhino3dmLoader();
+        loader.setLibraryPath("https://unpkg.com/rhino3dm@8.0.1/");
         break;
       default:
         loader = new FBXLoader();
@@ -280,15 +343,6 @@ export const ThreeProvider = ({ children }) => {
 
               // setup receiveShadow by parent
               child.receiveShadow = _receiveShadow;
-
-              // setting roof visiblity by cameraViewType
-              if (
-                (cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
-                  cameraViewType === CAMERA_VIEW_TYPE.INNER_2) &&
-                _obj.name.toLowerCase().includes("roof")
-              ) {
-                _obj.visible = false;
-              }
 
               // optimization
               if (child.geometry) {
@@ -367,8 +421,20 @@ export const ThreeProvider = ({ children }) => {
           object.add(_obj);
         });
 
+        // setup visibility for initial stage
+        object.traverse((child) => {
+          _hideMeshNames.map((_meshName) => {
+            if (child.name === _meshName) {
+              child.visible = false;
+            }
+          });
+        });
+
         // add the object to the scene
         scene.add(object);
+
+        // setting roof visiblity by cameraViewType
+        changeRoofVisibility(cameraViewType === CAMERA_VIEW_TYPE.OUTER);
 
         setTimeout(() => {
           setLoadPercent(100);
@@ -408,20 +474,36 @@ export const ThreeProvider = ({ children }) => {
     if (!_model) return;
     const visibility = !!_visible;
     if (_model.visible === visibility) return;
+    console.log("visibility changed", _model.name, visibility);
     _model.visible = visibility;
   };
 
-  const changeRoofVisibility = (_visible) => {
+  const changeRoofVisibility = async (_visible) => {
     if (!isEditorLoaded) return;
     const _wavyModel = scene.getObjectByName(WAVY_MODEL);
     if (!_wavyModel) return;
-    _wavyModel.traverse((_model) => {
-      if (_model.name.toLowerCase().includes("roof")) {
-        if (_model.visible !== _visible) {
-          _model.visible = _visible;
+    if (_visible) {
+      if (!roofMeshs.length) return;
+      roofMeshs.map((_roof) => {
+        changeMeshVisibilityByName(_roof.name, true);
+      });
+    } else {
+      // turn off
+      let _arr = [];
+      _wavyModel.traverse((_model) => {
+        if (
+          _model.name.toLowerCase().includes("roof") ||
+          _model.name.toLowerCase().includes("nova-rf") ||
+          _model.name.toLowerCase().includes("mid")
+        ) {
+          if (_model.visible !== _visible) {
+            _model.visible = _visible;
+            _arr.push(_model);
+          }
         }
-      }
-    });
+      });
+      setRoofMeshs([..._arr]);
+    }
   };
 
   const changeModelColorFromHex = (_color) => {
@@ -501,6 +583,22 @@ export const ThreeProvider = ({ children }) => {
     cameraControls.maxPolarAngle = Math.PI / 2;
   };
 
+  const handleModelColor = () => {
+    if (!optionData.modelColors.length) return;
+    const isSelected = optionData.modelColors.find(
+      (_modelColor) => _modelColor.isSelected
+    );
+    optionData.modelColors.map((_modelColor) => {
+      if (!_modelColor?.meshNames) return;
+      _modelColor?.meshNames.map((_meshName) => {
+        changeMeshVisibilityByName(
+          _meshName,
+          isSelected ? _modelColor.isSelected : _modelColor.isDefault
+        );
+      });
+    });
+  };
+
   const handleOptionVisibility = () => {
     // read option changes
     if (!optionData.modelFloorOptions.length) return;
@@ -513,26 +611,54 @@ export const ThreeProvider = ({ children }) => {
     _modelSecondOptions.map((_option) => {
       const { optionDetails } = _option;
       if (!optionDetails.length) return;
+      const _isItemSelected = optionDetails.find(
+        (_optionDetail) => _optionDetail.isSelected
+      );
       optionDetails.map((_optionDetail) => {
         changeMeshVisibilityByName(
           _optionDetail.meshName,
-          _optionDetail.isSelected
+          _isItemSelected ? _optionDetail.isSelected : _optionDetail.isDefault
         );
+        if (_optionDetail.isSelected) {
+          _optionDetail.blockMeshNames.map((_blockMeshName) => {
+            dispatch(
+              customizationOptionChangeByMeshName(_blockMeshName, false)
+            );
+          });
+        }
       });
     });
 
     const _modelKitchenTypes = selectedFloor.ModelKitchenTypes;
+    const _isKitchenSelected = _modelKitchenTypes.find(
+      (_option) => _option.isSelected
+    );
     _modelKitchenTypes.map((_kitchen) => {
-      changeMeshVisibilityByName(_kitchen.meshName, _kitchen.isSelected);
+      changeMeshVisibilityByName(
+        _kitchen.meshName,
+        _isKitchenSelected ? _kitchen.isSelected : _kitchen.isDefault
+      );
+      if (_kitchen.isSelected) {
+        _kitchen.blockMeshNames.map((_blockMeshName) => {
+          dispatch(customizationOptionChangeByMeshName(_blockMeshName, false));
+        });
+      }
       const { options } = _kitchen;
       if (!options.length) return;
       options.map((_option) => {
         const { optionDetails } = _option;
+        const _isKitchenOptionDetailSelected = optionDetails.find(
+          (_optionDetail) => _optionDetail.isSelected
+        );
         if (!optionDetails || !optionDetails.length) return;
         optionDetails.map((_kitchenOptionDetail) => {
           changeMeshVisibilityByName(
             _kitchenOptionDetail.meshName,
-            _kitchenOptionDetail.isSelected
+            _kitchen.isSelected
+              ? _isKitchenOptionDetailSelected
+                ? _kitchenOptionDetail.isSelected
+                : _kitchenOptionDetail.isDefault
+              : false
           );
         });
       });
@@ -548,7 +674,6 @@ export const ThreeProvider = ({ children }) => {
         cameraControls,
         renderer,
         clock,
-        changeMeshColor,
         deleteMeshByMesh,
         loadFile,
         changeModel,
