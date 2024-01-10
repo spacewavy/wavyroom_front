@@ -178,22 +178,27 @@ const Completion = () => {
                   {result?.model?.name}
                 </span>
               </div>
-              {result?.options &&
-                Object.keys(result?.options).map((_option) => {
-                  return (
-                    <div
-                      className="px-8 py-4 flex justify-between"
-                      key={_option}
-                    >
-                      <span className="text-[14px] font-normal">{_option}</span>
-                      <span className="text-[12px] font-light">
-                        {typeof result.options[_option] === "string"
-                          ? result.options[_option]
-                          : result.options[_option].join(" ")}
-                      </span>
-                    </div>
-                  );
-                })}
+              {
+                (language === "ko" ? result?.optionsKO : result?.options) &&
+                  Object.keys(language === "ko" ? result.optionsKO : result.options).map(
+                    (_option) => (
+                      <div className="px-8 py-4 flex justify-between" key={_option}>
+                        <span className="text-[14px] font-normal">{_option}</span>
+                        <span className="text-[12px] font-light">
+                          {typeof (language === "ko"
+                            ? result.optionsKO[_option]
+                            : result.options[_option]) === "string"
+                            ? language === "ko"
+                              ? result.optionsKO[_option]
+                              : result.options[_option]
+                            : language === "ko"
+                            ? result.optionsKO[_option].join(" ")
+                            : result.options[_option].join(" ")}
+                        </span>
+                      </div>
+                    )
+                  )
+              }
             </section>
             <div className="w-full flex justify-between items-center border-y-[1px] mt-0 lg:mt-8 mb-16 p-8">
               <span className="text-[14px] font-normal">
