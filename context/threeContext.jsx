@@ -536,6 +536,7 @@ export const ThreeProvider = ({ children }) => {
           duration: 0.5,
         });
 
+        setRoofMeshs([]);
         // set max angle for cameracontrol
         cameraControls.maxPolarAngle = Math.PI / 2;
         break;
@@ -545,22 +546,34 @@ export const ThreeProvider = ({ children }) => {
         let _arr = [];
         _wavyModel.traverse((_model) => {
           if (
-            _model.name.toLowerCase().includes("roof") ||
-            _model.name.toLowerCase().includes("nova-rf")
+            (_model.name.toLowerCase().includes("roof") ||
+              _model.name.toLowerCase().includes("nova-rf")) &&
+            !_model.name.toLowerCase().includes("group")
           ) {
             if (_model.visible !== false) {
               _model.visible = false;
               _arr.push(_model);
             }
           }
-          if (_model.name.toLowerCase().includes("mid")) {
+          if (
+            _model.name.toLowerCase().includes("mid") &&
+            !_model.name.toLowerCase().includes("group")
+          ) {
+            console.log("");
             if (_model.visible !== true) {
-              _model.visible = true;
-              _arr.push(_model);
+              if (
+                _model.name ===
+                optionData.modelColors.find(
+                  (_modelColor) => _modelColor.isSelected
+                ).meshNanme
+              ) {
+                _model.visible = true;
+              }
+              // _arr.push(_model);
             }
           }
         });
-        setRoofMeshs([..._arr]);
+        setRoofMeshs([...roofMeshs, ..._arr]);
         // calcaulate the camera's position
         const _cameraPosition = new THREE.Vector3(0, 1, 0.1)
           .normalize()
@@ -585,9 +598,10 @@ export const ThreeProvider = ({ children }) => {
         let _arr = [];
         _wavyModel.traverse((_model) => {
           if (
-            _model.name.toLowerCase().includes("roof") ||
-            _model.name.toLowerCase().includes("nova-rf") ||
-            _model.name.toLowerCase().includes("mid")
+            (_model.name.toLowerCase().includes("roof") ||
+              _model.name.toLowerCase().includes("nova-rf") ||
+              _model.name.toLowerCase().includes("mid")) &&
+            !_model.name.toLowerCase().includes("group")
           ) {
             if (_model.visible !== false) {
               _model.visible = false;
@@ -595,7 +609,8 @@ export const ThreeProvider = ({ children }) => {
             }
           }
         });
-        setRoofMeshs([..._arr]);
+        _arr.map((_item) => console.log(_item.name));
+        setRoofMeshs([...roofMeshs, ..._arr]);
         // calcaulate the camera's position
         const _cameraPosition = new THREE.Vector3(0, 1, 0.1)
           .normalize()
