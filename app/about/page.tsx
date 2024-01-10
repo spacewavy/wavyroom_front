@@ -159,6 +159,7 @@ const About = () => {
                   autoPlay
                   loop
                   muted
+                  playsInline
                   ref={videoRef}
                   preload={"auto"}
                   src="/videos/aboutPageVideo.mp4"
