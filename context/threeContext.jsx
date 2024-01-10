@@ -153,7 +153,13 @@ export const ThreeProvider = ({ children }) => {
     handleModelColor();
     handleHasSecondFloor();
     console.log("optiondata", optionData);
-  }, [optionData]);
+  }, [optionData, cameraViewType]);
+
+  useEffect(() => {
+    roofMeshs.map((_mesh) => {
+      console.log(_mesh.name);
+    });
+  }, [roofMeshs]);
 
   const getCurrentModelId = () => {
     if (!isEditorLoaded || !currentModelPath) return;
@@ -518,10 +524,35 @@ export const ThreeProvider = ({ children }) => {
     if (!_wavyModel) return;
     switch (cameraViewType) {
       case CAMERA_VIEW_TYPE.OUTER: {
-        if (!roofMeshs.length) return;
-        roofMeshs.map((_roof) => {
-          changeMeshVisibilityByName(_roof.name, true);
-        });
+        // anyway, show all meshs
+        roofMeshs.length
+          ? roofMeshs.map((_roof) => {
+              changeMeshVisibilityByName(_roof.name, true);
+            })
+          : null;
+
+        // if we selected some colors, pinpoint the meshs
+        if (optionData.modelColors.length) {
+          const _selectedColor =
+            optionData.modelColors.find(
+              (_modelColor) => _modelColor.isSelected
+            ) ||
+            optionData.modelColors.find((_modelColor) => _modelColor.isDefault);
+          optionData.modelColors.map((_modelColor) => {
+            _modelColor.meshNames.map((_name) => {
+              if (
+                !_name.toLowerCase().includes("roof") &&
+                !_name.toLowerCase().includes("mid")
+              )
+                return;
+              changeMeshVisibilityByName(
+                _name,
+                _modelColor.id === _selectedColor.id
+              );
+            });
+          });
+        }
+
         // calcaulate the camera's initial position
         const _cameraPosition = new THREE.Vector3(0, 3, 15)
           .normalize()
@@ -555,24 +586,52 @@ export const ThreeProvider = ({ children }) => {
               _arr.push(_model);
             }
           }
-          if (
-            _model.name.toLowerCase().includes("mid") &&
-            !_model.name.toLowerCase().includes("group")
-          ) {
-            console.log("");
-            if (_model.visible !== true) {
-              if (
-                _model.name ===
-                optionData.modelColors.find(
-                  (_modelColor) => _modelColor.isSelected
-                ).meshNanme
-              ) {
-                _model.visible = true;
-              }
-              // _arr.push(_model);
-            }
-          }
+          // if (
+          //   _model.name.toLowerCase().includes("mid") &&
+          //   !_model.name.toLowerCase().includes("group")
+          // ) {
+          //   const _selectedColor =
+          //     optionData.modelColors.find(
+          //       (_modelColor) => _modelColor.isSelected
+          //     ) ||
+          //     optionData.modelColors.find(
+          //       (_modelColor) => _modelColor.isDefault
+          //     );
+          //   if (_model.visible !== true) {
+          //     if (_model.name === _selectedColor.meshName) {
+          //       _model.visible = true;
+          //     }
+          //     // _arr.push(_model);
+          //   }
+          // }
         });
+
+        // anyway, show all meshs
+        roofMeshs.length
+          ? roofMeshs.map((_roof) => {
+              if (!_roof.name.toLowerCase().includes("mid")) return;
+              changeMeshVisibilityByName(_roof.name, true);
+            })
+          : null;
+
+        // if we selected some colors, pinpoint the meshs
+        if (optionData.modelColors.length) {
+          const _selectedColor =
+            optionData.modelColors.find(
+              (_modelColor) => _modelColor.isSelected
+            ) ||
+            optionData.modelColors.find((_modelColor) => _modelColor.isDefault);
+          optionData.modelColors.map((_modelColor) => {
+            _modelColor.meshNames.map((_name) => {
+              if (!_name.toLowerCase().includes("mid")) return;
+              changeMeshVisibilityByName(
+                _name,
+                _modelColor.id === _selectedColor.id
+              );
+            });
+          });
+        }
+
         setRoofMeshs([...roofMeshs, ..._arr]);
         // calcaulate the camera's position
         const _cameraPosition = new THREE.Vector3(0, 1, 0.1)
@@ -668,6 +727,25 @@ export const ThreeProvider = ({ children }) => {
     optionData.modelColors.map((_modelColor) => {
       if (!_modelColor?.meshNames) return;
       _modelColor?.meshNames.map((_meshName) => {
+        if (_meshName.toLowerCase().includes("roof")) {
+          cameraViewType === CAMERA_VIEW_TYPE.INNER_1 ||
+          cameraViewType === CAMERA_VIEW_TYPE.INNER_2
+            ? changeMeshVisibilityByName(_meshName, false)
+            : changeMeshVisibilityByName(
+                _meshName,
+                isSelected ? _modelColor.isSelected : _modelColor.isDefault
+              );
+          return;
+        }
+        if (_meshName.toLowerCase().includes("mid")) {
+          cameraViewType === CAMERA_VIEW_TYPE.INNER_2
+            ? changeMeshVisibilityByName(_meshName, false)
+            : changeMeshVisibilityByName(
+                _meshName,
+                isSelected ? _modelColor.isSelected : _modelColor.isDefault
+              );
+          return;
+        }
         changeMeshVisibilityByName(
           _meshName,
           isSelected ? _modelColor.isSelected : _modelColor.isDefault

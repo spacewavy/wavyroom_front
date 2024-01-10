@@ -71,6 +71,13 @@ const Customization = () => {
   const [selectedModel, setSelectedModel] = useState<any>(null);
   const { language } = useSelector((state: any) => state.locale);
   const { t } = useTranslation();
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+
+  useEffect(() => {
+    const handleWindowResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchNavigationModelData() as unknown as AnyAction);
@@ -374,7 +381,7 @@ const Customization = () => {
 
   return (
     <div>
-      <div className="relative flex flex-col lg:flex-row max-w-[100vw] overflow-hidden h-[100vh]">
+      <div className="relative flex flex-col lg:flex-row max-w-[100vw] overflow-hidden" style={{ height: `${windowHeight}px` }}>
         <div
           className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
             openMenu ? " pointer-events-none" : ""
