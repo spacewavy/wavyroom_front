@@ -155,12 +155,6 @@ export const ThreeProvider = ({ children }) => {
     console.log("optiondata", optionData);
   }, [optionData, cameraViewType]);
 
-  useEffect(() => {
-    roofMeshs.map((_mesh) => {
-      console.log(_mesh.name);
-    });
-  }, [roofMeshs]);
-
   const getCurrentModelId = () => {
     if (!isEditorLoaded || !currentModelPath) return;
 
@@ -490,34 +484,6 @@ export const ThreeProvider = ({ children }) => {
     _model.visible = visibility;
   };
 
-  const changeRoofVisibility = async (_visible) => {
-    if (!isEditorLoaded) return;
-    const _wavyModel = scene.getObjectByName(WAVY_MODEL);
-    if (!_wavyModel) return;
-    if (_visible) {
-      if (!roofMeshs.length) return;
-      roofMeshs.map((_roof) => {
-        changeMeshVisibilityByName(_roof.name, true);
-      });
-    } else {
-      // turn off
-      let _arr = [];
-      _wavyModel.traverse((_model) => {
-        if (
-          _model.name.toLowerCase().includes("roof") ||
-          _model.name.toLowerCase().includes("nova-rf") ||
-          _model.name.toLowerCase().includes("mid")
-        ) {
-          if (_model.visible !== _visible) {
-            _model.visible = _visible;
-            _arr.push(_model);
-          }
-        }
-      });
-      setRoofMeshs([..._arr]);
-    }
-  };
-
   const onChangeCameraViewType = async () => {
     if (!isEditorLoaded) return;
     const _wavyModel = scene.getObjectByName(WAVY_MODEL);
@@ -668,7 +634,6 @@ export const ThreeProvider = ({ children }) => {
             }
           }
         });
-        _arr.map((_item) => console.log(_item.name));
         setRoofMeshs([...roofMeshs, ..._arr]);
         // calcaulate the camera's position
         const _cameraPosition = new THREE.Vector3(0, 1, 0.1)
@@ -721,9 +686,9 @@ export const ThreeProvider = ({ children }) => {
 
   const handleModelColor = () => {
     if (!optionData.modelColors.length) return;
-    const isSelected = optionData.modelColors.find(
-      (_modelColor) => _modelColor.isSelected
-    );
+    const _selectedColor =
+      optionData.modelColors.find((_modelColor) => _modelColor.isSelected) ||
+      optionData.modelColors.find((_modelColor) => _modelColor.isDefault);
     optionData.modelColors.map((_modelColor) => {
       if (!_modelColor?.meshNames) return;
       _modelColor?.meshNames.map((_meshName) => {
@@ -733,7 +698,7 @@ export const ThreeProvider = ({ children }) => {
             ? changeMeshVisibilityByName(_meshName, false)
             : changeMeshVisibilityByName(
                 _meshName,
-                isSelected ? _modelColor.isSelected : _modelColor.isDefault
+                _selectedColor.id === _modelColor.id
               );
           return;
         }
@@ -742,13 +707,13 @@ export const ThreeProvider = ({ children }) => {
             ? changeMeshVisibilityByName(_meshName, false)
             : changeMeshVisibilityByName(
                 _meshName,
-                isSelected ? _modelColor.isSelected : _modelColor.isDefault
+                _selectedColor.id === _modelColor.id
               );
           return;
         }
         changeMeshVisibilityByName(
           _meshName,
-          isSelected ? _modelColor.isSelected : _modelColor.isDefault
+          _selectedColor.id === _modelColor.id
         );
       });
     });
