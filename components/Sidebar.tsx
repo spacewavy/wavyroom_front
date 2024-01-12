@@ -146,7 +146,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             const isLink = !!item.link;
             return isLink ? (
               <Link
-                key={index}
+                key={item.id}
                 href={item?.link || ""}
                 onClick={closeSidebar}
                 className={cn(
