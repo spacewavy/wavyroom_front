@@ -20,6 +20,7 @@ import { ModelDetailItem } from "../redux/types";
 import axiosInstance from "@/api/axioInstance";
 import {
   fetchCustomizationOptionsData,
+  initializeCustomzationOptionData,
   navigateToSettings,
 } from "../redux/actions/customizationActions";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -75,8 +76,10 @@ const Customization = () => {
 
   useEffect(() => {
     const handleWindowResize = () => setWindowHeight(window.innerHeight);
-    window.addEventListener('resize', handleWindowResize);
-    return () => window.removeEventListener('resize', handleWindowResize);
+    window.addEventListener("resize", handleWindowResize);
+    dispatch(initializeCustomzationOptionData() as unknown as AnyAction);
+
+    return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
   useEffect(() => {
@@ -381,7 +384,10 @@ const Customization = () => {
 
   return (
     <div>
-      <div className="relative flex flex-col lg:flex-row max-w-[100vw] overflow-hidden" style={{ height: `${windowHeight}px` }}>
+      <div
+        className="relative flex flex-col lg:flex-row max-w-[100vw] overflow-hidden"
+        style={{ height: `${windowHeight}px` }}
+      >
         <div
           className={`relative w-full lg:flex-1 bg-[#F9F9FA] flex flex-col h-[312px] md:h-[450px] lg:h-full overflow-hidden ${
             openMenu ? " pointer-events-none" : ""

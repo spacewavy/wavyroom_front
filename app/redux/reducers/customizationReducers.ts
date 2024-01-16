@@ -1,4 +1,5 @@
 import {
+  INITIALIZE_CUSTOMIZATION_STATE,
   FETCH_CUSTOMIZATION_OPTIONS_SUCCESS,
   FETCH_CUSTOMIZATION_OPTIONS_FAILURE,
   SET_CUSTOMIZATION_SELECTED_COLOR,
@@ -24,6 +25,12 @@ export const fetchCustomizationOptionsDataReducer = (
   action: any
 ) => {
   switch (action.type) {
+    case INITIALIZE_CUSTOMIZATION_STATE:
+      return {
+        ...state,
+        data: { ...initialState.data },
+        error: null,
+      };
     case FETCH_CUSTOMIZATION_OPTIONS_SUCCESS:
       return {
         ...state,
