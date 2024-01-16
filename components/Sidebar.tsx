@@ -146,7 +146,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             const isLink = !!item.link;
             return isLink ? (
               <Link
-                key={index}
+                key={item.id}
                 href={item?.link || ""}
                 onClick={closeSidebar}
                 className={cn(
@@ -212,7 +212,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             viewBox="0 0 24 24"
             fill="none"
           >
-            <g clip-path="url(#clip0_4597_600)">
+            <g clipPath="url(#clip0_4597_600)">
               <path
                 d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z"
                 fill="black"
@@ -323,7 +323,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
               viewBox="0 0 24 24"
               fill="none"
             >
-              <g clip-path="url(#clip0_4597_600)">
+              <g clipPath="url(#clip0_4597_600)">
                 <path
                   d="M16.1491 21.3504L6.78906 12.0004L16.1491 2.65039L16.8491 3.35039L8.20906 12.0004L16.8491 20.6504L16.1491 21.3504Z"
                   fill="black"
