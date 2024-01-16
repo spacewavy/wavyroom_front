@@ -1,5 +1,6 @@
 import axiosInstance from "@/api/axioInstance";
 
+export const INITIALIZE_CUSTOMIZATION_STATE = "INITIALIZE_CUSTOMIZATION_STATE";
 export const FETCH_CUSTOMIZATION_OPTIONS_SUCCESS =
   "FETCH_CUSTOMIZATION_OPTIONS_SUCCESS";
 export const FETCH_CUSTOMIZATION_OPTIONS_FAILURE =
@@ -16,6 +17,14 @@ export const SET_CUSTOMIZATION_KITCHEN_OPTION_CHANGE =
 export const SET_NAVIGATE_TO_SETTINGS = "SET_NAVIGATE_TO_SETTINGS";
 export const UPDATE_CUSTOMIZATION_OPTION_BY_NAME =
   "UPDATE_CUSTOMIZATION_OPTION_BY_NAME";
+
+export const initializeCustomzationOptionData = () => {
+  return async (dispatch: any) => {
+    dispatch({
+      type: INITIALIZE_CUSTOMIZATION_STATE,
+    });
+  };
+};
 
 export const fetchCustomizationOptionsData = (itemId: string) => {
   return async (dispatch: any, getState: any) => {
