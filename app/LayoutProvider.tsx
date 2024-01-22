@@ -1,15 +1,16 @@
 "use client";
+
 import { usePathname } from "next/navigation";
-// Use usePathname for catching route name.
 import { ReactNode, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { LoadingProvider } from "../context/loadingContext";
-import { useSelector } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n/i18n";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
+import { ReduxProvider } from "./ReduxProvider";
 
 const pretendard = localFont({
   src: [
@@ -41,12 +42,15 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
   const [renderClientSideComponent, setRenderClientSideComponent] =
     useState(false);
   const pathname = usePathname();
+
   const showLayout =
     pathname !== "/model-detail" && pathname !== "/customization";
   const showFooter = pathname !== "/customization";
+
   useEffect(() => {
     setRenderClientSideComponent(true);
   }, []);
+
   const { language } = useSelector((state: any) => state.locale);
 
   return (
