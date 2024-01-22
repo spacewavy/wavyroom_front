@@ -68,7 +68,6 @@ const Completion = () => {
       }
 
       const imgData = canvas.toDataURL("image/png");
-
       let position = 0;
       pdf.addImage(
         imgData,
@@ -274,7 +273,7 @@ const Completion = () => {
         <div className="relative top-0 z-10 bg-white">
           <CompletionComponent isPDfElement={false} />
         </div>
-        <div id="pdf" ref={pdfRefElement} className="z-0 hidden">
+        <div id="pdf" ref={pdfRefElement} className="z-0 w-[1200px] hidden">
           <CompletionComponent isPDfElement={true} />
         </div>
       </div>
