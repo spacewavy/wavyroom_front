@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import axiosInstance from "../../api/axioInstance";
 import { useSearchParams } from "next/navigation";
@@ -50,8 +49,8 @@ const Completion = () => {
     pdfComponent.style.display = "flex";
     htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
       document.body.appendChild(canvas);
-      const pdfWidth = 160; // Custom width in mm
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfWidth = 210;
+      const pdfHeight = 297;
 
       const pdf = new jsPDF({
         orientation: "p",
@@ -59,8 +58,15 @@ const Completion = () => {
         format: [pdfWidth, pdfHeight],
       });
 
-      const imgWidth = pdfWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let imgWidth, imgHeight;
+      if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
+        imgHeight = pdfHeight;
+        imgWidth = imgHeight * (canvas.width / canvas.height);
+      } else {
+        imgWidth = pdfWidth;
+        imgHeight = (canvas.height * imgWidth) / canvas.width;
+      }
+
       const imgData = canvas.toDataURL("image/png");
 
       let position = 0;
@@ -178,27 +184,25 @@ const Completion = () => {
                   {result?.model?.name}
                 </span>
               </div>
-              {
-                (language === "ko" ? result?.optionsKO : result?.options) &&
-                  Object.keys(language === "ko" ? result.optionsKO : result.options).map(
-                    (_option) => (
-                      <div className="px-8 py-4 flex justify-between" key={_option}>
-                        <span className="text-[14px] font-normal">{_option}</span>
-                        <span className="text-[12px] font-light">
-                          {typeof (language === "ko"
-                            ? result.optionsKO[_option]
-                            : result.options[_option]) === "string"
-                            ? language === "ko"
-                              ? result.optionsKO[_option]
-                              : result.options[_option]
-                            : language === "ko"
-                            ? result.optionsKO[_option].join(" ")
-                            : result.options[_option].join(" ")}
-                        </span>
-                      </div>
-                    )
-                  )
-              }
+              {(language === "ko" ? result?.optionsKO : result?.options) &&
+                Object.keys(
+                  language === "ko" ? result.optionsKO : result.options
+                ).map((_option) => (
+                  <div className="px-8 py-4 flex justify-between" key={_option}>
+                    <span className="text-[14px] font-normal">{_option}</span>
+                    <span className="text-[12px] font-light">
+                      {typeof (language === "ko"
+                        ? result.optionsKO[_option]
+                        : result.options[_option]) === "string"
+                        ? language === "ko"
+                          ? result.optionsKO[_option]
+                          : result.options[_option]
+                        : language === "ko"
+                        ? result.optionsKO[_option].join(" ")
+                        : result.options[_option].join(" ")}
+                    </span>
+                  </div>
+                ))}
             </section>
             <div className="w-full flex justify-between items-center border-y-[1px] mt-0 lg:mt-8 mb-16 p-8">
               <span className="text-[14px] font-normal">
