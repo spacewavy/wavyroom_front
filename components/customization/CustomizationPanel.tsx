@@ -58,7 +58,7 @@ export const FloorCard: FC<option> = ({
       }}
     >
       <div
-        className={`flex flex-col gap-2 font-medium text-jetBlack ${
+        className={`flex flex-col font-medium text-jetBlack ${
           isSelected ? "text-jetBlack" : "text-gray"
         }`}
       >
@@ -408,12 +408,13 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
             >
               <div className="grid grid-cols-2 gap-2 pt-4">
                 {data.modelFloorOptions.map((o: ModelFloorOptions) => {
+                  console.log("o", o);
                   return (
                     <FloorCard
                       id={o.id}
                       key={`card-${o.id}`}
                       title={o.name}
-                      price={o.price.toLocaleString()}
+                      price={o.price}
                       isSelected={o.isSelected || o.isDefault}
                       onClickHandler={() => {
                         handleFloorChange(o);
