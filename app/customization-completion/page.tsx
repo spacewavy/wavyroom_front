@@ -49,9 +49,8 @@ const Completion = () => {
     pdfComponent.style.display = "flex";
     htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
       document.body.appendChild(canvas);
-      const pdfWidth = 160; // Custom width in mm
-      // const pdfHeight = (pdfWidth * 297) / 210;
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfWidth = 210;
+      const pdfHeight = 297;
 
       const pdf = new jsPDF({
         orientation: "p",
@@ -59,8 +58,15 @@ const Completion = () => {
         format: [pdfWidth, pdfHeight],
       });
 
-      const imgWidth = pdfWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let imgWidth, imgHeight;
+      if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
+        imgHeight = pdfHeight;
+        imgWidth = imgHeight * (canvas.width / canvas.height);
+      } else {
+        imgWidth = pdfWidth;
+        imgHeight = (canvas.height * imgWidth) / canvas.width;
+      }
+
       const imgData = canvas.toDataURL("image/png");
 
       let position = 0;
