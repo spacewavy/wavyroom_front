@@ -46,10 +46,9 @@ const Completion = () => {
     const pdfComponent = document.getElementById("pdf");
     if (!pdfComponent) return;
     try {
+      document.body.style.cursor = "wait";
       pdfComponent.style.display = "flex";
 
-      await htmlToImage.toCanvas(pdfComponent);
-      await htmlToImage.toCanvas(pdfComponent);
       await htmlToImage.toCanvas(pdfComponent);
 
       const canvas = await htmlToImage.toCanvas(pdfComponent);
@@ -85,8 +84,12 @@ const Completion = () => {
 
       pdf.save(`product-receipt.pdf`);
       canvas.remove();
+    } catch (e) {
+      console.error("e", e);
+    } finally {
+      document.body.style.cursor = "default";
       pdfComponent.style.display = "none";
-    } catch (e) {}
+    }
   };
 
   const CompletionComponent = ({ isPDfElement = false }) => {
