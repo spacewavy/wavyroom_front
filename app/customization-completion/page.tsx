@@ -84,7 +84,7 @@ const Completion = () => {
       );
 
       pdf.save(`product-receipt.pdf`);
-      // canvas.remove();
+      canvas.remove();
       pdfComponent.style.display = "none";
     } catch (e) {}
   };
