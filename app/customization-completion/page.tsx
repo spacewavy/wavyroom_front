@@ -139,6 +139,7 @@ const Completion = () => {
                   alt="img"
                   fill
                   objectFit="contain"
+                  crossOrigin="anonymous"
                 />
               </div>
             </div>
