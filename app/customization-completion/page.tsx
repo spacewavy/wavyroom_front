@@ -47,58 +47,42 @@ const Completion = () => {
     if (!pdfComponent) return;
 
     pdfComponent.style.display = "flex";
-    htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
-      document.body.appendChild(canvas);
-      const pdfWidth = 210;
-      const pdfHeight = 297;
+    htmlToImage.toCanvas(pdfComponent).then(function () {
+      htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
+        document.body.appendChild(canvas);
+        const pdfWidth = 210;
+        const pdfHeight = 297;
 
-      const pdf = new jsPDF({
-        orientation: "p",
-        unit: "mm",
-        format: "a4",
+        const pdf = new jsPDF({
+          orientation: "p",
+          unit: "mm",
+          format: "a4",
+        });
+
+        let imgWidth, imgHeight;
+        if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
+          imgHeight = pdfHeight;
+          imgWidth = imgHeight * (canvas.width / canvas.height);
+        } else {
+          imgWidth = pdfWidth;
+          imgHeight = (canvas.height * imgWidth) / canvas.width;
+        }
+
+        const imgData = canvas.toDataURL("image/png");
+        let position = 0;
+        pdf.addImage(
+          imgData,
+          "PNG",
+          (pdfWidth - imgWidth) / 2,
+          position,
+          imgWidth,
+          imgHeight
+        );
+
+        // pdf.save(`product-receipt.pdf`);
+        // canvas.remove();
       });
-
-      let imgWidth, imgHeight;
-      if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
-        imgHeight = pdfHeight;
-        imgWidth = imgHeight * (canvas.width / canvas.height);
-      } else {
-        imgWidth = pdfWidth;
-        imgHeight = (canvas.height * imgWidth) / canvas.width;
-      }
-
-      const imgData = canvas.toDataURL("image/png");
-      let position = 0;
-      pdf.addImage(
-        imgData,
-        "PNG",
-        (pdfWidth - imgWidth) / 2,
-        position,
-        imgWidth,
-        imgHeight
-      );
-
-      // pdf.save(`product-receipt.pdf`);
-      // canvas.remove();
     });
-    // htmlToImage.toPng(pdfComponent).then(function (dataUrl) {
-    //   var link = document.createElement("a");
-    //   link.download = "my-image-name.png";
-    //   link.href = dataUrl;
-    //   link.click();
-    // });
-    htmlToImage.toJpeg(pdfComponent).then(function (dataUrl) {
-      var link = document.createElement("a");
-      link.download = "my-image-name.jpeg";
-      link.href = dataUrl;
-      link.click();
-    });
-    // htmlToImage.toSvg(pdfComponent).then(function (dataUrl) {
-    //   var link = document.createElement("a");
-    //   link.download = "my-image-name.svg";
-    //   link.href = dataUrl;
-    //   link.click();
-    // });
     pdfComponent.style.display = "none";
   };
 
