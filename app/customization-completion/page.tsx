@@ -93,12 +93,12 @@ const Completion = () => {
       link.href = dataUrl;
       link.click();
     });
-    htmlToImage.toSvg(pdfComponent).then(function (dataUrl) {
-      var link = document.createElement("a");
-      link.download = "my-image-name.svg";
-      link.href = dataUrl;
-      link.click();
-    });
+    // htmlToImage.toSvg(pdfComponent).then(function (dataUrl) {
+    //   var link = document.createElement("a");
+    //   link.download = "my-image-name.svg";
+    //   link.href = dataUrl;
+    //   link.click();
+    // });
     pdfComponent.style.display = "none";
   };
 
