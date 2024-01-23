@@ -79,30 +79,27 @@ const Completion = () => {
       );
 
       // pdf.save(`product-receipt.pdf`);
-      // pdfComponent.style.display = "none";
       // canvas.remove();
     });
-    htmlToImage.toPng(pdfComponent).then(function (dataUrl) {
-      var link = document.createElement("a");
-      link.download = "my-image-name.png";
-      link.href = dataUrl;
-      link.click();
-      // pdfComponent.style.display = "none";
-    });
+    // htmlToImage.toPng(pdfComponent).then(function (dataUrl) {
+    //   var link = document.createElement("a");
+    //   link.download = "my-image-name.png";
+    //   link.href = dataUrl;
+    //   link.click();
+    // });
     htmlToImage.toJpeg(pdfComponent).then(function (dataUrl) {
       var link = document.createElement("a");
       link.download = "my-image-name.jpeg";
       link.href = dataUrl;
       link.click();
-      // pdfComponent.style.display = "none";
     });
     htmlToImage.toSvg(pdfComponent).then(function (dataUrl) {
       var link = document.createElement("a");
       link.download = "my-image-name.svg";
       link.href = dataUrl;
       link.click();
-      // pdfComponent.style.display = "none";
     });
+    pdfComponent.style.display = "none";
   };
 
   const CompletionComponent = ({ isPDfElement = false }) => {
