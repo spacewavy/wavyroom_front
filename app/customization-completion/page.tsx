@@ -47,7 +47,11 @@ const Completion = () => {
     if (!pdfComponent) return;
     try {
       pdfComponent.style.display = "flex";
+
       await htmlToImage.toCanvas(pdfComponent);
+      await htmlToImage.toCanvas(pdfComponent);
+      await htmlToImage.toCanvas(pdfComponent);
+
       const canvas = await htmlToImage.toCanvas(pdfComponent);
       document.body.appendChild(canvas);
       const pdfWidth = 210;
