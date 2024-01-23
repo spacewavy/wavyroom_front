@@ -42,48 +42,47 @@ const Completion = () => {
     }
   };
 
-  const handlePdfExport = () => {
+  const handlePdfExport = async () => {
     const pdfComponent = document.getElementById("pdf");
     if (!pdfComponent) return;
+    try {
+      pdfComponent.style.display = "flex";
+      await htmlToImage.toCanvas(pdfComponent);
+      const canvas = await htmlToImage.toCanvas(pdfComponent);
+      document.body.appendChild(canvas);
+      const pdfWidth = 210;
+      const pdfHeight = 297;
 
-    pdfComponent.style.display = "flex";
-    htmlToImage.toCanvas(pdfComponent).then(function () {
-      htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
-        document.body.appendChild(canvas);
-        const pdfWidth = 210;
-        const pdfHeight = 297;
-
-        const pdf = new jsPDF({
-          orientation: "p",
-          unit: "mm",
-          format: "a4",
-        });
-
-        let imgWidth, imgHeight;
-        if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
-          imgHeight = pdfHeight;
-          imgWidth = imgHeight * (canvas.width / canvas.height);
-        } else {
-          imgWidth = pdfWidth;
-          imgHeight = (canvas.height * imgWidth) / canvas.width;
-        }
-
-        const imgData = canvas.toDataURL("image/png");
-        let position = 0;
-        pdf.addImage(
-          imgData,
-          "PNG",
-          (pdfWidth - imgWidth) / 2,
-          position,
-          imgWidth,
-          imgHeight
-        );
-
-        // pdf.save(`product-receipt.pdf`);
-        // canvas.remove();
+      const pdf = new jsPDF({
+        orientation: "p",
+        unit: "mm",
+        format: "a4",
       });
-    });
-    pdfComponent.style.display = "none";
+
+      let imgWidth, imgHeight;
+      if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
+        imgHeight = pdfHeight;
+        imgWidth = imgHeight * (canvas.width / canvas.height);
+      } else {
+        imgWidth = pdfWidth;
+        imgHeight = (canvas.height * imgWidth) / canvas.width;
+      }
+
+      const imgData = canvas.toDataURL("image/png");
+      let position = 0;
+      pdf.addImage(
+        imgData,
+        "PNG",
+        (pdfWidth - imgWidth) / 2,
+        position,
+        imgWidth,
+        imgHeight
+      );
+
+      pdf.save(`product-receipt.pdf`);
+      // canvas.remove();
+      pdfComponent.style.display = "none";
+    } catch (e) {}
   };
 
   const CompletionComponent = ({ isPDfElement = false }) => {
