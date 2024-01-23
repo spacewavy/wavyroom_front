@@ -47,8 +47,9 @@ const Completion = () => {
     if (!pdfComponent) return;
 
     pdfComponent.style.display = "flex";
-    htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
-      document.body.appendChild(canvas);
+    // htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
+    htmlToImage.toPng(pdfComponent).then(function (dataUrl) {
+      // document.body.appendChild(canvas);
       const pdfWidth = 210;
       const pdfHeight = 297;
 
@@ -58,29 +59,31 @@ const Completion = () => {
         format: [pdfWidth, pdfHeight],
       });
 
-      let imgWidth, imgHeight;
-      if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
-        imgHeight = pdfHeight;
-        imgWidth = imgHeight * (canvas.width / canvas.height);
-      } else {
-        imgWidth = pdfWidth;
-        imgHeight = (canvas.height * imgWidth) / canvas.width;
-      }
+      // let imgWidth, imgHeight;
+      // if (canvas.height / canvas.width > pdfHeight / pdfWidth) {
+      //   imgHeight = pdfHeight;
+      //   imgWidth = imgHeight * (canvas.width / canvas.height);
+      // } else {
+      //   imgWidth = pdfWidth;
+      //   imgHeight = (canvas.height * imgWidth) / canvas.width;
+      // }
 
-      const imgData = canvas.toDataURL("image/png");
+      // const imgData = canvas.toDataURL("image/png");
+      const imgData = dataUrl;
       let position = 0;
-      pdf.addImage(
-        imgData,
-        "PNG",
-        (pdfWidth - imgWidth) / 2,
-        position,
-        imgWidth,
-        imgHeight
-      );
+      // pdf.addImage(
+      //   imgData,
+      //   "PNG",
+      //   (pdfWidth - imgWidth) / 2,
+      //   position,
+      //   imgWidth,
+      //   imgHeight
+      // );
+      pdf.addImage(imgData, "PNG", 0, position, 210, 297);
 
       pdf.save(`product-receipt.pdf`);
       pdfComponent.style.display = "none";
-      canvas.remove();
+      // canvas.remove();
     });
   };
 
