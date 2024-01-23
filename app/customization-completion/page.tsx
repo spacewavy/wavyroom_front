@@ -42,12 +42,17 @@ const Completion = () => {
     }
   };
 
-  const handlePdfExport = () => {
+  const handlePdfExport = async () => {
     const pdfComponent = document.getElementById("pdf");
     if (!pdfComponent) return;
+    try {
+      document.body.style.cursor = "wait";
+      pdfComponent.style.display = "flex";
 
-    pdfComponent.style.display = "flex";
-    htmlToImage.toCanvas(pdfComponent).then(function (canvas) {
+      await htmlToImage.toCanvas(pdfComponent);
+      await htmlToImage.toCanvas(pdfComponent);
+
+      const canvas = await htmlToImage.toCanvas(pdfComponent);
       document.body.appendChild(canvas);
       const pdfWidth = 210;
       const pdfHeight = 297;
@@ -55,7 +60,7 @@ const Completion = () => {
       const pdf = new jsPDF({
         orientation: "p",
         unit: "mm",
-        format: [pdfWidth, pdfHeight],
+        format: "a4",
       });
 
       let imgWidth, imgHeight;
@@ -79,9 +84,13 @@ const Completion = () => {
       );
 
       pdf.save(`product-receipt.pdf`);
-      pdfComponent.style.display = "none";
       canvas.remove();
-    });
+    } catch (e) {
+      console.error("e", e);
+    } finally {
+      document.body.style.cursor = "default";
+      pdfComponent.style.display = "none";
+    }
   };
 
   const CompletionComponent = ({ isPDfElement = false }) => {
@@ -139,6 +148,7 @@ const Completion = () => {
                   alt="img"
                   fill
                   objectFit="contain"
+                  crossOrigin="anonymous"
                 />
               </div>
             </div>
