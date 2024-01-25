@@ -70,6 +70,7 @@ const Customization = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState<string>("");
   const [selectedModel, setSelectedModel] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { language } = useSelector((state: any) => state.locale);
   const { t } = useTranslation();
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -166,7 +167,9 @@ const Customization = () => {
   };
 
   const handleFormSubmit = async () => {
+    if (isLoading) return;
     try {
+      setIsLoading(true);
       const postData = {
         name: formElements.name,
         email: formElements.email,
@@ -186,6 +189,8 @@ const Customization = () => {
       router.push(`/customization-completion?id=${data.id}`);
     } catch (e) {
       console.error("e", e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
