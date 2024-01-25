@@ -18,6 +18,7 @@ const Completion = () => {
   const pdfRefElement = useRef<HTMLDivElement>(null);
 
   const [result, setResult] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { language } = useSelector((state: any) => state.locale);
 
   useEffect(() => {
@@ -43,9 +44,11 @@ const Completion = () => {
   };
 
   const handlePdfExport = async () => {
+    if (isLoading) return;
     const pdfComponent = document.getElementById("pdf");
     if (!pdfComponent) return;
     try {
+      setIsLoading(true);
       document.body.style.cursor = "wait";
       pdfComponent.style.display = "flex";
 
@@ -90,14 +93,15 @@ const Completion = () => {
     } finally {
       document.body.style.cursor = "default";
       pdfComponent.style.display = "none";
+      setIsLoading(false);
     }
   };
 
   const CompletionComponent = ({ isPDfElement = false }) => {
     return (
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 items-center">
         {isPDfElement ? (
-          <div className="bg-black py-8 flex items-center justify-center">
+          <div className="bg-black py-8 flex items-center justify-center flex-1 w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -114,7 +118,7 @@ const Completion = () => {
             </svg>
           </div>
         ) : null}
-        <div className="py-16 md:py-32 w-full px-4">
+        <div className="py-16 md:py-32 w-full max-w-[600px]">
           <div className="flex flex-col justify-center items-center text-center w-full">
             <div className="text-[28px] md:text-[40px] font-light mb-4">
               <span>
@@ -258,7 +262,7 @@ const Completion = () => {
           </div>
         </div>
         {!isPDfElement ? (
-          <div className="bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
+          <div className="w-full bg-lightGray py-16 px-4 md:p-16 flex flex-col items-center text-center justify-center">
             <div className="text-[28px] md:text-[40px] font-light">
               <span>{t("customization.section-3")}</span>
             </div>
