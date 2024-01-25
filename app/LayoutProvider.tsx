@@ -60,7 +60,7 @@ export const LayoutProvider = ({ children }: { children: ReactNode }) => {
           <div
             id="main"
             className={cn(
-              "flex flex-col font-light whitespace-pre-line group",
+              "flex flex-col font-light whitespace-pre-line group break-keep",
               language === "ko" ? "" : "is-en",
               language === "ko" ? pretendard.className : diaType.className
             )}
