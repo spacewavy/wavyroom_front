@@ -109,6 +109,37 @@ const ModelDetail = () => {
     },
   ];
 
+  const CABIN_FAQS = [
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-1.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-1.answer"),
+    },
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-2.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-2.answer"),
+    },
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-3.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-3.answer"),
+    },
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-4.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-4.answer"),
+    },
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-5.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-5.answer"),
+    },
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-6.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-6.answer"),
+    },
+    {
+      question: t("contact-us.section-2-cabin-faq.faq-7.question"),
+      answer: t("contact-us.section-2-cabin-faq.faq-7.answer"),
+    },
+  ];
+
   const specRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(false);
   const [selectedColor, setSelectedColor] = useState({
@@ -122,6 +153,7 @@ const ModelDetail = () => {
       data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
     setIsDark(data.isDarkMode);
+    console.log("detail data", data);
   }, [data]);
 
   const handleSrcollToFAQ = () => {
@@ -436,14 +468,16 @@ const ModelDetail = () => {
               {t("contact-us.section-2.title")}
             </div>
             <div className="flex flex-col w-full">
-              {FAQs.map((item, index) => (
-                <FaqItem
-                  key={"faq" + index}
-                  question={item.question}
-                  answer={item.answer}
-                  isDark={isDark}
-                />
-              ))}
+              {(data?.name === "Cabin" ? CABIN_FAQS : FAQs).map(
+                (item, index) => (
+                  <FaqItem
+                    key={"faq" + index}
+                    question={item.question}
+                    answer={item.answer}
+                    isDark={isDark}
+                  />
+                )
+              )}
             </div>
           </div>
         </section>

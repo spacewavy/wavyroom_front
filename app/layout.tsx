@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics gaId="G-2WBRQGTKBM" />
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className="break-keep">
         <ReduxProvider>
           <LayoutProvider>{children}</LayoutProvider>
         </ReduxProvider>
