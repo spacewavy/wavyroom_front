@@ -230,7 +230,36 @@
         "question": "How are the insulation standards met?",
         "answer": "The insulation in the modular products sufficiently meet standards in most parts of the world including all areas in South Korea and the United States."
       }
-    }
+    },
+    "section-2-cabin-faq": {
+      "faq-1": {
+        "question": "What is a Wavyroom Cabin?",
+        "answer": "Wavyroom Cabin offers a unique experience different from traditional camping, pensions, and hotels. It provides a comfortable and cozy space with a sleeping area, bathroom, and kitchen, allowing for a more relaxed and convenient stay."
+      },
+      "faq-2": {
+        "question": "What are the special features of the materials used in Wavyroom Cabin?",
+        "answer": "The high-performance composite panels that make up the Wavyroom Cabin are widely used in aircraft, automobiles, and other devices requiring high durability. These materials offer excellent structural and insulation performance and maintain their strength over time.\n\nThey are safe as they do not emit harmful substances like formaldehyde and are made of eco-friendly furniture materials with an E0 rating or higher.\n\nIn the event of a fire, they help prevent the spread of flames and suppress the release of toxic gases."
+      },
+      "faq-3": {
+        "question": "How can Wavyroom Cabin be used?",
+        "answer": "Second House\n\nAccommodation: Can be installed and operated immediately without additional permits at locations like campsites\n\nPopup Store: Custom popup space that provides an in-depth brand experience"
+      },
+      "faq-4": {
+        "question": "Can Wavyroom Cabin be transported anywhere?",
+        "answer": "Yes, it can be transported to any location within the country (including islands accessible by boat, such as Jeju Island). However, the trailer must be able to access roads with a width of at least 4 meters up to the installation site."
+      },
+      "faq-5": {
+        "question": "What are the estimated delivery and installation costs?",
+        "answer": "Delivery costs vary depending on the distance from the Wavyroom production site (located in Hwaseong, Gyeonggi Province) and are provided through phone consultation."
+      },
+      "faq-6": {
+        "question": "How long does the production period take?",
+        "answer": "The production period typically takes about 3 weeks."
+      },
+      "faq-7": {
+        "question": "How is the after-sales service (A/S) handled?",
+        "answer": "The free A/S period is 1 year, after which paid A/S (travel expenses + material costs) is available. For A/S issues caused by customer negligence, paid service is provided even within the 1-year period after purchasing the Wavyroom."
+      }
   },
   "footer": {
     "section-1-links": {
