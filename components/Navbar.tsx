@@ -62,7 +62,7 @@ const Navbar = ({
           <div className="flex items-center justify-between h-24">
             <Link href="/">
               <Image
-                className="h-6 cursor-pointer w-auto"
+                className="h-4 lg:h-6 cursor-pointer w-auto"
                 src={isDark ? LogoWhite : Logo}
                 alt="Spacewavy"
               />
