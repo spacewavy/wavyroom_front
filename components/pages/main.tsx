@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     title: "웨이비룸",
     description: "간편하게 주문하고 품질높은 공간을 받아보세요.",
     images: {
-      url: "https://www.wavyroom.com/images/Logo.svg",
-      alt: "SoftwareEngineer",
-      type: "png",
+      url: "https://www.wavyroom.com/images/Logo.png",
+      alt: "Wavyroom",
+      type: "jpeg",
     },
   },
 };
