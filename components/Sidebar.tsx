@@ -1,5 +1,5 @@
 "use client";
-import Logo from "@/public/images/Logo.svg";
+import Logo from "@/public/images/Logo.png";
 import RightArrowBlack from "@/assets/icons/RightArrowBlack.svg";
 import RightArrowGray from "@/assets/icons/RightArrowGray.svg";
 import {

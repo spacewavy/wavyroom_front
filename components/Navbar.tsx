@@ -3,8 +3,8 @@
 import { useCallback, useState } from "react";
 import Button from "./Button";
 import Sidebar from "./Sidebar";
-import Logo from "@/public/images/Logo.svg";
-import LogoWhite from "@/public/images/LogoWhite.svg";
+import Logo from "@/public/images/Logo.png";
+import LogoWhite from "@/public/images/LogoWhite.png";
 import HamburgerIcon from "@/assets/icons/Hamburger.svg";
 import HamburgerWhiteIcon from "@/assets/icons/HamburgerWhite.svg";
 import Image from "next/image";
@@ -62,7 +62,7 @@ const Navbar = ({
           <div className="flex items-center justify-between h-24">
             <Link href="/">
               <Image
-                className="h-8 cursor-pointer"
+                className="h-8 cursor-pointer w-auto"
                 src={isDark ? LogoWhite : Logo}
                 alt="Spacewavy"
               />
