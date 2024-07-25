@@ -135,7 +135,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
         <SheetHeader className="px-8">
           <SheetTitle>
             <Link href="/">
-              <Image className="w-auto h-8" src={Logo} alt="Spacewavy" />
+              <Image className="w-auto h-6" src={Logo} alt="Spacewavy" />
             </Link>
           </SheetTitle>
         </SheetHeader>
