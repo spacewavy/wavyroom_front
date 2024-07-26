@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LeftArrow from "@/assets/icons/LeftArrowIcons.svg";
-import Vector from "@/assets/icons/Vector.svg";
-import IntentRequest from "@/assets/icons/intent-request--scale-out 1.svg";
+import Logo from "@/public/images/Logo.png";
 import CustomItems from "@/components/customization/CustomItems";
 import CustomizationPanel from "@/components/customization/CustomizationPanel";
 import Link from "next/link";
@@ -408,7 +407,11 @@ const Customization = () => {
               <Image src={LeftArrow} alt="leftarrow" />
             </div>
             <Link href="/">
-              <Image className="mx-[2px] my-[2px]" src={Vector} alt="vector" />
+              <Image
+                className="mx-[2px] h-4 lg:h-6 w-auto my-[2px]"
+                src={Logo}
+                alt="logo"
+              />
             </Link>
           </div>
           <WavyCanvas openMenu={openMenu} />
