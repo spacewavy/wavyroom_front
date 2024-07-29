@@ -47,6 +47,10 @@ const CustomItems: FC<CustomItemsProps> = ({
         </div>
         <div className="flex flex-col">
           {products
+            .filter((item: any) => {
+              // filter Cabin
+              return item.order !== 6;
+            })
             .sort(
               (a: NavigationModelItem, b: NavigationModelItem) =>
                 a.order - b.order
