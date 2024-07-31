@@ -147,6 +147,7 @@ const ModelDetail = () => {
 
   const specRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(false);
+  const [isCabin, setIsCabin] = useState(false);
   const [selectedColor, setSelectedColor] = useState({
     name: "",
     colorId: "",
@@ -154,10 +155,12 @@ const ModelDetail = () => {
   });
 
   useEffect(() => {
+    if (!data) return;
     setSelectedColor(
       data.modelColors.filter((item: ModelColors) => item.isDefault)[0]
     );
     setIsDark(data.isDarkMode);
+    setIsCabin(data.name === "Cabin");
     console.log("detail data", data);
   }, [data]);
 
@@ -195,7 +198,7 @@ const ModelDetail = () => {
               <div className="flex flex-col items-center">
                 <div
                   className="text-center text-[28px] lg:text-[40px] group-[.is-dark]:text-white"
-                  style={data.name === "Cabin" ? { color: "white" } : {}}
+                  style={isCabin ? { color: "white" } : {}}
                 >
                   {data.name}
                 </div>
@@ -227,17 +230,19 @@ const ModelDetail = () => {
                 >
                   {t("models.button.specification")}
                 </div>
-                <Link
-                  href={`/customization?id=${id}`}
-                  className="flex-1 text-center"
-                >
-                  <div
-                    className="text-[14px] font-normal text-orange cursor-pointer py-4"
-                    onClick={onCustomizeClick}
+                {isCabin ? null : (
+                  <Link
+                    href={`/customization?id=${id}`}
+                    className="flex-1 text-center"
                   >
-                    {t("models.button.customize")}
-                  </div>
-                </Link>
+                    <div
+                      className="text-[14px] font-normal text-orange cursor-pointer py-4"
+                      onClick={onCustomizeClick}
+                    >
+                      {t("models.button.customize")}
+                    </div>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -476,16 +481,14 @@ const ModelDetail = () => {
               {t("contact-us.section-2.title")}
             </div>
             <div className="flex flex-col w-full">
-              {(data?.name === "Cabin" ? CABIN_FAQS : FAQs).map(
-                (item, index) => (
-                  <FaqItem
-                    key={"faq" + index}
-                    question={item.question}
-                    answer={item.answer}
-                    isDark={isDark}
-                  />
-                )
-              )}
+              {(isCabin ? CABIN_FAQS : FAQs).map((item, index) => (
+                <FaqItem
+                  key={"faq" + index}
+                  question={item.question}
+                  answer={item.answer}
+                  isDark={isDark}
+                />
+              ))}
             </div>
           </div>
         </section>
