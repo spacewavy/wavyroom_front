@@ -72,6 +72,11 @@ const ModelDetail = () => {
       titleKO: "노바",
       value: t("models.description.nova-desc"),
     },
+    {
+      titleEng: "Cabin",
+      titleKO: "캐빈",
+      value: t("models.description.cabin-desc"),
+    },
   ];
 
   const FAQs = [
@@ -188,7 +193,10 @@ const ModelDetail = () => {
             </div>
             <div className="absolute bottom-[24px] md:bottom-[48px] lg:bottom-[96px] left-0 right-0 flex flex-col items-center">
               <div className="flex flex-col items-center">
-                <div className="text-center text-[28px] lg:text-[40px] group-[.is-dark]:text-white">
+                <div
+                  className="text-center text-[28px] lg:text-[40px] group-[.is-dark]:text-white"
+                  style={data.name === "Cabin" ? { color: "white" } : {}}
+                >
                   {data.name}
                 </div>
               </div>
