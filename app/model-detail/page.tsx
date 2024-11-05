@@ -77,6 +77,11 @@ const ModelDetail = () => {
       titleKO: "캐빈",
       value: t("models.description.cabin-desc"),
     },
+    {
+      titleEng: "Grove",
+      titleKO: "그로브",
+      value: t("models.description.grove-desc"),
+    },
   ];
 
   const FAQs = [
@@ -145,9 +150,42 @@ const ModelDetail = () => {
     },
   ];
 
+  const GROVE_FAQS = [
+    {
+      question: t("contact-us.section-2-grove-faq.faq-1.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-1.answer"),
+    },
+    {
+      question: t("contact-us.section-2-grove-faq.faq-2.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-2.answer"),
+    },
+    {
+      question: t("contact-us.section-2-grove-faq.faq-3.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-3.answer"),
+    },
+    {
+      question: t("contact-us.section-2-grove-faq.faq-4.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-4.answer"),
+    },
+    {
+      question: t("contact-us.section-2-grove-faq.faq-5.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-5.answer"),
+    },
+    {
+      question: t("contact-us.section-2-grove-faq.faq-6.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-6.answer"),
+    },
+    {
+      question: t("contact-us.section-2-grove-faq.faq-7.question"),
+      answer: t("contact-us.section-2-grove-faq.faq-7.answer"),
+    },
+  ];
+
   const specRef = useRef<HTMLElement>(null);
   const [isDark, setIsDark] = useState(false);
   const [isCabin, setIsCabin] = useState(false);
+  const [isGrove, setIsGrove] = useState(false);
+  const [hasThreeDFile, setHasThreeDFile] = useState(true);
   const [selectedColor, setSelectedColor] = useState({
     name: "",
     colorId: "",
@@ -161,6 +199,8 @@ const ModelDetail = () => {
     );
     setIsDark(data.isDarkMode);
     setIsCabin(data.name === "Cabin");
+    setIsGrove(data.name === "Grove");
+    setHasThreeDFile(!!data.threeDFileURL);
     console.log("detail data", data);
   }, [data]);
 
@@ -179,7 +219,7 @@ const ModelDetail = () => {
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
           <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square aspect-[580/320] md:aspect-[890/482] lg:aspect-[1440/785]">
-            <div className="flex flex-1 items-center justify-center">
+            <div className="flex flex-1 items-center justify-center opacity-50">
               <Image
                 src={makeFullUrl(
                   isMobile ? data.mobileHeroImageURL : data.heroImageURL
@@ -230,7 +270,7 @@ const ModelDetail = () => {
                 >
                   {t("models.button.specification")}
                 </div>
-                {isCabin ? null : (
+                {hasThreeDFile ? (
                   <Link
                     href={`/customization?id=${id}`}
                     className="flex-1 text-center"
@@ -242,7 +282,7 @@ const ModelDetail = () => {
                       {t("models.button.customize")}
                     </div>
                   </Link>
-                )}
+                ) : null}
               </div>
             </div>
           </div>
@@ -481,14 +521,16 @@ const ModelDetail = () => {
               {t("contact-us.section-2.title")}
             </div>
             <div className="flex flex-col w-full">
-              {(isCabin ? CABIN_FAQS : FAQs).map((item, index) => (
-                <FaqItem
-                  key={"faq" + index}
-                  question={item.question}
-                  answer={item.answer}
-                  isDark={isDark}
-                />
-              ))}
+              {(isCabin ? CABIN_FAQS : isGrove ? GROVE_FAQS : FAQs).map(
+                (item, index) => (
+                  <FaqItem
+                    key={"faq" + index}
+                    question={item.question}
+                    answer={item.answer}
+                    isDark={isDark}
+                  />
+                )
+              )}
             </div>
           </div>
         </section>

@@ -473,7 +473,7 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
             </li>
           </ul>
           <div className="flex flex-row items-end gap-2">
-            {selectedProduct?.name !== "Cabin" && (
+            {selectedProduct?.threeDFileURL && (
               <Link
                 href={`/customization?id=${selectedListId}`}
                 onClick={handlePlaceOrderClick}
