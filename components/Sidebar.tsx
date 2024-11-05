@@ -396,12 +396,14 @@ const Sidebar = ({ open, setOpen, menuType }: any) => {
                   })}
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <span className="font-pretendardNormal">
-                  {t("sidebar.details.insulation")}
-                </span>
-                <span>{selectedProduct?.insulation}</span>
-              </div>
+              {selectedProduct?.insulation && (
+                <div className="flex flex-col gap-2">
+                  <span className="font-pretendardNormal">
+                    {t("sidebar.details.insulation")}
+                  </span>
+                  <span>{selectedProduct?.insulation}</span>
+                </div>
+              )}
 
               <div className="flex flex-col gap-2">
                 <span className="font-pretendardNormal">
