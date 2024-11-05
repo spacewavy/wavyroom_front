@@ -219,7 +219,8 @@ const ModelDetail = () => {
       <main className={`flex flex-col flex-1 group ${isDark ? "is-dark" : ""}`}>
         <section className="bg-lightGray group-[.is-dark]:bg-jetBlack">
           <div className="relative flex flex-col items-center justify-center px-6 py-20 aspect-square aspect-[580/320] md:aspect-[890/482] lg:aspect-[1440/785]">
-            <div className="flex flex-1 items-center justify-center opacity-50">
+            <div className="absolute top-0 left-0 right-0 h-[100px] bg-gradient-to-b from-white to-white/20 z-10" />
+            <div className="flex flex-1 items-center justify-center">
               <Image
                 src={makeFullUrl(
                   isMobile ? data.mobileHeroImageURL : data.heroImageURL
