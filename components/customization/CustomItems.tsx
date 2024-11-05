@@ -48,8 +48,8 @@ const CustomItems: FC<CustomItemsProps> = ({
         <div className="flex flex-col">
           {products
             .filter((item: any) => {
-              // filter Cabin
-              return item.order !== 6;
+              // filter items without threeDFileURL
+              return !!item.threeDFileURL;
             })
             .sort(
               (a: NavigationModelItem, b: NavigationModelItem) =>

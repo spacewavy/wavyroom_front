@@ -260,6 +260,37 @@
         "question": "How is the after-sales service (A/S) handled?",
         "answer": "The free A/S period is 1 year, after which paid A/S (travel expenses + material costs) is available. For A/S issues caused by customer negligence, paid service is provided even within the 1-year period after purchasing the Wavyroom."
       }
+    },
+    "section-2-grove-faq": {
+      "faq-1": {
+        "question": "What is Wavyroom Grove?",
+        "answer": "Wavyroom Grove is a 10-pyeong (approx. 33 square meters) space designed with efficient layout and harmony with nature, offering a peaceful retreat."
+      },
+      "faq-2": {
+        "question": "What are the unique features of Wavyroom Grove's materials?",
+        "answer": "The high-performance composite panels used in Wavyroom cabins are widely applied in aircraft, automobiles, and other devices requiring exceptional durability. These materials provide high structural performance and insulation.\n\nThey maintain strong durability over time and contain no formaldehyde, a harmful substance, being made from E0-grade eco-friendly furniture materials for safety.\n\nIn the event of a fire, the materials prevent the spread of flames and reduce the release of toxic gases."
+      },
+      "faq-3": {
+        "question": "How can Wavyroom Grove be used?",
+        "answer": "In line with the purpose of providing a rural retreat, Wavyroom Grove combines stylish design with practicality, offering a relaxing escape from the city."
+      },
+      "faq-4": {
+        "question": "Is Wavyroom Grove transportable to any location?",
+        "answer": "Yes, it can be transported to any location within the country, including islands accessible by ferry, such as Jeju. However, a 4-meter-wide road clearance must be available for trailer access to the installation site."
+      },
+      "faq-5": {
+        "question": "What are the estimated costs for delivery and installation?",
+        "answer": "The delivery fee varies based on the distance from the Wavyroom production site (Hwaseong, Gyeonggi Province), and we provide guidance through phone consultation."
+      },
+      "faq-6": {
+        "question": "How long does production take?",
+        "answer": "The production period generally takes around 4 to 6 weeks."
+      },
+      "faq-7": {
+        "question": "What is the A/S (after-sales service) policy?",
+        "answer": "The free A/S period is one year. After one year, paid A/S (service call and materials fee) is available. Any A/S due to customer negligence will be charged even within the first year of purchase."
+      }
+    }
   },
   "footer": {
     "section-1-links": {
@@ -307,7 +338,8 @@
       "max-desc": "Create your own second home with Wavyroom Max",
       "nova-desc": "Take a step into the future with Wavy Room Nova.",
       "mini-desc": "Create a multi-purpose space that suits your taste with Wavyroom Mini.",
-      "cabin-desc": "Experience the Wavyroom Cabin, offering a unique experience that sets it apart from traditional camping, pensions, and hotels."
+      "cabin-desc": "Experience the Wavyroom Cabin, offering a unique experience that sets it apart from traditional camping, pensions, and hotels.",
+      "grove-desc": "Experience the Wavyroom Grove, designed to offer you a relaxing escape from the city."
     }
   },
   "portfolio": {
