@@ -4,7 +4,6 @@ import { LayoutProvider } from "./LayoutProvider";
 import { ReduxProvider } from "./ReduxProvider";
 import { Metadata } from "next";
 import Script from "next/script";
-import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "웨이비룸",
@@ -31,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       {/* <Head> */}
       <GoogleAnalytics gaId="G-2WBRQGTKBM" />
-      <Script strategy="afterInteractive">
+      <Script strategy="afterInteractive" id="butter-script">
         {`
           (function (co,de,n,but,t,e,r){!n[co]&&(n[co]=function(){
           (n[co].q=n[co].q||[]).push(arguments);});e=t.createElement(but);
