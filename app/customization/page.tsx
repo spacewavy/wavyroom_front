@@ -401,12 +401,12 @@ const Customization = () => {
             <div
               className="cursor-pointer"
               onClick={() => {
-                router.back();
+                router.push('https://www.wavyroom.com')
               }}
             >
               <Image src={LeftArrow} alt="leftarrow" />
             </div>
-            <Link href="/">
+            <Link href="https://www.wavyroom.com">
               <Image
                 className="mx-[2px] h-4 lg:h-6 w-auto my-[2px]"
                 src={Logo}
