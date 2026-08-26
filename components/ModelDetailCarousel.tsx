@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
-import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
+import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import { ModelExample } from "../app/redux/types";
 import { makeFullUrl } from "../lib/utils";
@@ -10,6 +10,8 @@ interface ModelDetailCarouselProps {
   data: ModelExample[];
   name: string;
 }
+
+type EmblaCarouselType = NonNullable<UseEmblaCarouselType[1]>;
 
 const ModelDetailCarousel: FC<ModelDetailCarouselProps> = ({ data, name }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({

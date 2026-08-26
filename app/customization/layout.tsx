@@ -1,9 +1,9 @@
 "use client";
 
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 import { ThreeProvider } from "@/context/threeContext";
 
-const Layout = ({ children }: { children: ReactElement }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return <ThreeProvider>{children}</ThreeProvider>;
 };
 

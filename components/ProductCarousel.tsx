@@ -1,7 +1,7 @@
 "use client";
 
 import RightArrowOrange from "@/assets/icons/RightArrowOrange.svg";
-import useEmblaCarousel, { EmblaCarouselType } from "embla-carousel-react";
+import useEmblaCarousel, { UseEmblaCarouselType } from "embla-carousel-react";
 import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren, useCallback, useEffect, useState } from "react";
@@ -12,6 +12,8 @@ import { fetchMainCarouselData } from "../app/redux/actions/carouselActions";
 import { AnyAction } from "redux";
 import { MainCarouselItem } from "../app/redux/types";
 import { makeFullUrl } from "../lib/utils";
+
+type EmblaCarouselType = NonNullable<UseEmblaCarouselType[1]>;
 
 const ProductCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({

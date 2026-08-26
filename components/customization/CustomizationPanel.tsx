@@ -348,7 +348,7 @@ const CustomizationPanel: FC<CustomizationPanelProps> = ({
                   height: "45px",
                 }),
                 indicatorSeparator: () => ({ display: "hidden" }),
-                menuList: (baseStyles) => ({
+                menuList: (baseStyles: any) => ({
                   ...baseStyles,
                   marginTop: "-4px",
                   marginBottom: "-4px",
