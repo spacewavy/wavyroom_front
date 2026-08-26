@@ -29,7 +29,7 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
       })}
       isSearchable={false}
       styles={{
-        container: (baseStyles, state) => ({
+        container: (baseStyles: any, state: any) => ({
           ...baseStyles,
           borderWidth: 0,
           backgroundColor: "#f7f7f7",
@@ -37,7 +37,7 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
             borderWidth: 2,
           },
         }),
-        control: (baseStyles) => ({
+        control: (baseStyles: any) => ({
           ...baseStyles,
           borderRadius: 0,
           borderWidth: 0,
@@ -46,29 +46,29 @@ const WavyDropdown = ({ options, defaultValue, onChange }: DropdownProps) => {
           backgroundColor: "#f7f7f7",
         }),
         indicatorSeparator: () => ({ display: "hidden" }),
-        menu: (baseStyles) => ({
+        menu: (baseStyles: any) => ({
           ...baseStyles,
           backgroundColor: "#f7f7f7",
           borderRadius: 0,
           // marginTop: 0,
           marginTop: 1,
         }),
-        menuList: (baseStyles) => ({
+        menuList: (baseStyles: any) => ({
           ...baseStyles,
           ":hover": {
             backgroundColor: "#f7f7f7",
           },
         }),
-        valueContainer: (baseStyles) => ({
+        valueContainer: (baseStyles: any) => ({
           ...baseStyles,
           backgroundColor: "#f7f7f7",
           fontSize: "14px",
         }),
-        indicatorsContainer: (baseStyles) => ({
+        indicatorsContainer: (baseStyles: any) => ({
           ...baseStyles,
           backgroundColor: "#f7f7f7",
         }),
-        option: (baseStyles) => ({
+        option: (baseStyles: any) => ({
           ...baseStyles,
           fontSize: "14px",
           ":hover": {
